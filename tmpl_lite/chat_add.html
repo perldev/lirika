@@ -1,0 +1,46 @@
+<html>
+<head>
+<style type="text/css">
+body {margin:0px}
+.table_gborders{color:#000000;}
+th.table_gborders_red{background-color:#CCCCCC;font-size: 13px;margin:0px; border:0;padding: 4px}
+td.table_gborders_red{background-color:#F4D5D5;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+tr.table_gborders_red{color: #F4D5D5;}
+.table_gborders_red{color:black;}
+a.table_gborders_red{margin:10px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;}
+a.table_gborders_red:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:white; text-decoration:underline;}
+a.table_gborders{margin:10px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;}
+a.table_gborders:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000; text-decoration:underline;}
+.simple_borders{border:solid;border-width:1px;border-color:gray;font-size: 13px; padding: 1px;font-weight:-1}
+input.simple_borders{border:solid;border-width:1px;border-color:gray;font-size: 13px; padding: 2px;font-weight:-1;margin:5px}
+.table_gborders{ background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+td.reg_error_borders{width: 35%;}
+table.table_gborders_none{background-color:white;border-spacing:5px;border:0;padding:10px;width:55%}
+td.table_gborders_none{background-color:white;border-spacing:5px;border:0;padding:1px;}
+.button{background-color:#709FB5;padding:4px;font-size:12px;border:solid;border-width:1px;border-color:black;cursor:pointer;border-style: ridge}
+.center_div{width:60%;margin-top:10px;background-color:#ADD8E6;padding:10px}
+.center_div_table{margin-left:40px;margin-right: 40px;margin-top:10px;margin-bottom:10px;background-color:#ADD8E6;padding:10px}
+.center_div_table_left{width:20%;margin-left:40px;margin-top:10px;background-color:#ADD8E6;padding:10px}
+
+</style>
+
+</head>
+<body>
+<div>
+
+<table class=table_gborders >
+<form action="chat.cgi" method="POST">
+<input  type="hidden" name='do' value="add">
+<input  type="hidden" name='c_room' value="$c_room">
+<tr class=table_gborders>
+<td width="80%"  class=table_gborders>
+<input class="simple_borders" size="80" type="text" name='c_msg'> 
+</td>
+<td class=table_gborders width=20%>
+<input type=submit name='' value="Отправить" class="button">
+</td></tr>
+</form>
+</table>
+</div>
+
+</body>

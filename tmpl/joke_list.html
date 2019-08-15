@@ -1,0 +1,61 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+
+  <div class=center_div_table>
+  [%INCLUDE proto_filter.html %]
+<form method="post" id='my_form'>
+<input type="hidden" name="do" value="add"/>
+<input type="hidden" name="action" value="apply"/>
+<input type="hidden" name="id" value=""/>
+<textarea class="simple_borders"  rows="4" cols="100" id="comment" name="comment"></textarea><br/>
+<input class="simple_borders" id="submit_button"
+	name="__submit"  type='submit'
+	 value=
+               "Добавить"                  
+ >
+
+</form>
+
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        <strong>[% page_title %] </strong>       
+    </td>
+  </tr> 
+
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Шутка </th> 
+    
+ 
+  </tr>      
+
+                   
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.id        
+        </td>
+
+        <td class=table_gborders>
+        $row.comment
+        </td>
+  </tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

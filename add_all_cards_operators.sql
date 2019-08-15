@@ -1,0 +1,1 @@
+Insert into operators_accounts_access_view select accounts.a_id,operators.o_id from operators cross join accounts where operators.o_status!='deleted'

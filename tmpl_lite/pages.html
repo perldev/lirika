@@ -1,0 +1,19 @@
+	<div>
+	<table >
+	<tr class=table_gborders>
+	[% IF pages%]
+	[% FOREACH thing = pages %]
+	<td class=table_gborders>
+	[% IF thing.current%]
+	<font class="page_text">$thing.page</font>
+	[%ELSE%]
+	<a class=table_gborders href="$thing.url$thing.urlparams&amp;$thing.page_name=$thing.val" >$thing.page</a>
+	[%END%]
+	</td>   
+	[% END %]
+	[% ELSE %]
+	<td>1</td>
+	[% END %]
+	</tr>
+	</table>
+	</div>

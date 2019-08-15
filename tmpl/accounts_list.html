@@ -1,0 +1,126 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+
+ <!-- <a  class=table_gborders href="?do=add">Добавить</a>-->
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]<!--Аккаунты--></strong>       
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> ФИО </th>   
+     <th class=table_gborders> Комментарии </th>
+     <th class=table_gborders> Электронный адрес(email) </th>
+     <th class=table_gborders> Класс </th>
+     <th class=table_gborders> Статус </th>
+     <th class=table_gborders> ГРН </th>
+     <th class=table_gborders> USD </th>
+     <th class=table_gborders> EUR </th>     
+     <th class=table_gborders>Уведомления</th>
+  <!--   <th class=table_gborders>Привязан к проекту </th>   -->
+     <th class=table_gborders> Кто привел </th>     
+
+     <th class=table_gborders colspan=3> Действия </th>
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.a_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.a_ts
+        </td>
+
+        <td class=table_gborders>
+        $row.a_name
+        </td>
+
+        <td class=table_gborders>
+        $row.a_phones
+        </td>
+	<td class=table_gborders>
+        $row.a_email
+        </td>
+
+        <td class=table_gborders>
+        $row.a_class
+        </td>
+
+        <td class=table_gborders>
+        $row.a_status
+        </td>
+
+        <td class=table_gborders>
+        $row.a_uah
+        </td>
+
+        <td class=table_gborders>
+        $row.a_usd
+        </td>
+
+        <td class=table_gborders>
+        $row.a_eur
+        </td>
+ 	<td class=table_gborders>
+        $row.a_issubs
+        </td>
+<!--
+ <td class=table_gborders>
+        $row.a_isproject
+        </td>-->
+
+        <td class=table_gborders>
+        $row.a_aid
+        </td>
+
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=edit&amp;id=$row.id">редактировать</a>
+        </td>
+
+
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="oper.cgi?do=trans_list&a_id=$row.id">выписка</a>
+       </td>   
+        <td class=table_gborders>
+        <a  class=table_gborders href="oper.cgi?do=send_trans_list&amp;a_id=$row.id">Отослать выписку немедленно</a>
+        </td>
+       
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

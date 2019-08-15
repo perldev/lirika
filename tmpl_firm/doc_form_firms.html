@@ -1,0 +1,60 @@
+<div id="doc_form" class="center_div_table_poup_nopacity" 
+style="position:absolute;display:none;width:20em">
+<input type='hidden' id='ofid_number' value='' />
+<input type='hidden' id='drid_number' value='' />
+<input type='hidden' id='ident_form' value='' />
+<input type='hidden' id='rowid' value='' />
+<div style="float: right;"><span onclick='hide_doc_form()'
+style="cursor: pointer;">x</span></div>
+
+<table class="table_gborders">
+<tbody>
+<tr>
+<td class="table_gborders" > Выберите период документов: </td>
+
+<td class="table_gborders">
+<select id='month'> 
+[% FOREACH option=months %]
+<option  value="$option.value" 
+            >$option.name</option>
+
+[% END %]
+</select>
+</td><td class="table_gborders">
+<select id='year'> 
+[% FOREACH option=years %]
+<option  value="$option.value" 
+            >$option.name</option>
+
+[% END %]
+</select>
+</td>
+</tr> 
+<tr id='next_field' style='display:none'>
+<td class="table_gborders" colspan='3'><input 
+                                        type='button' 
+                                        id='search_doc_button'
+                                        value='Показать..'
+                                        onclick='search_doc_firms(event)'/> 
+<input type='button' 
+       id='search_doc_button_all'
+       value='Все за месяц..' 
+       onclick='search_doc_firms_all(event)' /> 
+
+
+</td>
+
+</tr>
+<tr id='next_field_many' style='display:none'>
+<td class="table_gborders" colspan='3'><input 
+                                        type='button' 
+                                        id='search_doc_button'
+                                        value='Показать..'
+                                        onclick='search_doc_firms_4many(event)'/> 
+</td>
+</tr>
+
+</tbody></table>
+<div class="center_div_table_poup_nopacity" 
+    style="position:absolute;display:none;width:25em" id='list_field' ></div>
+</div>

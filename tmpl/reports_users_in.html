@@ -1,0 +1,47 @@
+[%INCLUDE  header.html %]
+<center>
+<div class=center_div_table>
+[% INCLUDE stat_menu.html %]
+
+[% INCLUDE proto_filter.html %]
+
+[% INCLUDE  components/account_one_income.html %]
+
+<table class=table_gborders>
+<tr class=table_gborders>
+    <td class=table_gborders colspan=2>
+        <strong>
+	$title
+</strong>       
+    </td>               
+
+    <tr class=table_gborders>
+    <th class=table_gborders> Карточка  </th>
+   [% INCLUDE reports_table_headers.html %]</tr>                  
+ 
+ 
+         
+   	[% FOREACH thing = list %]
+    [%  class='table_gborders' %]
+		<tr    class=$class >
+		<td  class=$class>
+		  	<a class=$class href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_aid=$thing.a_id" >$thing.a_name&nbsp;(id#&nbsp;$thing.a_id)</a>
+		
+		</td>
+		<td   class=$class>
+		<span class=simple_tab  onclick='show_account_graph($thing.a_id,event)' >
+		$thing.sum
+		</span>
+		
+		</td>
+	
+	
+		</tr>
+
+  [% END %]
+      
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

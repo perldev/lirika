@@ -1,0 +1,220 @@
+<div class=center_div_table>
+
+  
+  <table class=table_gborders>
+
+
+      <tr class=table_gborders>
+
+	  <td class=table_gborders>
+        Дата регистрации
+        </td>
+
+        <td class=table_gborders>
+                            $a_ts
+                          </td>
+  	</tr>
+   	<tr class=table_gborders>
+	<td class=table_gborders>
+        ID
+        </td>
+	 <td class=table_gborders>
+                      $info.a_id
+        </td>
+  </tr>
+
+
+
+        <td class=table_gborders>
+        ФИО
+        </td>
+
+        <td class=table_gborders>
+        
+       $info.a_name
+              
+            
+           
+
+                          </td>
+  </tr>
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Комментарии
+        </td>
+
+        <td class=table_gborders>
+        $info.a_phones
+ </td>
+  </tr>
+ 
+  	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Электронный адрес(email) 
+        </td>
+        <td class=table_gborders>
+          $info.a_email
+       </td>
+  </tr>
+
+	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Час отправления( 1-24 )
+        </td>
+
+        <td class=table_gborders>
+        $info.a_hour_report
+              
+            
+           
+
+                          </td>
+  </tr>
+    
+  
+
+    
+    
+  
+  	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+
+        Класс
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+
+          
+  
+
+<!--only for accounts an creating projects-->
+
+         
+      $info.a_class
+   
+
+                  </td>
+  </tr>
+ 
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Подписка на уведомление о состоянии счета
+        </td>
+
+        <td class=table_gborders>
+<!--only for accounts an creating projects-->
+
+         
+           $info.a_issubs
+           
+           
+   
+
+                  </td>
+  </tr>
+ 
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+	Оператор :
+        </td>
+
+        <td class=table_gborders>
+<!--only for accounts an creating projects-->
+
+$info.o_login
+
+           
+   
+
+                  </td>
+  </tr>
+  <tr class=table_gborders>                                                                                                                                  
+                                                                                                                                                               
+                                                                                                                                                               
+          <td class=table_gborders>                                                                                                                            
+	          Состояние сверки                                                                                                            
+          </td>                                                                                                                                                
+       
+			          <td class=table_gborders> 
+$info.a_is_debt                  
+ </td>  </tr> 
+
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Cтатус
+        </td>
+
+        <td class=table_gborders>
+$info.a_status
+         </td>
+
+  </tr>
+ 
+  
+  
+
+
+<tr class="table_gborders">
+<td class="table_gborders" >
+  <strong>Категория: </strong>
+</td>
+<td>
+$info.ac_title
+
+</td>
+</tr>
+ 
+
+<tr class="table_gborders">
+<td class="table_gborders" colspan="2">
+  <strong>  Процент за использования сервисов:</strong>
+</td>
+</tr>
+ <tr class="table_gborders">
+        <th class="table_gborders">
+        Наименование
+        </th>
+	<th class="table_gborders">
+        Процент
+        </th>
+</tr>
+
+
+
+[% FOREACH row=services %]
+
+
+<tr class=table_gborders>
+        <td class=table_gborders>
+	$row.name
+        </td>
+        <td class=table_gborders>
+	$row.value
+        </td>
+	</tr>
+	
+[%END%]
+
+  </table>
+</div>  
+

@@ -1,0 +1,215 @@
+package SiteConfig;
+
+use strict;
+
+use base "Exporter";
+our @ISA = qw(Exporter);
+
+our @EXPORT = qw(
+$db_host $db_name $db_user $db_pass
+$PMS_PATH
+
+$FILE_PATH
+$USERS_HASH
+$comis_aid
+
+$FILE_TAB_CONFIG
+$DEF_TABS
+$FILE_PATH_LOG
+$DEFAULT_CURRENCY
+
+$SEARCH_DISP_FIRM
+$SEARCH_DAYS_FIRM
+
+$MAIL_DIR
+$MAIL 
+$MAIL_PASS
+
+$PATH
+
+@RATE_FORMS
+%RATE_FORMS
+
+$COMPILE_DIR_LITE
+$DIR_LITE
+$COMPILE_DIR
+$DIR
+$CLIENT_CATEGORY  
+$use_secure_cookies
+$ARCHIVE_WORKING_WINDOW
+
+%PORTS_ACCEPT
+%ACCEPT_ACTION
+$INTERFACE
+$PLUGIN_TMPL
+$EXT_IP
+$EXCEL_EXPORT_PATH
+);
+
+##config of setting of rate of various currencies
+    our @RATE_FORMS=(
+    	{from=>'USD',to=>'UAH',rate_form=>1},
+    	{from=>'USD',to=>'EUR',rate_form=>-1},
+    	{from=>'UAH',to=>'USD',rate_form=>-1},			
+    	{from=>'UAH',to=>'EUR',rate_form=>-1},
+    	{from=>'EUR',to=>'USD',rate_form=>1},			
+    	{from=>'EUR',to=>'UAH',rate_form=>1},
+	{from=>'EUR',to=>'EUR',rate_form=>1},
+	{from=>'UAH',to=>'UAH',rate_form=>1},
+	{from=>'USD',to=>'USD',rate_form=>1},
+    ); 	
+    our %RATE_FORMS=(
+ 	USD=>{USD=>1,UAH=>1,EUR=>-1},
+	UAH=>{USD=>-1,UAH=>1,EUR=>-1},
+ 	EUR=>{USD=>1,UAH=>1,EUR=>1},
+   ); 
+our $working_path='/home/fsb/new_fsb/www/';
+
+
+our $MAIL_DIR = '/tmp/msg';
+our $MAIL = 'fsbreports@mail.ru'; 
+our $MAIL_PASS = "12stroper89";
+
+our $PATH = '/usr/local/www';
+
+our $SEARCH_DISP_FIRM=0.001;#in percents
+our $PLUGIN_TMPL='plugin/';
+
+our $COMPILE_DIR_LITE=$working_path.'/tmpl_lite_c';
+our $DIR_LITE=$working_path.'tmpl_lite';   
+                                                         ##firewall settings     
+our %PORTS_ACCEPT=(
+    22=>1
+    );
+our %ACCEPT_ACTION=(
+    'ACCEPT'=>'разрешить',
+    'DROP'=>'запретить'
+    );
+
+our $EXT_IP='89.28.202.146';
+
+our $INTERFACE='eth0';
+###
+               
+our $CLIENT_CATEGORY=16;                                                                                                                          
+our $COMPILE_DIR= $working_path.'/tmpl_c';                                                                     
+our $DIR =$working_path.'tmpl';                                                                                                      
+our $ARCHIVE_WORKING_WINDOW=1000;
+
+our $SEARCH_DAYS_FIRM=2;#in days
+
+
+# database configs #####################################
+our $db_host="localhost";
+our $FILE_TAB_CONFIG="../lib/firm.conf";
+our $FILE_PATH_LOG=">>../lib/log.txt";
+
+our $DEF_TABS={
+       transfers=>{"value"=>"transfers", "title"=>"Трансферы",desc=>'Переводы денег между карточками',script=>'trans.cgi'},
+        all_firms=>{"value"=>"all_firms", "title"=>"ДЕНЬ",desc=>'Работа с безналичными счетами на всех фирмах',script=>'all_firms_list.cgi'},
+       firms_exchange=>{"value"=>"firms_exchange", "title"=>"Конвертация",desc=>'Конвертация безналичных средств',script=>'conv.cgi'},
+       account=>{"value"=>"account", "title"=>"Карточки",desc=>'Управление карточками клиентов',script=>'accounts.cgi'},
+       cash_dnepr=>{"value"=>"cash_dnepr", script=>'cash.cgi',"title"=>"Касса",desc=>'Сводная таблица кассы приходы и расходы  по дня '},
+       oper=>{"value"=>"oper", "title"=>"Операторы",desc=>"Управление операторами системы и их правами",script=>'operators.cgi'},
+       trans=>{"value"=>"trans", "title"=>"Транзакции",desc=>"Просмотр и добавление атомарных переводов",script=>'oper.cgi'},
+       firm=>{"value"=>"firm", "title"=>"Фирмы",desc=>"Фирмы и их сервисы",script=>'firms.cgi'},
+       firm_list=>{"value"=>"firm_list","title"=>"Выписки по фирмам",desc=>"Просмотр работы со счетами фирмы",script=>'firm_trans.cgi'},  
+       fservice=>{"value"=>"fservice", "title"=>"Услуги фирм",desc=>"Услуги фирм",script=>'firm_services.cgi'},
+        firewall=>{"value"=>"firewall", "title"=>"Firewall",desc=>"Firewall",script=>'firewall.cgi'},
+        exch_kiev=>{"value"=>"exch_kiev",script=>'exch_kiev.cgi', "title"=>"Обмен киев",desc=>'Обмен валют для киевской кассы'},
+        exch_odessa=>{"value"=>"exch_odessa",script=>'exch_odessa.cgi', "title"=>"Обмен одесса",desc=>'Обмен валют для одесской кассы'},
+
+       cash_in_before_dnepr=>{"value"=>"cash_in_before_dnepr",script=>'cashier_input_before_dnepr.cgi', "title"=>"Заявки на приход кассы",desc=>'Непосредственный ввод наличных в кассу'},
+       cash_out_dnepr=>{"value"=>"cash_out_dnepr",script=>'cashier_output_dnepr.cgi' ,"title"=>"Заявки на расход кассы",desc=>"Работа с заявками на  вывод наличных "},
+       cash_out2_dnepr=>{"value"=>"cash_out2_dnepr",script=>'cashier_output2_dnepr.cgi', "title"=>"Расход кассы",desc=>"Непосредственный ввывод наличных"},
+       cash_in_dnepr=>{"value"=>"cash_in_dnepr",script=>'cashier_input_dnepr.cgi', "title"=>"Приход кассы",desc=>"Ввод наличных в систему на карточки"},
+
+# 
+        cash_in_before_kiev=>{"value"=>"cash_in_before_kiev", "title"=>"Заявки на приход кассы киев",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev.cgi'},
+        cash_out_kiev=>{"value"=>"cash_out_kiev",script=>'cashier_output_kiev.cgi' ,"title"=>"Заявки на расход кассы киев",desc=>"Работа с заявками на  вывод наличных "},
+        cash_out2_kiev=>{"value"=>"cash_out2_kiev",script=>'cashier_output2_kiev.cgi' , "title"=>"Расход кассы киев",desc=>"Непосредственный ввывод наличных"},
+        cash_in_kiev=>{"value"=>"cash_in_kiev", script=>'cashier_input_kiev.cgi',"title"=>"Приход кассы киев",desc=>"Ввод наличных в систему на карточки"},
+# 
+        cash_kiev=>{"value"=>"cash_kiev", script=>'cash_kiev.cgi',"title"=>"Касса Киев",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+#  
+#         
+      
+        cash_in_before_atrium=>{"value"=>"cash_in_before_atrium", "title"=>"Заявки на приход кассы atrium",desc=>'Непосредственный ввод наличных в кассу atrium',script=>'cashier_input_before_atrium.cgi'},
+        cash_out_atrium=>{"value"=>"cash_out_atrium",script=>'cashier_output_atrium.cgi' ,"title"=>"Заявки на расход кассы atrium",desc=>"Работа с заявками на  вывод наличных atrium"},
+        cash_out2_atrium=>{"value"=>"cash_out2_atrium",script=>'cashier_output2_atrium.cgi' , "title"=>"Расход кассы atrium",desc=>"Непосредственный ввывод наличных atrium"},
+        cash_in_atrium=>{"value"=>"cash_in_atrium", script=>'cashier_input_atrium.cgi',"title"=>"Приход кассы atrium",desc=>"Ввод наличных в систему на карточки atrium"},
+# 
+        cash_atrium=>{"value"=>"cash_atrium", script=>'cash_atrium.cgi',"title"=>"Касса Атриум",desc=>'Сводная таблица кассы приходы и расходы  по дням Атриум '},
+
+        cash_in_one_dnepr=>{"value"=>"cash_in_one_dnepr", script=>'cashier_input_one_dnepr.cgi',"title"=>"Приход кассы1 Днепр",desc=>"Ввод наличных в систему на карточки одним действием"},
+        cash_in_one_kiev=>{"value"=>"cash_in_one_kiev", script=>'cashier_input_one_kiev.cgi',"title"=>"Приход кассы1 Киев",desc=>"Ввод наличных в систему на карточки действием"},
+    
+# 
+         cash_in_before_odessa=>{"value"=>"cash_in_before_odessa",script=>'cashier_input_before_odessa.cgi', "title"=>"Заявки на приход кассы одесса ",desc=>'Непосредственный ввод наличных в кассу'},
+         cash_out_odessa=>{"value"=>"cash_out_odessa", script=>'cashier_output_odessa.cgi',"title"=>"Заявки на расход кассы одесса ",desc=>"Работа с заявками на  вывод наличных "},
+         cash_out2_odessa=>{"value"=>"cash_out2_odessa",script=>'cashier_output2_odessa.cgi' , "title"=>"Расход кассы одесса",desc=>"Непосредственный ввывод наличных"},
+         cash_in_odessa=>{"value"=>"cash_in_odessa", script=>'cashier_input_odessa.cgi' ,"title"=>"Приход кассы одесса",desc=>"Ввод наличных в систему на карточки"},
+#         
+         cash_odessa=>{"value"=>"cash_odessa", script=>'cash_odessa.cgi',"title"=>"Касса Одесса",desc=>'Сводная таблица кассы приходы и расходы  по дням Одесса '},
+
+#         saldo_documents=>{"value"=>"saldo_documents", script=>'mail_reports.cgi' ,"title"=>"Сальдо документов",desc=>"Сальдо документов"},
+
+        'reports_analytic'=>{"value"=>"reports_analytic", 
+                              script=>'reportsanalytic.cgi' ,
+                             "title"=>"Дельта аналитика",
+                              desc=>"Изменение дельты в течение дня"},
+
+       firm_in=>{"value"=>"firm_in",script=>'firm_input.cgi', "title"=>"Ввод отчетов по фирмам",desc=>"Работа с предварительными заявками на ввод безналичных средств"},
+       firm_in2=>{"value"=>"firm_in2",script=>'firm_input2.cgi', "title"=>"Распределение приходов",desc=>"Ввод безналичных средств из предварительных заявок"},
+       firm_out=>{"value"=>"firm_out",script=>'firm_output.cgi', "title"=>"Распределение расходов",desc=>"Вывод безналичных средств"},
+       rates=>{"value"=>"rates", "title"=>"Курсы",desc=>"Курсы обмена",script=>'rates.cgi'},
+       exchange=>{'value'=>'exchange',script=>'exc.cgi','title'=>'Обмен валют',desc=>"Непосредственный обмен валют  между счетами"},
+       report=>{'value'=>'report','title'=>'Отчеты',desc=>"Работа с различными вариантами отчетов ",script=>'reports.cgi'},
+#        credit=>{"value"=>"credit", script=>'credits.cgi',"title"=>"Кредиты",desc=>"Работа с кредитами (добавлени,просмотр,редактирование)"},
+#        credit_perms=>{'value'=>'credit_perms',title=>"Параметры кредитов",desc=>"Настройка условий кредитования",
+#        script=>'credits_objections.cgi'},
+       correct=>{"value"=>"correct",script=>'correctings.cgi', "title"=>"Правки",desc=>'Исправление уже совершонных операций'},
+        correct_back=>{"value"=>"correct_back", script=>'lost.cgi',"title"=>"Операции з/ч",desc=>'Занесение и удаление б/н операция задним числом'},
+       class=>{"value"=>'class', "title"=>"Классы клиентов",desc=>"Работа с основными классами клиентов",script=>'class.cgi'},
+       settings=>{"value"=>'settings', "title"=>"Настройки",desc=>"Работа с общими  параметрами  работы системы",
+       script=>'settings.cgi'},
+       transit=>{"value"=>'transit', "title"=>"Транзит",desc=>"Работа с  переводами между фирмами",script=>'transit.cgi'},
+       joke=>{"value"=>'joke', script=>'joke.cgi',"title"=>"Шутка",desc=>"Просто сообщения  шапке"},
+  #     docs=>{"value"=>'docs', "title"=>"Документооборот",desc=>"Учет оборота документов",script=>'docs.cgi'},
+  #     docs_pays=>{"value"=>'docs_pays', "title"=>"Оплата документов",
+  #                 desc=>"Правки оплаты документов",
+  #                 script=>'docs_payments.cgi'},
+
+#        docs_fact=>{ "value"=>'docs_fact',
+#                     "title"=>"Документы(факт)",
+#                     desc=>"Заведенные фирмами документы",
+#                     script=>'factdocs.cgi'},
+      
+#        plugins=>{ "value"=>'plugins',
+#                    "title"=>"Плагин",
+#                    "desc"=>"Дополнительные плагин",
+#                    "script"=>'plugins.cgi'},
+
+
+#        du=>{"value"=>'du', "title"=>"ДЕНЬ(ГРН)",desc=>"Резидентные операции ",script=>'all_firms_list.cgi?resident=1'},
+
+
+      };
+our $EXCEL_EXPORT_PATH=$working_path.'data/excel/';
+
+our $db_name='lirika';
+our $db_user="masha";
+our $db_pass="shdgfvah_Zdhghav324_f";
+our $PMS_PATH="/home/bogdan/pms/pms/lib/";
+our $FILE_PATH="../firm_reports/";
+our $DEFAULT_CURRENCY='UAH';
+# site configs #########################################
+#our $defualt_host="fsb";
+our $comis_aid = 1;
+# bogdan:
+# реализуй этот булеан
+our $use_secure_cookies = 0;
+##using for calculating reports
+###not used now
+
+1;

@@ -1,0 +1,139 @@
+[%INCLUDE  header.html %]
+<center>
+  <div class=center_div_table>
+
+ <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=5>
+        <strong>[% page_title %]</strong>       
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders> Фирма </th>
+
+  </tr>         
+<form method="POST">                
+[% class='table_gborders' %]
+	
+  [% FOREACH row = list %]
+	
+  <tr class="$class">
+  	<input type="hidden" name="dr_id" value="$row.dr_id">
+
+	      <td class=$class>
+		        $row.dr_date
+        	</td>
+        	<td class=$class>
+			$row.dr_amnt
+        	</td>
+        	<td class=$class>
+        		$row.dr_currency
+        	</td>
+	    <td class="table_gborders" >
+	    [% row.dr_comment FILTER html  %]
+	    </td>
+	    <td class='table_gborders'>
+		[% row.f_name FILTER html  %] (# $row.f_id)
+	    </td>
+	
+  </tr>
+  [% END %]
+<tr>
+
+<td class="$class" colspan=2>	
+Общая сумма
+</td>
+<td class="$class" id=ct_amnt colspan=3> 
+  $sum
+</td>
+</tr>
+<tr>
+
+<td class="$class" colspan=5>	
+Карточка 
+</td>
+</tr>
+<tr>
+<td class="$class" colspan=5> 
+<input type='hidden' value="$a_id" name='ct_aid'>
+$a_name (#$a_id)
+</td>
+</tr>
+
+<tr>	
+
+	<td class="$class" colspan=2>	
+	Услуга
+	</td>
+	<td class="$class" colspan=3> 
+		<input type='hidden' value='$fs_id' name='fs_id'>
+		$fs_name
+	
+	
+	</td>
+</tr>
+<tr>
+
+<td class="$class" colspan=2>	
+<strong>Комиссия за платеж %</strong>
+</td>
+<td class="$class" colspan=3> 
+
+	<input type="hidden"  name="ct_comis_percent"  value="$ct_comis_percent" >
+$ct_comis_percent
+</td>
+</tr>
+	
+<tr>
+<td class="$class" colspan=2>	
+Сумма комиссии
+</td>
+<td class="$class" colspan=3>&nbsp; 
+	<span id="commission"> $comission</span>
+</td>
+</tr>
+
+
+<tr>
+<td class="$class" colspan=2>	
+Общая сумма
+</td>
+<td class="$class" colspan=3>&nbsp; 
+	<span id="common_sum"> $common_sum </span>
+</td>
+</tr>
+
+
+<tr>
+<td class="$class" colspan=2>	
+	Дата занесения:
+</td>
+
+<td class="$class" colspan=3> 
+	<input type="hidden"  name="ct_ts2"  value="$ct_ts2" >
+      $ct_ts2_format
+           
+</td></tr>
+
+</table>
+
+<input type="hidden" name="do" value="get_payment_do">
+
+
+<input type=button  class="simple_borders"  onclick="window.history.back()" 
+name="Назад" value="Назад">
+<input type=submit  class="simple_borders" 
+name="Сохранить" value="Сохранить">
+
+</div>  
+</form>
+</center>
+
+
+[%INCLUDE footer.html %]

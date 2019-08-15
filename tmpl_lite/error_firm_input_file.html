@@ -1,0 +1,56 @@
+[%INCLUDE  header.html %]
+<center>
+  <div class=center_div_table>
+ <table class=table_gborders>
+
+  <tr class=table_gborders>
+  <td class=table_gborders colspan="2">
+        <strong><font color="red">[% page_title %]</font></strong>       
+    </td>
+  </tr> 
+	[% IF error %]
+		
+	<strong><font color="red">Такой транзакции нет,либо она уже проведена</font></strong>
+
+	[% END %]
+
+	[% IF firm_errors %]
+	<strong><font color="red">В системе не зарегистрированы данные фирмы/карточки,проверьте правильность данных!!</font></strong>	
+	[% END%]		
+             
+
+  [% FOREACH row = firm_errors %]
+
+[% IF row.client_name %]
+  <tr class=table_gborders>
+       
+
+	<td class=table_gborders>
+	Карточка
+	</td>	
+	<td class=table_gborders>
+         $row.client_name 
+        </td>
+  </tr>
+[% ELSE %]
+  <tr class=table_gborders>
+       <td class=table_gborders>
+	Фирма
+      </td>	
+      <td class=table_gborders>
+         $row.firm_name
+       </td>
+  </tr>
+
+[%END%]
+  [% END %]
+
+
+</table>
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?'" 
+name="Назад" value="Назад">
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

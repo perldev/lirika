@@ -1,0 +1,89 @@
+[%INCLUDE  header.html %]
+<center>
+<div id='cont' class=center_div_table>
+<strong>Операция успешно завершена!</strong>
+<br>
+<script>
+var timerMulti = window.setTimeout("parent_my_submit_form_input();", 500);
+
+
+
+
+
+[% FOREACH row = fields %]
+	[% IF row.firms_okpo %]	
+		[% FOREACH option =  row.firms_okpo %]
+			hash_okpo["$option.title"]="$option.value";
+			hash_id["$option.value"]="$option.title";
+		[%END%]
+	[% END %]
+[% END %]
+parent.document.getElementById('close_but').style.display='none';
+function parent_my_submit_form_input()
+{
+	
+	[% IF add_many %]
+		var a_id = 0;
+		var a_name ='';
+		var ct_ts2 = '';
+		var object;
+		[% FOREACH i = id %]
+			a_id=document.getElementById('a_id').value;
+			a_name=document.getElementById('a_name').value;
+			ct_ts2=document.getElementById('ct_ts2').value;
+			parent.document.getElementById('ct_aid_$i').innerHTML=a_name+"(#"+a_id+")";
+			parent.document.getElementById('ct_aid_$i').href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid="+a_id;
+			parent.document.getElementById('ct_ts2_$i').innerHTML=ct_ts2;
+			parent.document.getElementById('ct_status_$i').innerHTML="";
+			parent.document.getElementById('tr_$i').setAttribute('className','table_gborders_blue');
+			parent.document.getElementById("ct_id_$i").checked = false;
+
+			object=parent.document.getElementById('tr_$i');
+			for(var i=0;i<object.childNodes.length;i++) 
+			{
+				if (object.childNodes[i].nodeType == 1) {
+					object.childNodes[i].className='table_gborders_blue';
+				}
+			}
+		[% END %]
+	[% ELSE %]
+		var a_id=document.getElementById('a_id').value;
+		var a_name=document.getElementById('a_name').value;
+		var id=document.getElementById('id').value;
+		var ct_ts2=document.getElementById('ct_ts2').value;
+		var ct_comment=document.getElementById('ct_comment').value;
+		var object;
+		parent.document.getElementById('ct_aid_'+id).innerHTML=a_name+"(#"+a_id+")";
+		parent.document.getElementById('ct_aid_'+id).href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid="+a_id;
+
+		parent.document.getElementById('ct_ts2_'+id).innerHTML=ct_ts2;
+		parent.document.getElementById('ct_status_'+id).innerHTML="";
+		parent.document.getElementById('ct_comment_'+id).title=ct_comment;
+		parent.document.getElementById('ct_comment_'+id).innerHTML=ct_comment;
+		parent.document.getElementById("ct_id_"+id).checked = false;
+
+			object=parent.document.getElementById('tr_'+id);
+			for(var i=0;i<object.childNodes.length;i++) 
+			{
+				if (object.childNodes[i].nodeType == 1) {
+					object.childNodes[i].className='table_gborders_blue';
+				}
+			}
+
+	[% END %]
+	parent.document.getElementById('close_but').style.display='';
+	var obj=parent.document.getElementById("ident_form");
+	obj.style.display='none';
+	document.getElementById("cont").innerHTML="";
+}
+</script>
+<input type='hidden' id='a_id' value='$a_id'>
+<input type='hidden' id='ct_ts2' value='$ct_ts2'>
+<input type='hidden' id='a_name' value='$a_name'>
+<input type='hidden' id='id' value='$id'>
+<input type='hidden' id='end' value='ok'>
+<input type='hidden' id='ct_comment' value='$ct_comment'>
+<input type='button' class='simple_borders' id='btn_end' onclick="parent_my_submit_form_input()" name='Завершить' value='Завершить' >
+</div>  
+</center>
+[%INCLUDE footer.html %]

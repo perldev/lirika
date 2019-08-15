@@ -1,0 +1,622 @@
+
+
+
+
+<html>
+<head>
+<title>$page_title</title>
+<style>
+
+body {margin:0px}
+.linx {font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#FFFFFF; text-decoration:underline;}
+.linx:hover {font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000; text-decoration:underline;}
+.simple_text{border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+.menu_text {font-family: sans-serif; font-size:11px; color:#FFFFFF;cursor:pointer;font-weight:bolder;background-color:#006493;padding:4px;margin-top:1px;border:1px solid black;text-decoration:none}
+
+.menu_text:hover {font-family:Arial; font-size:11px; color:#FFFFFF;cursor:pointer;font-weight:bolder;color:black;background-color:white;padding:4px;margin-top:1px;text-decoration:none}
+.menu_text_selected {font-family:Arial; font-size:11px; color:#FFFFFF;cursor:pointer;font-weight:bolder;color:black;background-color:white;padding:4px;margin-top:1px;text-decoration:none}
+
+.page_text {font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000;}
+table.table_gborders_big{background-color:gray;margin:10px;border-spacing:1px;border:0;padding:1px}
+td.table_gborders_big{background-color:white;border:0;font-size: 15px;border:0; margin:0px; padding: 4px}
+table.top_menu{border:0px;padding:0px;margin:0px}
+table.top_menu tr{background:none}
+table.top_menu td{padding:5px;margin:3px}
+div.menu{line-height:26px}
+
+span.simple_tab{margin:11px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;cursor:pointer}
+span.simple_tab_inner{margin:11px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#3053B9; text-decoration:none;cursor:pointer}
+
+
+div.center_div_table_poup{margin-left:0px;margin-right:5px;margin-top:5px;margin-bottom:5px;
+background-color:#ADD8E6;padding:7px;border:1px solid black;filter:alpha(opacity=80);
+  opacity:0.8;width:30%}
+div.textarea{position:relative;left:4px;background-color:white;margin:4px;padding:4px;border:1px solid black;font-size:11px;display:none}
+
+table.table_gborders{background-color:gray;border-spacing:1px;border:0;padding:1px}
+td.table_gborders{background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+th.table_gborders{background-color:#CCCCCC;font-size: 13px;margin:0px; border:0;padding: 4px}
+
+td.table_gborders_gray{background-color:#CCCCCC;font-size: 13px;margin:0px; border:0;padding: 4px}
+
+td.table_gborders_main{background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding-top:4px;padding-bottom:4px;padding: 6px;}
+.table_gborders{color:#000000;}
+.simple_tab{cursor:pointer}
+
+
+.table_gborders_green{background-color:#00FF4B;font-size: 13px;margin:0px; border:0;padding: 4px }
+.table_gborders_not_ex_green{background-color:#A3DEB5;font-size: 13px;margin:0px; border:0;padding: 4px }
+
+
+.table_gborders_deleted{background-color:#C5C5C5;font-size: 13px;margin:0px; border:0;padding: 4px }
+.table_gborders_red2{background-color:#CC1122;font-size: 13px;margin:0px; border:0;padding: 4px }
+.table_gborders_blue{background-color:#D4E7F9;font-size: 13px;margin:0px; border:0;padding: 4px }
+.table_gborders_vial{background-color:#C4CCE9;font-size: 13px;margin:0px; border:0;padding: 4px }
+#tooltip{
+background:#FFFFFF;
+border:1px solid #666666;
+color:#333333;
+font:menu;
+margin:0px;
+padding:3px 5px;
+position:absolute;
+visibility:hidden
+}td.sum
+{
+	cursor:pointer;
+}td.summed
+{
+	cursor:pointer;
+}td.long{
+	overflow:hidden
+}td.table_gborders_red2 summed{
+	background-color: #ffff80;
+}
+th.table_gborders_red{background-color:#CCCCCC;font-size: 13px;margin:0px; border:0;padding: 4px}
+
+td.table_gborders_red{background-color:#F4D5D5;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+
+tr.table_gborders_red{color: #F4D5D5;}
+
+td.table_gborders_veryred{background-color:#D79C9C;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+td.table_gborders_red summed{
+	background-color: #ffff80;cursor:pointer
+}
+td.table_gborders_whiteskin{background-color:#FFEEC4;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+
+
+
+td.table_gborders_verygreen{background-color:#E6FF92;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+
+
+.table_gborders_red{color:black;}
+a.table_gborders_red{margin:10px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;}
+a.table_gborders_red:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:white; text-decoration:underline;}
+
+a.table_gborders{margin:11px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;}
+a.table_gborders:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000; text-decoration:underline;}
+
+a.table_gborders_href{margin:11px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#5B6570; text-decoration:none;}
+a.table_gborders_href:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000; text-decoration:underline;}
+img.history{cursor:pointer}
+
+.simple_borders{border:solid;border-width:1px;border-color:gray;font-size: 13px; padding: 1px;font-weight:-1}
+input.simple_borders{border:solid;border-width:1px;border-color:gray;font-size: 13px; padding: 1px;font-weight:-1;margin:1px}
+.table_gborders{ background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+td.reg_error_borders{width: 35%;}
+table.table_gborders_none{background-color:white;border-spacing:5px;border:0;padding:10px;width:55%}
+td.table_gborders_none{background-color:white;border-spacing:5px;border:0;padding:1px;}
+.button{background-color:#709FB5;padding:4px;font-size:12px;border:solid;border-width:1px;border-color:black;cursor:pointer;border-style: ridge}
+.center_div{width:70%;margin-top:10px;background-color:#ADD8E6;padding:10px}
+.center_div_table{margin-left:0px;margin-right:5px;margin-top:5px;margin-bottom:5px;
+background-color:#ADD8E6;padding:3px}
+/*.center_div_table #header{margin-left:0px;margin-right: 10px;margin-top:10px;margin-bottom:10px;background-color:#ADD8E6;padding:10px}*/
+
+.center_div_table_left{width:20%;margin-left:40px;margin-top:10px;background-color:#ADD8E6;padding:10px}
+td.summed{
+	background-color: #ffff80;cursor:default
+}
+td.summ{
+	background-color: inherit;cursor:default
+}
+span.div_tab {cursor:pointer};
+img.toggle_sum{
+	width:16px;
+	height:16px;
+	display: block;
+	float:right;
+	cursor:pointer;
+}
+div.toolbar{
+	background-color: #ccc;
+}
+input.toolbutton{
+	border:solid 1px #888;
+	margin: 3px;
+	background-color: #fff;
+	padding: 2px;
+}
+nobr.comment{
+	width:150px;cursor:pointer;overflow:hidden;display:block;
+}
+</style>
+<script>
+var _sum=0;
+var summed=[];
+var title=document.title;
+function sum(o){
+               var n=o.innerHTML;
+        	n=n.replace(/<nobr[^>]*>/g,"");
+		n=n.replace(/[^0-9\.\-]/g,"");
+		
+	       n=n*1;
+	       if (!o.className.match('summed')){
+                       _sum+=parseInt(parseFloat(n)*100);
+                       if (o.className)
+                           o.oldclass=o.className;
+                       else
+                           o.className='';
+                       o.className=o.className+' summed';
+                       summed.push(o);
+               } else {
+                       _sum-=parseInt(parseFloat(n)*100);
+                       o.className=o.oldclass;
+               }
+               document.title=title + '( СУММ = ' + _sum/100 + ')';
+ }
+
+ function clearsum(){
+   var i;
+   for (i in summed){
+       summed[i].className=summed[i].oldclass;
+       _sum=0;
+       document.title=title;
+   }
+ }
+
+function form_work(don)
+{
+	if(don=='clear')
+	{
+		clearsum();
+	}else
+	{
+		document.getElementById('do').value=don;
+		document.getElementById('my_form').submit()
+	}
+}
+
+var tooltip = {
+
+	/* НАЧАЛО НАСТРОЕК */
+	options: {
+		attr_name: "tooltip", // наименование создаваемого tooltip'ого атрибута
+		blank_text: "(откроется в новом окне)", // текст для ссылок с target="_blank"
+		newline_entity: "  ", // укажите пустую строку (""), если не хотите использовать в tooltip'ах многострочность; ежели хотите, то укажите тот символ или символы, которые будут заменяться на перевод строки
+		max_width: 0, // максимальная ширина tooltip'а в пикселах; обнулите это значение, если ширина должна быть нелимитирована
+		delay: 100, // задержка при показе tooltip'а в миллисекундах
+		skip_tags: ["link", "style"] // теги, у которых не обрабатываем атрибуты alt и title
+	},
+	/* КОНЕЦ НАСТРОЕК */
+
+	t: document.createElement("DIV"),
+	c: null,
+	g: false,
+	canvas: null,
+
+	m: function(e){
+		if (tooltip.g){
+			var x = window.event ? event.clientX + tooltip.canvas.scrollLeft : e.pageX;
+			var y = window.event ? event.clientY + tooltip.canvas.scrollTop : e.pageY;
+			tooltip.a(x, y);
+		}
+	},
+
+	d: function(){
+		tooltip.canvas = document.getElementsByTagName(document.compatMode && document.compatMode == "CSS1Compat" ? "HTML" : "BODY")[0];
+		tooltip.t.setAttribute("id", "tooltip");
+		document.body.appendChild(tooltip.t);
+		if (tooltip.options.max_width) tooltip.t.style.maxWidth = tooltip.options.max_width + "px"; // all but ie
+		var a = document.all && !window.opera ? document.all : document.getElementsByTagName("*"); // in opera 9 document.all produces type mismatch error
+		var l = a.length;
+		for (var i = 0; i < l; i++){
+
+			if (!a[i] || tooltip.options.skip_tags.in_array(a[i].tagName.toLowerCase())) continue;
+
+			var tooltip_title = a[i].getAttribute("title"); // returns form object if IE & name="title"; then IE crashes; so...
+			if (tooltip_title && typeof tooltip_title != "string") tooltip_title = "";
+
+			var tooltip_alt = a[i].getAttribute("alt");
+			var tooltip_blank = a[i].getAttribute("target") && a[i].getAttribute("target") == "_blank" && tooltip.options.blank_text;
+			if (tooltip_title || tooltip_blank){
+				a[i].setAttribute(tooltip.options.attr_name, tooltip_blank ? (tooltip_title ? tooltip_title + " " + tooltip.options.blank_text : tooltip.options.blank_text) : tooltip_title);
+				if (a[i].getAttribute(tooltip.options.attr_name)){
+					a[i].removeAttribute("title");
+					if (tooltip_alt && a[i].complete) a[i].removeAttribute("alt");
+					tooltip.l(a[i], "mouseover", tooltip.s);
+					tooltip.l(a[i], "mouseout", tooltip.h);
+				}
+			}else if (tooltip_alt && a[i].complete){
+				a[i].setAttribute(tooltip.options.attr_name, tooltip_alt);
+				if (a[i].getAttribute(tooltip.options.attr_name)){
+					a[i].removeAttribute("alt");
+					tooltip.l(a[i], "mouseover", tooltip.s);
+					tooltip.l(a[i], "mouseout", tooltip.h);
+				}
+			}
+			if (!a[i].getAttribute(tooltip.options.attr_name) && tooltip_blank){
+				//
+			}
+		}
+		document.onmousemove = tooltip.m;
+		window.onscroll = tooltip.h;
+		tooltip.a(-99, -99);
+	},
+	
+	_: function(s){
+		s = s.replace(/\&/g,"&amp;");
+		s = s.replace(/\</g,"&lt;");
+		s = s.replace(/\>/g,"&gt;");
+		return s;
+	},
+
+	s: function(e){
+		if (typeof tooltip == "undefined") return;
+		var d = window.event ? window.event.srcElement : e.target;
+		if (!d.getAttribute(tooltip.options.attr_name)) return;
+		var s = d.getAttribute(tooltip.options.attr_name);
+		if (tooltip.options.newline_entity){
+			var s = tooltip._(s);
+			s = s.replace(eval("/" + tooltip._(tooltip.options.newline_entity) + "/g"), "<br />");
+			tooltip.t.innerHTML = s;
+		}else{
+			if (tooltip.t.firstChild) tooltip.t.removeChild(tooltip.t.firstChild);
+			tooltip.t.appendChild(document.createTextNode(s));
+		}
+		tooltip.c = setTimeout("tooltip.t.style.visibility = 'visible'", tooltip.options.delay);
+		tooltip.g = true;
+	},
+
+	h: function(e){
+		if (typeof tooltip == "undefined") return;
+		tooltip.t.style.visibility = "hidden";
+		if (!tooltip.options.newline_entity && tooltip.t.firstChild) tooltip.t.removeChild(tooltip.t.firstChild);
+		clearTimeout(tooltip.c);
+		tooltip.g = false;
+		tooltip.a(-99, -99);
+	},
+
+	l: function(o, e, a){
+		if (o.addEventListener) o.addEventListener(e, a, false); // was true--Opera 7b workaround!
+		else if (o.attachEvent) o.attachEvent("on" + e, a);
+			else return null;
+	},
+
+	a: function(x, y){
+		var w_width = tooltip.canvas.clientWidth ? tooltip.canvas.clientWidth + tooltip.canvas.scrollLeft : window.innerWidth + window.pageXOffset;
+		var w_height = window.innerHeight ? window.innerHeight + window.pageYOffset : tooltip.canvas.clientHeight + tooltip.canvas.scrollTop; // should be vice verca since Opera 7 is crazy!
+
+		if (document.all && document.all.item && !window.opera) tooltip.t.style.width = tooltip.options.max_width && tooltip.t.offsetWidth > tooltip.options.max_width ? tooltip.options.max_width + "px" : "auto";
+		
+		var t_width = tooltip.t.offsetWidth;
+		var t_height = tooltip.t.offsetHeight;
+
+		tooltip.t.style.left = x + 8 + "px";
+		tooltip.t.style.top = y + 8 + "px";
+		
+		if (x + t_width > w_width) tooltip.t.style.left = w_width - t_width + "px";
+		if (y + t_height > w_height) tooltip.t.style.top = w_height - t_height + "px";
+	}
+}
+
+Array.prototype.in_array = function(value){
+	var l = this.length;
+	for (var i = 0; i < l; i++)
+		if (this[i] === value) return true;
+	return false;
+};
+
+var root = window.addEventListener || window.attachEvent ? window : document.addEventListener ? document : null;
+if (root){
+	if (root.addEventListener) root.addEventListener("load", tooltip.d, false);
+	else if (root.attachEvent) root.attachEvent("onload", tooltip.d);
+}
+
+
+</script>
+
+</head>
+<body >
+
+<center>
+  <div class=center_div_table>
+ <table id="my_table"  class=table_gborders>
+
+	
+		
+
+
+	</td>
+	</tr>
+
+
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=16>
+        <strong>[% page_title %]</strong>
+	[% IF proto_params.a_id %]
+		<font size="+1">( Карточка : $proto_params.a_name $proto_params.a_uah 
+		<strong>ГРН</strong> $proto_params.a_usd <strong>USD</strong> $proto_params.a_eur 
+		<strong>EUR</strong> ) </font>
+	[% END %]
+
+<!-- Транзакции фирм-->       
+    </td>
+</tr>	
+
+
+	[% IF proto_params.a_id %]
+	<tr>
+	<td class=table_gborders colspan=16>
+	Баланс на начало периода $proto_params.from_date:<font size="+1"> $proto_params.beg_uah <strong>ГРН</strong> $proto_params.beg_usd <strong>USD</strong> $proto_params.beg_eur <strong>EUR</strong> </font>	
+	</td>
+		
+	</tr> 
+	<tr>
+	<td class=table_gborders colspan=16>
+	Баланс на конец периода $proto_params.to_date:<font size="+1">	$proto_params.fin_uah <strong>ГРН</strong> $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</strong> </font>	
+	</td>
+  </tr> 
+	[% END %]	
+
+	
+
+
+     <tr >
+		
+		<th class=table_gborders>Дата </th>
+		<th class=table_gborders>Б/н приход(ГРН)</th>
+		<th class=table_gborders>% Комиссии</th>
+		<th class=table_gborders>Комиссия</th>
+		<th class=table_gborders>Доп.ком.</th>  
+		<th class="table_gborders">Итого (ГРН)</th>	
+		<th class="table_gborders">Курс</th>
+		<th class="table_gborders">Итого (USD)</th>
+		<th class="table_gborders">Итого (EUR)</th>
+		<th class=table_gborders>Касса ГРН</th>	     
+		<th class=table_gborders>Касса USD</th>
+		<th class=table_gborders>Касса EUR</th>
+		<th class=table_gborders>Б/н вал. отправки</th>
+		<th class=table_gborders>Примечания </th>
+		<th class=table_gborders>От кого </th>
+     </tr>
+
+   [% FOREACH row = rows %]
+	
+	[% IF row.ct_status=='deleted' %]
+	
+	[% class='table_gborders_deleted' %]
+	
+	[% ELSIF  row.ct_ex_comis_type =='concl'&&row.concl_color %]
+		
+	 [% class='table_gborders_verygreen' %]
+
+	[% ELSIF row.ct_ex_comis_type =='concl'&&!row.concl_color %]	
+	
+	[% class='table_gborders_veryred' %]
+	
+
+	[% ELSIF row.orig__ct_fid==-2%]
+
+	[% class='table_gborders_vial' %]
+	
+	[% ELSIF row.ct_amnt < 0%]
+	
+	[% class='table_gborders_red' %]
+
+	
+	
+	[% ELSE %]
+	
+	[% class='table_gborders' %]
+
+[% END %]
+
+<!--	для javascript-а который отображает как бы сверку значений-->
+	[% IF row.col_status!='yes' %]
+		[% checked='' %]
+
+		[% class_col='table_gborders_not_ex_green' %]
+		
+	[% ELSE %]
+		[% checked='checked="checked"' %]
+		[% class_col='table_gborders_green' %]
+	[% END %]
+	
+ [% NEXT IF row.col_status=='yes'  %]
+
+	<tr  class="table_gborders">
+<!--итоговые суммы -->
+
+		[% mines='-' %]
+		[% IF row.orig__ct_amnt>0 %]
+			[% mines='' %]
+		[% END %]
+
+      [% IF row.ct_ex_comis_type =='concl' %]
+
+		
+		<td class=$class>Итого на:</td>
+		<td class=$class> </td>
+		<td class=$class>$row.ct_date</td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class="$class"  onclick="sum(this)">$row.UAH_FORMAT</td>
+		<td class=$class></td>
+		<td class="$class"  onclick="sum(this)">$row.USD_FORMAT</td>
+		<td class="$class"  onclick="sum(this)">$row.EUR_FORMAT</td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+
+<!--простые переводы между карточками-->
+      [% ELSIF row.ct_ex_comis_type =='transaction'%]
+				
+
+	
+		
+
+		
+		<td class=$class>$row.ct_date</td>
+		<td class=$class></td>
+		<td class=$class>$row.ct_comis_percent</td>
+
+		<td class="$class"  onclick="sum(this)">$row.comission</td>
+		<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%] </td>
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='UAH'%] $row.ct_amnt  [% END %]</td>
+		<td class=$class></td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.ct_amnt  [% END %] </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class>  </td>
+		<td class=$class>  </td>
+	   	<td class=$class >
+<nobr class=comment  onclick="window.location.href='$row.search_url'" title='[% row.ct_comment  FILTER html %]'>
+			$row.ct_comment </nobr>
+	     	</td>
+	<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--&&row.ct_amnt<0-->
+
+<!--работа с негривневыми фирмами-->
+	[% ELSIF row.orig__ct_fid >0&&row.orig__ct_currency!='UAH' %]<!--pay into non resident 
+	currency
+			--> 
+	
+		
+		<td class=$class>$row.ct_date </td>
+		<td class=$class></td>
+		<td class=$class>$row.ct_comis_percent</td>
+		<td class="$class"  onclick="sum(this)">$row.comission</td>
+		<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%]</td>
+		<td class=$class onclick="sum(this)">[% IF row.e_currency2=='UAH' %]$mines$row.result_amnt  [% END %] </td>
+		<td class="$class">$row.rate    </td>
+	<td class="$class" onclick="sum(this)"> [% IF row.e_currency2=='USD' %] $mines$row.result_amnt  [% END %] </td>
+	<td class="$class"  onclick="sum(this)">[% IF row.e_currency2=='EUR' %] $mines$row.result_amnt  [% END %] </td> 
+		<td class="$class"  onclick="sum(this)"> </td>
+		<td class=$class> </td>
+		<td class="$class"  onclick="sum(this)"> </td> 
+		<td class="$class"  onclick="sum(this)">$row.ct_amnt $row.ct_currency </td>
+   		<td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>
+
+</td>
+		<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--работа с гривневыми фирмами    -->
+	[% ELSIF row.orig__ct_fid >0 %]<!--simple pays-->
+		
+
+		<td class=$class> $row.ct_date </td>
+		<td class="$class"  onclick="sum(this)">
+	[% orig = row.orig__ct_currency %]
+	[% exch = row.e_currency2 %]
+
+
+	[% IF orig=='UAH' %] $row.ct_amnt [% END %]
+	 </td>
+	<td class=$class>$row.ct_comis_percent</td>
+	<td class="$class"  onclick="sum(this)">$row.comission</td>
+	<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%] </td>
+	<td class="$class"  onclick="sum(this)">
+	[% IF row.ct_eid&&exch=='UAH'||(!row.ct_eid&&orig=='UAH') %] $row.result_amnt [% END %]
+	</td>
+		
+		<td class=$class> [% IF row.ct_eid %] $row.rate [% END %]</td> 
+		<td class="$class"  onclick="sum(this)"> 
+		[% IF row.ct_eid&&exch=='USD' %]
+ 		$mines$row.result_amnt  
+		[% END %]</td>
+		<td class="$class"  onclick="sum(this)"> 
+		[% IF row.ct_eid&&exch=='EUR' %] $mines $row.result_amnt  [% END %]</td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td> 
+<td class="$class"  onclick="sum(this)">[%IF row.orig__ct_currency!='UAH' %] $mines$row.result_amnt $row.ct_currency
+	 [% END %] </td>
+		   <td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>		    </td>
+
+		<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--работа с кассой-->
+    [% ELSIF row.orig__ct_fid < 0 && row.orig__ct_fid!=-2  %]<!--cash-->
+
+	<td class=$class_col style="background-color:$row.col_color" id='$row.ct_ex_comis_type[%row.ct_id %]'>
+
+        <input  $checked class='simple_borders' id="[% row.ct_ex_comis_type %][% row.ct_id %]" type='checkbox' onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+
+        </td>
+        <td class=$class>$row.ct_date </td>
+        <td class=$class> </td>
+        <td class=$class >$row.ct_comis_percent </td>
+        <td class=$class onclick="sum(this)"> $row.comission</td>
+        <td class=$class>$row.ct_ext_commission </td>
+        <td class=$class onclick="sum(this)">[% IF row.orig__ct_currency=='UAH'%] $row.result_amnt  [% END %] </td> 
+        <td class=$class> </td>
+        <td class=$class onclick="sum(this)">[% IF row.orig__ct_currency=='USD'%] $row.result_amnt  [% END %] </td>
+        <td class=$class onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.result_amnt  [% END %] </td>
+        <td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='UAH'%] $row.ct_amnt  [% END %] </td>
+        <td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
+        <td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.ct_amnt  [% END %]</td> 
+
+        <td class=$class> </td>
+        <td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>              </td>
+        <td class=$class>$row.f_name(#$row.orig__ct_fid)</td>   
+<!--работа с обменом-->
+<!--работа с обменом-->
+ 	[% ELSIF row.orig__ct_fid ==-2  %]<!--Exchange-->
+
+
+		<td class=$class>$row.ct_date </td>
+		<td class="$class"  onclick="sum(this)"> $row.ct_amnt $row.ct_currency</td>
+		<td class=$class>0.00</td>
+		<td class=$class>0</td>
+		<td class=$class> </td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
+		<td class=$class>$row.rate </td> 
+		<td class="$class"  onclick="sum(this)"> [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+   		<td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>	       </td>
+			<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+  	[% END %]	
+		</tr>
+
+   [% END %]
+</table>
+</div>  
+
+</center>
+<script>
+	var my_table=document.getElementById('my_table');
+	var rows=my_table.rows;
+			for(var i=0;i<rows.length;i++)
+			{
+				if(rows[i].style.display=='none')
+				{
+					hidden_arries.push(i);
+				}
+
+			}
+
+</script>
+
+</body>
+</html>

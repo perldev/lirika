@@ -1,0 +1,278 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<center>
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+<table id='my_table' class=table_gborders>
+  <tr class=table_gborders>
+    <td class=table_gborders colspan="10">
+        <strong> [% page_title %] </strong>
+	<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" name="Добавить" value="Добавить ">
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add_many'" 
+name="Добавить" value="Добавить много">
+
+<input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="unify_get_excel(0,1,8)" ><a class='table_gborders' style='display:none' href='' id='file_id_url'>Сохранить файл</a>
+
+
+<script >
+var s=0;
+function group(obj)
+{
+       var common_sum=0;
+       var common_sum_processed=0;
+       var firms_processed=new Object();
+       var list1;
+
+       var table;
+       var firms=new Object();
+       var list;
+
+       var cols;
+        var sum;
+        var dialog;
+        var firm;
+       table=document.getElementById('my_table2');
+       list1=table.rows;
+   
+       table=document.getElementById('my_table');
+       list=table.rows;
+
+       dialog=document.getElementById('alert');
+        if(dialog.style.display=='none')
+        {
+                obj.value='Закрыть окно'
+                dialog.style.display='';
+
+        }else
+        {
+            obj.value='Сгруппировать'
+            dialog.style.display='none';
+            return ;
+       }
+        
+        if(s)
+            return;
+        s=1;
+  
+       for(var i=2;i<list.length;i++)
+       {
+            cols=list[i].cells;
+            sum=cols[5].innerHTML;
+            firm=cols[2].innerHTML;
+         
+            sum=sum.replace(/[^\d\.]/g,""); 
+             sum*=1;
+            common_sum+=sum;
+
+            if(!firms[firm])
+            {
+                firms[firm]=sum;
+
+            }else
+            {
+                firms[firm]+=sum;
+
+            }
+
+
+       }
+ 
+       for(var i=2;i<list1.length;i++)
+       {
+            cols=list1[i].cells;
+
+            sum=cols[5].innerHTML;
+            firm=cols[2].innerHTML;
+
+            sum=sum.replace(/[^\d\.]/g,""); 
+            sum*=1;
+
+            common_sum_processed+=sum;
+            if(!firms_processed[firm])
+            {
+                firms_processed[firm]=sum;
+
+            }else
+            {
+                firms_processed[firm]+=sum;
+
+            }
+
+
+       }
+       var str; 
+       str="<table id='my_table' class=table_gborders><tr class=table_gborders><td colspan='2'><strong> По фирмам :</strong></td></tr>";
+       for( var item in firms )
+        {   
+            str+="<tr class=table_gborders><td >"+item+"</td><td>"+firms[item]+"</td></tr>";
+
+        }
+        str+="<tr class=table_gborders><td > <strong>Всего :</strong></td><td>"+common_sum+"</td></tr>";
+        str+="<tr class=table_gborders><td colspan=2><strong>Проведенно :</strong></td></tr>";
+
+        for( var item in firms_processed )
+        {   
+            str+="<tr class=table_gborders><td >"+item+"</td><td>"+firms_processed[item]+"</td></tr>";
+
+        }
+        str+="<tr class=table_gborders><td ><strong> Всего :</strong></td><td>"+common_sum_processed+"</td></tr>";
+        str+="<tr class=table_gborders><td ><strong> Итого :</strong></td><td>"+(1*common_sum_processed+1*common_sum)+"</td></tr></table>";
+        dialog.innerHTML=str; 
+        
+
+}
+
+
+</script>
+
+
+
+<input type=button  class="simple_borders" id=myself 
+    onclick="group(this)" 
+        name="Сгруппировать" value="Сгруппировать">
+    <div id='alert' class="center_div_table_poup" style="position:absolute;display:none">
+        <strong>Подождите думаю ;)</strong>
+    </div>
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Фирма </th>
+     <th class=table_gborders> Покупатель </th>
+
+     <th class=table_gborders> Программа </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders colspan=2> Действия </th>
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr id='$row.dt_id' class=table_gborders>
+
+        <td class=table_gborders>
+        $row.dt_id        
+        </td>
+	
+
+        <td class=table_gborders>
+        $row.dt_date
+        </td>
+
+        <td class=table_gborders>
+        $row.dt_fid
+        </td>
+
+	<td class=table_gborders>
+        $row.dt_ofid
+        </td>
+ 	 <td class=table_gborders>
+        $row.dt_aid
+        </td>
+	<td class=table_gborders>
+        $row.dt_amnt
+        </td>
+ 	<td class=table_gborders>
+        $row.dt_currency
+        </td>
+      
+         <td class="table_gborders" title='[% row.dt_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.dt_comment FILTER html  %]'>[% row.dt_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=table_gborders>
+	<span class="simple_tab" onclick="ajax_doc_del_trans('$row.dt_id')" >Удалить</span>
+	
+
+        </td>
+
+       
+  </tr>
+  [% END %]
+</table>
+
+
+
+
+
+<br>
+
+
+
+
+
+  <table  id='my_table2' class=table_gborders>
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        <strong> Проведенные документы</strong>
+<input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="unify_get_excel(0,1,8,'my_table2','file_id_url1')" ><a class='table_gborders' style='display:none' href='' id='file_id_url1'>Сохранить файл</a>
+    </td>
+  </tr> 
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Фирма </th>
+     <th class=table_gborders> Покупатель </th>
+
+     <th class=table_gborders> Программа </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders colspan=2> Действия </th>
+  </tr>                         
+  [% FOREACH row = rows2 %]
+  <tr id='$row.dt_id' class=table_gborders>
+
+        <td class=table_gborders>
+        $row.dt_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.dt_date
+        </td>
+
+        <td class=table_gborders>
+        $row.dt_fid
+        </td>
+	<td class=table_gborders>
+        $row.dt_ofid
+        </td>
+	<td class=table_gborders>
+        $row.dt_aid
+        </td>
+	<td class=table_gborders>
+        $row.dt_amnt
+        </td>
+ 	<td class=table_gborders>
+        $row.dt_currency
+        </td>
+        
+         <td class="table_gborders" title='[% row.dt_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.dt_comment FILTER html  %]'>[% row.dt_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=table_gborders>
+    	<span class="simple_tab" onclick="ajax_doc_del_trans('$row.dt_id')" >Удалить</span>
+
+        </td>
+
+       
+  </tr>
+  [% END %]
+
+</table>
+
+
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

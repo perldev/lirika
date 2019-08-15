@@ -1,0 +1,20 @@
+<div   id="comment_edit_cash_form"   class="center_div_table_poup" style="position:absolute;left:40em;display:none">
+<div style='float:right'>
+<span  onclick='operators_show_note("edit_cash_form")' class='div_tab' >x</span>
+</div>
+<input  type="hidden" id="change_ct_id" value="">
+Касса :
+<select id='change_ct_fid' class='simple_borders'>
+[% FOREACH row=rows %]
+
+<option value='$row.id' > $row.name </option>
+
+[% END %]
+</select>
+
+<br/>
+<input type='button' onclick='edit_cash_firm_req()' 
+       class='simple_borders' 
+       name='Сохранить' 
+       value="Сохранить">
+</div>

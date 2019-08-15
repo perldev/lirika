@@ -1,0 +1,254 @@
+[%INCLUDE  header.html %]
+<center>
+<div class="center_div_table">
+  <form method="post">
+  <input class="" name="do" value="$do" type="hidden">
+  <input class="" name="action" value="apply" type="hidden">
+
+      <input class="" name="__confirm" value="1" type="hidden">
+    <input class="" id="ct_id" name="ct_id"  value="$ct_id" type="hidden">
+
+  <input class="" id="ct_fid" name="ct_fid"  value="$ct_fid" type="hidden">
+    
+    
+  
+  	
+  <input class="" id="ct_aid" name="ct_aid" value="$ct_aid" type="hidden">
+    
+   
+<input class="" id="ct_fsid" name="ct_fsid"  value="$ct_fsid" type="hidden">
+    
+    
+  
+  	
+  <input class="" id="ct_currency" name="ct_currency" value="$ct_currency" type="hidden">
+    
+    
+  
+  	
+  <input class="" id="ct_amnt" name="ct_amnt"  value="$ct_amnt" type="hidden">
+    
+  <input   name="ct_ts2"  value="$ct_ts2" type="hidden">
+
+  <input class="" id="ct_ext_commission" name="ct_ext_commission" value="$ct_ext_commission" type="hidden">
+
+  <input class="" id="ct_comis_percent" name="ct_comis_percent" value="$ct_comis_percent" type="hidden">
+    
+    
+  
+  	
+  <input class="" id="ct_comment" name="ct_comment" value="$ct_comment" type="hidden">
+  <table class="table_gborders">
+ <tbody><tr class="table_gborders">
+ <td class="table_gborders" colspan="2">
+	<strong>$page_title</strong></td>
+</tr> 
+
+      <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Фирма
+        </td>
+
+        <td class="table_gborders">
+        
+        
+
+
+          
+  
+
+<!--only for accounts an creating projects--> $firm_info </td>
+  </tr>
+ 
+
+
+  
+
+      <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Аккаунт
+        </td>
+
+        <td class="table_gborders">
+$account_info<!--/only for accounts an creating projects-->  
+	 </td>
+  	</tr>
+       <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Услуга
+        </td>
+
+        <td class="table_gborders">
+        $service_info
+        
+
+
+          
+  
+
+<!--only for accounts an creating projects-->
+
+         
+           
+            
+	
+                        
+           
+   
+
+                  </td>
+  </tr>
+ 
+
+
+
+ 	
+ 
+  
+ 
+  
+  
+
+      <tr class="table_gborders">
+        <td class="table_gborders">
+        Валюта
+        </td>
+
+        <td class="table_gborders">
+             $ct_currency  	
+        </td>
+
+  	</tr>
+ 
+
+
+
+ 	
+ 
+
+     
+
+ 
+
+  
+
+      <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Сумма
+        </td>
+
+        <td class="table_gborders">
+
+	
+                             $ct_amnt
+                          </td>
+  </tr>
+ 		<tr class="table_gborders">
+
+		        <td class="table_gborders">
+        		Комиссия %
+        		</td>	
+        		<td class="table_gborders">
+        			<span >$ct_comis_percent</span>
+			</td>
+
+		</tr>	
+
+
+        	          		  	
+  		<tr class="table_gborders">
+		        <td class="table_gborders">
+        		Сумма комиссии
+        		</td>	
+        		<td class="table_gborders">
+        			<span id="commission">$commission</span>
+			</td>
+
+		</tr>	  
+	<tr class="table_gborders">
+       <td class="table_gborders">
+        Дополнительная комиссия 
+        </td>
+        <td class="table_gborders">
+	$ct_ext_commission
+       </td>
+	</tr>
+	
+  	<tr class="table_gborders">
+		
+		        <td class="table_gborders">
+        		Общая сумма
+        		</td>	
+        		<td class="table_gborders">
+       			<span id="common_sum">$common_sum</span>
+			</td>
+		</tr>	
+	[% IF exchange_yes %]
+	<input type="hidden" value='$exchange_yes' name="exchange_yes">
+	<input type="hidden" value='$rate' name="rate">
+	<input type="hidden" value='$currency' name="currency">
+<input type="hidden" value='$ct_comis_percent_exchange' name="ct_comis_percent_exchange">
+
+
+ 	<tr class="table_gborders">
+		        <td class="table_gborders">
+        		Обмен 
+        		</td>	
+        		<td class="table_gborders">
+       		на $exchange_sum $currency по курсу $rate (комиссия $ct_comis_percent_exchange%)
+			</td>
+		</tr>	
+	[% END %]
+ 
+
+    
+ 
+
+ 
+      <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Назначение
+        </td>
+
+        <td class="table_gborders">
+             $ct_comment
+        </td>
+  </tr>
+
+       <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Дата занесения
+        </td>
+
+        <td class="table_gborders">
+             $ct_ts2_unformat
+        </td>
+  </tr>
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="2">
+      <input class="simple_borders" name="__submit" value="Подтвердить добавление" type="submit">
+
+      <input class="simple_borders" name="__cancel" value="Отменить" onclick='window.history.back(-1)' type="button">      
+    </td>
+  </tr>
+
+  </tbody></table>
+
+  </form>
+
+</div>  
+</center>
+[%INCLUDE footer.html%]

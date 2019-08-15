@@ -1,0 +1,93 @@
+[%INCLUDE  header.html %]
+<center>
+<div class="center_div_table" >
+
+
+  [%INCLUDE proto_filter.html %]
+
+
+
+  <table class="table_gborders" id='my_table'>
+<tbody>
+  <tr class="table_gborders">
+    <td class="table_gborders" colspan="8">
+        <strong>[% page_title %] </strong>       
+    </td>
+  </tr> 
+
+<tr>
+<td class='table_gborders' colspan="8">
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=3 index_cols_end=8 %]
+
+[% INCLUDE components/firewall_add_new_rule.html %]
+<input type='button' class='simple_borders' value='Refresh' onclick='window.location.href="?do=refresh"' />
+
+<script>
+
+    $proto_params.init_java_script
+
+</script>
+
+</td>
+</tr>
+  <tr>
+     <th class="table_gborders"> Номер  </th>
+     <th class="table_gborders"> Дата </th> 
+     <th class="table_gborders"> Назначение </th>   
+     <th class="table_gborders"> Действие </th>
+     <th class="table_gborders"> Порт </th>
+     <th class="table_gborders"> IP/Сеть </th>
+     <th class="table_gborders"> Оператор</th>
+     <th class="table_gborders" > Действие</th>
+   
+  </tr>      
+
+                   
+
+
+  [% FOREACH row = rows %]
+  <tr id="rule_$row.fs_id" class="table_gborders">
+
+        <td class="table_gborders">
+        $row.fs_number      
+        </td>
+
+        <td class="table_gborders">
+        $row.fs_ts
+        </td>
+
+        <td class="table_gborders">
+        $row.fs_comment
+        </td>
+
+        <td class="table_gborders" onclick="sum(this)">
+        <strong>$row.fs_rule</strong>
+        </td>
+
+        <td class="table_gborders">
+        $row.fs_port
+        </td>
+       <td class="table_gborders"  >
+	      $row.fs_src_ip
+       </td>
+
+        <td class="table_gborders">
+        $row.ct_oid
+        </td>
+     
+    <td class="table_gborders" >
+   <span class='simple_tab' onclick='delete_firewall_rule(this,"$row.fs_id")' > Удалить </span>
+
+	</td>
+
+
+  </tr>
+  [% END %]
+
+</tbody>
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

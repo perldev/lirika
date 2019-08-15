@@ -1,0 +1,112 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=14>
+        <strong>        [% page_title %]: [% account_info.ext_info %]</strong>       
+    </td>
+  </tr> 
+ <tr>
+<script>
+function form_work(don)
+{
+		document.getElementById('do').value=don;
+		document.getElementById('my_form').submit();
+	
+}
+
+</script>
+
+<form  id="my_form"  method="POST" >
+<td  class=table_gborders colspan=14>
+<input class="simple_borders" type="button" id='id' onclick='my_back_doc()' 
+	name="__cancel" value="Закрыть окно"> 
+  
+<input type='button' class="simple_borders"   name="Сбросить выделение" value="Сбросить выделение" onclick="form_work('clear')"><input type="hidden" name="do" id="do" value="make_payment" >
+
+<input type="hidden" name="param"  value="$proto_params.param" >
+
+<input type='button' class="simple_borders" name="Идентифицировать" onclick="form_work('make_payment')" value="Идентифицировать" >
+<input type='button' class="simple_borders" name="Снять с программы" onclick="form_work('make_payment_from_program')"  value="Снять с программы" >
+
+
+
+</td>
+</tr>
+  <tr>
+
+     <th class=table_gborders ></th>
+     <th class=table_gborders >id</th>
+     <th class=table_gborders >Дата</th> 
+     <th class=table_gborders >Фирма</th>   
+     <th class=table_gborders >Сумма</th>
+     <th class=table_gborders >Валюта</th>
+     <th class=table_gborders >Назначение</th>
+     <th class=table_gborders >Дата проведения</th> 
+
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  		
+	[% class='table_gborders' %]	
+	  
+	<tr class=$class>
+	
+	
+		
+
+	
+
+	<td class=$class>
+	
+	<input type='checkbox' name='ct_id' class="simple_borders" value="$row.ct_id">
+
+        </td>
+        <td class=$class>
+       <a name="$row.ct_id" /> $row.ct_id        
+        </td>
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+
+        <td class=$class>
+	 <nobr class="comment" title='[% row.ct_fid FILTER html  %]'>[% row.ct_fid FILTER html  %]</nobr>
+        </td>
+
+        <td class=$class onclick="sum(this)">
+        $row.ct_amnt
+        </td>
+
+        <td class=$class>
+        $row.ct_currency
+        </td>
+
+        <td class="$class" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=$class>
+        $row.ct_ts2
+        </td>
+
+  </tr>
+  [% END %]
+
+
+</form>
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

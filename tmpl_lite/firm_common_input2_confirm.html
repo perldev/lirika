@@ -1,0 +1,167 @@
+[%INCLUDE  header.html %]
+<center>
+  <div class=center_div_table>
+
+
+ <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=8>
+        <strong>[% page_title %]</strong>       
+    </td>
+  </tr> 
+<tr>
+      <input type="hidden" name="ct_fid" value="$ct_fid">
+
+     <td class=table_gborders colspan="1"> Фирма :</td>
+
+     <td class=table_gborders colspan="7"> $f_name (#$f_id) $f_uah ГРН $f_usd USD $f_usd EUR</td>
+     
+  </tr>    
+  <tr>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Комиссия % </th>
+    [% IF ext %]
+     <th class=table_gborders> Доп. комиссия </th>
+
+    [% END %]
+     <th class=table_gborders> Комиссия </th>
+     <th class=table_gborders> Итого </th>
+     <th class=table_gborders> Назначение </th>
+
+  </tr>   
+<form method=POST>
+      
+[% class='table_gborders' %]
+ [% FOREACH row = list %]
+	
+  <tr class="$class">
+  	     <input type="hidden" name="ct_id" value="$row.ct_id">
+
+	      <td class=$class>
+		        $row.ct_date
+        	</td>
+        	<td class=$class>
+			$row.ct_amnt
+        	</td>
+        	<td class=$class>
+        		$row.ct_currency
+        	</td>
+		<td class=$class>
+        	[% IF exchange_yes %] $ct_comis_percent_exchange	[% ELSE %] $my_ct_comis_percent [% END %]
+        	</td>
+		[% IF ext%]
+		<td class=$class>
+        		$row.ext_comission
+        	</td>
+		[%END %]
+		<td class=$class>
+        		$row.comission
+        	</td>
+		
+		<td class=$class>
+ 		[% IF exchange_yes %]
+		$row.result_amnt $currency (по курсу $row.user_rate) 
+		[% ELSE %]
+			$row.result_amnt
+	    	 [% END %]</td>
+	<td class="table_gborders" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+        
+	
+  </tr>
+  [% END %]
+
+
+<tr>
+
+<td class="$class" colspan=1>	
+Общая сумма
+</td>
+<td class="$class" id=ct_amnt colspan=7> 
+  	$result_amnt $my_currency  [% IF exchange_yes %] процент комиссии в курсе $ct_comis_percent_exchange% [% END %]
+</td>
+</tr>
+
+[% IF ext%]
+<tr>
+<td class="$class" colspan=1>	
+Дополнительная комиссия на каждый платеж
+</td>
+<td class="$class" colspan=7>&nbsp; 
+	$ct_ext_comission
+</td>
+</tr>
+<input type="hidden" name="ct_ext_comission" value="$ct_ext_comission">
+[% END%]
+
+<tr>
+<td class="$class" colspan=1>	
+Сумма комиссии
+</td>
+<td class="$class" colspan=7>&nbsp; 
+	$result_comission $my_ct_currency
+</td>
+</tr>
+<tr>
+<td class="$class" colspan=1>	
+Карточка 
+</td>
+
+
+<td class="$class" colspan=7> 
+$account_title
+</td>
+</tr>
+<tr>	
+<td class="$class" colspan=1>	
+Услуга	
+</td>
+<td class="$class" colspan=7> 
+$fs_name
+</td>
+</tr>
+
+<tr>	
+<td class="$class" colspan=1>	
+Дата занесения	
+</td>
+<td class="$class" colspan=7> 
+$ct_ts2_unformat
+</td>
+</tr>
+
+
+</table>
+[% IF exchange_yes %]
+		<input type=hidden name=exchange_yes value=1>
+		<input type=hidden name=rate value=$rate >
+		<input type=hidden name=currency value=$currency >
+[% END %]
+
+<input type="hidden" name="ct_ts2" value="$ct_ts2">
+
+<input type="hidden" name="ct_comis_percent_exchange" value="$ct_comis_percent_exchange">
+
+<input type="hidden" name="ct_comis_percent" value="$ct_comis_percent">
+<input type="hidden" name="ct_fsid" value="$ct_fsid">
+<input type="hidden" name="ct_aid" value="$ct_aid">
+
+
+
+
+<input type="hidden" name="do" value="add_common_do">
+<input type=button  class="simple_borders"  onclick="window.history.back()" 
+name="Назад" value="Назад">
+<input type=submit  class="simple_borders" 
+name="Подтвердить" value="Подтвердить">
+</div>  
+</form>
+</center>
+
+
+
+[%INCLUDE footer.html %]

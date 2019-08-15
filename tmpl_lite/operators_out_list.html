@@ -1,0 +1,65 @@
+[%INCLUDE  header.html %]
+<center>
+[% INCLUDE operators_menu.html %]
+
+
+  <div class=center_div_table>
+
+ <input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add_out'" 
+name="Добавить" value="Добавить ">
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]<!-- Операторы--></strong>       
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Логин </th> 
+     <th class=table_gborders> Права </th>   
+     <th class=table_gborders> Статус </th>
+     <th class=table_gborders colspan=2> Действия </th>
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.o_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.o_login
+        </td>
+
+        <td class=table_gborders>
+        <strong>Программы</strong> : $row.o_privileges<br/>
+	<strong>Фирмы</strong> : $row.o_privileges_firms
+        </td>
+
+        <td class=table_gborders>
+        $row.o_status
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=edit_out&amp;id=$row.id">редактировать</a>
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=del_out&amp;id=$row.id">удалить</a>
+        </td>
+
+  </tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

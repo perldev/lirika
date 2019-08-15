@@ -1,0 +1,73 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+  <div class=center_div_table>
+[%INCLUDE  proto_filter.html %]
+<!--<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">-->
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]<!--Фирмы--></strong>       
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Название </th>   
+     <th class=table_gborders> ОКПО </th>
+     <th class=table_gborders> Оператор </th>
+  <th class='table_gborders'>Действия</th>
+  </tr>                         
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.of_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.of_ts
+        </td>
+
+        <td class=table_gborders>
+        $row.of_name
+        </td>
+        <td class=table_gborders>
+        	$row.of_okpo
+        </td>
+
+        <td class=table_gborders>
+        $row.of_oid
+        </td>
+
+   <td class=table_gborders>
+	
+	<input type='button'  
+	value="Редактировать" 
+	class="simple_borders" id='myself'
+	onclick="window.location.href='outfirms.cgi?do=edit&amp;id=$row.of_id'">
+  </td>
+
+
+
+        
+
+
+  </tr>
+  [% END %]
+
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

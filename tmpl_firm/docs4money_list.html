@@ -1,0 +1,35 @@
+<table id='new_table' class=table_gborders>
+
+  <tr>
+     <th class=table_gborders></th>  
+     <th class=table_gborders> Покупатель </th>
+     <th class=table_gborders> Программа </th>   
+     <th class=table_gborders> Сумма </th>
+   </tr>                         
+[% FOREACH row = list %]
+<tr id='$row.dt_id' class=table_gborders>
+        <td class='table_gborders'><span
+            class='simple_tab'
+            onclick='update_money_doc($row.dr_id)'
+            id='money_$row.dr_id' >
+            привязать документ</span></td>
+
+        <input type='hidden'  value='[% row.dr_date FILTER html %] [% row.dr_amnt FILTER html %] [% row.of FILTER html %] [% row.a_name FILTER html %]' id='doc_$row.dr_id' >
+
+	    <td  class=table_gborders>
+        $row.of
+        </td>
+ 	    <td class=table_gborders>
+        $row.a_name
+        </td>
+	    <td class=table_gborders>
+        $row.dr_amnt
+        </td> 
+</tr>
+  [% END %]
+</table>
+
+
+
+
+

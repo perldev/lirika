@@ -1,0 +1,498 @@
+<script type="text/javascript">
+	function gE(id){
+		return document.getElementById(id)
+	}
+	function ex_confirm(){
+
+        for(var i=1;i<23;i+=2)
+        {
+        
+        if(document.getElementById('e_amnt'+i)&&document.getElementById('e_amnt'+i).value){
+           
+		    var t=document.getElementById('type1') ? 'наличный' : 'безналичный';
+		    if(!confirm('Вы действительно хотите совершить операцию?\n'+
+				+ document.getElementById('e_amnt'+i).value + ' ' + document.getElementById('e_currency1_').value
+				+ ' => ' + document.getElementById('e_amnt'+1*(i*1+1*1)).innerHTML + '\n' 
+				+ 'Тип обмена: ' +  t + '\n'
+				+ 'Счёт: ' + gE('a_id_from__select').options[gE('a_id_from__select').selectedIndex].text))
+                    return false;
+            }
+        }
+	}
+</script>
+<div 
+class=center_div>
+[% IF display==1 %]  [% ELSE %]<input type=button  class="simple_borders" id=myself onclick="if(document.getElementById('trans_oper_add').style.display=='none'){document.getElementById('myself').value='Скрыть';document.getElementById('trans_oper_add').style.display='block'}else{document.getElementById('myself').value='Добавить обмен';document.getElementById('trans_oper_add').style.display='none'}" 
+name="Добавить транзакцию" value="Добавить обмен">[% END %]
+<div id=trans_oper_add [% IF display==1 %] style="display:block" [% ELSE %]style="display:none"[% END %]>
+<table class=table_gborders >
+    [% IF error%]
+    <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <font color=red>$error</font>
+        </td>
+        </tr>
+        [%END%]
+        <form  method="POST" onsubmit="return ex_confirm()">
+        <input  type="hidden" name='do' value="add">
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Перевести </strong> 
+        </td>
+        </tr>
+
+        [% IF !proto_params.exchange_card %]
+        <tr class=table_gborders >
+        <td class=table_gborders>       
+        Со счета :      
+        </td>
+        <td class=table_gborders>
+        [% INCLUDE account_field.html field='a_id_from' value='' %]
+        </td>   
+        </tr>
+        [% END %]        
+
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Тип обмена</strong> 
+        </td>
+        </tr>   
+        <tr>
+
+         <td align=absmiddle class=table_gborders>
+        Наличный:&nbsp;<input  id=type1 onclick="change_type('nal')" checked='checked' type=radio name=type value=cash>
+        </td>
+
+        <td align=absmiddle class=table_gborders>
+        Безналичный:&nbsp;<input type=radio id=type2  onclick="change_type('beznal')" name=type value=cashless>
+        </td>
+
+        </tr>        
+
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Обмен</strong> 
+        </td>
+        </tr>
+
+       <tr class=table_gborders>
+        <td class=table_gborders>
+        Из  валюты :     
+        </td>
+
+
+
+        <td class=table_gborders>
+        <select onchange="change_currency()"  
+        class="simple_borders"  id=e_currency1_ name='e_currency1'>
+        [% FOREACH thing=currencies %]
+                <option value='$thing.value'>$thing.name</option>
+        [% END %]
+        </select>
+        </td>
+        </tr>
+        
+
+        <tr class=table_gborders>
+        <td class=table_gborders>
+        В валюту :     
+        </td>
+        <td class=table_gborders>
+        <select   onchange="change_currency()" class="simple_borders"  id=e_currency2_ name='e_currency2'>
+        [% FOREACH thing=currencies %]
+                <option value='$thing.value'>$thing.name</option>
+        [% END %]
+        </select>
+        </td>
+        </tr>
+        
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Курс обмена</strong>&nbsp;<font id=alert color=red style="display:none">
+        </font> 
+        </td>
+        </tr>           
+        
+        <tr class=table_gborders>
+        <td> Текущий курс :</td><td><span id=rate_base></span></td>
+        </tr>
+        <tr class=table_gborders>
+        <td> Коррекция курса :</td><td><input onKeyUp='changeRate()' class="simple_borders" type="text" id=rate name=rate></td>
+        </tr>
+
+        [% IF !proto_params.exchange_card %]
+
+        <tr class=table_gborders>
+ <!--       <td> Комиссия в приход :</td><td><input onKeyUp='changeRate()' 
+                                                class="simple_borders" 
+                                                type="text" 
+                                                id='comis_in' 
+                                                name='comis_in'>
+        </td>-->
+        </tr>
+        [% END %]
+        <tr class=table_gborders>
+        <td> Реальный курс:</td><td id='real_rate'>
+        
+        </td>
+        </tr>
+
+
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Сумму</strong> 
+        </td>
+        </tr>
+
+
+
+<script>
+var cash=new Array();
+var cash_less=new Array();
+[% FOREACH thing=rate_cash %]
+        if (! cash['$thing.from'])
+                cash['$thing.from']=[];
+         cash['$thing.from']['$thing.to']=$thing.rate;
+
+[% END %]
+
+[% FOREACH thing=rate_cash_less %]
+        if (! cash_less['$thing.from'])
+                cash_less['$thing.from']=[];
+         cash_less['$thing.from']['$thing.to']=$thing.rate;
+
+[% END %]
+        var type_rate='cash';
+        var from='USD';
+        var to='USD';
+        var rate=1;
+        var not=0;
+	function get_select(id)
+	{
+		var x=document.getElementById(id);
+		return x.options[x.selectedIndex].value
+	
+	}
+       function changeRate()
+        {
+
+                rate=document.getElementById('rate').value;
+		        
+                rate=rate.replace(/,/, '.');
+		        
+                document.getElementById('rate').value=rate;
+
+                dis_alert();
+                var type_rate_ru='';
+                var rate_base;
+                if(type_rate=='cash')
+                {
+                        type_rate_ru='нал.';
+                        if(cash[from]&&cash[from][to])
+                        {
+                                rate_base=cash[from][to];       
+                        }
+                
+                }else
+                {
+                        type_rate_ru='безнал.';
+                        if(cash_less[from]&&cash_less[from][to])
+                        {
+                                rate_base=cash_less[from][to];  
+                        }
+                }
+
+                if(document.getElementById('e_comment').value=='')
+		        {
+			        if(not)
+			        {
+				        document.getElementById('e_comment').value=type_rate_ru+' обмен '+from+' на '+to+', базовый курс не задан, ручная коррекция курса';
+			        }else
+			        {
+				        document.getElementById('e_comment').value=type_rate_ru+' обмен '+from+' на '+to+', базовый курс '+rate_base+', ручная коррекция курса';
+			        }
+		        }
+
+                calculate('e_amnt1','e_amnt2');
+        }
+        //' class="simple_borders" type="text" id=rate name=rate
+        function fill_comment()
+        {
+                //document.getElementById('e_comment').value='';
+                var type_rate_ru='';
+                var rate_base;
+
+                if(type_rate=='cash')
+                {
+                        type_rate_ru='нал.';
+                        if(cash[from]&&cash[from][to])
+                        {
+                                rate_base=cash[from][to];       
+                        }
+                
+                }else
+                {
+                        type_rate_ru='безнал.';
+/*                      alert(from+' '+to+' 3 ');*/
+                        if(cash_less[from]&&cash_less[from][to])
+                        {
+                                rate_base=cash_less[from][to];  
+                        }
+                }
+
+                if(document.getElementById('e_comment').value=='')
+		{
+			if(not)
+			{
+				document.getElementById('e_comment').value=type_rate_ru+' обмен '+from+' на '+to+', базовый курс не задан';
+			}else
+			{
+				document.getElementById('e_comment').value=type_rate_ru+' обмен '+from+' на '+to+', базовый курс '+rate_base;
+			}
+		}
+
+        }
+        function change_currency()
+        {
+		
+                from=get_select('e_currency1_');
+                to=get_select('e_currency2_');
+                if(type_rate=='cash')
+                {
+                    /*alert(from+' '+to+' 1 ');*/
+                        if(cash[from]&&cash[from][to])
+                        {
+                                rate=cash[from][to];
+                                document.getElementById('rate_base').innerHTML=rate;
+                                document.getElementById('rate').value=rate;
+                                not=0;  
+                                fill_comment();
+                                dis_alert();
+                        }
+                        else
+                        {
+                                my_alert('1');
+                                rate='1.00';
+                                not=1;
+                                fill_comment();
+                                document.getElementById('rate_base').innerHTML=rate;
+                                document.getElementById('rate').value=rate;
+        
+                                
+
+                        }
+                }       
+                else    
+                {
+                      /*alert(from+' '+to+' 2 ');*/
+                        if(cash_less[from]&&cash_less[from][to])
+                        {
+                                
+                
+                                rate=cash_less[from][to];
+                                document.getElementById('rate').value=rate;
+                                document.getElementById('rate_base').innerHTML=rate;
+                                not=0;  
+                                fill_comment();
+                                dis_alert();
+                        }
+                        else
+                        {
+                                my_alert('1');
+                                not=1;
+                                rate='1.00';
+                                fill_comment();
+                                document.getElementById('rate_base').innerHTML=rate;
+                                document.getElementById('rate').value=rate;
+
+                        }
+                }
+                        
+
+                calculate('e_amnt1','e_amnt2');
+        }
+        function change_type(t)
+        {
+                
+                if(t=='cash')
+                {
+                        type_rate='cash';
+                }else
+                {
+                        type_rate='cashless';     
+                }
+                change_currency();
+        
+
+        }
+        function calculate()
+        {
+         var id1='e_amnt1';
+         var id2='e_amnt2';
+        alert(id1+" "+id2);
+        calculate(id1,id2);
+        return;
+    
+        id1='e_amnt3';
+         var id2='e_amnt4';
+        calculate(id1,id2);
+    
+        id1='e_amnt5';
+         var id2='e_amnt6';
+        calculate(id1,id2);
+    
+        id1='e_amnt7';
+         var id2='e_amnt8';
+        calculate(id1,id2);
+    
+            id1='e_amnt9';
+         var id2='e_amnt10';
+        calculate(id1,id2);
+    
+        id1='e_amnt11';
+         var id2='e_amnt12';
+        calculate(id1,id2);
+        
+           var id1='e_amnt13';
+         var id2='e_amnt14';
+        calculate(id1,id2);
+        id1='e_amnt15';
+         var id2='e_amnt16';
+        calculate(id1,id2);
+    
+        id1='e_amnt17';
+         var id2='e_amnt18';
+        calculate(id1,id2);
+    
+        id1='e_amnt19';
+         var id2='e_amnt20';
+        calculate(id1,id2);
+    
+            id1='e_amnt21';
+         var id2='e_amnt22';
+        calculate(id1,id2);
+    
+        id1='e_amnt23';
+         var id2='e_amnt24';
+        calculate(id1,id2);
+
+
+        
+        }
+        function calculate(id1,id2)
+        {
+		
+         var  amnt_first=document.getElementById(id1).value;
+  	 	 amnt_first=amnt_first.replace(/,/, '.');
+		 document.getElementById(id1).value=amnt_first;
+         
+
+         var amnt_next=calculate_exchange(amnt_first,rate,from,to);
+
+         var real_rate=calculate_rate(rate,from,to);
+		 //if(document.getElementById('comis_in'))
+		// {
+         //	var comis=document.getElementById('comis_in').value;
+		 //}
+		 //else
+		// {
+		 	var comis=0;
+		// }
+         real_rate=real_rate-(real_rate/100)*comis;
+
+         set_element('real_rate',calculate_rate(real_rate,from,to));
+		 set_element(id2,amnt_next+' '+to);
+         document.getElementById(id2).innerHTML=amnt_next+' '+to;
+         return   
+                
+        }
+        function dis_alert()
+        {
+                document.getElementById('alert').style.display='none';
+        }
+        function my_alert(t)
+        {
+                switch(t)
+                {
+                        case '1':
+                        {
+                                document.getElementById('alert').style.display='';
+                                document.getElementById('alert').innerHTML='Внимание!Такой курс  обмена не задан!Введите его  в поле коррекции';
+                        }
+                        default :
+                        {       
+                                document.getElementById('alert').style.display='';
+                                document.getElementById('alert').innerHTML='Внимание!Такой курс  обмена не задан!Введите его  в поле коррекции';
+                        }
+                        
+
+                }
+
+        }
+        function init_rates(){
+                
+                if(document.getElementById('type1').checked)
+                {
+                        type_rate='cash';
+                }else
+                {
+                        type_rate='cashless';
+                }
+                change_currency();
+
+        }                       
+        
+                
+/*
+e_currency2
+e_currency1
+id='e_amnt2'
+id='e_amnt1'
+*/
+
+
+</script>       
+        <tr class=table_gborders >
+        <td class=table_gborders>       
+        Сумма1:&nbsp;<input class="simple_borders" onKeyUp="calculate('e_amnt1','e_amnt2')"  type="text" name='e_amnt1' id='e_amnt1'>
+        </td>
+        <td class=table_gborders>
+        Получаете :&nbsp;<div id='e_amnt2'></div> 
+        </td>   
+        </tr>
+
+        
+	<tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px" >Дата :</strong> 
+        </td>
+        </tr>
+	<tr class=table_gborders>
+        <td class=table_gborders colspan=2>
+	 <script>DateInput('e_date', true)</script>
+        </td>
+        </tr>
+
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px" >Примечания :</strong> 
+        </td>
+        </tr>
+        <tr class=table_gborders>
+        <td class=table_gborders colspan=2>
+	<input class="simple_borders" type="text"  id=e_comment name='e_comment'> 
+        </td>
+        </tr>
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <input type=submit name='' value="Обменять" class="button">
+        </td>
+        </tr>
+        </form>
+
+<script>
+init_rates();
+</script>
+</table>
+</div>
+</div>

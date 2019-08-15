@@ -1,0 +1,141 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+[% INCLUDE  components/edit_cash.html rows=proto_params.cash_rows %]
+[% INCLUDE  components/edit_amnt.html %]
+
+
+
+
+  <div class=center_div_table>
+
+
+  [%INCLUDE proto_filter.html %]
+
+
+
+  <table class=table_gborders id='my_table'>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=12>
+        <strong>[% page_title %] </strong>       
+    </td>
+  </tr> 
+[% INCLUDE cash_conclusions_header.html %]
+
+<tr>
+<td class='table_gborders' colspan="12">
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=7 index_cols_end=9 %]
+
+</td>
+</tr>
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Карточка </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders> Статус </th>
+     <th class=table_gborders> Оператор ввода </th>
+     <th class=table_gborders> Оператор проведения</th>
+     <th class=table_gborders colspan=3> Действие</th>
+     <!--
+     <th class=table_gborders> Транзакция </th>
+     -->
+
+     <!--
+     <th class=table_gborders colspan=2> Действия </th>
+     -->
+  </tr>      
+
+                   
+
+
+  [% FOREACH row = rows %]
+  <tr id="not_processed_$row.ct_id" class=table_gborders>
+
+        <td class=table_gborders>
+        $row.ct_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_ts
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_aid
+        </td>
+
+        <td class=table_gborders onclick="sum(this)">
+		[% IF row.orig__ct_status=='created' %]
+        <strong><nobr onDblclick="show_sum_edit_form(this,'amnt_form',$row.ct_id)" id='sum_$row.ct_id'   title='[% row.ct_amnt FILTER html  %]'>[% row.ct_amnt FILTER html  %]</nobr></strong>
+        [% ELSE %]
+        <strong>$row.ct_amnt</strong>
+		[% END %]
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_currency
+        </td>
+
+          <td class="table_gborders" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+	<td class=table_gborders>
+		
+        $row.ct_status
+        </td>
+        <td class=table_gborders>
+        $row.ct_oid
+        </td>
+        <td class=table_gborders>
+        $row.ct_oid2
+        </td>
+  	
+ 	
+	[% IF row.orig__ct_status=='canceled' %]
+<td class=table_gborders colspan=3>
+	<a class=table_gborders	 href="?do=re_proc&amp;id=$row.id">отменить отмену</a>
+</td>
+	[% ELSIF row.orig__ct_status!='returned'&&row.orig__ct_status!='processed'&&
+	row.orig__ct_status!='processing'%]  
+	  
+    	<td class=table_gborders><a  class=table_gborders href="?do=edit&amp;id=$row.id">провести</a></td>
+	<td class=table_gborders>
+	<a class=table_gborders	 href="?do=del&amp;id=$row.id">отменить</a>
+</td>
+<td class=table_gborders >
+
+          
+
+    
+ <span class='simple_tab' onclick='show_select_form(this,"$row.ct_id",$proto_params.cash)' > Перенести </span>     
+</td>
+	[% ELSIF row.orig__ct_status!='returned'&&row.orig__ct_status=='processed'&&
+	row.orig__ct_status!='processing'%] 
+	<td class=table_gborders colspan=3>
+	<a class=table_gborders href="?do=back&amp;ct_id=$row.id">Возврат</a>
+	</td>
+	[% ELSE %]
+	<td class=table_gborders colspan=3>
+
+          
+
+	</td>
+		[% END %]
+	
+
+       
+
+  </tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

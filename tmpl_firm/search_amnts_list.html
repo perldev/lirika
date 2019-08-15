@@ -1,0 +1,152 @@
+<nobr><strong>Найдены [% count %]  совпадения посмотрите </strong><span class='simple_tab' onclick="operators_show_note('search_amnt')" >подробднее<span></nobr>
+<div id="comment_search_amnt"   class="center_div_table_poup" style="position:absolute;display:none" >
+ 
+<table id='my_table' class=table_gborders>
+    <tr class=table_gborders>
+    <td class='table_gborders' colspan=4>
+        Полных совпадений
+    </td>
+</tr>
+   <tr  class=table_gborders>
+        <th class=table_gborders > Период  </th>
+        <th class=table_gborders > Фирма  </th>
+        <th class=table_gborders > Покупатель  </th>
+        <th class=table_gborders > Программа </th>   
+  </tr>                  
+  [% FOREACH row = whole_list %]
+        <tr  class="table_gborders">
+        <td >
+        $row.dt_date_title
+        </td>
+        <td >
+        $row.dt_fid_title      
+        </td>
+        <td >
+        $row.dt_ofid_title
+        </td>
+        <td  >
+        $row.dt_aid_title
+        </td>
+        </tr>
+  [% END %] 
+
+  <tr class=table_gborders>
+    <td class='table_gborders' colspan=4>
+    Похожих сумм по программе
+    </td>
+</tr>
+   <tr  class=table_gborders>
+        <th class=table_gborders > Период  </th>
+        <th class=table_gborders > Фирма  </th>
+        <th class=table_gborders > Покупатель  </th>
+        <th class=table_gborders > Программа </th>   
+  </tr>   
+
+ [% FOREACH row = account_list %]
+        <tr  class="table_gborders">
+        <td >
+        $row.dt_date_title
+        </td>
+        <td >
+        $row.dt_fid_title      
+        </td>
+        <td >
+        $row.dt_ofid_title
+        </td>
+        <td  >
+        $row.dt_aid_title
+        </td>
+        </tr>
+ [% END %]
+
+ <tr class=table_gborders>
+    <td class='table_gborders' colspan=4>
+    Похожих сумм по покупателям
+
+    </td>
+</tr>
+   <tr  class=table_gborders>
+        <th class=table_gborders > Период  </th>
+        <th class=table_gborders > Фирма  </th>
+        <th class=table_gborders > Покупатель  </th>
+        <th class=table_gborders > Программа </th>   
+  </tr>  
+ [% FOREACH row = out_firm_list %]
+        <tr  class="table_gborders">
+        <td >
+        $row.dt_date_title
+        </td>
+        <td >
+        $row.dt_fid_title      
+        </td>
+        <td >
+        $row.dt_ofid_title
+        </td>
+        <td  >
+        $row.dt_aid_title
+        </td>
+        </tr>
+
+ [% END %]
+
+ <tr class=table_gborders>
+    <td class='table_gborders' colspan=4>
+
+        Похожих сумм по фирмам
+    
+    </td>
+</tr>
+   <tr  class=table_gborders>
+        <th class=table_gborders > Период  </th>
+        <th class=table_gborders > Фирма  </th>
+        <th class=table_gborders > Покупатель  </th>
+        <th class=table_gborders > Программа </th>   
+  </tr>  
+ [% FOREACH row = firm_list %]
+   <tr  class="table_gborders">
+        <td >
+        $row.dt_date_title
+        </td>
+        <td >
+        $row.dt_fid_title      
+        </td>
+        <td >
+        $row.dt_ofid_title
+        </td>
+        <td  >
+        $row.dt_aid_title
+        </td>
+        </tr>
+ [% END %]
+
+ <tr class=table_gborders>
+    <td class='table_gborders' colspan=4>
+        Похожих сумм периоду
+        </td>
+</tr>
+  <tr  class=table_gborders>
+        <th class=table_gborders > Период  </th>
+        <th class=table_gborders > Фирма  </th>
+        <th class=table_gborders > Покупатель  </th>
+        <th class=table_gborders > Программа </th>   
+  </tr>  
+ [% FOREACH row = date_list %]
+   <tr  class="table_gborders">
+        <td >
+        $row.dt_date_title
+        </td>
+        <td >
+        $row.dt_fid_title      
+        </td>
+        <td >
+        $row.dt_ofid_title
+        </td>
+        <td  >
+        $row.dt_aid_title
+        </td>
+        </tr>
+
+
+ [% END %]
+</table>
+</div>

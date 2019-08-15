@@ -1,0 +1,13 @@
+<script>
+var hash_id = {}
+var hash_okpo = {}
+
+[% FOREACH row = fields %]
+	[% IF row.firms_okpo %]	
+		[% FOREACH option =  row.firms_okpo %]
+			hash_okpo["$option.title"]="$option.value";
+			hash_id["$option.value"]="$option.title";
+		[%END%]
+	[% END %]
+[% END %]
+</script>

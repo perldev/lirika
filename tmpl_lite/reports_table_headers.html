@@ -1,0 +1,23 @@
+ 
+        [% FOREACH thing = headers %]
+        
+        [% IF thing.sorted==1%]
+           
+            [% IF thing.asc==1%]
+                     [% class='table_gborders_blue' %]
+         
+            [% ELSE%]
+            
+                     [% class='table_gborders_red2' %]
+         
+             [% END %]
+                   
+       [% ELSE %]
+                [% thing.sort=0 %]
+                 [% class='table_gborders' %]
+              
+       [% END %]
+     
+         <th class=$class>  <span class=div_tab onclick="window.location.href='\?do=$thing.run_mode&amp;t_ts=$thing.t_ts&amp;currency=$thing.currency&amp;sort_type=$thing.sort_type&amp;sort=$thing.sort'" > $thing.name </span></th>
+    
+        [% END%] 

@@ -1,0 +1,96 @@
+[%INCLUDE  header.html %]
+
+<center>
+  
+   <div class=center_div_table>
+
+[% INCLUDE stat_menu.html %]
+
+
+ [% INCLUDE proto_filter.html %]
+
+
+ [% INCLUDE  image.html %] 	
+
+  <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=4>
+        <strong>
+	$title
+</strong>       
+    </td>               
+  </tr> 
+<!--a_id as id,
+	a_name as name,
+	sum(`to`.t_amnt) as plus,
+	sum(`from`.t_amnt) as  mines,
+	count(`from`.t_id)+count(`to`.t_id) as freq,
+	max(`from`.t_amnt) as max_trans_amnt,
+	max(`com`.t_amnt) as max_comm,
+	sum(`com`.t_amnt) as sum_comm,
+	`com`.t_currency as currency-->
+
+ <tr class=table_gborders>
+
+    <td class=table_gborders>Общий  оборот : </td><td>$common_params.plus</td><td colspan=2><span class=div_tab onclick="new_image('operators','$t_ts','$currency','plus','','Оборот')" > Просмотреть  </span></td>
+  </tr>
+   <tr class=table_gborders>
+
+    <td class=table_gborders>Частота переводов: </td><td>$common_params.freq</td><td colspan=2><span class=div_tab onclick="new_image('operators','$t_ts','$currency','freq','','Частота переводов')" > Просмотреть </span></td>
+    </tr>
+     <tr class=table_gborders>
+    <td class=table_gborders>Сумма коммиссий : </td> <td>$common_params.com</td><td colspan=2><span class=div_tab onclick="new_image('operators','$t_ts','$currency','com','','Отчислений в систему')" > Просмотреть </span></td>
+
+  </tr>
+    
+  <tr class=table_gborders>
+    <th class=table_gborders> Акаунт  </th>
+ [% INCLUDE reports_table_headers.html %]
+  </tr>                  
+ 
+ 
+         
+   	[% FOREACH thing = list %]
+ 
+		
+		
+		[%  class='table_gborders' %]
+		
+
+		
+		
+		
+		<tr    class=$class >
+		<td  class=$class>
+		$thing.name&nbsp;(id#&nbsp;$thing.id)
+		
+		</td>
+		<td   class=$class>
+		<span class=simple_tab onclick="new_image('operators','$thing.t_ts','$thing.currency','plus','$thing.id','Оборот оператора')" >
+		$thing.plus
+		</span>
+		
+		</td>
+	
+		<td class=$class >
+<span class=simple_tab onclick="new_image('operators','$thing.t_ts','$thing.currency','freq','$thing.id','Частота переводов')" >
+		$thing.freq
+</span>
+		</td>
+		<td  class=$class>
+<span class=simple_tab onclick="new_image('operators','$thing.t_ts','$thing.currency','com','$thing.id','Отчислений в систему')" >
+		$thing.com
+</span>
+		</td>
+		</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+  <!--  <td class=table_gborders colspan=7>
+    </td> -->              
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

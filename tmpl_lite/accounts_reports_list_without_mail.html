@@ -1,0 +1,468 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<script>
+		var REQ;
+		var READY_STATE_COMPLETE=4;
+		var services_percents=new Array();
+		var start_;
+		var redirect=0;
+		function getHttp()
+		{
+			var req=null;
+			if(window.XMLHttpRequest)
+			{
+					
+				req=new XMLHttpRequest();
+				return req;
+			}else if (window.ActiveXObject)	
+			{
+				req=new ActiveXObject("Microsoft.XMLHTTP");
+				return req;
+			}else
+			{
+				alert("sorry,change you browser please");
+				return req;
+			}
+		
+		}	
+		function SendRequest(url,params,HttpMethod)
+		{
+			if(!HttpMethod)
+				HttpMethod='POST';
+			
+			 REQ=getHttp();
+			if(REQ)
+			{
+				REQ.onreadystatechange=getReq;
+				REQ.open(HttpMethod,url,true);
+				REQ.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				REQ.send(params);
+			}
+			
+	
+			
+			
+		}
+		function getReq()
+		{
+			var ready=REQ.readyState;
+			var data=null;
+			if(ready==READY_STATE_COMPLETE)
+			{
+				//very important thing there 
+				//alert(REQ.responseText);
+				if(redirect)
+				{
+					window.location.href='';
+				}
+			
+				
+			}
+		
+		}
+function check(type_,id)
+{
+		SendRequest('ajax.cgi','do=set_col&col_status=yes&id='+id+'&type='+type_,'POST');
+}
+function uncheck(type_,id)
+{
+		SendRequest('ajax.cgi','do=set_col&col_status=no&id='+id+'&type='+type_,'POST');
+}
+function change_status_col_all(dom,a_id)
+{
+	if(dom.checked)
+	{
+		if(confirm("Вы уверенны,что хотите отметить как сверенные все записи"))
+		{
+			redirect=1;
+			SendRequest('ajax.cgi','do=set_col_all&col_status=yes&a_id='+a_id,'POST');
+			
+		}else
+		{
+			alert('Ну и ладненько');
+			dom.checked=false;
+		}
+
+	}else
+	{
+		if(confirm("Вы уверенны,что хотите отметить как несверенные все записи"))
+		{
+			redirect=1;
+			SendRequest('ajax.cgi','do=set_col_all&col_status=no&a_id='+a_id,'POST');
+		}else
+		{
+			alert('Ну и ладненько');
+			dom.checked=true;
+		}
+	}
+
+
+}
+
+function change_status_col(dom,type_,id)
+{
+	if(dom.checked)
+	{
+		document.getElementById(type_+id).style.background='#00FF4B';
+		check(type_,id);
+		
+
+
+	}else
+	{
+		document.getElementById(type_+id).style.background='#A3DEB5';
+		uncheck(type_,id);
+	}
+}
+var hidden_arries=new Array();
+function show_verified(object)
+{
+	var my_table=document.getElementById('my_table');
+	var rows=my_table.rows;
+
+	if(object.name=='1')
+	{
+		if(hidden_arries.length>0)
+		{
+			for(var i=0;i<hidden_arries.length;i++)
+			{
+				rows[ hidden_arries[i] ].style.display='';
+			}
+
+		
+		}else
+		{
+			for(var i=0;i<rows.length;i++)
+			{
+				if(rows[i].style.display=='none')
+				{
+					rows[i].style.display='';
+					hidden_arries.push(i);
+				}
+
+			}
+		}		
+		object.name=0;
+		object.value="Скрыть сверенные";
+	
+	}else
+	{
+		object.name=1;
+		object.value="Отобразить сверенные";
+		for(var i=0;i<hidden_arries.length;i++)
+		{
+				rows[ hidden_arries[i] ].style.display='none';
+		}
+
+
+	}
+
+
+
+
+
+}
+
+</script>
+<center>
+  <div class=center_div_table>
+  [%INCLUDE proto_filter.html %]
+ <table id=my_table  class=table_gborders>
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=16>
+        <strong>[% page_title %]</strong>
+	[% IF proto_params.a_id %]
+		<font size="+1">( Карточка : $proto_params.a_name $proto_params.a_uah 
+		<strong>ГРН</strong> $proto_params.a_usd <strong>USD</strong> $proto_params.a_eur 
+		<strong>EUR</strong> ) </font>
+	[% END %]
+
+<!-- Транзакции фирм-->       
+    </td>
+</tr>	
+[% IF proto_params.a_id %]
+ <tr>
+  <td class=table_gborders colspan=16>
+Баланс на начало периода $proto_params.from_date:<font size="+1"> $proto_params.beg_uah <strong>ГРН</strong> $proto_params.beg_usd <strong>USD</strong> $proto_params.beg_eur <strong>EUR</strong> </font>	
+</td>
+	
+  </tr> 
+<tr>
+  <td class=table_gborders colspan=16>
+Баланс на конец периода $proto_params.to_date:<font size="+1">	$proto_params.fin_uah <strong>ГРН</strong> $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</strong> </font>	
+</td>
+[% END %]	
+  </tr> 
+<tr>
+	
+
+
+<td  class=table_gborders colspan=16>
+<input type='button' class="simple_borders"   name="Сбросить выделение" value="Сбросить выделение" onclick="clearsum()">
+
+<input type='button'  class="simple_borders"   name="1" value="Отобразить сверенные" onclick="show_verified(this)">
+[% IF proto_params.del_to==1%]
+<input type='button'  class="simple_borders"   name="1" value="Скрыть удаленные" onclick="window.location.href='?del_to=0&amp;ct_date=all_time&amp;action=filter&amp;ct_aid=$proto_params.ct_aid'">
+
+[% ELSE %]	
+<input type='button'  class="simple_borders"   name="1" value="Отобразить полностью" onclick="window.location.href='?del_to=1&amp;ct_date=all_time&amp;action=filter&amp;ct_aid=$proto_params.ct_aid'">
+[% END %]
+</td>
+</tr>
+
+     <tr>
+		<th class=table_gborders><input   class='simple_borders'  type='checkbox'
+		 onclick="change_status_col_all(this,$proto_params.ct_aid)" >
+		</th>
+		<th class=table_gborders>Дата </th>
+		<th class=table_gborders>Б/н приход(ГРН)</th>
+		<th class=table_gborders>% Комиссии</th>
+		<th class=table_gborders>Комиссия</th>
+		<th class=table_gborders>Доп.ком.</th>  
+		<th class="table_gborders">Итого (ГРН)</th>	
+		<th class="table_gborders">Курс</th>
+		<th class="table_gborders">Итого (USD)</th>
+		<th class="table_gborders">Итого (EUR)</th>
+		<th class=table_gborders>Касса ГРН</th>	     
+		<th class=table_gborders>Касса USD</th>
+		<th class=table_gborders>Касса EUR</th>
+		<th class=table_gborders>Б/н вал. отправки</th>
+		<th class=table_gborders>Примечания </th>
+		<th class=table_gborders>От кого </th>
+     </tr>
+
+   [% FOREACH row = rows %]
+	
+	[% IF row.ct_status=='deleted' %]
+	
+	[% class='table_gborders_deleted' %]
+	
+	[% ELSIF  row.ct_ex_comis_type =='concl'&&row.concl_color %]
+		
+	 [% class='table_gborders_verygreen' %]
+
+	[% ELSIF row.ct_ex_comis_type =='concl'&&!row.concl_color %]	
+	
+	[% class='table_gborders_veryred' %]
+	
+
+	[% ELSIF row.orig__ct_fid==-2%]
+
+	[% class='table_gborders_vial' %]
+	
+	[% ELSIF row.ct_amnt < 0%]
+	
+	[% class='table_gborders_red' %]
+
+	
+	
+	[% ELSE %]
+	
+	[% class='table_gborders' %]
+
+[% END %]
+
+<!--	для javascript-а который отображает как бы сверку значений-->
+	[% IF row.col_status=='no' %]
+		[% checked='' %]
+
+		[% class_col='table_gborders_not_ex_green' %]
+		
+	[% ELSE %]
+		[% checked='checked="checked"' %]
+		[% class_col='table_gborders_green' %]
+	[% END %]
+	
+
+	<tr  class="table_gborders" [% IF row.col_status=='yes' %] style="display:none" 
+	[% END %] 
+	>
+<!--итоговые суммы		-->
+
+		[% mines='-' %]
+		[% IF row.orig__ct_amnt>0 %]
+			[% mines='' %]
+		[% END %]
+
+      [% IF row.ct_ex_comis_type =='concl' %]
+		<td class=$class></td>
+
+		<td class=$class>Итого на:</td>
+		<td class=$class> </td>
+		<td class=$class>$row.ct_date</td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class="$class"  onclick="sum(this)">$row.UAH_FORMAT</td>
+		<td class=$class></td>
+		<td class="$class"  onclick="sum(this)">$row.USD_FORMAT</td>
+		<td class="$class"  onclick="sum(this)">$row.EUR_FORMAT</td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+		<td class=$class></td>
+
+<!--простые переводы между карточками-->
+      [% ELSIF row.ct_ex_comis_type =='transaction'%]
+		
+		<td class=$class_col id='$row.ct_ex_comis_type[%row.ct_id %]'>
+		<input  $checked class='simple_borders'  type='checkbox'
+		 onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+
+	
+		</td>
+
+	
+		</td>
+
+
+		
+		<td class=$class>$row.ct_date</td>
+		<td class=$class></td>
+		<td class=$class>$row.ct_comis_percent</td>
+
+		<td class="$class"  onclick="sum(this)">$row.comission</td>
+		<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%] </td>
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='UAH'%] $row.ct_amnt  [% END %]</td>
+		<td class=$class></td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.ct_amnt  [% END %] </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class>  </td>
+		<td class=$class>  </td>
+	   	<td class=$class >
+<nobr class=comment  onclick="window.location.href='$row.search_url'" title='[% row.ct_comment  FILTER html %]'>
+			$row.ct_comment </nobr>
+	     	</td>
+	<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--&&row.ct_amnt<0-->
+
+<!--работа с негривневыми фирмами-->
+	[% ELSIF row.orig__ct_fid >0&&row.orig__ct_currency!='UAH' %]<!--pay into non resident 
+	currency
+			--> 
+		
+
+		<td class=$class_col id='$row.ct_ex_comis_type[%row.ct_id %]'>
+		<input  $checked class='simple_borders'  type='checkbox'
+		 onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+		</td>
+		
+		<td class=$class>$row.ct_date </td>
+		<td class=$class></td>
+		<td class=$class>$row.ct_comis_percent</td>
+		<td class="$class"  onclick="sum(this)">$row.comission</td>
+		<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%]</td>
+		<td class=$class onclick="sum(this)">[% IF row.e_currency2=='UAH' %]$mines$row.result_amnt  [% END %] </td>
+		<td class="$class">$row.rate    </td>
+	<td class="$class" onclick="sum(this)"> [% IF row.e_currency2=='USD' %] $mines$row.result_amnt  [% END %] </td>
+	<td class="$class"  onclick="sum(this)">[% IF row.e_currency2=='EUR' %] $mines$row.result_amnt  [% END %] </td> 
+		<td class="$class"  onclick="sum(this)"> </td>
+		<td class=$class> </td>
+		<td class="$class"  onclick="sum(this)"> </td> 
+		<td class="$class"  onclick="sum(this)">$row.ct_amnt $row.ct_currency </td>
+   		<td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>
+
+</td>
+		<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--работа с гривневыми фирмами    -->
+	[% ELSIF row.orig__ct_fid >0 %]<!--simple pays-->
+		
+		<td class=$class_col id='$row.ct_ex_comis_type[%row.ct_id %]'>
+		
+		<input  $checked class='simple_borders'  type='checkbox'
+		 onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+		</td>	
+		<td class=$class> $row.ct_date </td>
+		<td class="$class"  onclick="sum(this)">
+	[% orig = row.orig__ct_currency %]
+	[% exch = row.e_currency2 %]
+
+
+	[% IF orig=='UAH' %] $row.ct_amnt [% END %]
+	 </td>
+	<td class=$class>$row.ct_comis_percent</td>
+	<td class="$class"  onclick="sum(this)">$row.comission</td>
+	<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%] </td>
+	<td class="$class"  onclick="sum(this)">
+	[% IF row.ct_eid&&exch=='UAH'||(!row.ct_eid&&orig=='UAH') %] $row.result_amnt [% END %]
+	</td>
+		
+		<td class=$class> [% IF row.ct_eid %] $row.rate [% END %]</td> 
+		<td class="$class"  onclick="sum(this)"> 
+		[% IF row.ct_eid&&exch=='USD' %]
+ 		$mines$row.result_amnt  
+		[% END %]</td>
+		<td class="$class"  onclick="sum(this)"> 
+		[% IF row.ct_eid&&exch=='EUR' %] $mines $row.result_amnt  [% END %]</td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td> 
+<td class="$class"  onclick="sum(this)">[%IF row.orig__ct_currency!='UAH' %] $mines$row.result_amnt $row.ct_currency
+	 [% END %] </td>
+		   <td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>		    </td>
+
+		<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--работа с кассой-->
+   	[% ELSIF row.orig__ct_fid ==-1  %]<!--cash-->
+		<td class=$class_col id='$row.ct_ex_comis_type[%row.ct_id %]'>
+		<input  $checked class='simple_borders'  type='checkbox' onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+
+	
+		</td>
+		<td class=$class>$row.ct_date </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='UAH'%] $row.ct_amnt  [% END %] </td>
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.ct_amnt  [% END %]</td> 
+
+		<td class=$class> </td>
+		<td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>		        </td>
+		<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+<!--работа с обменом-->
+ 	[% ELSIF row.orig__ct_fid ==-2  %]<!--Exchange-->
+		<td class=$class_col id='$row.ct_ex_comis_type[%row.ct_id %]'>
+
+		<input  $checked class='simple_borders'  type='checkbox'
+		 onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+	
+		</td>		
+
+		<td class=$class>$row.ct_date </td>
+		<td class="$class"  onclick="sum(this)"> $row.ct_amnt $row.ct_currency</td>
+		<td class=$class>0.00</td>
+		<td class=$class>0</td>
+		<td class=$class> </td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
+		<td class=$class>$row.rate </td> 
+		<td class="$class"  onclick="sum(this)"> [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+   		<td class=$class >
+<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>	       </td>
+			<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
+  	[% END %]	
+		</tr>
+
+   [% END %]
+</table>
+</div>  
+
+</center>
+
+[% INCLUDE footer.html %]

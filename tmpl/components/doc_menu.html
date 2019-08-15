@@ -1,0 +1,30 @@
+	<div class="center_div_table_poup_no_limit "  
+    id="form_$tmp_row.dr_id"  
+    style="position:absolute;display:none;right:5em">
+	<table>
+	<tr>
+<!--	[% IF 0&&tmp_row.compare_dr_amnt>0&&0 %]
+	<td id="id_left_$tmp_row.key_field" class=table_gborders>
+	<span class="simple_tab" onclick="ajax_doc_get_payment('$tmp_row.dr_id')" >получить оплату</span>
+	</td>
+	[% END %]
+	<td id="id_left_$tmp_row.key_field" class=table_gborders>
+
+    [% IF tmp_row.orig__dr_status=='processed' %]
+       <span class="simple_tab" onclick="ajax_doc_reopen_deal('$tmp_row.dr_id')" >Открыть заново</span>
+      [% ELSE %]
+	<span class="simple_tab" onclick="ajax_doc_close_deal('$tmp_row.dr_id')" >Закрыть сделку</span>
+    [% END %]
+	</td>-->
+	<td id="id_left_$tmp_row.key_field" class=table_gborders>
+	<span class="simple_tab" onclick="ajax_doc_del_deal('$tmp_row.dr_id')" >Удалить</span>
+	</td>
+    <td id="id_left_$tmp_row.key_field" class=table_gborders>
+    <span class="simple_tab" onclick="window.location.href='?do=edit&amp;id=$tmp_row.dr_id'" >Редактировать</span>
+    </td>
+<!--    <td id="id_right_$tmp_row.key_field" class=table_gborders>
+    <span class="simple_tab" onclick="ajax_show_deals_doc(event,this,'$tmp_row.dr_id')" >Приходные документы</span>
+    </td>-->
+     </tr>
+	</table>
+</div>

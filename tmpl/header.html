@@ -1,0 +1,41 @@
+<html>
+<head>
+<meta charset="cp1251"/>
+<title>$page_title</title>
+<link rel="stylesheet" type="text/css" href="/style.css" />
+
+<script type="text/javascript" src="/java_script_sum.js" ></script>
+<script type="text/javascript" src="/main_scripts.js" ></script>
+<script type="text/javascript" src="/reports.js" ></script>
+
+<script type="text/javascript" src="/day_script.js" ></script>
+<script type="text/javascript" src="/doc_script.js" ></script>
+<script type="text/javascript" src="/tooltip.js" ></script>
+<script type="text/javascript" src="/jQuery.js" ></script>
+
+<script>
+[% IF user_id&&!no_script %]
+
+	var rate_forms=new Array();
+	[% FOREACH thing=rate_forms %]
+		if (! rate_forms['$thing.from'])
+			rate_forms['$thing.from']=[];
+		rate_forms['$thing.from']['$thing.to']=$thing.rate_form;
+	[% END %]
+	var accounts = [
+	['', 'Выберите карточку', 'Выберите карточку',''],
+	[% FOREACH row = filter_accounts %]
+	[$row.a_id, '$row.a_name', '$row.title','$row.c_id'],
+	[% END %]
+	];
+[% END %]
+</script>
+<script type="text/javascript" src="/calendarDateInput.js" ></script>
+
+</head>
+<body onscroll='my_float()' >
+[% IF !no_header_menu %]
+
+[% INCLUDE menu.html %]
+
+[% END %]

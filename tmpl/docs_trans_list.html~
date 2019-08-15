@@ -1,0 +1,183 @@
+[% INCLUDE  header.html %]
+[% INCLUDE  components/edit_percent.html value_id='ct_comment' id_form='percent_form' submit_event='edit_doc_percent_req' %]
+
+<center>
+
+
+
+<div id="ident_form" class="center_div_table_poup_nopacity" style='position:absolute;left:0px;top:10em;display:none;z-index:+1;width:75em;height:40em'> 
+<iframe id='ident_form_frame' style='border:none;width:75em;height:40em' ></iframe>
+</div>
+<div   id="comment_form_change_cat"   class="center_div_table_poup" style="position:absolute;left:40em;display:none">
+Программа :
+<br/>	
+<input  type="hidden" id="dr_id" value="">
+<select  id="accounts" class="simple_borders">
+ [% FOREACH row=accounts %]   
+	<option  value="$row.value" >$row.title</option>
+[% END %]
+</select>
+
+<input type='button' onclick='save_account_docs(this,"form_change_cat")' class='simple_borders' name='Сохранить' value="Сохранить">
+<input type='button' onclick='operators_show_note("form_change_cat")' class='simple_borders'  value="Закрыть окно">
+</div>
+
+<span id="return_function" style="display:none"></span>
+<input type='hidden' id='buffer_amnt' value=''>
+<input type='hidden' id='buffer_id' value=''>
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+
+
+
+  <table id='my_table' class=table_gborders>
+<form id='my_form' method="POST">
+ <tr  class=table_gborders>
+     <input type='hidden' name='do' id='do' value='get_payement'>
+     <td class=table_gborders colspan="12">     
+ <input type='submit' value='Получить оплату' class="simple_borders" >
+<!-- <input type='button' onclick='close_deals()' value='Закрыть..' class="simple_borders" >-->
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Заявить приход">
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add&amp;pay=1'" 
+name="Добавить" value="Заявить расход">
+
+<input type='button' class="simple_borders"  onclick="show_form('comment_percent_form_many')" 
+name="Изменить процент" value="Изменить процент">
+[% INCLUDE  components/edit_percent.html value_id='ct_percent_many'  id_form='percent_form_many' submit_event='edit_doc_percent_req_many' %]
+
+
+<input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="unify_get_excel(1,1,11)" ><a class='table_gborders' style='display:none' href='' id='file_id_url'>Сохранить файл</a>
+
+
+<!--<input type=button  class="simple_borders" id=test onclick="show_st(event);" 
+name="Добавить" value="Закрытые">-->
+<div id="show_stat" style="display:none;padding:10px;border:1px solid black;">
+    
+    <table class="table_gborders">
+    <tr>
+    <td class="table_gborders">Дата :</span><script>DateInput('ts1', true)</script></td>
+    <td class="table_gborders"><input type="submit" class="simple_borders" onclick="ajax_docs_stat(event,this,'ts1'); return false;" value="Просмотреть" >
+    </td></tr>
+    <tr><td class="table_gborders" colspan="2"><div id='show_st_result'></div></td></tr>
+    </table>
+</div>
+
+
+
+
+
+  </tr>                         
+   <tr  class=table_gborders>
+
+     <th class=table_gborders > <input type='checkbox'
+			 class='simple_gborders' onclick='checkAll()' >   </th>
+
+     <th class=table_gborders > Период </th>
+
+     <th class=table_gborders > Фирма  </th>
+<!--      <th class=table_gborders >  ОКПО(фирмы пок-ля)  </th> -->
+<!--      <th class=table_gborders >  Покупатель  </th> -->
+   
+     <th class=table_gborders > Программа </th> 
+<!--      <th class=table_gborders > Осн пр-ма </th>  -->
+     <th class=table_gborders > Комментарии </th> 
+
+     <th class=table_gborders style="cursor:pointer" onclick='sum_this(this,2,7)'> Сумма </th>   
+     <th class=table_gborders > Процент ком-ии %</th>
+     <th class=table_gborders style="cursor:pointer" onclick='sum_this(this,2,9)' > Сумма ком-ии</th>
+     <th class=table_gborders  style="cursor:pointer" onclick='sum_this(this,2,10)'> Комиссия оплаченная </th>
+<!--     <th class=table_gborders style="cursor:pointer" onclick='sum_this(this,2,11)'>  Оплаченный  </th>-->
+     <th class=table_gborders > Действия </th>
+
+  </tr>                         
+ [% FOREACH row = rows %]
+	
+
+    
+    [% IF  row.orig__dr_status=='processed' %]
+    <tr id='$row.dr_id' class="table_gborders_yellow">
+
+
+    [% ELSE %]
+
+    	<tr id='$row.dr_id' class="table_gborders">
+
+    [% END %]
+
+		<td >
+		<input type='checkbox'
+			 name='id' value='$row.dr_id' class='simple_gborders'> 
+		</td>
+
+		<td >
+		$row.dr_date
+		</td>
+		<td >
+		$row.dr_fid       
+		</td>
+<!--        <td >
+        $row.okpo
+        </td>
+		<td >
+		$row.dr_ofid_from
+		</td>-->
+		<td >
+		<span class="simple_tab"  onclick="change_account_docs(this,'$row.dr_id',0)">$row.dr_aid</span>
+
+		</td>
+
+		<td >
+		$row.dr_comment
+
+		</td>
+<!--		<td >
+		<a class="table_gborders"
+        onmouseout="hide_form('[% row.dr_id %]_traff')"
+    
+         onmouseover="show_traffic_of_this(event,'$row.dr_id','$row.orig__dr_fid','$row.orig__a_incom_id','$row.orig__dr_date')"  href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__dr_aid"> $row.a_incom_id</a>
+		</td>-->
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='dr_amnt_$row.dr_id'  onmouseup="sum2(this)" >
+		$row.dr_amnt
+		</td>
+		
+		<td>
+
+<nobr onclick='show_edit_form(this,"comment_percent_form")' id='percent_$row.dr_id' class="comment" >
+    		 $row.percent_comis 
+</nobr>
+
+
+		</td>
+		<td   onmousedown="sum(this)" id='sum_comis_$row.dr_id' onmouseover="sum1(this)"   onmouseup="sum2(this)"  >
+		$row.sum_comis 
+		</td>
+		<td   onmousedown="sum(this)" id='payed_comis_$row.dr_id' 
+              onmouseover="sum1(this)"   
+              onmouseup="sum2(this)" >
+
+		$row.payed_comis 
+		</td>
+<!--		<td onmousedown="sum(this)" id='payed_income_$row.dr_id' onmouseover="sum1(this)"   onmouseup="sum2(this)" >
+		$row.payed_income
+		</td>-->
+		<td>
+		<span class="simple_tab" onclick="show_form('form_$row.dr_id');hide_form('[% row.dr_id %]_docs');">действия</span>	
+		[% INCLUDE components/doc_menu.html tmp_row=row %]
+		</td>
+	</tr>
+  [% END %]
+
+
+</table>
+</div>  
+</form>
+</center>
+
+[%INCLUDE footer.html %]

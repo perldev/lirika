@@ -1,0 +1,68 @@
+[%INCLUDE  header.html %]
+
+<center>
+  
+   <div class=center_div_table>
+
+[% INCLUDE stat_menu.html %]
+
+
+ [% INCLUDE proto_filter.html %]
+
+
+ [% INCLUDE  image.html %] 	
+
+  <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=4>
+        <strong> 
+	$title 		  	<a class='table_gborders' href="oper.cgi?do=trans_list&amp;a_id=$id&amp;action=filter&amp;t_ts_mysql=$t_ts&amp;t_currency=$currency">Выписка</a>
+
+</strong>       
+    </td>               
+  </tr> 
+  <tr class=table_gborders>
+     <th class=table_gborders><span class=div_tab onclick="new_image('cashtable','$t_ts','$currency','plus','','Поступления')" > Поступления </span> </th>
+     <th class=table_gborders> <span class=div_tab onclick="new_image('cashtable','$t_ts','$currency','mines','','Отчисления')" >Отчисления</span></th> 
+     <th class=table_gborders ><span class=div_tab onclick="new_image('cashtable','$t_ts','$currency','freq','','Частота переводов')">  Частота переводов</span></th>      <th class=table_gborders ><span class=div_tab onclick="new_image('cashtable','$t_ts','$currency','sum','','Общий оборот')">Сумма переводов</span></th> 
+    
+  </tr>                         
+   	[% FOREACH thing = list %]
+ 	
+		[%  class='table_gborders' %]
+		<tr    class=$class >
+		<td   class=$class>
+		<span class=simple_tab onclick="new_image('cashtable','$thing.t_ts','$thing.currency','plus','$thing.id','Поступления')" >
+		$thing.plus
+		</span>
+		
+		</td>
+	
+		<td class=$class >
+<span class=simple_tab onclick="new_image('cashtable','$thing.t_ts','$thing.currency','mines','$thing.id','Отчисления')" >
+		$thing.mines
+</span>
+		</td>
+		<td  class=$class>
+<span class=simple_tab onclick="new_image('cashtable','$thing.t_ts','$thing.currency','freq','$thing.id','Частота переводов')" >
+		$thing.freq
+</span>
+		</td>
+		<td  class=$class>
+		<span class=simple_tab onclick="new_image('cashtable','$thing.t_ts','$thing.currency','sum','$thing.id','Общий оброт')" >
+		$thing.sum
+		</span>
+		
+		</td>
+		</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+  <!--  <td class=table_gborders colspan=4>
+    </td> -->              
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

@@ -1,0 +1,19 @@
+
+
+<select name="$field" id=$field class="simple_borders">
+[% FOREACH  thing=my_firms %]
+	<option value="$thing.f_id">$thing.f_name  ÃÐÍ: $thing.f_uah USD: $thing.f_usd EUR: $thing.f_eur</option>
+[% END %]
+</select>
+<script>
+var s=document.getElementById('$field');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$value')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+</script>

@@ -1,0 +1,174 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+<div class="center_div_table">
+
+
+  [% INCLUDE today.html %]
+
+  
+  
+
+  <form id="my_form" method="post">
+  <input type="hidden" value="add_plugin" name="do"/>
+  <input type="hidden" value="apply" name="action"/>
+  <table id="add_form_table" class="table_gborders">
+ <tbody><tr class="table_gborders">
+ <td colspan="2" class="table_gborders">
+  <strong> [% page_title %]  </strong></td>
+</tr> 
+ 
+    
+     <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        ФИО
+        </td>
+
+        <td class="table_gborders">
+        <input type="text" value="" name="a_name" id="a_name" size="60" class="simple_borders"/>
+        </td>
+  </tr>
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Электронный адрес(email) 
+        </td>
+
+        <td class="table_gborders">
+                  <input type="text" value="" name="a_email" id="a_email" size="60" class="simple_borders"/>
+        </td>
+  </tr>
+ 
+       <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Комментарии
+        </td>
+
+        <td class="table_gborders">
+                  <input type="text" value="" name="a_phones" id="a_phones" size="60" class="simple_borders"/>
+        </td>
+        </tr>
+    
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Подписка на уведомление о состоянии счета
+        </td>
+
+        <td class="table_gborders">
+        
+        
+
+        
+     
+  
+
+<!--only for accounts an creating projects-->
+
+            
+            
+            <select onchange="select_change('a_issubs')" name="a_issubs" id="a_issubs" class="simple_borders">
+                           [% FOREACH option = proto_params.issubs %]
+                       <option value='$option.value'> $option.title</option>
+                    [% END %]   
+                            </select>
+            
+            
+        
+
+    
+
+           
+
+        </td>
+  </tr>
+ 
+    
+
+
+    
+ 
+
+     
+
+     
+  
+       
+        
+    
+  
+    
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Наименование плагина
+        </td>
+
+        <td class="table_gborders">
+        
+        
+
+        
+     
+  
+
+<!--only for accounts an creating projects-->
+
+            
+            
+            <select onchange="select_change('a_pid')" name="a_pid" id="a_pid" class="simple_borders">
+                    [% FOREACH option = proto_params.plugins %]
+                       <option value='$option.value'> $option.title</option>
+                    [% END %]
+                            </select>
+            
+            
+        
+
+    
+
+           
+
+        </td>
+  </tr>
+ 
+
+
+
+    
+ 
+
+    <tr class="table_gborders">
+    <td colspan="2" class="table_gborders">
+   <input type="submit" value="Подтвердить" name="__submit" id="submit_button" class="simple_borders"/>
+<script>
+</script>
+
+      <input type="button" value="Отменить" name="__cancel" onclick="window.history.back(-1)" id="id" class="simple_borders"/>      
+    </td>
+  </tr>
+<script>
+
+document.getElementById('submit_button').disabled=false;
+document.getElementById('id').disabled=false;
+
+</script>
+
+
+  </tbody></table>
+
+  </form>
+
+</div>
+
+
+</center>
+[%INCLUDE footer.html %]

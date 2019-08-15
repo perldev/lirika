@@ -1,0 +1,121 @@
+[%INCLUDE  header.html %]
+<center>
+[% INCLUDE java_script_sum.html %]
+
+
+  <div class=center_div_table>
+  	
+  [%INCLUDE proto_filter.html %]
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+<table>
+<tr>
+<td>
+
+</td>
+
+<table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=10>
+        <strong>[% page_title %]<!--Вывод безнала--></strong>       
+    </td>
+  </tr> 
+ <tr>
+	
+<td  class=table_gborders colspan=10>
+<a href="#" style="text-decoration:none;text-weight:bold" onclick="clearsum()">Сбросить выделение	</a> 
+</td>
+</tr>
+
+  <tr>
+     <th class=table_gborders>id</th>
+     <th class=table_gborders>Дата</th> 
+     <th class=table_gborders>Отправитель</th>   
+     <th class=table_gborders>Получатель</th>
+     <th class=table_gborders>Сумма</th>
+     <th class=table_gborders>Валюта </th>
+     <th class=table_gborders>Назначение </th>
+     <th class=table_gborders>Оператор </th>
+	[% IF rights.correct %] 
+     <th class="table_gborders">Действия</th>	
+	[% END %]
+  </tr> 
+
+[% class='table_gborders' %]
+  	[% FOREACH row = rows %]
+	 
+	
+  <tr class=$class>
+
+        <td class=$class>
+          <a name="$row.ct_id" />$row.at_id        
+        </td>
+
+        <td class=$class>
+        $row.t_date
+        </td>
+
+        <td class=$class>
+  <a class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__t_aid1"> $row.t_aid1</a>
+        
+        </td>
+
+        <td >
+
+<a class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__t_aid2"> $row.t_aid2</a>       
+	 </td>
+ 	<td class=$class onclick="sum(this)">
+        $row.t_amnt
+        </td>
+
+        <td class=$class>
+        $row.t_currency
+        </td>
+
+         <td class="$class" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.t_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=$class>
+        $row.o_id
+        </td>
+
+
+      
+      [% IF rights.correct %]   <td id="center_id_$row.at_id" class=$class>
+	       
+ <span class="simple_tab" onclick="ajax_action_transfer_del('$row.at_id')" >Удалить</span>
+
+
+
+   
+        </td>
+        
+     [% END %]
+
+        <!--
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=edit&amp;id=$row.id">редактировать</a>
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=del&amp;id=$row.id">удалить</a>
+        </td>
+
+        -->
+
+  </tr>
+  [% END %]
+
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

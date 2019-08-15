@@ -1,0 +1,328 @@
+[% IF user_id %]
+<center>
+<div class="center_div_table">
+<div class="menu">
+[% IF rights.no_rights %]       
+<a class="menu_text" href="#"><font color=red>Произошла ошибка,обратитесь ко мне</font></a>
+[% END %]
+    
+[% IF rights.account %]
+  
+  [% IF 'account' == rights.current %]
+  <a class="menu_text_selected" href="accounts.cgi"><nobr>$tabs.account</nobr></a>
+
+
+  [% ELSE %]      
+  <a class="menu_text" href="accounts.cgi"><nobr>$tabs.account</nobr></a>
+  [% END %]
+[% END %]
+<a class="menu_text" href="notes.cgi"><nobr>Мои заметки</nobr></a>
+
+
+[% IF rights.class %]
+ [% IF 'class' == rights.current %]
+  <a class="menu_text_selected" href="class.cgi">$tabs.class</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="class.cgi"><nobr>$tabs.class</nobr></a>
+  [% END %]        
+
+[% END %]
+
+
+[% IF rights.oper %]  
+
+[% IF 'oper' == rights.current %]
+  <a class="menu_text_selected" href="operators.cgi"><nobr>$tabs.oper</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="operators.cgi"><nobr>$tabs.oper</nobr></a>
+  [% END %]  
+
+
+
+[% END %]
+
+[% IF rights.trans %] 
+
+[% IF 'trans' == rights.current %]
+  <a class="menu_text_selected" href="oper.cgi"><nobr>$tabs.trans</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="oper.cgi"><nobr>$tabs.trans</nobr></a>
+  [% END %]
+[% END %]
+
+[% IF rights.transfers %] 
+
+[% IF 'transfers' == rights.current %]
+  <a class="menu_text_selected" href="trans.cgi"><nobr>$tabs.transfers</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="trans.cgi"><nobr>$tabs.transfers</nobr></a>
+ [% END %]
+
+[% END %]
+
+
+  
+
+[% IF rights.transit %] 
+
+[% IF 'transit' == rights.current %]
+  <a class="menu_text_selected" href="transit.cgi"><nobr>$tabs.transit</a>
+  [% ELSE %]      
+  <a class="menu_text" href="transit.cgi"><nobr>$tabs.transit</a>
+  [% END %]  
+	
+[% END %]
+
+[% IF rights.firms_exchange %] 
+
+[% IF 'firms_exchange' == rights.current %]
+  <a class="menu_text_selected" href="conv.cgi"><nobr>$tabs.firms_exchange</a>
+  [% ELSE %]      
+  <a class="menu_text" href="conv.cgi"><nobr>$tabs.firms_exchange</a>
+  [% END %]  
+	
+[% END %]
+
+
+
+
+
+[% IF rights.firm %] 
+  
+  [% IF 'firm' == rights.current %]
+  <a class="menu_text_selected" href="firms.cgi"><nobr>$tabs.firm</a>
+  [% ELSE %]      
+  <a class="menu_text" href="firms.cgi"><nobr>$tabs.firm</a>
+  [% END %]  
+
+[% END %]
+[% IF rights.firm_list %]
+  [% IF 'firm_list' == rights.current %]
+  <a class="menu_text_selected" href="firm_trans.cgi">$tabs.firm_list</a>
+  [% ELSE %]      
+  <a class="menu_text" href="firm_trans.cgi">$tabs.firm_list</a>
+  [% END %]  
+[% END %]
+
+
+[% IF rights.all_firms %]
+  [% IF 'all_firms' == rights.current %]
+  <a class="menu_text_selected" href="all_firms_list.cgi"><nobr>$tabs.all_firms</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="all_firms_list.cgi"><nobr>$tabs.all_firms</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.du %]
+  [% IF 'du' == rights.current %]
+  <a class="menu_text_selected" href="all_firms_list.cgi?resident=1"><nobr>$tabs.du</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="all_firms_list.cgi?resident=1"><nobr>$tabs.du</nobr></a>
+  [% END %]  
+
+[% END %]
+
+
+
+
+[% IF rights.fservice %] 
+ [% IF 'fservice' == rights.current %]
+  <a class="menu_text_selected" href="firm_services.cgi"><nobr>$tabs.fservice</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="firm_services.cgi"><nobr>$tabs.fservice</nobr></a>
+  [% END %]  
+
+[% END %]
+
+
+[% IF rights.rates %] 
+ [% IF rights.rates == rights.current %]
+  <a class="menu_text_selected" href="rates.cgi"><nobr>$tabs.rates</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="rates.cgi"><nobr>$tabs.rates</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.report %] 
+[% IF 'report' == rights.current %]
+  <a class="menu_text_selected" href="reports.cgi"><nobr>$tabs.report</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="reports.cgi"><nobr>$tabs.report</nobr></a>
+  [% END %]
+
+[% END %]
+
+[% IF rights.credit_perms %] 
+[% IF 'credit_perms' == rights.current %]
+  <a class="menu_text_selected" href="credits_objections.cgi"><nobr>$tabs.credit_perms</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="credits_objections.cgi"><nobr>$tabs.credit_perms</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+[% IF rights.settings %] 
+[% IF 'settings' == rights.current %]
+  <a class="menu_text_selected" href="settings.cgi"><nobr>$tabs.settings</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="settings.cgi"><nobr>$tabs.settings</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+
+
+[% IF rights.cash_out %] 
+[% IF 'cash_out' == rights.current %]
+  <a class="menu_text_selected" href="cashier_output.cgi"><nobr>$tabs.cash_out</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="cashier_output.cgi"><nobr>$tabs.cash_out</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_out2 %]
+[% IF 'cash_out2' == rights.current %]
+  <a class="menu_text_selected" href="cashier_output2.cgi"><nobr>$tabs.cash_out2</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="cashier_output2.cgi"><nobr>$tabs.cash_out2</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+
+
+
+[% IF rights.cash_in_before %] 
+[% IF 'cash_in_before' == rights.current %]
+  <a class="menu_text_selected" href="cashier_input_before.cgi"><nobr>$tabs.cash_in_before</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="cashier_input_before.cgi"><nobr>$tabs.cash_in_before</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+[% IF rights.cash_in %] 
+[% IF 'cash_in' == rights.current %]
+  <a class="menu_text_selected" href="cashier_input.cgi"><nobr>$tabs.cash_in</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="cashier_input.cgi"><nobr>$tabs.cash_in</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+[% IF rights.cash %] 
+[% IF 'cash' == rights.current %]
+  <a class="menu_text_selected" href="cash.cgi"><nobr>$tabs.cash</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="cash.cgi"><nobr>$tabs.cash</nobr></a>
+  [% END %]
+ [% END %]
+
+
+
+
+[% IF rights.firm_in %] 
+[% IF 'firm_in' == rights.current %]
+  <a class="menu_text_selected" href="firm_input.cgi"><nobr>$tabs.firm_in</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="firm_input.cgi"><nobr>$tabs.firm_in</nobr></a>
+  [% END %]
+[% END %]
+
+
+
+
+
+
+[% IF rights.firm_in2 %]
+[% IF 'firm_in2' == rights.current %]
+  <a class="menu_text_selected" href="firm_input2.cgi"><nobr>$tabs.firm_in2</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="firm_input2.cgi"><nobr>$tabs.firm_in2</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+[% IF rights.firm_out %] 
+[% IF 'firm_out' == rights.current %]
+  <a class="menu_text_selected" href="firm_output.cgi"><nobr>$tabs.firm_out</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="firm_output.cgi"><nobr>$tabs.firm_out</nobr></a>
+  [% END %]
+
+[% END %]
+
+[% IF rights.exchange %] 
+[% IF 'exchange' == rights.current %]
+  <a class="menu_text_selected" href="exc.cgi"><nobr>$tabs.exchange</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="exc.cgi"><nobr>$tabs.exchange</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.credit %] 
+[% IF 'credit' == rights.current %]
+  <a class="menu_text_selected" href="credits.cgi"><nobr>$tabs.credit</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="credits.cgi"><nobr>$tabs.credit</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+[% IF rights.correct %] 
+[% IF 'correct' == rights.current %]
+  <a class="menu_text_selected" href="correctings.cgi"><nobr>$tabs.correct</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="correctings.cgi"><nobr>$tabs.correct</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.correct_back %] 
+
+[% IF 'correct_back' == rights.current %]
+  <a class="menu_text_selected" href="lost.cgi"><nobr>$tabs.correct_back</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="lost.cgi"><nobr>$tabs.correct_back</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.joke %] 
+[% IF 'joke' == rights.current %]
+  <a class="menu_text_selected" href="joke.cgi"><nobr>$tabs.joke</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="joke.cgi"><nobr>$tabs.joke</nobr></a>
+  [% END %]
+[% END %]
+
+
+
+<a class="menu_text" href="oper.cgi?do=logout"><nobr>Выход</nobr></a>
+Привет <strong>$login</strong>,$greeding
+
+</div>
+</div>
+</center>
+[% END %]

@@ -1,0 +1,58 @@
+<center>
+  
+  <div class=center_div_table>
+  <table class=table_gborders>
+<tr class=table_gborders>
+<td class=table_gborders colspan='4'>
+<a class="table_gborders" href="reports.cgi?do=common_report"><font size=-1>Сделать отчет</font></a>
+
+</td>
+</tr>
+
+  <tr class=table_gborders>
+     <th class=table_gborders> Дата отчета  </th>
+     <th class=table_gborders> Кол-во дней</th> 
+     <th class=table_gborders> Дельта </th>   
+     <th class=table_gborders>  </th>
+  </tr>                         
+
+
+
+   	[% FOREACH thing = reports %]
+
+
+		[%  class='table_gborders' %]
+
+	<tr    class=$class >
+	<!--<td  class=$class>
+       $thing.id
+	</td>-->
+	<td   class=$class>
+	$thing.ts
+	</td>
+	<td class=$class >
+	$thing.diff
+	</td>
+	<td  onclick="sum(this)" class=$class>
+	$thing.cr_delta
+	</td>
+	<td  class=$class>
+ 	<a  class=$class target='blank'  href="reports.cgi?do=view_report&amp;id=$thing.id"> Просмотреть</a>
+	[% IF thing.cr_status=='created'%]
+ 	<a  class=$class  href="reports.cgi?do=delete_report&amp;id=$thing.id">Удалить</a>
+	[%ELSE%]
+	Удален 
+	[% END %]
+	</td>
+ 	</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=4>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+</table>
+</div>  
+
+</center>

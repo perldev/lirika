@@ -1,0 +1,124 @@
+<script>
+function show_item(a)
+{
+    				if (document.getElementById(a).style.display=='none')
+                                {
+
+	                                document.getElementById(a).style.display='block';
+					document.getElementById(a+'_check').checked=true;
+                                }
+                                else
+                                {
+                                	document.getElementById(a).style.display='none';
+				        document.getElementById(a+'_check').checked=false;
+                                }
+
+
+}
+</script>
+
+[%IF !from_visible %]
+
+<input type=checkbox class=simple_borders id=project_manager_check value="1" name="exchange_yes"  onclick="show_item('project_manager')" > 
+[% ELSE %]
+<input type=hidden  name="exchange_yes"   value="1" > 
+[% END %]
+
+<br>
+<div  id=project_manager  style='display:none;position:relative;bottom:5px;border:solid 1px black;z-index:+1;background-color:#ADD8E6;
+-moz-opacity:0.8;filter:alpha(opacity=80);' >
+<table>
+<td  class=table_gborders align=center colspan=2>
+<strong>Обмен</strong>
+</td>
+</tr>
+<tr>
+<td class=table_gborders>
+На валюту :</td>
+<td class=table_gborders>  <select  class="simple_borders" onchange="change_currency()" id=currency name='currency'>
+        [% FOREACH thing=currencies %]
+                <option value='$thing.value'>$thing.name</option>
+        [% END %]
+        </select> </td> 
+</tr>
+<tr>
+<td class=table_gborders>
+Процент комиссии :</td>
+<td class=table_gborders><input 
+value='' class=simple_borders  id="ct_comis_percent_exchange" name="ct_comis_percent_exchange" ></td>
+</tr>
+
+<tr>
+<td class=table_gborders>
+Курс :</td>
+<td class=table_gborders><input 
+value='' onkeyup="change_sum()" class=simple_borders  id="light_rate" name=rate ></td>
+</tr>
+<tr>
+<td class=table_gborders>
+Получаемая сумма:</td> <td  class=table_gborders id=ct_result_amnt></td>
+</tr>
+</table>
+
+<script>
+
+var cash_less=new Array();
+var from='USD';
+var to='USD';
+var rate_base=1;
+[% FOREACH thing=rate_cash_less %]
+        if (! cash_less['$thing.from'])
+                cash_less['$thing.from']=[];
+         cash_less['$thing.from']['$thing.to']=$thing.rate;
+
+[% END %]
+
+if(document.getElementById('project_manager'+'_check')&&document.getElementById('project_manager'+'_check').checked)
+{
+					document.getElementById('project_manager').style.display='block';
+					document.getElementById('project_manager'+'_check').checked=true;
+}else if(document.getElementById('project_manager'+'_check'))	
+{
+					document.getElementById('project_manager').style.display='none';
+				document.getElementById('project_manager'+'_check').checked=false;
+}else
+{
+					document.getElementById('project_manager').style.display='block';
+
+}	
+	
+function change_currency()
+{
+	from=get_element('ct_currency');
+	to=get_element('currency');
+	
+	if(cash_less[from]&&cash_less[from][to])
+        {
+                                rate=cash_less[from][to];  
+        }else
+	{
+				rate=1;
+	}
+	set_element('light_rate',rate);
+	change_sum();
+	
+
+}
+function change_sum()
+{
+		from=get_element('ct_currency');
+		to=get_element('currency');
+		var rate=get_element('light_rate',1);
+		var amnt=get_element('common_sum',1);
+		var amnt_next=calculate_exchange(amnt,rate,from,to);
+		set_element('ct_result_amnt',amnt_next+' '+to);
+}
+
+setTimeout("change_sum()",2000)
+
+</script>
+
+
+</div>
+
+

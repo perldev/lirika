@@ -1,0 +1,4 @@
+<input type='button'  class="simple_borders"   name="1" value="[% IF name %] $name [% ELSE %] Экспорт в Excel [% END %]"
+onclick="unify_get_excel($index_cols,$index_rows,$index_cols_end[% IF export_id %],'$export_id' [% END %][% IF name_link %],'$name_link'[% END %])" >
+<a class='table_gborders' style='display:none' href='' id='[% IF name_link %]$name_link[% ELSE %]file_id_url[% END %]'>Сохранить файл</a>
+<!--function unify_get_excel(index_cols,index_rows,index_cols_end,id?)-->

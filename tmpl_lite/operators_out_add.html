@@ -1,0 +1,180 @@
+[%INCLUDE  header.html %]
+<center>
+[% INCLUDE operators_menu.html %]
+<div class=center_div_table>
+
+ 
+  
+
+  <form method="post" id='my_form'>
+  <input type="hidden" name="do" value="$my_action">
+  <input type="hidden" name="id" value="$operators.o_id">
+
+  
+  <table class=table_gborders   id="add_form_table" >
+ <tr class=table_gborders>
+ <td class=table_gborders colspan=2>
+$page_title</td>
+
+</tr> 
+
+  	<tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        ID
+        </td>
+
+        <td class=table_gborders>
+                  <span id=o_id >$operators.o_id</span>
+        </td>
+  </tr>
+ 
+
+	<script>
+		
+	</script>
+ 
+  	<tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Логин
+        </td>
+
+        <td class=table_gborders>
+        
+                  
+
+	
+                              <input class="simple_borders"  type="text" 
+		size="60"
+
+		id=o_login name="o_login" value="$operators.o_login">
+           
+
+        </td>
+  </tr>
+ <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+
+        Статус
+        </td>
+
+        <td class=table_gborders>
+        
+                  
+  
+
+<!--only for accounts an creating projects-->
+
+         	
+          	 
+		<select  class="simple_borders"  
+		id=o_status name="o_status" onchange="select_change('o_status')">
+        						<option [% IF operators.o_status=='active' %] selected='selected' [% END %]  value="active"
+				selected>активен</option>
+							<option [% IF operators.o_status=='blocked' %] selected='selected' [% END %]  value="blocked"
+				>заблокирован</option>
+
+			            	</select>
+
+           	
+   	  
+
+             
+
+        </td>
+  </tr>
+ 
+  
+	    
+    
+  
+  	
+  	<tr class=table_gborders>
+
+
+        <td class=table_gborders>
+
+        Пароль
+        </td>
+
+        <td class=table_gborders>
+        
+                  
+
+	
+                              <input class="simple_borders"  type="text" 
+		size="60"
+
+		id=o_password name="o_password" value="">
+           
+
+        </td>
+  </tr>
+ 
+  	<tr class=table_gborders>
+	<td class=table_gborders>
+        	Права
+        </td>
+
+        <td class=table_gborders>
+	<table class=table_gborders>
+	<tr class=table_gborders>
+	<th class=table_gborders>Карточки</th>
+	<th class=table_gborders>Фирмы</th>
+	</tr>
+	<td class=table_gborders>
+ 	[% FOREACH row=privs %]
+	<input type='checkbox' [% IF row.oc_aid %] checked='checked' [% END %] name='privs' value='$row.a_id'>$row.a_name
+	<br/>	
+	[%END%]
+	</td>
+	<td class=table_gborders valign="top">
+	[% FOREACH row=firm_privs %]
+	<input type='checkbox' [% IF row.of_fid %] checked='checked' [% END %] name='firm_privs' value='$row.f_id'>$row.f_name
+	<br/>	
+	[%END%]
+	</td>
+	</tr>
+	</table>	
+        </td>
+  </tr>
+ 
+
+
+
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=2>
+   <input class="simple_borders" id="submit_button"
+	name="__submit"  type='submit'
+	 value=
+               "Сохранить"                  
+      >
+<script>
+</script>
+
+      <input class="simple_borders" type="button" id='id' onclick="window.history.back(-1)" name="__cancel" value="Отменить">      
+    </td>
+
+  </tr>
+<script >
+
+document.getElementById('submit_button').disabled=false;
+document.getElementById('id').disabled=false;
+
+</script>
+
+
+  </table>
+
+  </form>
+
+</div>  
+</center>
+[%INCLUDE footer.html %]
+
+

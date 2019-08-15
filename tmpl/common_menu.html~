@@ -1,0 +1,606 @@
+
+<center>
+<div class="center_div_table">
+<div class="menu">
+[% IF rights.no_rights %]       
+<a class="menu_text" href="#"><font color=red>Произошла ошибка,обратитесь ко мне</font></a>
+[% END %]
+    
+[% IF rights.account %]
+  
+  [% IF 'account' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.account.script"><nobr>$tabs.account.title</nobr></a>
+
+
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.account.script"><nobr>$tabs.account.title</nobr></a>
+  [% END %]
+[% END %]
+<a class="menu_text" href="notes.cgi"><nobr>Мои заметки</nobr></a>
+
+
+[% IF rights.class %]
+ [% IF 'class' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.class.script">$tabs.class.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.class.script"><nobr>$tabs.class.title</nobr></a>
+  [% END %]        
+
+[% END %]
+
+
+
+[% IF rights.oper %]  
+
+[% IF 'oper' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.oper.script"><nobr>$tabs.oper.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.oper.script"><nobr>$tabs.oper.title</nobr></a>
+  [% END %]  
+
+
+
+[% END %]
+
+[% IF rights.trans %] 
+
+[% IF 'trans' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.trans.script"><nobr>$tabs.trans.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.trans.script"><nobr>$tabs.trans.title</nobr></a>
+  [% END %]
+[% END %]
+
+[% IF rights.transfers %] 
+
+[% IF 'transfers' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.transfers.script"><nobr>$tabs.transfers.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.transfers.script"><nobr>$tabs.transfers.title</nobr></a>
+ [% END %]
+
+[% END %]
+
+
+  
+
+[% IF rights.transit %] 
+
+[% IF 'transit' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.transit.script"><nobr>$tabs.transit.title</a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.transit.script"><nobr>$tabs.transit.title</a>
+  [% END %]  
+    
+[% END %]
+
+[% IF rights.firms_exchange %] 
+
+[% IF 'firms_exchange' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firms_exchange.script"><nobr>$tabs.firms_exchange.title</a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firms_exchange.script"><nobr>$tabs.firms_exchange.title</a>
+  [% END %]  
+    
+[% END %]
+
+
+
+
+
+
+[% IF rights.firm %] 
+  
+  [% IF 'firm' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firm.script"><nobr>$tabs.firm.title</a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firm.script"><nobr>$tabs.firm.title</a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.firm_list %]
+  [% IF 'firm_list' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firm_list.script">$tabs.firm_list.title</a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firm_list.script">$tabs.firm_list.title</a>
+  [% END %]  
+[% END %]
+
+
+[% IF rights.all_firms %]
+  [% IF 'all_firms' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.all_firms.script"><nobr>$tabs.all_firms.title</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="$tabs.all_firms.script"><nobr>$tabs.all_firms.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.du %]
+  [% IF 'du' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.du.script"><nobr>$tabs.du.title</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="$tabs.du.script"><nobr>$tabs.du.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.docs %]
+  [% IF 'docs' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.docs.script"><nobr>$tabs.docs.title</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="$tabs.docs.script"><nobr>$tabs.docs.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.docs_pays %]
+  [% IF 'docs_pays' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.docs_pays.script"><nobr>$tabs.docs_pays.title</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="$tabs.docs_pays.script"><nobr>$tabs.docs_pays.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.docs_fact %]
+  [% IF 'docs_fact' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.docs_fact.script"><nobr>$tabs.docs_fact.title</nobr></a>
+[% ELSE %]      
+  <a class="menu_text" href="$tabs.docs_fact.script"><nobr>$tabs.docs_fact.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+
+[% IF rights.fservice %] 
+ [% IF 'fservice' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.fservice.script"><nobr>$tabs.fservice.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.fservice.script"><nobr>$tabs.fservice.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+
+[% IF rights.rates %] 
+ [% IF rights.rates == rights.current %]
+  <a class="menu_text_selected" href="$tabs.rates.script"><nobr>$tabs.rates.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.rates.script"><nobr>$tabs.rates.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+[% IF rights.report %] 
+[% IF 'report' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.report.script"><nobr>$tabs.report.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.report.script"><nobr>$tabs.report.title</nobr></a>
+  [% END %]
+[% END %]
+
+[% IF rights.reports_analytic %] 
+ [% IF 'reports_analytic' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.reports_analytic.script"><nobr>$tabs.reports_analytic.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.reports_analytic.script"><nobr>$tabs.reports_analytic.title</nobr></a>
+  [% END %]  
+
+[% END %]
+
+
+[% IF rights.credit_perms %] 
+[% IF 'credit_perms' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.credit_perms.script"><nobr>$tabs.credit_perms.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.credit_perms.script"><nobr>$tabs.credit_perms.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+[% IF rights.settings %] 
+[% IF 'settings' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.settings.script"><nobr>$tabs.settings.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.settings.script"><nobr>$tabs.settings.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.firewall %] 
+[% IF 'firewall' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firewall.script"><nobr>$tabs.firewall.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firewall.script"><nobr>$tabs.firewall.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.cash_out_odessa %] 
+[% IF 'cash_out_odessa' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out_odessa.script"><nobr>$tabs.cash_out_odessa.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out_odessa.script"><nobr>$tabs.cash_out_odessa.title</nobr></a>
+
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_out2_odessa %]
+[% IF 'cash_out2_odessa' == rights.current %]
+
+  <a class="menu_text_selected" href="$tabs.cash_out2_odessa.script"><nobr>$tabs.cash_out2_odessa.title</nobr></a>
+
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out2_odessa.script"><nobr>$tabs.cash_out2_odessa.title</nobr></a>
+
+  [% END %]
+ 
+
+[% END %]
+
+
+
+
+
+[% IF rights.cash_in_before_odessa %] 
+[% IF 'cash_in_before_odessa' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_before_odessa.script"><nobr>$tabs.cash_in_before_odessa.title</nobr></a>
+
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_before_odessa.script"><nobr>$tabs.cash_in_before_odessa.title</nobr></a>
+
+  [% END %]
+ 
+
+[% END %]
+
+
+[% IF rights.cash_in_odessa %] 
+[% IF 'cash_in_odessa' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_odessa.script"><nobr>$tabs.cash_in_odessa.title</nobr></a>
+
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_odessa.script"><nobr>$tabs.cash_in_odessa.title</nobr></a>
+
+  [% END %]
+ 
+
+[% END %]
+
+[% IF rights.cash_odessa %] 
+[% IF 'cash_odessa' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_odessa.script"><nobr>$tabs.cash_odessa.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_odessa.script"><nobr>$tabs.cash_odessa.title</nobr></a>
+  [% END %]
+ [% END %]
+
+
+
+[% IF rights.cash_out_dnepr %] 
+[% IF 'cash_out_dnepr' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out_dnepr.script"><nobr>$tabs.cash_out_dnepr.title</nobr></a>
+
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out_dnepr.script"><nobr>$tabs.cash_out_dnepr.title</nobr></a>
+
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_out2_dnepr %]
+[% IF 'cash_out2_dnepr' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out2_dnepr.script"><nobr>$tabs.cash_out2_dnepr.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out2_dnepr.script"><nobr>$tabs.cash_out2_dnepr.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+
+
+
+[% IF rights.cash_in_before_dnepr %] 
+[% IF 'cash_in_before_dnepr' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_before_dnepr.script"><nobr>$tabs.cash_in_before_dnepr.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_before_dnepr.script"><nobr>$tabs.cash_in_before_dnepr.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+[% IF rights.cash_in_dnepr %] 
+[% IF 'cash_in_dnepr' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_dnepr.script"><nobr>$tabs.cash_in_dnepr.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_dnepr.script"><nobr>$tabs.cash_in_dnepr.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+[% IF rights.cash_dnepr %] 
+[% IF 'cash' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_dnepr.script"><nobr>$tabs.cash_dnepr.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_dnepr.script"><nobr>$tabs.cash_dnepr.title</nobr></a>
+  [% END %]
+ [% END %]
+
+
+
+
+[% IF rights.firm_in %] 
+[% IF 'firm_in' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firm_in.script"><nobr>$tabs.firm_in.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firm_in.script"><nobr>$tabs.firm_in.title</nobr></a>
+  [% END %]
+[% END %]
+
+
+
+
+
+
+[% IF rights.firm_in2 %]
+[% IF 'firm_in2' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firm_in2.script"><nobr>$tabs.firm_in2.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firm_in2.script"><nobr>$tabs.firm_in2.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+[% IF rights.firm_out %] 
+[% IF 'firm_out' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.firm_out.script"><nobr>$tabs.firm_out.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.firm_out.script"><nobr>$tabs.firm_out.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+[% IF rights.exchange %] 
+[% IF 'exchange' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.exchange.script"><nobr>$tabs.exchange.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.exchange.script"><nobr>$tabs.exchange.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.exch_kiev %] 
+[% IF 'exch_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.exch_kiev.script"><nobr>$tabs.exch_kiev.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.exch_kiev.script"><nobr>$tabs.exch_kiev.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.exch_odessa %] 
+[% IF 'exch_odessa' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.exch_odessa.script"><nobr>$tabs.exch_odessa.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.exch_odessa.script"><nobr>$tabs.exch_odessa.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.credit %] 
+[% IF 'credit' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.credit.script"><nobr>$tabs.credit.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.credit.script"><nobr>$tabs.credit.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+[% IF rights.correct %] 
+[% IF 'correct' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.correct.script"><nobr>$tabs.correct.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.correct.script"><nobr>$tabs.correct.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+
+
+<!--donetsk-->
+
+[% IF rights.cash_out_kiev %] 
+[% IF 'cash_out_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev.script"><nobr>$tabs.cash_out_kiev.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out_kiev.script"><nobr>$tabs.cash_out_kiev.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_out2_kiev %]
+[% IF 'cash_out2_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev.script"><nobr>$tabs.cash_out2_kiev.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out2_kiev.script"><nobr>$tabs.cash_out2_kiev.title</nobr></a>
+  [% END %]
+ 
+[% END %]
+
+
+[% IF rights.cash_kiev %] 
+[% IF 'cash_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_kiev.script"><nobr>$tabs.cash_kiev.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_kiev.script"><nobr>$tabs.cash_kiev.title</nobr></a>
+  [% END %]
+ [% END %]
+
+
+
+
+
+[% IF rights.cash_out_atrium %] 
+[% IF 'cash_out_atrium' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out_atrium.script"><nobr>$tabs.cash_out_atrium.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out_atrium.script"><nobr>$tabs.cash_out_atrium.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_out2_atrium %]
+
+[% IF 'cash_out2_atrium' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out2_atrium.script"><nobr>$tabs.cash_out2_atrium.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out2_atrium.script"><nobr>$tabs.cash_out2_atrium.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+[% IF rights.cash_atrium %] 
+[% IF 'cash_atrium' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_atrium.script"><nobr>$tabs.cash_atrium.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_atrium.script"><nobr>$tabs.cash_atrium.title</nobr></a>
+  [% END %]
+ [% END %]
+
+
+[% IF rights.cash_in_one_dnepr %] 
+[% IF 'cash_in_one_dnepr' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_one_dnepr.script"><nobr>$tabs.cash_in_one_dnepr.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_one_dnepr.script"><nobr>$tabs.cash_in_one_dnepr.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+[% IF rights.cash_in_one_kiev %] 
+[% IF 'cash_in_one_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_one_kiev.script"><nobr>$tabs.cash_in_one_kiev.title</nobr></a> 
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_one_kiev.script"><nobr>$tabs.cash_in_one_kiev.title</nobr></a> 
+  [% END %]
+[% END %]
+
+
+[% IF rights.cash_in_before_kiev %] 
+[% IF 'cash_in_before_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev.script"><nobr>$tabs.cash_in_before_kiev.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_before_kiev.script"><nobr>$tabs.cash_in_before_kiev.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+[% IF rights.cash_in_kiev %] 
+[% IF 'cash_in_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev.script"><nobr>$tabs.cash_in_kiev.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_kiev.script"><nobr>$tabs.cash_in_kiev.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+
+[% IF rights.cash_in_before_atrium %] 
+[% IF 'cash_in_before_atrium' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_before_atrium.script"><nobr>$tabs.cash_in_before_atrium.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_before_atrium.script"><nobr>$tabs.cash_in_before_atrium.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+[% IF rights.cash_in_atrium %] 
+[% IF 'cash_in_atrium' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_atrium.script"><nobr>$tabs.cash_in_atrium.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_atrium.script"><nobr>$tabs.cash_in_atrium.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+<!--donetsk-->
+
+[% IF rights.correct_back %] 
+
+[% IF 'correct_back' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.correct_back.script"><nobr>$tabs.correct_back.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.correct_back.script"><nobr>$tabs.correct_back.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.joke %] 
+[% IF 'joke' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.joke.script"><nobr>$tabs.joke.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.joke.script"><nobr>$tabs.joke.title</nobr></a>
+  [% END %]
+[% END %]
+
+[% IF rights.plugins %] 
+
+[% IF 'plugins' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.plugins.script"><nobr>$tabs.plugins.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.plugins.script"><nobr>$tabs.plugins.title</nobr></a>
+  [% END %]
+[% END %]
+
+
+[% IF rights.saldo_documents %] 
+[% IF 'saldo_documents' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.saldo_documents.script"><nobr>$tabs.saldo_documents.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.saldo_documents.script"><nobr>$tabs.saldo_documents.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+
+<a class="menu_text" href="oper.cgi?do=logout"><nobr>Выход</nobr></a>
+Привет <strong>$login</strong>,$greeding
+
+</div>
+</div>
+</center>

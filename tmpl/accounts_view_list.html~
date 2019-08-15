@@ -1,0 +1,210 @@
+[%INCLUDE  header.html %]
+<center>
+[% INCLUDE  components/account_one_income.html %]
+
+
+
+<div   id="comment_form_change_cat"   class="center_div_table_poup" style="position:absolute;left:0px;display:none">
+Категория : 
+<br/>	
+<input  type="hidden" id="ct_aid" value="">
+<select  id="accounts_cats" class="simple_borders">
+ [% FOREACH row=accounts_cats %]   
+	<option  value="$row.value" >$row.title</option>
+[% END %]
+</select>
+<br/>
+
+<input type='button' onclick='save_cat(this,"form_change_cat")' class='simple_borders' name='Сохранить' value="Сохранить">
+</div>
+
+  <div class=center_div_table>
+
+    
+
+[%INCLUDE proto_filter.html %]
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+
+<input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="unify_get_excel(0,0,11)" ><a class='table_gborders' style='display:none' href='' id='file_id_url'>Сохранить файл</a>
+
+[% IF rights.plugins %] 
+<input type='button' class='simple_borders' name='2' 
+       onclick="window.location.href='?do=add_static_card'"  
+       value="Добавить информационную программу">
+[% END%]
+
+ <!-- <a  class=table_gborders href="?do=add">Добавить</a>-->
+
+  <table id='my_table' class=table_gborders>
+
+  
+
+    <tr  class=table_gborders>
+     <th class=table_gborders> id </th>
+     <th class=table_gborders> ФИО </th>   
+     <th class=table_gborders> Комментарии </th>
+     <th class=table_gborders> Эл.адрес(email) </th>
+     <th class=table_gborders> Оператор </th>
+     <th class=table_gborders> Класс </th>
+     <th class=table_gborders> Статус </th>
+    <th class='table_gborders' <!--colspan="3"--> >
+    <table class="table_gborders">
+    <tr class="table_gborders">
+    <th class='table_gborders' <!--colspan="3"--> >
+         <span onclick="sort_by_common_number('my_table',1,event,this)" style='cursor:pointer' >  Отсортировать (убыв) </span>
+    </th>
+    </tr>
+    <tr class="table_gborders">
+     <th class=table_gborders > ГРН </th>
+<!--     <th class=table_gborders> USD </th>-->
+<!--     <th class=table_gborders> EUR </th>   -->
+    </tr>
+    </table>
+    </th>  
+<!--    <th class=table_gborders width="20">Уведомления</th>-->
+<!--   <th class=table_gborders>Привязан к проекту</th>   -->
+<!--     <th class=table_gborders>Кто привел </th>     -->
+
+     <th class=table_gborders > Действия </th>
+  </tr>                         
+
+[% var = 0 %]
+
+
+  [% FOREACH row = rows %]
+  [% concl_sum=(row.orig__a_uah*proto_params.UAH+row.orig__a_usd+row.orig__a_eur*proto_params.EUR) %]
+  [% var = var+1 %]
+  
+  [% IF concl_sum<0  %]
+      
+  
+    [%  table_gborders='table_gborders_red' %]        
+    
+     [% ELSE %]
+ 
+    [% table_gborders='table_gborders' %]
+     
+  [% END %]
+
+ [% IF row.a_records_number > archive_param  %]
+ 
+    [%  archive_class='table_gborders_red2' %]        
+    
+     [% ELSE %]
+ 
+    [% archive_class='table_gborders' %]
+     
+  [% END %]
+
+  
+  [%  IF row.orig__a_is_debt=='yes' %]
+  
+    [% debt_class='table_gborders_vial'  %]
+  
+  [% ELSE %]
+    
+    [% debt_class='table_gborders'  %]
+  
+  
+  [% END %]
+  
+  
+  <tr id='account_$row.id' class=table_gborders>
+
+        <td class='$debt_class'>
+        $row.a_id<input type='hidden' name='$row.a_id' class='for_calculation'
+         id='calc_$var' value='$concl_sum'>       
+        </td>
+       <!-- <td class='$debt_class'>
+        <span class="simple_tab"  onclick="change_cat(this,'$row.id','$row.ac_id')">$row.ac_title
+        </span>
+
+        </td>-->
+
+        <td class='$archive_class' >
+        [% IF rights.report %] 
+
+            <span class='simple_tab' onclick='show_account_graph($row.a_id,event)'>$row.a_name</span>
+
+        [% ELSE %]
+            $row.a_name
+
+        [% END %]
+        </td>
+
+        <td class='$archive_class' >
+        $row.a_phones
+        </td>
+
+   	<td class='$debt_class' title='[% row.a_email FILTER html  %]' >
+        <nobr class="comment" title='[% row.a_email FILTER html  %]'>[% row.a_email FILTER html  %]</nobr>
+	</td>
+
+	<td class='$debt_class'>
+        $row.a_oid
+        </td>
+
+        <td class=$table_gborders>
+        $row.a_class
+        </td>
+
+        <td class=$table_gborders>
+        $row.a_status
+        </td>
+
+        <td class="$table_gborders">
+        $row.a_uah
+        </td>
+	  <!--  <td class="$table_gborders">
+        	$row.a_usd
+        </td>-->
+<!--
+		<td class="$table_gborders">
+        $row.a_eur
+        </td>-->
+        <td class=table_gborders>
+	    <table >
+	    <tr class="table_gborders">
+	    <td class="table_gborders">
+	
+       <a  class=table_gborders href="?do=edit&amp;id=$row.id"> редактировать</a>
+     </td>
+	<td class="table_gborders">
+
+
+	[% IF row.id>0 &&! row.a_pid %]
+
+
+<a class=table_gborders	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.id">Выписка</a><br>
+    [% ELSIF row.id>0 && row.a_pid %]
+        <a class=table_gborders  
+href="?do=get&amp;name=$row.a_pid&amp;id=$row.id">Выписка</a><br>
+        
+
+	[% END %]
+	</td>
+	</tr>
+	</table>
+
+        </td>
+
+
+        
+      
+        
+
+  </tr>
+  [% END %]
+<input type='hidden' id='calc_size' value='$var' >
+<input type='hidden' id='flag' value='0' >
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

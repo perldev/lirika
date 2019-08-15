@@ -1,0 +1,208 @@
+[%INCLUDE  header.html %]
+<center>
+<div class=center_div_table>
+ [% INCLUDE today.html %]
+
+  
+
+  <form method="post" id="my_form">
+  <input name="do" value="add_many_confirm" type="hidden">
+
+ 
+  <table class="table_gborders" id="add_form_table">
+ <tbody>
+<tr class="table_gborders">
+ <td class="table_gborders" colspan="3">
+	$page_title</td>
+</tr> 
+
+ [% INCLUDE cashier_output_for_one_user.html user_number='1'  comment='Ввод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='2'  comment='Ввод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='3'  comment='Ввод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='4'  comment='Ввод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='5'  comment='Ввод наличных' %]
+
+
+
+  	
+
+       
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="3">
+   <input class="simple_borders" id="submit_button" name="__submit" value="Добавить" type="submit">
+<script>
+
+		var REQ;
+		var READY_STATE_COMPLETE=4;
+		var services_percents=new Array();
+		var start_;
+		function getHttp()
+		{
+			var req=null;
+			if(window.XMLHttpRequest)
+			{
+					
+				req=new XMLHttpRequest();
+				return req;
+			}else if (window.ActiveXObject)	
+			{
+				req=new ActiveXObject("Microsoft.XMLHTTP");
+				return req;
+			}else
+			{
+				alert("sorry,change you browser please");
+				return req;
+			}
+		
+		}	
+		function SendRequest(url,params,HttpMethod)
+		{
+			if(!HttpMethod)
+				HttpMethod='POST';
+			
+			 REQ=getHttp();
+			
+			if(REQ)
+			{
+				REQ.onreadystatechange=getReq;
+			
+				REQ.open(HttpMethod,url,true);
+				REQ.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				REQ.send(params);
+			}
+			
+	
+			
+			
+		}
+		function getReq()
+		{
+			var ready=REQ.readyState;
+			var data=null;
+			if(ready==READY_STATE_COMPLETE)
+			{
+				data=REQ.responseText;
+				fill_array(data);
+
+			}
+		
+		}
+		function fill_array(data)
+		{
+			
+				if(window.ActiveXObject)
+  				{
+  					var doc=new ActiveXObject("Microsoft.XMLDOM");
+					doc.async="false";
+  					doc.loadXML(data);
+  				}// code for Mozilla, Firefox, Opera, etc.
+				else
+  				{
+  					var parser=new DOMParser();	
+  					var doc=parser.parseFromString(data,"text/xml");
+  				}
+				
+				
+				var x=doc.documentElement;
+				var records=x.getElementsByTagName("record");
+				var accounts=x.getElementsByTagName("user");
+				
+
+
+				for(var i=0;i<accounts.length;i++)
+				{
+					
+										
+					
+					
+					
+					var my_table=document.getElementById('add_form_table').insertRow(7);
+					my_table.className='table_gborders';
+					var y=my_table.insertCell(0);
+					y.className='table_gborders';
+
+					var z=my_table.insertCell(1);
+					z.className='table_gborders';
+					y.innerHTML=accounts[i].childNodes[0].nodeValue;
+					z.innerHTML=records[i].childNodes[0].nodeValue;
+					
+					
+					
+				}
+				if(accounts.length==0)
+				{
+					var my_table=document.getElementById('add_form_table').insertRow(7);
+					my_table.className='table_gborders';
+					var y=my_table.insertCell(0);
+					y.className='table_gborders';
+
+					var z=my_table.insertCell(1);
+					z.className='table_gborders';
+					y.innerHTML="";
+					z.innerHTML=" Совпадений за предыдущие 14 дней не найдено";
+					
+
+				}
+			
+
+
+
+
+		}
+		if(document.getElementById('__confirm'))
+		{
+			
+			var my_table1=document.getElementById('add_form_table').insertRow(5);
+
+			my_table1.className='table_gborders';
+
+			var y1=my_table1.insertCell(0);
+			y1.className='table_gborders';
+
+			var z1=my_table1.insertCell(1);
+			y1.innerHTML="Клиент :";
+			z1.innerHTML="Подробности :";	
+			
+			z1.className='table_gborders';
+			
+					
+
+			var my_table=document.getElementById('add_form_table').insertRow(5);
+			my_table.className='table_gborders';
+			var y=my_table.insertCell(0);
+			y.className='table_gborders';
+
+			var z=my_table.insertCell(1);
+			z.className='table_gborders';
+			y.innerHTML="";
+			z.innerHTML="Поиск похожих сумм...";
+	
+			var amnt=get_element('ct_amnt');
+			var ct_comment=get_element('ct_comment');
+			var ct_aid=get_element('ct_aid');
+
+		SendRequest('ajax.cgi','do=search_amnt&search_account='+ct_aid+'&ct_amnt='+amnt+'&ct_comment='+ct_comment,'POST');
+		
+		}
+	
+	</script>
+
+      <input class="simple_borders" id="id" onclick="window.history.back(-1)" name="__cancel" value="Отменить" type="button">      
+    </td>
+  </tr>
+<script>
+
+document.getElementById('submit_button').disabled=false;
+document.getElementById('id').disabled=false;
+
+</script>
+
+
+  </tbody></table>
+
+  </form>
+
+</div>  
+</center>
+[% INCLUDE  footer.html %]

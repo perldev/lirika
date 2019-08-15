@@ -1,0 +1,214 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+
+  <table id='my_table' class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=9>
+        <strong>[% page_title %]</strong>
+	[% IF proto_params.f_id %]
+		( Фирма : $proto_params.f_name $proto_params.f_uah ГРН <!--$proto_params.f_usd USD $proto_params.f_eur EUR--> ) 
+	[% END %]
+
+<!-- Транзакции фирм-->       
+    </td>
+</tr>	
+[% IF proto_params.f_id %]
+ <tr>
+  <td class=table_gborders colspan=9>
+Баланс на начало периода $proto_params.from_date: $proto_params.beg_uah ГРН <!--$proto_params.beg_usd USD $proto_params.beg_eur EUR -->	
+</td>
+	
+  </tr> 
+<tr>
+  <td class=table_gborders colspan=9>
+Баланс на конец периода $proto_params.to_date:	$proto_params.fin_uah ГРН <!--$proto_params.fin_usd USD $proto_params.fin_eur EUR--> 	
+</td>
+	
+  </tr> 
+[% END %]
+<tr>
+	
+
+<td  class=table_gborders colspan=9>
+<input type='button' class="simple_borders"   name="Сбросить выделение" value="Сбросить выделение" onclick="clearsum()">
+[% IF proto_params.f_id %]  
+
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=4 index_cols_end=9 %]
+
+[% ELSE %]
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=2 index_cols_end=9 %] 
+
+[%END%]
+
+
+[% IF proto_params.del_to==1%]
+<input type='button'  class="simple_borders"   name="1" value="Скрыть удаленные" onclick="window.location.href='?del_to=0&amp;ct_date=all_time&amp;action=filter&amp;ct_fid=$proto_params.f_id'">
+
+[% ELSE %]	
+<input type='button'  class="simple_borders"   name="1" value="Отобразить полностью" onclick="window.location.href='?del_to=1&amp;ct_date=all_time&amp;action=filter&amp;ct_fid=$proto_params.f_id'">
+[% END %]
+
+</td>
+</tr>
+  <tr>
+  
+     <th class=table_gborders> id  </th>
+<!--     <th class=table_gborders> </th>-->
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Фирма </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders> Оператор </th>
+    
+ 
+
+     
+     <th class=table_gborders> Карточка </th> 
+     <th class=table_gborders> Статус  </th>
+
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+		
+	 [% IF row.ct_req=='yes'&&row.compare_ct_amnt < 0%]
+	
+	 	[% class='table_gborders_whiteskin' %]
+                [% class_number='table_gborders_red' %]
+		
+	[% ELSIF row.ct_req=='yes'&&row.compare_ct_amnt > 0%]
+		
+		[% class='table_gborders_whiteskin' %]
+                [% class_number='table_gborders' %]
+
+        [% ELSIF row.compare_ct_amnt < 0 %]
+
+		 [% class='table_gborders_red' %]
+                 [% class_number='table_gborders_red' %]
+	
+        [% ELSE %]
+	
+                 [%  class='table_gborders' %]
+ 		 [% class_number='table_gborders' %]
+        
+	[% END %]
+
+	 <tr class=$class>
+
+[% IF row.type=='concl'%]
+	
+[%class = 'table_gborders_gray' %]
+        <td class=$class>
+     Итого на :      
+        </td>
+<!--	<td class=$class>
+	</td>-->
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+	 <td class=$class  >
+        </td>
+
+        <td class=$class onclick="sum(this)">
+	$row.UAH_FORMAT ГРН
+        </td>
+
+        <td class="$class" onclick="sum(this)">
+<!--	$row.USD_FORMAT USD-->
+
+        </td>
+
+        <td class=$class onclick="sum(this)">
+<!--	$row.EUR_FORMAT EUR-->
+        </td>
+
+       </strong>
+
+        <td class=$class>
+        </td>
+        <td class=$class>        
+        </td>
+        <td class=$class>
+        </td>
+
+
+	
+	
+[% ELSE %]
+
+        <td class=$class>
+        $row.ct_id        
+        </td>
+<!--	<td class=$class>
+	
+	$row.ct_ts $row.ct_ts2
+	
+	</td>-->
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+
+        <td class=$class>
+        $row.ct_fid
+        </td>
+
+        <td class="$class_number" onclick="sum(this)">
+        $row.ct_amnt
+        </td>
+
+        <td class=$class onclick="sum(this)">
+        $row.ct_currency
+        </td>
+
+        <td class=$class onclick="sum(this)" >
+   	<nobr class="comment" title='$row.ct_comment'>$row.ct_comment </nobr>
+        </td>
+
+        <td class=$class>
+        $row.ct_oid
+        </td>
+
+
+
+        <td class=$class>        
+	<a class="table_gborders_href"	 
+	href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__ct_aid">$row.ct_aid
+</a>
+                </td>
+
+
+        <td class=$class>
+        $row.ct_status
+        </td>
+[% END %]
+
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

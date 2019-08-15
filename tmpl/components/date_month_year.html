@@ -1,0 +1,61 @@
+
+<select id='[% name %]_month' name='[% name %]_month' class="simple_borders">
+
+<option value='1'>
+Январь
+</option>
+<option value='2'>
+Февраль
+</option>
+<option value='3'>
+Март
+</option>
+<option value='4'>
+Апрель
+</option>
+<option value='5'>
+Май
+</option>
+<option value='6'>
+Июнь
+</option>
+<option value='7'>
+Июль
+</option>
+<option value='8'>
+Август
+</option>
+
+<option value='9'>
+Сентябрь
+</option>
+<option value='10'>
+Октябрь
+</option>
+<option value='11'>
+Ноябрь
+</option>
+
+<option value='12'>
+Декабрь
+</option>
+
+</select>
+<select id='[% name %]_year' name='[% name %]_year' class="simple_borders">
+<option value='2008'>
+2008
+</option>
+<option value='2009'>
+2009
+</option>
+<option value='2010'>
+2010
+</option>
+</select>
+<script>
+if($selected_month)
+document.getElementById('[% name %]_month').value=$selected_month;
+if($selected_year)
+document.getElementById('[% name %]_year').value=$selected_year;
+
+</script>

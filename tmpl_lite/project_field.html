@@ -1,0 +1,81 @@
+<script>
+function show_item(a)
+{
+    				if (document.getElementById(a).style.display=='none')
+                                {
+
+	                                document.getElementById(a).style.display='block';
+					document.getElementById(a+'_check').checked=true;
+                                }
+                                else
+                                {
+                                	document.getElementById(a).style.display='none';
+				        document.getElementById(a+'_check').checked=false;
+                                }
+
+
+}
+</script>
+<input type=checkbox class=simple_borders id=project_manager_check onclick="show_item('project_manager')"  name='a_isproject' value='yes'> 
+<br>
+<div  id=project_manager  style='display:none;position:relative;bottom:5px;border:solid 1px black;z-index:+1;background-color:#ADD8E6;
+-moz-opacity:0.8;filter:alpha(opacity=80);' >
+<table>
+<tr>
+<td align=right colspan=2>
+<span style="cursor:pointer;font-size:10px" onclick="show_item('project_manager')">Закрыть</span>
+</td>
+</tr>
+<tr>
+<td  class=table_gborders align=center colspan=2>
+<strong>Привязать проект</strong>
+</td>
+</tr>
+<tr>
+<td class=table_gborders>
+Логин главного исполнителя:</td>
+<td> <input value='' class=simple_borders   name=project_manager ></td> 
+</tr>
+<tr>
+<td class=table_gborders>
+Пароль : </td> <td><input value='' class=simple_borders   name=project_manager_pwd ></td>
+</tr>
+
+<tr>
+<td  colspan=2 class=table_gborders>
+Выбрать из уже зарегистрированых 
+</td>
+</tr>
+
+<tr>
+<td class=table_gborders>
+Исполнитель : </td> <td>
+<select  class=simple_borders   name=project_manager_existed >
+<option value=-1></option>
+[%FOREACH row=pms_users %]
+<option value=$row.user_id>   
+[% IF  row.user_name!='' || row.user_fname!=''%]$row.user_name $row.user_fname [% ELSE %]  $row.user_login [%END%] [% IF row.user_email%]($row.user_email)[% END %]
+</option>
+[%END%]
+
+</select>
+</td>
+</tr>
+</table>
+<script>
+if( document.getElementById('project_manager'+'_check').checked)
+{
+					document.getElementById('project_manager').style.display='block';
+					document.getElementById('project_manager'+'_check').checked=true;
+}else
+{
+					document.getElementById('project_manager').style.display='none';
+					document.getElementById('project_manager'+'_check').checked=false;
+}	
+
+</script>
+
+
+</div>
+
+

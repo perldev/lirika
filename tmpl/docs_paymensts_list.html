@@ -1,0 +1,71 @@
+[%INCLUDE  header.html %]
+<center>
+<div id="ident_form" class="center_div_table_poup_nopacity" style='position:absolute;left:0px;top:10em;display:none;z-index:+1;width:75em;height:40em'> 
+<iframe id='ident_form_frame' style='border:none;width:75em;height:40em' ></iframe>
+</div>
+
+
+<span id="return_function" style="display:none"></span>
+<input type='hidden' id='buffer_amnt' value=''>
+<input type='hidden' id='buffer_id' value=''>
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+<table id='my_table' class=table_gborders>
+   <tr  class=table_gborders>
+     <th class=table_gborders > Дата  </th>
+
+     <th class=table_gborders > Фирма  </th>
+<!--      <th class=table_gborders > C фирмы  </th> -->
+     <th class=table_gborders > Программа </th> 
+     <th class=table_gborders > Сумма </th>   
+     <th class=table_gborders > Процент ком-ии %</th>
+     <th class=table_gborders > Сумма ком-ии</th>
+     <th class=table_gborders > Сумма оплаты  </th>
+     <th class=table_gborders > Действия </th>
+
+  </tr>                         
+ [% FOREACH row = rows %]
+	<tr id='$row.key_field' class=table_gborders>
+
+		<td class=table_gborders>
+		$row.dr_date      
+		</td>
+		
+		<td class=table_gborders>
+		$row.dr_fid       
+		</td>
+	<!--	<td class=table_gborders>
+		$row.dr_ofid_from
+		</td>-->
+		<td class=table_gborders>
+		<a class="table_gborders"
+         href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__dr_aid">
+        $row.dr_aid</a>
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class=table_gborders>
+		$row.dr_amnt   $row.dr_currency
+		</td>
+		<td class=table_gborders>
+		 $row.dr_comis 
+		</td>
+		<td   onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class="table_gborders" >
+		$row.sum_comis 
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class=table_gborders>
+		$row.ct_amnt
+		</td>
+		<td>
+		<span class="simple_tab" onclick="ajax_del_payment(this,'$row.dp_id')">Удалить</span>	
+		</td>
+	</tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

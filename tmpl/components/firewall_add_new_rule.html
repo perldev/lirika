@@ -1,0 +1,120 @@
+
+
+<input type='button' class='simple_borders' value='Добавить новое' onclick='show_form("firewall_div");clear_firewall_rule_form();'>
+
+<div id='firewall_div' class="center_div_table_poup_nopacity" style="position:absolute;display:none">
+<div style='float:right'><span class='div_tab' onclick='show_form("firewall_div")'>x</span></div>
+<table class="table_gborders">
+<tbody><tr class="table_gborders">
+ <td class="table_gborders" colspan="2">
+    Новое правило </td>
+</tr> 
+      <tr class="table_gborders">
+        <td class="table_gborders" colspan='2'>
+
+        <span color='red' id='error' /> 
+
+        </td>
+ 
+  </tr>
+    
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+
+        Примечание
+
+        </td>
+
+        <td class="table_gborders">
+        
+     <input class="simple_borders"  size="60" id="fs_comment" name="comment" value="Просто правило" type="text">
+
+          
+
+           
+
+        </td>
+  </tr>
+ 
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+
+        Номер правила
+
+        </td>
+
+        <td class="table_gborders">
+        
+     <input class="simple_borders"  size="60" id="fs_number"  value="" type="text">
+
+          
+
+           
+
+        </td>
+  </tr>
+
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Действие
+            </td>
+
+        <td class="table_gborders">
+        
+            <select class="simple_borders" id="fs_rule" name="fs_rule">
+                                [% FOREACH row=proto_params.rules %]
+                                    <option value="$row.value">$row.title</option>
+                                [% END %]
+            </select>
+  
+        </td>
+  </tr>
+ 
+
+    
+    <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        IP/Сеть
+        </td>
+
+        <td class="table_gborders">
+        
+            <input class="simple_borders"  size="90" id="fs_ip"  value="" type="text"> 
+
+        </td>
+  </tr>
+ 
+
+      <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Порт
+        </td>
+
+        <td class="table_gborders">
+        
+            <input class="simple_borders"  size="30" id="fs_port"  value="443" type="text">
+    
+
+        </td>
+    </tr>
+ 
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="2">
+   <input class="simple_borders"  name="__submit" value="Добавить" type="button" onclick='add_firewall_rule()'>
+   <input class="simple_borders" id="id" onclick='show_form("firewall_div")' name="__cancel" value="Закрыть" type="button">      
+    </td>
+  </tr>
+ 
+</tbody>
+</table>
+</div>

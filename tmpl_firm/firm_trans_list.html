@@ -1,0 +1,207 @@
+[% INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+<div class=center_div_table>
+[% INCLUDE java_script_sum.html %]
+[% INCLUDE doc_form_firms.html %]
+
+[%INCLUDE proto_filter.html %]
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan="10">
+        <strong>[% page_title %]</strong>
+	[% IF proto_params.f_id %]
+		( Фирма : $proto_params.f_name $proto_params.f_uah ГРН $proto_params.f_usd USD $proto_params.f_eur EUR ) 
+	[% END %]
+
+<!-- Транзакции фирм-->       
+    </td>
+</tr>	
+[% IF proto_params.f_id %]
+ <tr>
+  <td class=table_gborders colspan="10">
+Баланс на начало периода $proto_params.from_date: $proto_params.beg_uah ГРН $proto_params.beg_usd USD $proto_params.beg_eur EUR 	
+</td>
+	
+  </tr> 
+<tr>
+  <td class=table_gborders colspan="10">
+Баланс на конец периода $proto_params.to_date:	$proto_params.fin_uah ГРН $proto_params.fin_usd USD $proto_params.fin_eur EUR 	
+</td>
+	
+  </tr> 
+[% END %]
+<tr>
+	
+
+<td  class=table_gborders colspan="10">
+<input type='button' class="simple_borders"   name="Сбросить выделение" value="Сбросить выделение" onclick="clearsum()">
+<input type='button' class="simple_borders"   name="Идентифицировать" value="Идентифицировать" onclick="open_doc_form_many(event)">
+<br/>
+ Подсказка 1: нажмите на несколько сумм мышкой(они подсветяться желтым) - в загаловке окна 
+появится сумма выбранных чисел<br/>
+ Подсказка 2: слева отметьте флажочками записи, которые вы хотите привязать к документа какого-то
+ периода(месяца) и нажмите на кнопку "Идентифицировать"
+<input type='hidden' value='$proto_params.f_id' id='ct_fid'>
+
+</td>
+</tr>
+  <tr>
+     <th class=table_gborders>   </th>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Фирма </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Программа </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders> Отправитель </th>
+     <th class=table_gborders> Документы </th>
+
+  </tr>
+
+
+
+  [% FOREACH row = rows %]
+		
+	 [% IF row.ct_req=='yes'&&row.compare_ct_amnt < 0%]
+	
+	 	[% class='table_gborders_whiteskin' %]
+                [% class_number='table_gborders_red' %]
+		
+	[% ELSIF row.ct_req=='yes'&&row.compare_ct_amnt > 0%]
+		
+		[% class='table_gborders_whiteskin' %]
+                [% class_number='table_gborders' %]
+
+        [% ELSIF row.compare_ct_amnt < 0 %]
+
+		 [% class='table_gborders_red' %]
+                 [% class_number='table_gborders_red' %]
+	
+        [% ELSE %]
+	
+                 [%  class='table_gborders' %]
+ 		 [% class_number='table_gborders' %]
+        
+	[% END %]
+
+	 <tr class=$class>
+
+[% IF row.type=='concl'%]
+	
+[%class = 'table_gborders_gray' %]
+  <td class=$class />
+          
+     
+        <td class=$class>
+     Итого на :      
+        </td>
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+	 <td class=$class  >
+        </td>
+
+        <td class=$class onclick="sum(this)">
+	$row.UAH_FORMAT ГРН
+        </td>
+  <td class="$class" onclick="sum(this)">
+
+        </td>
+
+        <td class="$class" onclick="sum(this)">
+
+        </td>
+
+          <td class="$class">
+    
+        </td>
+       <td class="$class">
+<input type='button' class="simple_borders"   name="Идентифицировать" value="Идентифицировать" onclick="open_doc_form_many(event)">
+        </td>
+
+       </strong>
+
+       
+	
+	
+[% ELSE %]
+
+        <input type='hidden' id='ct_fid$row.ct_id' value='$row.orig__ct_fid' />
+        <input type='hidden' id='ct_ofid$row.ct_id' value='$row.orig__ct_ofid' />
+<th class='$class'> <input type='checkbox' class='simple_borders'  value='$row.ct_id' name='ct_id'  />  </th>
+        <td class=$class>
+             $row.ct_id        
+
+        </td>
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+
+        <td class=$class>
+        $row.ct_fid
+        </td>
+       
+        <td class="$class_number" onclick="sum(this)">
+        $row.ct_amnt
+        </td>
+	    <td class="$class" onclick="sum(this)">
+		$row.ct_aid
+	    </td>
+		
+        <td class=$class onclick="sum(this)" >
+   		<nobr class="comment" title='$row.ct_comment'>$row.ct_comment </nobr>
+        </td>
+        <td class=$class>
+        [%IF row.orig__ct_aid == trans_id %]
+	        [%IF !row.ct_from_fid2%]
+	        неизвестно
+	        [%ELSE%]
+	        $row.ct_from_fid2
+	        [%END%]
+        [%ELSE%]
+  	        [%IF  !row.ct_ofid%]
+	        неизвестно
+	        [%ELSE%]
+	        $row.ct_ofid
+	        [%END%]
+		[%END%]
+        </td>
+
+         <td class=$class>
+        
+        [%  IF row.orig__ct_aid == trans_id %]
+
+        [% ELSE %]
+    
+            [% IF row.orig__ct_from_drid %]
+   <span class='simple_tab' id='ident_form_$row.ct_id' 
+                onclick='open_doc_form(event,$row.ct_id,$row.orig__ct_fid)' >$row.ct_from_drid</span>
+                            
+            [% ELSE %]
+    
+                <span class='simple_tab' id='ident_form_$row.ct_id' 
+                onclick='open_doc_form(event,$row.ct_id,$row.orig__ct_fid)' >неизвестно</span>
+                
+            [% END %]
+        [% END %]
+        </td>  
+
+
+        </td>
+[% END %]
+
+
+  </tr>
+ [% END %]
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

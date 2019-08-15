@@ -1,0 +1,206 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+
+<form method=POST>
+<input type="hidden" name='resident' value='1'>
+  <div class=center_div_table>
+  <span class="table_gborders">Выбрать дату :</span>
+<script>DateInput('date', true)</script>
+<input type='submit' value='Просмотреть' name='Просмотреть' class="simple_borders">
+<script>
+function show_form(id)
+{
+	var obj=document.getElementById(id);
+	if(obj.style.display=='none')
+	{
+		obj.style.display='';
+	}else	
+	{
+		obj.style.display='none';
+	}
+}
+
+			var day_f='$selected.day'*1;
+			var month_f='$selected.month'*1;
+			var year_f='$selected.year'*1;
+			id='date'+'_Day_ID';
+			opt=document.getElementById(id).options;
+			for(i=1;i<=opt.length;i++)
+			{
+				if(i==day_f)
+				{
+					document.getElementById(id).selectedIndex=i-1;
+					date_Object.changeDay(document.getElementById(id));
+					break;	
+				}
+			}
+			id='date'+'_Month_ID';
+			opt=document.getElementById(id).options;
+			month_f=month_f-1;
+			for(i=0;i<opt.length;i++)
+			{
+				if(opt[i].value==month_f)
+				{
+					
+					document.getElementById(id).selectedIndex=i;
+					date_Object.changeMonth(document.getElementById(id));
+					break;	
+				}
+			}
+			id='date'+'_Year_ID';
+			if(year_f)
+				document.getElementById(id).value=year_f;
+			date_Object.checkYear(document.getElementById(id));
+
+</script>	
+
+</FORM>
+
+  <table class=table_gborders>
+
+	
+<td  class=table_gborders colspan=9>
+<a href="#" style="text-decoration:none;text-weight:bold" onclick="clearsum()">Сбросить выделение</a> 
+</td>
+</tr>
+  <tr>
+     <th class=table_gborders>Фирма </th> 
+     <th class=table_gborders>Входящий(ГРН) </th>
+     <th class=table_gborders>Общая сумма </th>
+     <th class=table_gborders>Исходящий отстаток </th>
+
+     <th class=table_gborders></th>
+     <th class=table_gborders>Карточка</th>
+
+     <th class=table_gborders>Действие</th>
+
+    
+  </tr>                         
+
+
+[% FOREACH row = list %]
+
+[% IF row.type=='begin' %]
+[% class = 'table_gborders_gray' %]
+
+<tr class=$class>
+   <strong>
+     <td class=$class>
+	<a  class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$row.f_id">
+	$row.f_name(#$row.f_id)</a>
+        </td>
+ 	[% IF row.unformat_uah_beg < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen'%]
+	[% END %]	
+        <td class=$class onclick="sum(this)">
+	<strong>$row.UAH_BEG</strong>     
+        </td>
+	
+	 <td class=$class onclick="sum(this)">
+		<strong>$row.SUM_UAH_REQ</strong>
+        </td>
+ 	<td class=$class onclick="sum(this)">
+		<strong>$row.UAH_FIN</strong>
+        </td>
+<td class=$class >
+        </td>
+ 	 <td class=$class >
+        </td>
+ 	
+  
+</tr>
+[%ELSIF  row.type=='operation' %]
+
+	
+	
+	[% class1 = 'table_gborders' %]
+
+	
+
+<tr class=$class>
+   <strong>
+	
+     <td class=$class>
+	
+        </td>
+	
+[% class = 'table_gborders' %]
+	[% IF 	row.ct_status=='transit' %]	
+
+	[% class='table_gborders_blue'%]
+
+	[% ELSIF row.non_format_amnt < 0%]
+
+	[% class='table_gborders_red'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen'%]
+	[% END %]	
+
+        <td class=$class onclick="sum(this)">
+	[% IF row.currency=='UAH'&& row.non_format_amnt > 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+
+	[% END %]
+	</td>
+        <td class="$class" onclick="sum(this)">
+	[% IF row.currency=='UAH'&&row.non_format_amnt <= 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+
+	[% END %]
+        </td>
+
+
+	<td class=$class1>
+	[% IF row.currency=='UAH' %]
+	
+	<nobr onclick="show_form('form_$row.ct_id')" class="comment" title='[% row.ct_comment FILTER html %]'> $row.ct_comment</nobr> 
+
+	[% END %]
+	</td>
+	<td class=$class>
+	[% IF row.currency=='UAH' %]
+
+		<nobr class="comment" title='[% row.ct_ts FILTER html %]'> $row.ct_ts</nobr> 
+	[% END %]
+	</td>
+	<td class=$class>
+		<a class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.ct_aid">$row.a_name
+</a>
+	</td>
+	<td class=$class>
+        [% IF row.ct_status=='processed'&&row.ct_aid %]
+ 	<span class="simple_tab" onclick="ajax_action_req_back('$row.ct_id')" >откатить</span>
+        [% ELSIF row.ct_status!='transit'&&row.ct_status=='created' %]
+   	<a  target='blank' class=table_gborders
+	href="correctings.cgi?do=re_iden&amp;id=$row.ct_id">идентифицировать</a>
+        [% END %]
+        </td>
+        
+</tr>
+
+
+
+
+[% END %]
+
+[% END %]
+
+</table>
+
+</div>  
+
+</center>
+
+[% INCLUDE footer.html %]

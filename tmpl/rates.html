@@ -1,0 +1,170 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+  <div class=center_div_table>
+
+  
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+ <!-- <a  class=table_gborders href="?do=add">Добавить</a>   -->
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=list'" 
+name="История" value="История ">
+<!--  <a  class=table_gborders href="?do=list">История</a>   -->
+
+
+<table border=0>
+<tr>
+<td>
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>Наличные курсы</strong>
+    </td>
+  </tr>
+
+  <tr>
+     <th class=table_gborders> Из\В </th>
+
+     [% FOREACH row = cash_rates %]
+     <th class=table_gborders> $row.cur </th>
+     [% END %]     
+  </tr>
+
+  [% FOREACH row = cash_rates %]
+  <tr class=table_gborders>
+    <th class=table_gborders align="right"> 1 $row.cur = </th>
+
+    [% FOREACH row2 = row.rows %]
+    <td class=table_gborders align="right">
+      [% IF row2.val %]
+      $row2.val $row2.cur
+      [% END %]
+    </td>
+    [% END %]
+
+  </tr>
+  [% END %]
+
+  </table>
+
+</td>
+
+<td>&nbsp;&nbsp;&nbsp;</td>
+
+<td>
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>Безналичные курсы</strong>
+    </td>
+  </tr>
+
+  <tr>
+     <th class=table_gborders> Из\В </th>
+
+     [% FOREACH row = cashless_rates %]
+     <th class=table_gborders>$row.cur</th>
+     [% END %]     
+  </tr>
+
+  [% FOREACH row = cashless_rates %]
+  <tr class=table_gborders>
+    <th class=table_gborders align="right"> 1 $row.cur = </th>
+
+    [% FOREACH row2 = row.rows %]
+    <td class=table_gborders align="right">
+      [% IF row2.val %]
+      $row2.val $row2.cur
+      [% END %]
+    </td>
+    [% END %]
+
+  </tr>
+  [% END %]
+  </table>
+</td>
+</tr>
+</table>
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add&header_rates=1'" 
+name="Добавить" value="Добавить ">
+<table id='header_rates' class=table_gborders>
+<tr class=table_gborders>
+    <td class=table_gborders colspan="8">
+        <strong>Заглавные курсы</strong>
+    </td>
+  </tr>
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> МБ(покупка) </th>
+     <th class=table_gborders> МБ(клиент) </th>
+     <th class=table_gborders> Улица </th>
+     <th class=table_gborders> Кросс EUR/USD </th>
+     <th class=table_gborders> Кросс EUR/USD(улица) </th>
+
+     <th class=table_gborders> Действия </th>
+     
+  </tr>                         
+
+
+  [% FOREACH row = reports_rates %]
+  <tr id='row_$row.hr_id' class=table_gborders>
+        <td class=table_gborders>
+        	$row.hr_id        
+        </td>
+        <td class=table_gborders>
+        	$row.hr_date
+        </td>
+        <td class=table_gborders>
+          $row.hr_domi
+        </td>
+        <td class=table_gborders>
+	        $row.hr_rate_mb
+        </td>
+   	<td class=table_gborders>
+	        $row.hr_rate_street
+        </td>
+   	<td class=table_gborders>
+	        $row.hr_rate_cross
+        </td>
+    <td class=table_gborders>
+            $row.hr_rate_cross_street
+        </td>
+        <td class=table_gborders>
+        <a  class=table_gborders 
+	href="?do=edit&amp;hr_id=$row.hr_id&amp;id=$row.hr_id&amp;header_rates=1">редактировать</a>
+
+        <span  class="simple_tab"
+                onclick="del_header_rate_record('$row.hr_id')">Удалить</span>
+
+        </td>
+
+
+  </tr>
+  [% END %]
+
+
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=8>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+
+
+</table>
+
+
+
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

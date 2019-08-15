@@ -1,0 +1,176 @@
+[%INCLUDE  header.html %]
+<center>
+  <div class=center_div_table>
+  [%INCLUDE proto_filter.html %]
+  <div>
+        <strong>[% page_title %]</strong>
+	[% IF proto_params.a_id %]
+		<font size="+1">( Карточка : $proto_params.a_name $proto_params.a_uah <strong>ГРН</strong> $proto_params.a_usd <strong>USD</strong> $proto_params.a_eur <strong>EUR</strong> ) </font>
+	[% END %]
+
+<!-- Транзакции фирм-->       
+    </div>	
+[% IF proto_params.a_id %]
+ <div>
+Баланс на начало периода $proto_params.from_date:<font size="+1"> $proto_params.beg_uah <strong>ГРН</strong> $proto_params.beg_usd <strong>USD</strong> $proto_params.beg_eur <strong>EUR</strong> </font>	
+</div> 
+<tr>
+  <th class=table_gborders colspan=14>
+Баланс на конец периода $proto_params.to_date:<font size="+1">	$proto_params.fin_uah <strong>ГРН</strong> $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</strong> </font>	
+</th>
+[% END %]	
+
+ <div class="spreadsheetEditor">
+  <div class="spreadsheetScroll" style="width:100%; height:inherit;">
+   <div class="spreadsheetBars">
+  <table id="t1" class="spreadsheet">
+	<col width="300">
+	<col width="300">
+	<col width="300">
+	<col width="200">
+	<col width="200">
+	<col width="200">
+	<col width="200">
+        <col width="200">
+        <col width="300">
+        <col width="50">
+        <col width="400">
+        <col width="50">
+        <col width="50">
+        <col width="50">
+
+
+     <tr>
+		<th class=table_gborders> Id </th>
+		<th class=table_gborders> Дата </th>
+		<th class=table_gborders> Б/н приход </th>
+		<th class=table_gborders> Комиссия </th>
+		<th class=table_gborders> Доп.Комиссия </th>  
+		<th class="table_gborders">Итого (ГРН)</th>	
+		<th class="table_gborders">Курс</th>
+		<th class="table_gborders">Итого (USD)</th>
+		<th class="table_gborders">Итого (EUR)</th>
+		<th class=table_gborders> Касса ГРН </th>	     
+		<th class=table_gborders> Касса USD </th>
+		<th class=table_gborders> Б/н валютные отправки </th>
+		<th class=table_gborders> Примечания </th>
+		<th class=table_gborders> От кого </th>
+     </tr>                         
+   [% FOREACH row = rows %]
+	
+	[% IF row.orig__ct_fid==-2%]
+
+	[% class='table_gborders_vial' %]
+	
+	[% ELSIF row.ct_amnt < 0%]
+	
+	[% class='table_gborders_red' %]
+	
+	[% ELSE %]
+	
+	[% class='table_gborders' %]
+	
+	[% END %]	
+<tr>
+   [% IF row.ct_ex_comis_type =='transaction'%]
+		<td class=$class>$row.ct_id </td>
+		<td class=$class>$row.ct_date </td>
+		<td class=$class>$row.ct_amnt $row.ct_currency</td>
+		<td class=$class>$row.comission($row.ct_comis_percent%)</td>
+		<td class=$class>$row.ct_ext_commission </td>
+		<td class=$class></td>
+		<td class=$class> </td>
+		<td class=$class></td> 
+		<td class=$class></td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class></td>
+		<td class=$class>$row.ct_comment </td>	
+		<td class=$class>$row.f_name(#$row.ct_fid)</td>	
+	
+ 	
+    [% ELSIF row.orig__ct_fid >0&&row.orig__ct_currency!='UAH'&&row.ct_amnt<0 %]<!--pay into usd-->
+		<td class=$class>$row.ct_id </td>
+		<td class=$class>$row.ct_date </td>
+		<td class=$class></td>
+		<td class=$class>$row.comission($row.ct_comis_percent%)</td>
+		<td class=$class>$row.ct_ext_commission</td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class>$row.ct_amnt $row.ct_currency </td>
+		<td class=$class>$row.ct_comment </td>	
+		<td class=$class>$row.ct_fid</td>	
+    [% ELSIF row.orig__ct_fid >0 %]<!--simple pays-->
+		<td class=$class>$row.ct_id </td>
+		<td class=$class> $row.ct_date </td>
+		<td class=$class> $row.ct_amnt $row.ct_currency </td>
+		<td class=$class> $row.comission($row.ct_comis_percent%)</td>
+		<td class=$class> $row.ct_ext_commission </td>
+		<td class=$class> 
+		[% IF (row.ct_eid&&row.e_currency2=='UAH')||row.orig__ct_currency=='UAH' %] $row.result_amnt [% END %]
+		</td>
+		<td class=$class> [% IF row.ct_eid %] $row.rate [% END %]</td> 
+		
+		<td class=$class> 
+		[% IF (row.ct_eid&&row.e_currency2=='USD')||row.orig__ct_currency=='USD' %]
+ 		$row.result_amnt  
+		[% END %]</td>
+		<td class=$class> [% IF (row.ct_eid&&row.e_currency2=='EUR')||row.orig__ct_currency=='EUR' %] $row.result_amnt  [% END %]</td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class>$row.ct_comment </td>
+		<td class=$class>$row.ct_fid</td>	
+
+   		[% ELSIF row.orig__ct_fid ==-1  %]<!--cash-->
+		<td class=$class>$row.ct_id </td>
+		<td class=$class>$row.ct_date </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class> </td>
+		<td class=$class>[% IF row.orig__ct_currency=='UAH'%] $row.ct_amnt  [% END %] </td>
+		<td class=$class>[% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
+		<td class=$class> </td>
+		<td class=$class>$row.ct_comment </td>
+		<td class=$class>$row.ct_fid</td>	
+
+ [% ELSIF row.orig__ct_fid ==-2  %]<!--cash-->
+		<td class=$class>$row.ct_id </td>
+		
+		<td class=$class>$row.ct_date </td>
+		<td class=$class> $row.ct_amnt $row.ct_currency</td>
+		<td class=$class>0(0%)</td>
+		<td class=$class> </td>
+		<td class=$class> [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
+		<td class=$class>$row.rate </td> 
+		<td class=$class> [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
+		<td class=$class> [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
+		<td class=$class> </td>
+		<td class=$class> </td> 
+		<td class=$class> </td>
+		<td class=$class>$row.ct_comment </td>
+		<td class=$class>$row.ct_fid</td>	
+
+
+	
+  [% END %]	
+		</tr>
+
+   [% END %]
+</table>
+</div>
+</div>
+</div>
+</div>  
+
+</center>
+
+[% INCLUDE footer.html %]

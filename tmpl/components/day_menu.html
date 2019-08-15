@@ -1,0 +1,50 @@
+
+<nobr  class="comment" title='[% tmp_row.ct_comment FILTER html %]'> $tmp_row.ct_comment</nobr> 
+	<div class="center_div_table_poup "  id="form_$tmp_row.ct_id"  style="position:absolute;display:none"><table>
+	<tr>
+		<td id="id_left_$tmp_row.ct_id" class=table_gborders>
+
+	[% IF tmp_row.ct_status=='created' %]
+
+	
+		<span class="simple_tab" onclick="ajax_action_req_next_day('$tmp_row.ct_id','$tmp_row.ct_fid')" >перенести</span>
+	
+	[% END %]	
+		</td>
+
+		<td id="id_center_$tmp_row.ct_id" class=table_gborders>
+		[% IF tmp_row.ct_status=='created' %]
+
+			[% IF tmp_row.ct_col_status %]
+			<span class="simple_tab" onclick="ajax_action_req_cancel('$tmp_row.ct_id')" >отменить</span>
+		
+			[% ELSE %]
+			<span class="simple_tab" onclick="ajax_action_req_confirm('$tmp_row.ct_id')" >Отложить</span>
+		
+			[% END %]
+	
+		[% END %]
+		</td>
+	
+	<td id="id_right_$tmp_row.ct_id" class=table_gborders>
+        [% IF tmp_row.ct_status=='processed'&&tmp_row.ct_aid %]
+
+ 	<span class="simple_tab" onclick="ajax_action_req_back_day('form_$tmp_row.ct_id','$tmp_row.ct_id')" >откатить</span>
+       		 [% ELSIF tmp_row.ct_status!='transit'&&tmp_row.ct_status=='created' %]
+		
+		[% IF tmp_row.non_format_amnt >  0 %] <span
+		
+		  onclick="ajax_ident_req('/cgi-bin/lite/firm_input2.cgi?do=edit&amp;id=$tmp_row.ct_id&amp;parent_id=ident_form','$tmp_row.ct_id')" class="simple_tab"   >идентифицировать</span>
+		[% ELSE %]
+		
+		<span   onclick="ajax_ident_req('/cgi-bin/lite/firm_output.cgi?do=edit&amp;id=$tmp_row.ct_id&amp;parent_id=ident_form','$tmp_row.ct_id')" class="simple_tab"    >идентифицировать</span>
+	
+		[% END %]
+
+   	[% END %]
+        </td>
+     </tr>
+	</table>                 
+
+
+        </div>     

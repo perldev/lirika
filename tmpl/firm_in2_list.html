@@ -1,0 +1,232 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+  <!--
+  <a  class=table_gborders href="?do=add">Добавить</a>
+  -->
+<div id="ident_form" style='position:fixed;left:0px;top:0px;display:none;z-index:+1;width:100%;height:100%;background-color:#9f9f9f;overflow: scroll;'>
+<div class="center_div_table_poup_nopacity" style='position:absolutle;left:0px;top:0em;z-index:+1;width:75em;height:40em'> 
+<div style='float:right' id="close_but">
+<span  onclick='show_form("ident_form")' class='div_tab' >x</span>
+</div>
+<iframe id='ident_form_frame' name='ident_form_frame' style='border:none;width:75em;height:40em' ></iframe>
+</div>
+</div>
+<span id="return_function" style="display:none" ></span>
+<input type='hidden' id='buffer_a_name' />
+<input type='hidden' id='buffer_a_id' />
+<input type='hidden' id='buffer_end' />
+
+
+  <table class=table_gborders id='my_table'>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan="15">
+        <strong> [% page_title %]<!--Ввод безнала--></strong>       
+    </td>
+  </tr> 
+ <tr>
+<script>
+function form_work(don)
+{
+	if(don=='clear')
+	{
+		clearsum();
+	}else
+	{
+		document.getElementById('do').value=don;
+		//var obj=parent.document.getElementById("ident_form");
+		
+		var form = document.getElementById('my_form');
+		form.setAttribute("target", "ident_form_frame");
+		form.setAttribute("action", "/cgi-bin/lite/firm_input_ajax.cgi?do=edit&amp;parent_id=ident_form");
+		form.submit()
+		document.getElementById('ident_form_frame').onload = function(){document.getElementById("ident_form").style.display='';};
+	}
+}
+
+</script>
+
+
+<td  class=table_gborders colspan="16">
+<form  id="my_form" method="POST">    
+[% INCLUDE components/export_excel.html index_cols=1 index_rows=2 index_cols_end=11 %]
+<input type='button' class="simple_borders"   name="Сбросить выделение" value="Сбросить выделение" onclick="form_work('clear')"><input type="hidden" name="do" id="do" value="" ><input type='button' class="simple_borders" name="Идентифицировать" onclick="form_work('add_many')" value="Идентифицировать" >
+
+
+</td>
+</tr>
+  <tr>
+     <th class=table_gborders> <input type='checkbox' class='simple_borders' onclick='check_all_in(this)'> </th>
+     <th class=table_gborders>id</th>
+     <th class=table_gborders>Дата</th> 
+   <!-- <th class=table_gborders 
+         style='cursor:pointer' 
+         onclick='remove_nobr_comment()' >ОКПО </th>
+     <th class=table_gborders>Фирма клиента</th>-->
+     <th class=table_gborders>Фирма</th>   
+     <th class=table_gborders style="cursor:pointer" onclick='sum_this(this,3,4)'>Сумма</th>
+<!--     <th class=table_gborders style="cursor:pointer" onclick='sum_this(this,3,5)'>Доп.ком-ия</th>-->
+     <th class=table_gborders style="cursor:pointer" onclick='sum_this(this,3,5)'>Ком-ия</th>
+
+     <th class=table_gborders>Валюта</th>
+     
+     <th class=table_gborders style='cursor:pointer' onclick='remove_nobr_comment()'>Назначение</th>
+<!--     <th class=table_gborders>Оператор</th>-->
+    
+ 
+     <th class=table_gborders>Дата проведения</th> 
+     <th class=table_gborders>Карточка</th> 
+<!--     <th class=table_gborders>Оператор проведения</th>-->
+<!--     <th class=table_gborders>Статус проведения</th>-->
+
+     <th class=table_gborders >Статус</th>
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  	[% IF row.ct_aid||row.orig__ct_status=='transit' %]
+
+	[% class='table_gborders_blue' %]
+
+	[% ELSIF row.ct_req=='yes'%]
+
+	[% class='table_gborders_whiteskin' %]	
+
+	[% ELSE %]
+	[% class='table_gborders' %]	
+	[% END %]  
+<tr class=$class id='tr_$row.ct_id'>
+	
+	
+		
+
+	
+
+	<td class=$class>
+		<input type='checkbox' name='ct_id' id='ct_id_$row.ct_id' class="simple_borders" value="$row.ct_id">
+
+        </td>
+        <td class=$class>
+       <a name="$row.ct_id" /> $row.ct_id        
+        </td>
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+   <!-- <td class=$class>
+    <nobr class="comment" title='[% row.short_ct_ofid FILTER html  %]'>[% row.short_ct_ofid FILTER html  %]</nobr>
+        </td>-->
+<!--    <td class=$class>
+    <nobr id='client_firm' class="comment" title='[% row.out_firm FILTER html  %]'>[% row.out_firm FILTER html  %]</nobr>
+        </td>
+  -->
+        <td class=$class>
+	 <nobr class="comment" title='[% row.ct_fid FILTER html  %]'>[% row.ct_fid FILTER html  %]</nobr>
+        </td>
+
+        <td class=$class onclick="sum(this)">
+        $row.ct_amnt
+        </td>
+<!--
+  <td class=$class onclick="sum(this)">
+        $row.ct_ext_commission
+        </td>-->
+  <td class=$class onclick="sum(this)">
+        $row.ct_comis_percent
+        </td>
+
+
+        <td class=$class>
+        $row.ct_currency
+        </td>
+
+      
+        <td  class="$class" title='[% row.ct_comment FILTER html  %]' >
+        <nobr id="ct_comment_$row.id" class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+<!--
+        <td class=$class>
+        $row.ct_oid
+        </td>-->
+		
+        <!--
+        <td class=table_gborders>
+        $row.ct_tid
+        </td>
+        -->
+
+        <td class=$class id="ct_ts2_$row.id">
+        $row.ct_ts2
+        </td>
+		
+        <td class=$class>
+        
+<a class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__ct_aid" id="ct_aid_$row.id">$row.ct_aid
+</a>
+        
+
+
+        </td>
+
+      <!--  <td class=$class>
+<nobr class="comment" title='[% row.ct_fsid FILTER html  %]'>[% row.ct_fsid FILTER html  %]</nobr>
+        </td>-->
+
+  <!--      <td class=$class>
+        $row.ct_oid2
+        </td>-->
+
+    <!--    <td class=$class>
+        $row.ct_status
+        </td>
+-->		
+        <td class=$class id="ct_status_$row.id">
+$row.ct_status      
+
+<!--  [% IF row.orig__ct_status == 'created' %]
+        <span 
+		  onclick="set_iframe_src('/cgi-bin/lite/firm_input_ajax.cgi?do=edit&amp;id=$row.id&amp;parent_id=ident_form','$row.id')" class="simple_tab"   >идентифицировать</span>
+        [% END %]-->
+        </td>
+
+
+
+
+        <!--
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=edit&amp;id=$row.id">редактировать</a>
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=del&amp;id=$row.id">удалить</a>
+        </td>
+
+        -->
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+</form>
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

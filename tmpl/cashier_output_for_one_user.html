@@ -1,0 +1,331 @@
+ 	
+
+  	<tr class="table_gborders">
+        <th colspan="6"  align='left' class="table_gborders">
+        Карточка
+        </th>
+</tr>
+  	<tr class="table_gborders">
+	
+        <td colspan="6" class="table_gborders">
+
+	   <table>
+	    <tbody><tr>
+ <td>         
+            <span class="simple_text">   поиск: </span>
+	   </td>
+           <td>
+            <input class="simple_borders" id="ct_aid[% user_number %]__search" value="" onchange="return accounts_search_event('ct_aid[% user_number %]');" onkeyup="return accounts_search_event('ct_aid[% user_number %]');" size="10" type="text">
+	</td>
+	   <td>		
+           <span class="simple_text"> id:</span>
+	   </td>
+           <td>
+            <input class="simple_borders" name="ct_aid[% user_number %]" value="" id="ct_aid[% user_number %]" onchange="return accounts_id_event('ct_aid[% user_number %]');" onkeyup="return accounts_id_event('ct_aid[% user_number %]');" size="5" type="text">
+	  </td>
+	 
+            
+	<td>
+            <select class="simple_borders" id="ct_aid[% user_number %]__select" onchange="return accounts_select_event('ct_aid[% user_number %]');" onkeyup="return accounts_select_event('ct_aid[% user_number %]');">
+            <option value="">Выберите карточку</option></select>
+	</td>
+</tr>
+</tbody></table>
+
+            <script>
+		accounts_id_event('ct_aid[% user_number %]');
+		document.getElementById("ct_aid[% user_number %]__search").value='';
+            </script>
+
+	           
+
+        </td>
+  </tr>
+    <tr class="table_gborders">
+     <th align='left' class="table_gborders"> Дата :</th>
+<td  class="table_gborders" colspan='5'>
+ <script>DateInput("ct_date[% user_number %]", true)</script>
+
+</td >
+</tr>
+	<script>
+    function amnt_pressed()
+    {
+    
+        if(!document.getElementById('ct_aid[% user_number %]').value){
+
+    	    if(document.getElementById('ct_aid[% user_number %]__select').value)
+		document.getElementById('ct_aid[% user_number %]').value=document.getElementById('ct_aid[% user_number %]__select').value;
+    
+        }
+     
+     
+    
+    }
+    
+	</script>
+    <tr class="table_gborders">
+        <th   align='left' class="table_gborders">
+        Сумма
+        </th>
+     <th   align='left' class="table_gborders">
+        Услуга
+        </th>
+     <th   align='left' class="table_gborders">
+        Процент(%)
+        </th>
+     <th   align='left' class="table_gborders">
+        Общая сумма
+        </th>
+ 	<th  align='left' class="table_gborders">
+        Назначение
+        </th> <th align='left' class="table_gborders">
+        Валюта
+        </th>
+
+  </tr>
+     <tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders"  onkeyup="eee1[% user_number %].amnt_changed()" size="15" id="1ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+
+
+ <td class="table_gborders">
+
+        <select id='1fsid[% user_number %]' onchange='eee1[% user_number %].service_changed()' name='cs_fsid' >     
+            <option value=''></option>
+
+        [% FOREACH thing=services %]
+            <option value='$thing.value'>$thing.title</option>
+        [% END %]
+        </select>
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee1[% user_number %].comis_changed()" size="15" id="1ct_comis[% user_number %]" name="ct_comis[% user_number %]" value="" type="text">
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee1[% user_number %].common_amnt_changed()" size="15" id="1ct_common_amnt[% user_number %]" name="ct_common_amnt[% user_number %]" value="" type="text">
+        </td>
+
+ 
+
+
+       <td class="table_gborders">
+      
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+<td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee2[% user_number %].amnt_changed()" size="15" id="2ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+
+     <td class="table_gborders">
+
+        <select id='2fsid[% user_number %]' onchange='eee2[% user_number %].service_changed()' name='cs_fsid' > 
+<option value=''></option>    
+        [% FOREACH thing=services %]
+            <option value='$thing.value'>$thing.title</option>
+        [% END %]
+         </select>
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee2[% user_number %].comis_changed()" size="15" id="2ct_comis[% user_number %]" name="ct_comis[% user_number %]" value="" type="text">
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee2[% user_number %].common_amnt_changed()" size="15" id="2ct_common_amnt[% user_number %]" name="ct_common_amnt[% user_number %]" value="" type="text">
+        </td>
+
+
+ 
+     <td class="table_gborders">
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+      </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" 
+                onkeyup="eee3[% user_number %].amnt_changed()" size="15" 
+                id="3ct_amnt[% user_number %]" 
+                name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+
+
+ <td class="table_gborders">
+
+       <select id='3fsid[% user_number %]' onchange='eee3[% user_number %].service_changed()' name='cs_fsid' >    
+<option value=''></option> 
+        [% FOREACH thing=services %]
+            <option value='$thing.value'>$thing.title</option>
+        [% END %]
+        </select>
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee3[% user_number %].comis_changed()" size="15" id="3ct_comis[% user_number %]" name="ct_comis[% user_number %]" value="" type="text">
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee3[% user_number %].common_amnt_changed()" size="15" id="3ct_common_amnt[% user_number %]" name="ct_common_amnt[% user_number %]" value="" type="text">
+        </td>
+
+ 
+
+
+
+     <td class="table_gborders">
+        
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee4[% user_number %].amnt_changed()" 
+                size="15" id="4ct_amnt[% user_number %]" 
+                name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+ 
+
+ <td class="table_gborders">
+
+        <select id='4fsid[% user_number %]' onchange='eee4[% user_number %].service_changed()' name='cs_fsid' >
+<option value=''></option> 
+        [% FOREACH thing=services %]
+            <option value='$thing.value'>$thing.title</option>
+        [% END %]
+        </select>
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee4[% user_number %].comis_changed()" size="15" id="4ct_comis[% user_number %]" name="ct_comis[% user_number %]" value="" type="text">
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee4[% user_number %].common_amnt_changed()" size="15" id="4ct_common_amnt[% user_number %]" name="ct_common_amnt[% user_number %]" value="" type="text">
+        </td>
+
+ 
+
+     <td class="table_gborders">
+        
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee5[% user_number %].amnt_changed()"  size="15" id="ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+ 
+
+ <td class="table_gborders">
+
+        <select id='5fsid[% user_number %]' onchange='eee5[% user_number %].service_changed()' name='fsid' >
+<option value=''></option>
+        [% FOREACH thing=services %]
+            <option value='$thing.value'>$thing.title</option>
+        [% END %]
+        </select>
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee5[% user_number %].comis_changed()" size="15" id="5ct_comis[% user_number %]" name="ct_comis[% user_number %]" value="" type="text">
+        </td>
+
+     <td class="table_gborders">
+         <input class="simple_borders" onkeyup="eee5[% user_number %].common_amnt_changed()" size="15" id="5ct_common_amnt[% user_number %]" name="ct_common_amnt[% user_number %]" value="" type="text">
+        </td>
+     <td class="table_gborders">
+     <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+<script>
+
+var eee1[% user_number %]=new changing_comis('1ct_amnt[% user_number %]','1fsid[% user_number %]','1ct_comis[% user_number %]','1ct_common_amnt[% user_number %]','ct_aid[% user_number %]');
+var eee2[% user_number %]=new changing_comis('2ct_amnt[% user_number %]','2fsid[% user_number %]','2ct_comis[% user_number %]','2ct_common_amnt[% user_number %]','ct_aid[% user_number %]');
+var eee3[% user_number %]=new changing_comis('3ct_amnt[% user_number %]','3fsid[% user_number %]','3ct_comis[% user_number %]','3ct_common_amnt[% user_number %]','ct_aid[% user_number %]');
+var eee4[% user_number %]=new changing_comis('4ct_amnt[% user_number %]','4fsid[% user_number %]','4ct_comis[% user_number %]','4ct_common_amnt[% user_number %]','ct_aid[% user_number %]');
+var eee5[% user_number %]=new changing_comis('5ct_amnt[% user_number %]','5fsid[% user_number %]','5ct_comis[% user_number %]','5ct_common_amnt[% user_number %]','ct_aid[% user_number %]');
+
+</script>
+
+

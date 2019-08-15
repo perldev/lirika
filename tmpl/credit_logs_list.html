@@ -1,0 +1,83 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+  <div class=center_div_table>
+
+  <!--
+  [%INCLUDE proto_filter.html %]
+  <a  class=table_gborders href="?do=add">Добавить</a>
+  -->
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %] <!--Логи кредита по дням--></strong>
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id   </th>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Баланс аккаунта </th>
+     <th class=table_gborders> Пеня за день </th>
+     <!--
+     <th class=table_gborders colspan=2> Действия </th>
+     -->
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.cl_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.cl_ts
+        </td>
+
+        <td class=table_gborders>
+        $row.cl_amnt
+        </td>
+
+        <td class=table_gborders>
+        $row.cl_penalty
+        </td>
+
+
+        <!--
+
+        <td class=table_gborders>
+        [% IF row.orig__ct_status == 'created' %]
+        <a  class=table_gborders href="?do=edit&amp;action=apply&amp;id=$row.id&amp;ct_status=canceled">отменить</a>
+        [% END %]
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=del&amp;id=$row.id">удалить</a>
+        </td>
+        -->
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+
+  </table>
+
+
+
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

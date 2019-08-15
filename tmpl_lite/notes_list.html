@@ -1,0 +1,47 @@
+[%INCLUDE  header.html %]
+<center>
+ <div class=center_div_table>
+[%INCLUDE  proto_filter.html %]
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+  <table width="60%" class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan="5">
+        <strong>[% page_title %]<!--Фирмы--></strong>       
+    </td>
+  </tr> 
+
+                       
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders >
+
+        <td  width="70%" colspan="4" align="left" class=table_gborders>
+        	$row.title      
+        </td>
+ 	   <td   align="left" class=table_gborders>
+        	На : $row.date     
+        </td>
+  </tr>
+   <tr class=table_gborders>	
+        <td colspan=5  align="left" class=table_gborders>
+        $row.comment
+        </td>
+   </tr>
+   <tr class=table_gborders>	
+        <td colspan=5  align="left" class=table_gborders>
+	<a  class="table_gborders"
+ 		href="notes.cgi?do=edit&amp;id=$row.id">Изменить</a>
+        </td>
+   </tr>	
+
+  [% END %]
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

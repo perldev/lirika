@@ -1,0 +1,91 @@
+<center>
+  
+  <div class=center_div_table>
+  <table id='my_table' class=table_gborders>
+<tr class=table_gborders>
+<td class=table_gborders colspan='6'>
+<a class="table_gborders" href="reports.cgi?do=common_report_without"><font size=-1>Сделать отчет</font></a>
+
+</td>
+</tr>
+  <tr class=table_gborders>
+     <th class=table_gborders rowspan="2"> Дата отчета  </th>
+     <th class=table_gborders rowspan="2"> Кол-во дней</th> 
+    <th class=table_gborders> Дельта USD</th>   
+     <th class=table_gborders> Дельта EUR</th>   
+     <th class=table_gborders> Дельта ГРН</th>
+      <th class=table_gborders rowspan="2">  </th>
+  </tr>                         
+<tr class=table_gborders>
+  <th class=table_gborders> доход usd</th>   
+     <th class=table_gborders> доход eur</th>   
+     <th class=table_gborders> доход грн</th> 
+</tr>
+   	[% FOREACH thing = reports %]
+	[%  class1='table_gborders' %]
+
+	[% IF thing.class %]
+	
+	[%  class='table_gborders' %]
+	
+	[% ELSE %]
+	
+	[%  class='table_gborders_dark_a_little' %]
+	[% END %]
+
+	<tr    class=$class >
+	<!--<td  class=$class>
+       $thing.id
+	</td>-->
+	<td   class=$class  rowspan="2">
+	$thing.ts
+	</td>
+	<td class=$class  rowspan="2">
+	$thing.diff
+	</td>
+	<td  onclick="sum(this)" class=$class >
+	$thing.cr_delta_usd
+	</td>
+	<td onclick="sum(this)"  class=$class>
+	$thing.cr_delta_eur
+	</td>
+	<td  onclick="sum(this)" class=$class>
+	$thing.cr_delta_uah
+	</td>
+	<td  class=$class  rowspan="2">
+ 	<a  class=$class1 target='blank' href="reports.cgi?do=view_report_without&amp;id=$thing.id"> Просмотреть</a>
+   <span class='simple_tab' onclick="ajax_show_spents(event,'$thing.id')" > Расходы </span>
+
+[% IF thing.cr_status=='created'%]
+ 	<a  class=$class1  href="reports.cgi?do=delete_report_without&amp;id=$thing.id"> Удалить</a>
+	[%ELSE%]
+	Удален 
+	[% END %]
+	
+	</td>
+ 	</tr>
+	
+	<tr class=$class >
+	
+	<td onclick="sum(this)" class=$class >
+	$thing.cr_income_usd
+	</td>
+	<td onclick="sum(this)"  class=$class>
+	$thing.cr_income_eur
+	</td>
+	<td  onclick="sum(this)" class=$class>
+	$thing.cr_income_uah
+	</td>
+
+	</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+</table>
+</div>  
+
+</center>

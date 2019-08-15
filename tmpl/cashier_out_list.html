@@ -1,0 +1,210 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<center>
+
+[% INCLUDE  components/edit_comment.html %]
+[% INCLUDE  components/edit_amnt.html %]
+
+[% INCLUDE  components/edit_cash.html rows=proto_params.cash_rows %]
+
+
+<div class=center_div_table>
+
+[%INCLUDE proto_filter.html %]
+<div class='left_menu'>
+
+
+
+ <input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить $proto_params.cash_title">
+<!-- not working correctly <input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add_many'" 
+name="Добавить много" value="Добавить много $proto_params.cash_title"> -->
+
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=6 index_cols_end=9 %]
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=6 index_cols_end=9  name='Экспорт проведенных' name_link='file_id_my' export_id='processed' %]
+
+[% IF  proto_params.active_blocking %]
+<font color='red'> <strong>Ввод заявок на сегодня не принимается</strong></font>
+[% END %]
+</div>
+  <table class=table_gborders id='my_table'>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=10>
+        <strong>[% page_title %] <!--Заявки на получение налички из кассы--></strong>
+    </td>
+  </tr> 
+
+[% INCLUDE cash_conclusions_header.html %]
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Карточка </th>
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> процент ком-ии </th>
+     <th class=table_gborders> сумма ком-ии </th>
+
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders> Оператор </th>
+
+
+<!--     <th class=table_gborders> Действие </th>-->
+
+  
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr id="not_processed_$row.ct_id" class=table_gborders>
+
+        <td class=table_gborders>
+        $row.ct_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_ts
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_aid
+        </td>
+
+      
+        <td class=table_gborders onclick="sum(this)">
+        <strong><nobr onDblclick="show_sum_edit_form(this,'amnt_form',$row.ct_id)" id='sum_$row.ct_id'   title='[% row.ct_amnt FILTER html  %]'>[% row.ct_amnt FILTER html  %]</nobr></strong>
+        </td>
+        <td class=table_gborders onclick="sum(this)">
+        $row.ct_comis_percent
+        </td>
+        <td class=table_gborders onclick="sum(this)">
+      <strong>  $row.ct_comis_result</strong>
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_currency
+        </td>
+    <td class="table_gborders" title='[% row.ct_comment FILTER html  %]' >
+    <nobr onclick='show_edit_form(this)' id='$row.ct_id' class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+
+   <td class=table_gborders>
+        $row.ct_oid
+   </td>
+
+  </tr>
+  [% END %]
+
+
+</table>
+
+
+
+
+<br>
+
+
+
+
+
+  <table id='processed' class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        <strong>Обработаные заявки на получение налички из кассы</strong>
+    </td>
+  </tr> 
+[% INCLUDE cash_conclusions_header.html %]
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Карточка </th>
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> процент ком-ии </th>
+     <th class=table_gborders> сумма ком-ии </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+     <th class=table_gborders> Оператор </th>
+
+     <!--
+     <th class=table_gborders> Транзакция </th>
+     -->
+
+     <th class=table_gborders> Статус Выдачи </th>
+     <th class=table_gborders> </th>
+
+
+     <!--
+     <th class=table_gborders colspan=2> Действия </th>
+     -->
+  </tr>                         
+
+
+  [% FOREACH row = rows2 %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.ct_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_ts
+        </td>
+
+        <td class=table_gborders>
+        $row.ct_aid
+        </td>
+
+        <td class=table_gborders onclick="sum(this)">
+      <strong>  $row.ct_amnt</strong>
+        </td>
+        <td class=table_gborders onclick="sum(this)">
+        $row.ct_comis_percent
+        </td>
+        <td class=table_gborders onclick="sum(this)">
+      <strong>  $row.ct_comis_result</strong>
+        </td>
+        <td class=table_gborders>
+        $row.ct_currency
+        </td>
+
+      <td class="table_gborders" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=table_gborders>
+        $row.ct_oid
+        </td>
+
+        <!--
+        <td class=table_gborders>
+        $row.ct_tid
+        </td>
+        -->
+
+        <td class=table_gborders>
+        $row.ct_status
+        </td>
+ 	 <td class=table_gborders>
+	[% IF  row.orig__ct_status=='processed'%]
+	<a class=table_gborders href="?do=back_out&amp;ct_id=$row.ct_id">Возврат</a>
+	[% END %]
+        </td>
+
+
+  </tr>
+  [% END %]
+
+
+</table>
+
+
+
+
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

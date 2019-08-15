@@ -1,0 +1,150 @@
+[% INCLUDE  header.html %]
+[% INCLUDE  components/edit_percent.html  %]
+
+<center>
+
+
+
+<div id="ident_form" class="center_div_table_poup_nopacity" style='position:absolute;left:0px;top:10em;display:none;z-index:+1;width:75em;height:40em'> 
+<iframe id='ident_form_frame' style='border:none;width:75em;height:40em' ></iframe>
+</div>
+<div   id="comment_form_change_cat"   class="center_div_table_poup" style="position:absolute;left:40em;display:none">
+Программа :
+<br/>	
+<input  type="hidden" id="rm_id" value="">
+<select  id="accounts" class="simple_borders">
+ [% FOREACH row=accounts %]   
+	<option  value="$row.value" >$row.title</option>
+[% END %]
+</select>
+
+<input type='button' onclick='save_account_saldo(this,"form_change_cat")' class='simple_borders' name='Сохранить' value="Сохранить">
+<input type='button' onclick='operators_show_note("form_change_cat")' class='simple_borders'  value="Закрыть окно">
+</div>
+
+<span id="return_function" style="display:none"></span>
+<input type='hidden' id='buffer_amnt' value=''>
+<input type='hidden' id='buffer_id' value=''>
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+
+
+
+  <table id='my_table' class=table_gborders>
+<form id='my_form' method="POST">
+ <tr  class=table_gborders>
+     <input type='hidden' name='do' id='do' value='get_payement'>
+     <td class=table_gborders colspan="12">     
+<input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="get_rm_excel(rm_accounts_id,rm_date2_month,rm_date2_year)" ><a class='table_gborders' style='display:none' href='' id='file_id_url'>Сохранить файл</a>
+
+  </tr>                         
+   <tr  class=table_gborders>
+
+     <th class=table_gborders > Фирма </th>
+
+     <th class=table_gborders > Наименование предприятия  </th>
+     <th class=table_gborders > Код ОКПО</th>
+     <th class=table_gborders >  Клиент  </th>
+     <th class=table_gborders  > Сальдо на </th> 
+     <th class=table_gborders  > Оборот по документам за </th> 
+     <th class=table_gborders  > Сальдо на </th> 
+     <th class=table_gborders >Форма оплаты </th>   
+     <th class=table_gborders  > Сума оплаты  </th> 
+     <th class=table_gborders  > Сальдо на </th> 
+     <th class=table_gborders > Сума оплаты  </th> 
+
+  </tr>                         
+ [% FOREACH row = rows %]
+	
+
+    
+	[%IF row.sys_row%]
+    <tr class="table_gborders" style='background-color:#afafaf'>
+		<td >
+		</td>
+		<td >
+		</td>
+        <td >
+        </td>
+		<td>
+		</td>
+		</td>
+		<td >
+		$row.rm_sum1
+		</td>
+		<td>
+		</td>
+		<td>
+		$row.rm_sum3
+		</td>
+		<td >
+		
+		</td>
+		<td>
+		$row.m1
+		</td>
+		<td>
+		$row.rm_sum5
+		</td>
+		<td>
+		$row.m2
+		
+		</td>
+	[% ELSE %]
+    <tr class="table_gborders">
+	<td >
+		$row.rm_firm
+		</td>
+		<td >
+		$row.rm_out_firm       
+		</td>
+        <td >
+        $row.rm_okpo
+        </td>
+        [%IF row.rm_accounts_id %]
+		<td class="simple_tab" onclick="change_account_saldo(this,$row.rm_id,$row.orig__rm_accounts_id)">
+		$row.rm_accounts_id
+		</td>
+		[% ELSE %]
+		<td class="simple_tab" style="background-color:#ff0000" onclick="change_account_saldo(this,$row.rm_id,0)" >
+		$row.rm_accounts
+		</td>
+		[% END %]
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='rm_sum1_$row.rm_id'  onmouseup="sum2(this)" >
+		$row.rm_sum1
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='rm_sum2_$row.rm_id'  onmouseup="sum2(this)" >
+		$row.rm_sum2
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='rm_sum3_$row.rm_id'  onmouseup="sum2(this)" >
+		$row.rm_sum3
+		</td>
+		
+		<td >
+		$row.rm_pay_form
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='rm_sum4_$row.rm_id'  onmouseup="sum2(this)" >
+		$row.rm_sum4
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='rm_sum5_$row.rm_id'  onmouseup="sum2(this)" >
+		$row.rm_sum5
+		</td>
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"  id='rm_sum6_$row.rm_id'  onmouseup="sum2(this)" >
+		$row.rm_sum6
+		</td>
+	[% END %]		
+	</tr>
+  [% END %]
+
+
+</table>
+</div>  
+</form>
+</center>
+
+[%INCLUDE footer.html %]

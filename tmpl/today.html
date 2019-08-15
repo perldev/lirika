@@ -1,0 +1,77 @@
+<table class="table_gborders_big" align=center>
+<tr class="table_gborders_big">
+<td class="table_gborders_big" colspan="3">
+<strong>Что сегодня:<strong>
+<script >
+function  show_notes(e)
+{
+
+	document.getElementById('comment_none').style.display='block';
+	document.getElementById('comment_none').style.left=e.x+8;
+	document.getElementById('comment_none').style.top=e.y+8;
+
+
+}
+function hide_notes()
+{
+	document.getElementById('your_show_notes').display='none';
+
+}
+function operators_show_note(id)
+{
+
+	if(document.getElementById('comment_'+id).style.display == 'none')
+	{
+		document.getElementById('comment_'+id).style.display='block';
+	}else
+	{
+		document.getElementById('comment_'+id).style.display='none';
+	}
+
+
+}
+
+
+</script>
+
+<span class="simple_tab"   onclick="operators_show_note('none')">Мои заметки...</span>
+<div   id="comment_none"   class="center_div_table_poup" style="position:absolute;display:none">	
+[% FOREACH row=operators_notes %]
+ <span class="simple_tab_inner" onclick="operators_show_note('$row.id')" ><nobr  class="comment" title='[% row.comment FILTER html  %]'>$row.title</nobr></span> 
+<div class='textarea' style="display:none" id='comment_[% row.id %]'>$row.comment</div>
+[%END%]
+</div>
+
+
+	</td><td class="table_gborders_big" colspan='2'>
+<form action='network.cgi' method='GET'>
+<span class="simple_tab" onclick="operators_show_note('1313666')"><strong>Поиск...</strong></span>
+<div id="comment_1313666"    style="display:none;" >
+<table class="table_gborders">
+<tr class="table_gborders">
+<td class="table_gborders">
+<strong>Число:</strong></td>
+<td class="table_gborders"><input class='simple_borders' type='text' name='number'></td>
+<td class="table_gborders">
+<strong>Назначение:</strong></td><td class="table_gborders"><input class='simple_borders' type='text' name='comment'>
+</td>
+</tr>
+<tr class="table_gborders">
+<td colspan="4" class="table_gborders">
+<input class='simple_borders' type='submit' value='Искать...' name='Искать...'></form>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>	
+<tr class="table_gborders_big" >
+<td class="table_gborders_big" colspan="5">
+$my_comment
+</td>
+</tr>
+<tr class="table_gborders_big">
+[% INCLUDE components/rates.html%]
+</tr>
+
+</table>

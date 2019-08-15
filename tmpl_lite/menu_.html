@@ -1,0 +1,33 @@
+[% IF user_id %]
+<center>
+<div class="center_div_table">
+
+[% IF rights.no_rights %]       
+<a class="menu_text" href="#"><font color=red>Поздравляю вы норвались на глюк разработчика,если му не совсем пофиг можете попытаться ему об этом сообщить!</font></a>
+[% END %]
+
+
+<table class="top_menu">    
+<tr>	
+[% FOREACH thing=your_rights %]
+<td>
+ [% IF thing.current %]
+  	<a class="menu_text_selected" href="$thing.script" >$thing.title</a>
+	[% ELSE %]      
+	<a class="menu_text" href="$thing.script">$thing.title</a>
+  [% END %]
+</td>
+[% IF thing.end_line %]
+</tr>
+<tr>
+[% END %]
+[% END %]
+</tr>
+</table>
+
+
+<a class="menu_text" href="oper.cgi?do=logout">Выход</a>
+
+</div>
+</center>
+[% END %]

@@ -1,0 +1,173 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+
+
+
+  <div class=center_div_table>
+
+  
+  [%INCLUDE proto_filter.html %]
+
+
+[% IF proto_params.correctings %]
+
+[% INCLUDE correctings_menu.html %]
+
+[% ELSE %]
+
+<table>
+<tr>
+<td>
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить в ручном режиме">
+</td>
+<form method="POST" enctype="multipart/form-data">
+
+<input type="hidden" name="do" value="firm_input_file">
+<td>
+<input type="file" name='file' class="simple_borders" >
+</td>
+<td>
+<input type="submit" value="Загрузить файл" name="Загрузить" class="simple_borders">
+</td></tr>
+</table>
+</form>
+
+
+
+
+[% END %]
+
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=12>
+        <strong>[% IF proto_params.correctings %]Правки: [% END %] [% page_title %]</strong>       
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата поступления </th> 
+     <th class=table_gborders> Фирма </th>   
+     <th class=table_gborders> Карточка </th> 
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+<!--     <th class=table_gborders> Своя </th>-->
+     <th class=table_gborders> Назначение </th>
+    
+     <th class=table_gborders> Оператор </th>
+     <th class=table_gborders> Дата  </th>
+
+     <!--
+     <th class=table_gborders> Транзакция </th>
+     -->
+
+     [% IF proto_params.correctings %] 
+     <th class=table_gborders colspan=3> Действия </th>
+     [% END %]
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  [% IF row.compare_ct_amnt < 0 %]
+  
+  [% table_gborders='table_gborders_red' %]
+  
+  [% ELSE %]
+  
+  [% table_gborders='table_gborders' %]
+  
+  
+  [%END%]
+
+  <tr class=$table_gborders>
+
+        <td class=$table_gborders>
+        $row.ct_id       
+        </td>
+
+        <td class=$table_gborders>
+        $row.ct_date
+        </td>
+
+        <td class=$table_gborders>
+  <nobr class="comment" title='[% row.ct_fid FILTER html  %]'>[% row.ct_fid FILTER html  %]</nobr>
+        </td>
+	 
+ 	<td class=$table_gborders>
+       <a class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__ct_aid"> $row.ct_aid</a>
+        </td>
+
+        <td class=$table_gborders>
+        $row.ct_amnt
+        </td>
+
+        <td class=$table_gborders>
+        $row.ct_currency
+        </td>
+
+      <td class="$table_gborders" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=$table_gborders>
+        $row.ct_oid
+        </td>
+ <td class=$table_gborders>
+        $row.ct_ts
+        </td>
+
+     
+
+     [% IF proto_params.correctings %] 
+        <td id="id_left_$row.id" class=$table_gborders>
+	[% IF row.ct_status=='created' %]
+<!--			href="?do=del&amp;id=$row.id"-->
+        <span class="simple_tab" onclick="ajax_action_req_delete('$row.id')" >удалить</span>
+	
+      [% END %]
+        </td>
+
+	<td id="id_center_$row.id" class=$table_gborders>
+	[% IF row.ct_status=='created' %]
+		<a  class=$table_gborders href="?do=edit&amp;id=$row.id">изменить</a>
+	[% END %]
+ 	
+	</td>    
+
+        <td id="id_right_$row.id" class=$table_gborders>
+        [% IF row.ct_status=='processed'&&row.ct_aid %]
+
+ 	<span class="simple_tab" onclick="ajax_action_req_back('$row.id')" >откатить</span>
+
+<!--        	<a  class=$table_gborders href="?do=back&amp;id=$row.id">откатить</a>-->
+        [% ELSIF row.ct_status!='transit'&&row.ct_status=='created' %]
+        <a  class=table_gborders href="?do=re_iden&amp;id=$row.id">идентифицировать</a>
+        [% END %]
+        </td>
+        
+	[% END %]
+        
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

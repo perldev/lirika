@@ -1,0 +1,20 @@
+<div style='position:relative; float: right;cursor:pointer' onclick='show_form("[% id %]_traff")'>x</div>
+<table class=table_gborders>
+<tr>
+        <th colspan='2' class="table_gborders">
+         Обороты денег
+        </th>
+     
+    </tr> 
+ [% FOREACH row = list %]
+<tr>
+    <td class="table_gborders">
+            $row.title
+        </td>
+        <td class="table_gborders">
+            $row.amnt
+        </td>
+    </tr>
+  [% END %]
+
+</table>

@@ -1,0 +1,8 @@
+#!/usr/bin/perl
+use CGI::Carp qw(fatalsToBrowser);
+use lib '../lib';
+
+use Oper::Rates;
+Oper::Rates->new->run;
+
+exit(0);

@@ -1,0 +1,50 @@
+
+
+	   <table>
+	    <tr>
+ <td>         
+            <span class="simple_text">   поиск: </span>
+	   </td>
+           <td>
+            <input class="simple_borders" type="text" id="[% field %]__search" value=""
+            
+            onchange="return accounts_search_event('$field');"
+            onkeyup="return accounts_search_event('$field');"
+
+            size="10"
+            >
+	</td>
+	   <td>		
+           <span class="simple_text"> id:</span>
+	   </td>
+           <td>
+            <input class="simple_borders" type="text" name="$field" value="$value"
+            
+            id="[% field %]"
+            onchange="return accounts_id_event('$field');"            
+            onkeyup="return accounts_id_event('$field');"
+            size="5"
+
+            >
+	  </td>
+	 
+            
+	<td>
+            <select class="simple_borders" id="[% field %]__select"            
+            onchange="return accounts_select_event('$field');"
+            onkeyup="return accounts_select_event('$field');"            
+            >
+            </select>
+	</td>
+</tr>
+</table>
+
+            <script>
+		
+              accounts_id_event('$field');
+		document.getElementById("[% field %]__search").value='';
+            </script>
+
+
+
+

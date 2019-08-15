@@ -1,0 +1,1 @@
+ALTER TABLE `out_firms` ADD `of_oid` INT NULL

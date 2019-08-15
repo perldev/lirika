@@ -1,0 +1,544 @@
+
+[%INCLUDE  header.html %]
+[% INCLUDE doc_form_firms.html%]
+[% INCLUDE components/firm_add.html%]
+<script>
+var hash_okpo = {};
+var hash_idokpo = {};
+var hash_id = {};
+
+var trans_firms_name = {};
+var trans_firms_id = {};
+var trans_firms_okpo = {};
+
+
+	
+	[% FOREACH option =  trans_firms %]
+		trans_firms_id["[% option.f_id  FILTER html %]"]="[% option.f_okpo  FILTER html %]";
+		trans_firms_okpo["[% option.f_okpo  FILTER html %]"]="[% option.f_id  FILTER html %]";
+		trans_firms_name["$option.f_id"]="[% option.f_name  FILTER html %]";
+	[%END%]
+
+	[% FOREACH option =  firms_okpo %]
+		hash_okpo["$option.title"]="[% option.value  FILTER html %]";
+		hash_idokpo["$option.value"]="[% option.title  FILTER html %]";
+	[%END%]
+	[% FOREACH option =  out_firms %]
+		hash_id['$option.value'] = "[% option.title  FILTER html %]";
+	[%END%]
+	
+
+
+
+</script>
+<center>
+<div class=center_div_table>
+
+  <form method="post">
+  <input name="do" value="add_confirm" type="hidden">
+  <input name="action" value="apply" type="hidden">
+  <input name="trans_id" id="trans_id" value="$trans_id" type="hidden">
+  <input name="id" value="" type="hidden">
+   <input type='hidden' id='firm_add_input' value='1' />
+  
+  <table class="table_gborders">
+ <tbody><tr class="table_gborders">
+ <td class="table_gborders" colspan="6">
+	$page_title <!--Добавить выписку--></td>
+</tr> 
+ 
+    
+
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders" colspan="6">
+       <strong>Не забывайте выбирать правильную дату отчета</strong><br/>
+       <strong>Если вы не нашли фирму в списке. Её необходимо добавить самим.</strong><br/>
+       </td>
+  </tr>
+ 
+ 
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders" >
+        Дата поступления
+        </td>
+
+        <td class="table_gborders" colspan="5">
+<script>DateInput('ct_date',true)</script>
+            
+           
+
+                          </td>
+  </tr>
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Получатель
+        </td>
+
+        <td class="table_gborders" colspan="5">
+    <!--only for accounts an creating projects-->
+
+         <input type='hidden' name='ct_fid' id='ct_fid' value='$my_firm.f_id'>
+           $my_firm.f_name (#$my_firm.f_id)
+     
+
+           
+   
+
+                          </td>
+  </tr>
+
+	<script>
+		
+	</script>
+  
+ 
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="6">
+<script>
+
+
+function check_firm_select()
+{
+	var flg = true;
+	
+	for(number=1;number<=39;number++)
+	{
+		var ct_fsid = document.getElementById('ct_fsid'+number);
+		var ct_aid = document.getElementById('ct_aid'+number);
+		var ct_ofid = document.getElementById('ct_ofid'+number);
+		var ct_amnt = document.getElementById('ct_amnt'+number);
+		var ct_comment = document.getElementById('ct_comment'+number);
+		var transit = ct_aid.value == document.getElementById("trans_id").value;
+		if(ct_amnt.value == "" || ct_comment.value=="")continue;
+		if((transit && ct_ofid.value=="") || 
+		(ct_aid.value=="" && ct_ofid.value=="" && ct_fsid.value!=65))
+		{
+			document.getElementById('select_firm'+number).className = "table_gborders_red2";
+			flg = false;
+		}
+		else
+		{
+			document.getElementById('select_firm'+number).className = "table_gborders";
+		}
+		
+	}
+	return flg;
+	
+
+}
+
+
+var id=11;
+function add_one()
+{
+	id=1*id+1;
+	var s=document.getElementById('desc_amnt_10'+id);
+	if(s)
+		s.style.display='';	
+
+
+}
+
+function checkOutFirm()
+{
+	
+
+	for(i=1;i<=32;i++)
+	{
+		var sel = document.getElementById('ct_amnt'+i);
+		if(sel.value>0)
+		{
+			var prog = document.getElementById('ct_aid'+i);
+			if(prog.selectedIndex>0)
+				return true;
+
+			var firm = document.getElementById('ct_ofid'+i);
+			if(firm.selectedIndex==0)
+			{
+				var tmp = document.getElementById('search_'+i).value;
+				var tmp2 = document.getElementById('okpo_'+i).value;
+
+				if(tmp.length==0)
+				{
+					alert("У одной из записей не выбран отправитель");
+					return false;
+				}
+				else
+				{
+					var patt=/(\d+)/g;       
+		            if(!tmp2.match(patt))
+		            {
+		                alert("Не могу определить окпо покупателя у фирмы '"+tmp+"'\n");
+						return false;
+		        
+		            }	
+		        }
+			}
+		}
+	}
+	return true;
+}
+
+function on_select_okpo(obj,input_okpo,flg)
+{
+	var trans = document.getElementById("trans_id").value;
+
+	var h_okpo = hash_idokpo;
+
+	var pr = document.getElementById(flg); 
+	if(pr)
+	{
+		if(	pr.options[pr.selectedIndex].value==trans)
+			h_okpo = trans_firms_id;
+	}
+	else
+	{
+		if(flg==trans)
+		{
+			h_okpo = trans_firms_id;
+		}
+	}
+	if(h_okpo[obj.options[obj.selectedIndex].value]!=undefined)
+	{
+		document.getElementById(input_okpo).value = h_okpo[obj.options[obj.selectedIndex].value];
+	}
+	else
+	{
+		document.getElementById(input_okpo).value ="";
+	}
+}
+
+function select_on_okpo(obj,sel,obj_pr)
+{
+	var trans = document.getElementById("trans_id").value;
+	var obj_prog = document.getElementById(obj_pr);
+	if(obj_prog)
+		var prog = obj_prog.options[obj_prog.selectedIndex].value;
+	else
+		var prog = 0;
+	var tmp = '';
+	var id = hash_id;
+	var select = document.getElementById(sel);
+	select.options.length =1;
+	if(obj.value.length<3)
+	{
+		return false;
+	}
+	if(prog==trans)
+	{
+		tmp = trans_firms_okpo[obj.value];
+		id = trans_firms_name;
+	}
+	else
+	{
+		tmp = hash_okpo[obj.value];
+	}
+	if(tmp)
+	{
+		select[select.options.length] = new Option(id[tmp],tmp, false, true);
+		return true;
+	}
+	else
+	{
+		select.options.length =1;
+		return false;
+	}
+}
+function input_excel()
+{
+	
+   	var s=document.getElementById('data').value;
+	var arr=s.split("\n");
+	//	'desc_amnt_1011'
+	var id_=1011;
+	var tmp=0;
+	document.getElementById('excel_add').style.display='none';
+
+	for(var i=0;i<arr.length; i++)
+	{
+		id_=1011+i;	
+		tmp+=1;
+
+		var arr1=arr[i].split("\t");	
+		
+		if(!arr1[2]&&!arr1[3])
+			continue;
+		
+		var patt=new RegExp("[a-zA-ZА-Яа-я]+");
+
+		if(!arr1[3] || !patt.test(arr1[3]))
+		{
+			document.getElementById('desc_amnt_'+id_).style.display='';
+			
+			if(arr1[3])
+				arr1[3]=arr1[3].replace(/[, ]/g,"");
+			
+			if(arr1[2])
+				arr1[2]=arr1[2].replace(/[, ]/g,"");
+
+			
+			document.getElementById('ct_amnt'+tmp).value=Math.abs(arr1[2])>0?arr1[2]:(-1*arr1[3]);
+
+			if(arr1[4]){
+
+				document.getElementById('ct_comment'+tmp).value=arr1[4];
+			}
+			var selct_ofid = document.getElementById('ct_ofid'+tmp);
+			
+			if(arr1[1])
+			{
+		 	    	selct_ofid.options.length=1;
+				document.getElementById('okpo_'+tmp).value=arr1[1];
+				///ищем окпо если не находим в поиск по имени уже не заглядываем
+				//если находим то заглядываем в поиск по имени
+				var obj=document.getElementById('search_'+tmp);
+				select_on_okpo(document.getElementById('okpo_'+tmp),'ct_ofid'+tmp,'ct_aid'+tmp);
+	 			obj.value=arr1[0];
+				
+				continue;
+			}	
+			if(arr1[0])
+			{
+			    var obj=document.getElementById('search_'+tmp);
+				obj.value=arr1[0];
+				if(selct_ofid.options.length<2)
+				{
+					search_in_select_field(obj,"ct_ofid"+tmp,tmp,"ct_aid"+tmp);
+				}
+			}
+		}else{
+			document.getElementById('desc_amnt_'+id_).style.display='';
+			
+
+			
+			if(arr1[2])
+				arr1[2]=arr1[2].replace(/[, ]/g,"");
+			
+			if(arr1[1])
+				arr1[1]=arr1[1].replace(/[, ]/g,"");
+
+			
+			
+			document.getElementById('ct_amnt'+tmp).value=Math.abs(arr1[1])>0?arr1[1]:(-1*arr1[2]);
+			if(arr1[3])
+			{
+				document.getElementById('ct_comment'+tmp).value=arr1[3];
+			}
+			if(arr1[4])
+			{
+				var obj=document.getElementById('ct_aid'+tmp);
+				var opt=obj.options;
+				var flag=1;
+				var tm1=arr1[4].toLowerCase();
+				
+				for(var z=0;z<opt.length;z++)
+				{			
+					if(opt[z].text.toLowerCase()==tm1)
+					{
+						obj.selectedIndex=z;
+						break;
+						flag=0;
+					}
+					
+				}
+				if(flag)
+				{
+					document.getElementById('ct_comment'+tmp).value=arr1[3]+" "+arr1[4];
+				}			
+				
+
+			}
+				
+			if(arr1[0])
+			{
+				var selct_ofid = document.getElementById('ct_ofid'+tmp);
+				var patt1=/(\d+)/g;       
+			    
+		        var okpo=arr1[0].match(patt1); 
+		    	if(okpo)
+		 	    {
+		 	    	selct_ofid.options.length=1;
+					document.getElementById('okpo_'+tmp).value=okpo;
+					select_on_okpo(document.getElementById('okpo_'+tmp),'ct_ofid'+tmp,'ct_aid'+tmp);
+		        }
+		    
+		    	var obj=document.getElementById('search_'+tmp);
+				obj.value=arr1[0];
+				if(selct_ofid.options.length<2)
+				{
+					search_in_select_field(obj,"ct_ofid"+tmp,tmp,"ct_aid"+tmp);
+				}
+			}	
+		}
+	}
+    
+}
+function search_in_select_field(obj,id,numb,obj_pr)
+{
+	var trans = document.getElementById("trans_id").value;
+
+	var obj_prog = document.getElementById(obj_pr);
+	var prog = obj_prog.options[obj_prog.selectedIndex].value;
+	var hid = hash_id;
+	if(prog==trans)
+	{
+		hid = trans_firms_name;
+	}
+
+	var sel=document.getElementById(id);
+	sel.options.length=1;
+	var tmp;
+	var str=obj.value;
+	str=str.toLowerCase();
+	if(str.length<3)
+	{
+		return ;
+	}
+
+	var patt=new RegExp("^\\s*"+str);
+	var fin=1;
+	for (var key in hid)
+	{
+		tmp=hid[key].toLowerCase();
+		if(patt.test(tmp)==true)
+		{
+			fin=0;
+			//alert(hid[key]+" = "+key);
+			sel.options[sel.options.length] = new Option( hid[key],key, false, true);
+		}
+	}
+	if(fin)
+	{
+		sel.selectedIndex=0;
+	}
+	else
+	{
+		on_select_okpo(sel,'okpo_'+numb,prog);
+	}
+
+}
+function select_prog(number)
+{
+	var okpo = document.getElementById('okpo_'+number);
+	var search = document.getElementById('search_'+number);
+	var ofid = document.getElementById("ct_ofid"+number);
+	if(okpo.value)
+	{
+		select_on_okpo(okpo,"ct_ofid"+number,"ct_aid"+number)
+		if(ofid.options.length==1)
+		{
+			search_in_select_field(search,"ct_ofid"+number,number,"ct_aid"+number)
+		}
+	}
+	else
+	{
+		search_in_select_field(search,"ct_ofid"+number,number,"ct_aid"+number)
+	}
+	
+	
+}
+</script>
+ 
+   <input class="simple_borders" name="__submit" onclick="add_one()" value="Добавить еще одну запись" type="button">
+	<input class="simple_borders"  onclick="document.getElementById('data').value='';show_form('excel_add');" value="Вставить excel" type="button">
+	<input class="simple_borders" title="Добавляйте фирму-отправителя только в том случае,если вы не нашли фирму-отправителя по имени и окпо."  onclick="document.getElementById('name').value='';document.getElementById('okpo').value='';open_firms_form(event,null);" value="Новая фирма отправителя" type="button">
+	
+	<div   id="excel_add"   class="center_div_table_poup" style="position:absolute;display:none">
+	Вставьте данные из excel в поле ниже
+	<br/>	
+	<textarea id="data" class='simple_borders'>
+	
+	</textarea>
+	<br/>
+	<input type='button' onclick='input_excel()' class='simple_borders' name='Вставить' value="Вставить">
+    <input type='submit' value='Провести' class='simple_borders'> 
+
+</div>
+    </td>
+  </tr>
+
+
+  
+  	
+  <tr class="table_gborders">
+	<th class="table_gborders">
+		Отправитель
+	</th>
+    <th class="table_gborders">
+	    Сумма
+    </th>
+	<th class="table_gborders">
+        Назначение
+        </th>
+    <th class="table_gborders">
+        Услуга
+        </th>
+	<th class="table_gborders">
+		Программа
+	</th>
+    <th class="table_gborders">
+        Документ
+    </th>
+</tr>
+
+[% INCLUDE firm_input_one_field.html id1=11 id2=1 display="''" %]
+[% INCLUDE firm_input_one_field.html id1=12 id2=2 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=13 id2=3 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=14 id2=4 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=15 id2=5 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=16 id2=6 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=17 id2=7 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=18 id2=8 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=19 id2=9 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=20 id2=10 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=21 id2=11 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=22 id2=12 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=23 id2=13 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=24 id2=14 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=25 id2=15 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=26 id2=16 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=27 id2=17 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=28 id2=18 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=29 id2=19 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=30 id2=20 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=31 id2=21 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=32 id2=22 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=33 id2=23 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=34 id2=24 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=35 id2=25 display="none"  %]
+[% INCLUDE firm_input_one_field.html id1=36 id2=26 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=37 id2=27 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=38 id2=28 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=39 id2=29 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=40 id2=30 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=41 id2=31 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=42 id2=32 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=43 id2=33 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=44 id2=34 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=45 id2=35 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=46 id2=36 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=47 id2=37 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=48 id2=38 display="none" %]
+[% INCLUDE firm_input_one_field.html id1=49 id2=39 display="none" %]
+<tr class="table_gborders">
+    <td class="table_gborders" colspan='6'> 
+    <input type='submit' value='Провести' onclick="return check_firm_select()" class='simple_borders'> 
+    </td>
+</tr>
+
+  </tbody></table>
+
+  </form>
+</div>  
+</center>
+[%INCLUDE footer.html %]
+

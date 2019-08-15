@@ -1,0 +1,53 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+
+  <div class=center_div_table>
+
+
+  [%INCLUDE proto_filter.html %]
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        <strong>[% page_title %] </strong>       
+    </td>
+  </tr> 
+
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Шутка </th> 
+    
+ 
+  </tr>      
+
+                   
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.id        
+        </td>
+
+        <td class=table_gborders>
+        $row.comment
+        </td>
+  </tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

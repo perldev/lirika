@@ -1,0 +1,35 @@
+<div style='float:right;'><span 
+    style='cursor:pointer' onclick='show_form("archive_list")'>x</span></div>
+<table class=table_gborders>
+ <tr><td colspan='4' class='table_gborders'> 
+<input type='button' value='Восстановить последний' onclick="window.location.href='?do=restore_archive&amp;ct_aid=$a_id'" />
+ </td></tr>
+<tr>
+     <td colspan="4" class=table_gborders> Список архивов : </td>
+      </tr> 
+<tr>
+     <th class=table_gborders> Дата  </th>
+     <th class=table_gborders> ГРН </th>
+     <th class=table_gborders> USD </th> 
+     <th class=table_gborders> EUR </th> 
+    </tr>                         
+     [% FOREACH row = list %]
+<tr id='$row.dt_id' class=table_gborders>
+
+        <td class=table_gborders>
+        $row.ts       
+        </td>
+ 
+        <td class=table_gborders>
+        $row.UAH
+        </td>
+       
+    <td class=table_gborders>
+        $row.USD
+        </td>
+    <td class=table_gborders>
+        $row.EUR
+        </td>
+    </tr>
+  [% END %]
+</table>

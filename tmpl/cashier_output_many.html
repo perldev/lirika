@@ -1,0 +1,48 @@
+[%INCLUDE  header.html %]
+<center>
+<div class=center_div_table>
+ [% INCLUDE today.html %]
+
+  
+
+  <form method="post" id="my_form">
+  <input name="do" value="add_many_confirm" type="hidden">
+
+ 
+  <table class="table_gborders" id="add_form_table">
+ <tbody>
+<tr class="table_gborders">
+ <td class="table_gborders" colspan="6">
+	$page_title</td>
+</tr> 
+
+ [% INCLUDE cashier_output_for_one_user.html user_number='1' comment='Вывод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='2' comment='Вывод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='3' comment='Вывод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='4' comment='Вывод наличных' %]
+ [% INCLUDE cashier_output_for_one_user.html user_number='5' comment='Вывод наличных' %]
+
+
+
+  	
+
+       
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="3">
+   <input class="simple_borders" id="submit_button" name="__submit" value="Добавить" type="submit">
+<script>
+
+
+document.getElementById('submit_button').disabled=false;
+
+</script>
+
+
+  </tbody></table>
+
+  </form>
+
+</div>  
+</center>
+[% INCLUDE  footer.html %]

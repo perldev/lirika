@@ -1,0 +1,250 @@
+
+  [%INCLUDE  header.html %]
+
+  
+  <form method="post" id='my_form'>
+ <input type='hidden' id='parent_id' value="$parent_id">
+
+  <input type="hidden" name="do" value="$method">
+  <input type="hidden" name="action" value="apply">
+  <input type="hidden" name="id" value="$id">
+  <input type="hidden" name="action" value="apply">
+  [% IF need_confirm %]
+    <input type="hidden" id="__confirm" name="__confirm" value="1">
+  [% END %]
+
+  <table class=table_gborders   id="add_form_table" >
+ <tr class=table_gborders>
+ <td class=table_gborders colspan=2>
+	[% page_title %]
+</td>
+</tr> 
+ 
+[% FOREACH row = fields %]
+   
+
+  [% IF row.no_view &&  row.system %]
+
+
+    <input type="hidden" id="$row.field" value="[%row.value  FILTER html%]">
+  [% END %]
+
+[% IF row.java_script%]
+	<script>
+		$row.java_script
+	</script>
+ [% END %]
+  
+  [% IF !row.no_view && (!row.no_add_edit || method!='add') %]
+
+	  [% IF need_confirm&&!row.no_base %]
+   		 <input type="hidden" id="$row.field" name="$row.field" $row.java_script_action  value="[%row.value  FILTER html%]">
+ 	 [% END %]
+  
+    
+  
+  	
+  	<tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        $row.title
+        </td>
+
+        <td class=table_gborders>
+        
+        [% IF row.no_add_edit %]
+          <span id=$row.field >$row.value</span>
+        [% ELSE %]
+          [% IF row.type == 'set' %]    
+
+        
+		[% FOREACH option = row.titles %]
+		<input class="simple_borders"  type=checkbox ="$row.field" name="[% row.field %]__[% option.value %]" value=1
+		[% IF option.checked %]checked[% END %]
+			$row.java_script_action	    
+			> $option.title <br>
+		[% END %]
+  	 
+          [% ELSIF row.type == 'select' %]
+
+  
+
+<!--only for accounts an creating projects-->
+
+         	[% IF row.category == 'projects'%]
+           
+
+	 		 [% IF method=='add'%]         
+                  		   [% INCLUDE project_field.html  %]	
+          		 [% ELSE %]        
+      
+        		  [% FOREACH option = row.titles %]
+             			 [% IF option.value == row.value %]$option.title[% END %]
+          		  [% END %]
+	       [% END %]
+  <!--/only for accounts an creating projects-->    
+<!--im not quilty in it !-->
+
+          [% ELSE %]
+
+          	 [% IF need_confirm %]
+
+         		   [% FOREACH option = row.titles %]
+            			  [% IF option.value == row.value %]$option.title[% END %]
+            	 	   [% END %]
+
+	
+           	 [% ELSE %]
+
+		<select  class="simple_borders" $row.java_script_action 
+		id=$row.field name="$row.field" onchange="select_change('$row.field')">
+        		[% FOREACH option = row.titles %]
+				<option  value="$option.value"
+				[% IF option.value == row.value %]selected[% END %]>[%option.title  FILTER html %]</option>
+			[% END %]
+            	</select>
+
+           	[% END %]
+
+   	  [% END %]
+
+
+  [% ELSE %]            
+
+
+	[% IF row.category == 'accounts' %]
+
+              [% IF need_confirm %]                
+                [% FOREACH a = filter_accounts %]
+                  [% IF a.a_id == row.value %]$a.title[% END %]
+                [% END %]                
+
+              [% ELSE %]
+                [% INCLUDE account_field.html field=row.field value=row.value %]
+              [% END %]
+	
+   
+<!--/only for accounts an creating projects-->  
+	[% ELSIF row.category == 'date' %]
+   		
+	      [% IF need_confirm %]
+                $row.value
+              [% ELSE %]
+                 <script>DateInput('$row.field', true)</script>
+              [% END %]
+
+	[% ELSIF row.category == 'rich_text' %]
+   		
+	      [% IF need_confirm %]
+                $row.value
+              [% ELSE %]
+		
+		<textarea name="$row.field" rows="7" cols="30"  class="simple_borders">$row.value</textarea>               
+
+
+              [% END %]
+	
+
+
+	[% ELSIF row.category == 'exchange' %]
+   	[% IF need_confirm %]
+	
+		[% IF row.exchange_yes %]
+	
+			<input type="hidden" name='rate' value="$row.rate">
+			<input type="hidden" name='currency' value="$row.currency">
+			<input type="hidden" name='exchange_yes' value="$row.exchange_yes">
+			<input type="hidden" name='ct_comis_percent_exchange' value="$row.ct_comis_percent_exchange">
+
+	 	на  $row.exchange_amnt  $row.currency по курсу : $row.rate (комиссия $row.ct_comis_percent_exchange%)
+		[% ELSE %]
+			Обмен не производить
+		[% END %]
+			
+	[% ELSE %]
+
+	  [% INCLUDE exchange_field.html from_visible=row.from_visible %]
+
+	[% END %]
+	
+         [% ELSE %]
+
+              [% IF need_confirm %]
+        	    $row.value
+              [% ELSE %]
+                <input class="simple_borders" $row.java_script_action type="text" 
+		size="60"
+
+		id=$row.field name="$row.field" value="[%row.value  FILTER html %]">
+[% END %]
+[% END %]
+[% END %]
+[%END%]
+           
+
+        </td>
+  </tr>
+ [%ELSE %]
+<!----->
+	[% IF row.system %]
+  
+        	[% IF row.no_add_edit %]
+          		  	
+  		<tr class=table_gborders>
+
+		        <td class=table_gborders>
+        		$row.title
+        		</td>	
+        		<td class=table_gborders>
+        			<span id=$row.field >$row.value</span>
+			</td>
+
+		</tr>	
+ 	       	
+		[% END %]
+
+	
+	[% END %]
+
+<!----->
+
+  [% END %]
+
+
+
+
+ 	
+ 
+
+  [% END %]
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=2>
+   <input class="simple_borders" id="submit_button"
+	name="__submit"  
+	 value=
+       [% IF need_confirm %]
+		   [% IF method == 'add' %]"Подтвердить добавление" onclick="document.getElementById('submit_button').disabled=true;document.getElementById('id').disabled=true;document.getElementById('my_form').submit()"
+		type='button'
+		[% ELSE %]"Подтвердить сохранение"
+
+		type='submit'
+
+		[% END %]
+	
+      [% ELSE %]
+	       [% IF method == 'add' %]"Добавить"[% ELSE %]"Сохранить"[% END %]
+		type='submit'
+      [% END %]
+            
+      >
+<script>
+[%init_java_script%]
+</script>
+
+      <input class="simple_borders" type="button" id='id' onclick='my_back()' 
+	name="__cancel" value="Отменить">      
+    </td>
+  </tr>
+</table>
+</form>

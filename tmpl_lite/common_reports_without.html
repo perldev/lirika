@@ -1,0 +1,371 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+<div class=center_div_table>
+[% INCLUDE stat_menu.html %]
+
+<form action=''  action=POST >
+<input type="hidden" name='do' value='save_report_without'>
+<TABLE class=table_gborders>
+<TBODY>
+		
+		<tr>
+		<td class="table_gborders" colspan="10">
+		отчета за : $date ,дельта : $delta_usd USD,$delta_eur EUR,$delta_uah UAH
+		</td>
+		</tr>
+		<TR>
+			<th class=table_gborders COLSPAN=5  HEIGHT=16>Заёмные средства</Th>
+			<Th class=table_gborders COLSPAN=5 ALIGN=CENTER>Собственные средства</Th>
+		</TR>
+		<TR>
+			<Th class=table_gborders HEIGHT=16 ALIGN=CENTER><I>Наименование</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>Дата</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>USD</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>EUR</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>ГРН</I></Th>
+			<Th class=table_gborders  ALIGN=CENTER><I>Наименование</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>Дата</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>USD</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>EUR</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>ГРН</I></Th>
+		</TR>
+		<TR>
+	<Th align=left colspan=10 class=table_gborders>Постоянные&nbsp;(считаються все остатки на карточках)</Th>
+
+		</tr>
+		<tr>
+		<td colspan=5 class="table_gborders">Мы должны :</td>
+		<td colspan=5 class="table_gborders">Нам должны :</td>
+
+		</tr>
+	
+		[% FOREACH  rows=permanent_cards%]
+		[% IF rows.is_cat_title %]	
+		
+		<TR>
+			</a>
+			<TH colspan="10"  class=table_gborders ALIGN="LEFT">
+			$rows.cat_name
+			</TH>
+			
+		</TR>
+		<TR>
+			<Th colspan="2" class=table_gborders ALIGN=LEFT>
+			<strong> Всего : </strong>
+			</Th>
+
+			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_plus.usd </strong>
+			</Th>
+
+			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_plus.eur </strong>
+			</Th>
+			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_plus.uah </strong>
+			</Th>
+			<Th colspan="2" class=table_gborders ALIGN=LEFT>
+			<strong> Всего : </strong>
+			</Th>
+			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_mines.usd </strong>
+			
+			</Th>
+			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_mines.eur </strong>
+			
+			</Th>
+			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_mines.uah </strong>
+			
+			</Th>
+			
+
+			
+		</TR>
+
+
+		[% ELSE %]
+	
+		<TR>
+			</a>
+			<TD class=table_gborders ALIGN=LEFT>
+			<a class="table_gborders" href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&ct_aid=$rows.plus_column.a_id">$rows.plus_column.a_name</a> 
+			</TD>
+			<TD class=table_gborders align=right>$rows.plus_column.last_ts</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.plus_column.a_usd</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.plus_column.a_eur</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.plus_column.a_uah</TD>
+
+			<TD  ALIGN=LEFT class=table_gborders><a class="table_gborders" href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&ct_aid=$rows.mines_column.a_id">$rows.mines_column.a_name</a></TD>
+			<TD ALIGN=RIGHT class=table_gborders>$rows.mines_column.last_ts</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.mines_column.a_usd</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.mines_column.a_eur</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.mines_column.a_uah</TD>
+
+		</TR>
+	
+		[% END %]
+		[%END%]
+		
+		<tr>
+			<Th colspan=10 class=table_gborders align=left>Разовые&nbsp;(все суммы ,находящиеся в процессе идентификации )</Th>
+		</TR>
+
+		[% FOREACH rows=non_identifier %]
+		<TR>
+			<TD   class=table_gborders HEIGHT=16 ALIGN=LEFT >
+<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.left_column.f_id">
+ $rows.left_column.f_name </a></TD>
+			<TD ALIGN=RIGHT class=table_gborders></TD>
+			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.f_usd </TD>
+			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.f_eur </TD>
+			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.f_uah </TD>
+
+			
+			<TD  class=table_gborders ALIGN=LEFT >
+			<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.right_column.f_id">$rows.right_column.f_name </a></TD>
+	<TD ALIGN=RIGHT class=table_gborders></TD>
+			<TD  class=table_gborders ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.f_usd</TD>
+			<TD  class=table_gborders ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.f_eur</TD>
+			<TD  class=table_gborders ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.f_uah</TD>
+
+
+		</TR>
+		[%END%]
+		
+		
+		<TR>
+			<TH  HEIGHT=16 ALIGN=LEFT colspan=10 class=table_gborders>Процентные выплаты</TD>
+			
+		</TR>
+		[% FOREACH rows=pay_credits %]
+		<TR>
+			<TD  class=table_gborders ALIGN=LEFT>$rows.left_column.a_name1</TD>
+			<TD  class=table_gborders ALIGN=LEFT>$rows.left_column.ts</TD>
+			<TD  class=table_gborders  ALIGN=LEFT  onclick="sum(this)">$rows.left_column.credit_sum</TD>
+			<TD  class=table_gborders  ALIGN=LEFT>$rows.right_column.a_name1</TD>
+			<TD  class=table_gborders ALIGN=LEFT>$rows.right_column.ts</TD>
+			<TD  class=table_gborders ALIGN=LEFT  onclick="sum(this)">$rows.right_column.credit_sum</TD>
+		</TR>
+		[% END %]
+	
+		<TR>
+			<Th  colspan=10 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;</Th>
+</tr>
+		
+		</TR>
+
+		[% FOREACH rows=firm_balances %]		
+		<TR>
+	<TD  class=table_gborders  ALIGN=LEFT><a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.left_column.f_id">$rows.left_column.f_name</a></TD>
+			<TD   class=table_gborders>$rows.left_column.last_ts</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.left_column.f_usd</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.left_column.f_eur</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.left_column.f_uah</TD>
+
+			
+			
+			<TD  class=table_gborders  ALIGN=LEFT><a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.right_column.f_id">$rows.right_column.f_name</a></TD>
+			<TD   class=table_gborders>$rows.right_column.last_ts</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.right_column.f_usd</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.right_column.f_eur</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.right_column.f_uah</TD>
+
+		</TR>
+		[% END %]
+	
+
+
+		<TR>
+			<th class=table_gborders rowspan=3 colspan=3>
+			
+<!--Master cards-->
+	
+			<table class=table_gborders width=100%>		
+			
+	[% FOREACH rows=master_cards %]
+			
+			<TR >
+			<th class=table_gborders align=left >$rows.a_name</th>
+			<td class=table_gborders  onclick="sum(this)">$rows.USD</td>
+			<td class=table_gborders  onclick="sum(this)">$rows.EUR</td>
+			<td class=table_gborders  onclick="sum(this)">$rows.UAH</td>
+
+
+			</tr>
+			
+	[% END %]
+	
+	
+	</table>
+
+<!--master cards-->	</th>
+		
+			<TH ALIGN=RIGHT class=table_gborders colspan=2>Средств в работе(USD):&nbsp;
+					
+
+			</Th>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_usd</Td>
+			
+			<TH ALIGN=RIGHT class=table_gborders >Средств в работе(EUR):&nbsp;
+					
+
+			</Th>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_eur</Td>
+			
+			<TH ALIGN=RIGHT class=table_gborders >Средств в работе(ГРН):&nbsp;
+					
+
+			</Th>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_uah</Td>
+
+		</TR>
+		
+
+		<TR>	
+			<!--<TH  ALIGN=LEFT colspan=2 class=table_gborders>к1</Th>
+			<TH  ALIGN=RIGHT class=table_gborders>$sum_k1 </Th>
+			-->
+			<TH ALIGN=RIGHT colspan=2 class=table_gborders >Средств в работе с учётом общих затрат(USD):
+			</TH>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$whole_sum_with_commons_usd</Td>
+			<TH ALIGN=RIGHT class=table_gborders > с учётом общих затрат(EUR):
+			</TH>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$whole_sum_with_commons_eur</Td>
+			<TH ALIGN=RIGHT  class=table_gborders > с учётом общих затрат(ГРН):
+			</TH>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$whole_sum_with_commons_uah</Td>
+		</TR>
+		
+		<TR>
+			<!--<Th colspan=2 class=table_gborders ALIGN=LEFT>к2</Th>
+		
+			<Th  ALIGN=RIGHT class=table_gborders>$sum_k2</Th>-->
+		
+		<TH ALIGN=RIGHT class=table_gborders colspan=2>Предыдущее значение:</TH>
+			<td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$last_sum_exc.last_sum_exc_usd</Td>
+	<TH ALIGN=RIGHT class=table_gborders >Предыдущее значение:</TH>
+			<td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$last_sum_exc.last_sum_exc_eur</Td>
+	<TH ALIGN=RIGHT class=table_gborders >Предыдущее значение:</TH>
+			<td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$last_sum_exc.last_sum_exc_uah</Td>
+		</TR>
+		<TR>
+		
+			<Th  ALIGN=RIGHT colspan=5 class=table_gborders>Фирмы И Касса:<br>(USD)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$firms_balances_usd</Td>
+	<Th  ALIGN=RIGHT  class=table_gborders>Фирмы И Касса:<br>(EUR)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$firms_balances_eur</Td>
+	<Th  ALIGN=RIGHT class=table_gborders>Фирмы И Касса:<br>(ГРН)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$firms_balances_uah</Td>
+		</TR><TR>
+			
+			<Th  ALIGN=RIGHT colspan=5 class=table_gborders>Не расчитанные:(USD)</Th>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$non_ident_usd</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Не расчитанные:(EUR)</Th>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$non_ident_eur</Td>
+<Th  ALIGN=RIGHT  class=table_gborders>Не расчитанные:(ГРН)</Th>
+			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$non_ident_uah</Td>
+		</TR><TR>
+			
+			<Th  ALIGN=RIGHT colspan=5 class=table_gborders>Карточки: (USD)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$cards_usd</Td>
+<Th  ALIGN=RIGHT  class=table_gborders>Карточки: (EUR)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$cards_eur</Td>
+<Th  ALIGN=RIGHT  class=table_gborders>Карточки: (UAH)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$cards_uah</Td>
+		</TR>
+
+<TR>
+		<Th  ALIGN=RIGHT colspan=5 class=table_gborders>Дельта:(USD)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  id='delta_usd_normal' onclick="sum(this)">$delta_usd</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Дельта:(EUR)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders id='delta_eur_normal' onclick="sum(this)">$delta_eur</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Дельта:(ГРН)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders id='delta_uah_normal' onclick="sum(this)">$delta_uah</Td>
+		</TR>
+<TR>
+		<Th  ALIGN=RIGHT colspan=5 class=table_gborders>Траты:(USD)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  id='delta_usd_normal' onclick="sum(this)">$of_usd</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Траты:(EUR)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders id='delta_eur_normal' onclick="sum(this)">$of_eur</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Траты:(ГРН)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders id='delta_uah_normal' onclick="sum(this)">$of_uah</Td>
+		</TR>
+
+<TR>
+		<Th  ALIGN=RIGHT colspan=5 class=table_gborders>Доход:(USD)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders  id='delta_usd_normal' onclick="sum(this)">$incom_usd</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Доход:(EUR)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders id='delta_eur_normal' onclick="sum(this)">$incom_eur</Td>
+<Th  ALIGN=RIGHT class=table_gborders>Доход:(ГРН)</Th>
+			<Td  ALIGN=RIGHT class=table_gborders id='delta_uah_normal' onclick="sum(this)">$incom_uah</Td>
+		</TR>
+
+
+		[% FOREACH row=conclusions_sum %]
+			
+			<tr >
+			<th class=table_gborders align=right colspan=4>$row.a_name</th>
+			</tr>
+			<tr>
+				<td class=table_gborders align=right >На начало периода :</td>
+				<td class=table_gborders  onclick="sum(this)">$row.usd.before</td>
+				<td class=table_gborders  onclick="sum(this)">$row.eur.before</td>
+				<td class=table_gborders  onclick="sum(this)">$row.uah.before</td>
+
+
+			</tr>
+			<tr>
+				<td class=table_gborders align=right >Общии затраты :</td>
+				<td class=table_gborders  onclick="sum(this)">$row.usd.common</td>
+				<td class=table_gborders  onclick="sum(this)">$row.eur.common</td>
+				<td class=table_gborders  onclick="sum(this)">$row.uah.common</td>
+
+
+			</tr>
+			<tr>
+				<td class=table_gborders align=right >Затраты на офис($row.usd.per%) :</td>
+				<td class=table_gborders  onclick="sum(this)">$row.usd.of</td>
+				<td class=table_gborders  onclick="sum(this)">$row.eur.of</td>
+				<td class=table_gborders  onclick="sum(this)">$row.uah.of</td>
+			</tr>
+			<tr>
+				<td class=table_gborders align=right>Заработано ($row.usd.per%) :</td>
+				<td class=table_gborders  onclick="sum(this)">$row.usd.earn</td>
+				<td class=table_gborders  onclick="sum(this)">$row.eur.earn</td>
+				<td class=table_gborders  onclick="sum(this)">$row.uah.earn</td>
+			</tr>
+			<tr>
+				<td class=table_gborders align=right >ИТОГО:</td>
+				<td class=table_gborders  onclick="sum(this)">$row.usd.concl</td>
+				<td class=table_gborders  onclick="sum(this)">$row.eur.concl</td>
+				<td class=table_gborders  onclick="sum(this)">$row.uah.concl</td>
+			</tr>
+		[% END %]
+
+
+		
+
+		
+		
+
+		
+	</TBODY>
+</TABLE>
+[% IF  !view_not_edit%]
+<center>
+<input type=submit value='Сохранить отчет' class='simple_borders'>
+</center>
+[% END %]
+</form>
+</div>
+</center>
+
+
+
+<!-- ************************************************************************** -->
+
+[%INCLUDE  footer.html %]

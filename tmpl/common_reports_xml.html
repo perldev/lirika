@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<root>
+<cards>
+<static_cards>
+[% FOREACH  rows=static_cards%]
+		<card>
+			<id>
+			$rows.left_column.a_id
+			</id>
+			<title>
+			$rows.left_column.a_name
+			</title>
+			<last_ts>
+			$rows.left_column.last_ts
+			</last_ts>
+			<amnt>
+			$rows.left_column.amnt
+			</amnt>
+		</card>
+
+		<card>
+			<id>
+			$rows.right_column.a_id
+			</id>
+			<title>
+			$rows.right_column.a_name
+			</title>
+			<last_ts>
+			$rows.right_column.last_ts
+			</last_ts>
+			<amnt>
+			$rows.right_column.amnt
+			</amnt>
+		</card>
+		[% END %]
+
+		</static_cards>
+		<permanent_cards>
+		<plus>	
+		[% FOREACH  rows=permanent_cards%]
+		<card>
+		<id>
+		$rows.plus_column.a_id
+		</id>
+		<title>
+		$rows.plus_column.a_name
+		</title>
+		<last_ts>
+		$rows.plus_column.last_ts
+		</last_ts>
+		<amnt>
+		$rows.plus_column.amnt
+		</amnt>
+		</card>
+		[%END%]
+		</plus>	
+		<mines>
+		[% FOREACH  rows=permanent_cards%]
+		<card>
+		<id>
+		$rows.mines_column.a_id
+		</id>
+		<title>
+		$rows.mines_column.a_name
+		</title>
+		<last_ts>
+		$rows.mines_column.last_ts
+		</last_ts>
+		<amnt>
+		$rows.mines_column.amnt
+		</amnt>
+		</card>
+		[%END%]
+		</mines>
+		</permanent_cards>		
+		</cards>
+		<one_time>
+		[% FOREACH rows=non_identifier %]
+		<firm>
+		<id>$rows.left_column.f_id</id>
+		<title>$rows.left_column.f_name</title><amnt>$rows.left_column.amnt</amnt>
+		</firm>	
+		<firm>
+		<id>$rows.right_column.f_id</id>
+		<title>$rows.right_column.f_name</title><amnt>$rows.right_column.amnt</amnt>
+		</firm>	
+		[%END%]
+		</one_time>
+	
+		<percent_payments>
+		[% FOREACH rows=pay_credits %]
+		<card>
+		<id>$rows.left_column.t_aid1</id>
+		<title>$rows.left_column.a_name1</title>
+		<ts>$rows.left_column.ts</ts>
+		<amnt>$rows.left_column.credit_sum</amnt>
+		</card>		
+		<card>
+		<id>$rows.right_column.t_aid1</id>
+		<title>$rows.right_column.a_name1</title>
+		<ts>$rows.right_column.ts</ts>
+		<amnt>$rows.right_column.credit_sum</amnt>
+		</card>	
+		[% END %]
+		</percent_payments>
+	
+		
+		<firms_balances>
+		[% FOREACH rows=firm_balances %]		
+		<firm>
+			<id>$rows.left_column.f_id</id>
+			<title>$rows.left_column.f_name</title>
+			<last_ts>$rows.left_column.last_ts</last_ts>
+			<amnt>$rows.left_column.amnt</amnt>
+		</firm>
+		
+		<firm>	
+			<id>$rows.right_column.f_id</id>
+			<title>$rows.right_column.f_name</title>
+			<last_ts>$rows.right_column.last_ts</last_ts>
+			<amnt>$rows.right_column.amnt</amnt>
+			
+		</firm>
+		[% END %]
+		</firms_balances>
+		<master_cards>
+			[% FOREACH rows=master_cards%]
+			<card>
+				<id>$rows.a_id</id>
+				<title>$rows.a_name</title>
+				<amnt>$rows.sum</amnt>
+			</card>
+			[%END%]
+		</master_cards>
+		<work_money>$work_money</work_money>
+		<work_money_with_commons>$whole_sum_with_commons</work_money_with_commons>
+		<money_exc>$current_sum_exc</money_exc>
+		<last_money_exc>$last_sum_exc</last_money_exc>
+		<delta>$delta</delta>
+</root>
+
+

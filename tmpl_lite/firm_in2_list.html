@@ -1,0 +1,189 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+  <!--
+  <a  class=table_gborders href="?do=add">Добавить</a>
+  -->
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=14>
+        <strong> [% page_title %]<!--Ввод безнала--></strong>       
+    </td>
+  </tr> 
+ <tr>
+<script>
+function form_work(don)
+{
+	if(don=='clear')
+	{
+		clearsum();
+	}else
+	{
+		document.getElementById('do').value=don;
+		document.getElementById('my_form').submit()
+	}
+}
+
+</script>
+
+<form  id="my_form" method="POST" >
+<td  class=table_gborders colspan=14>
+<input type='button' class="simple_borders"   name="Сбросить выделение" value="Сбросить выделение" onclick="form_work('clear')"><input type="hidden" name="do" id="do" value="" ><input type='button' class="simple_borders" name="Идентифицировать" onclick="form_work('add_common')" value="Идентифицировать" >
+
+</td>
+</tr>
+  <tr>
+     <th class=table_gborders></th>
+     <th class=table_gborders>id</th>
+     <th class=table_gborders>Дата</th> 
+     <th class=table_gborders>Фирма</th>   
+     <th class=table_gborders>Сумма</th>
+     <th class=table_gborders>Валюта</th>
+     
+     <th class=table_gborders>Назначение</th>
+     <th class=table_gborders>Оператор</th>
+    
+     <!--
+     <th class=table_gborders> Транзакция </th>
+     -->
+
+     <th class=table_gborders>Дата проведения</th> 
+     <th class=table_gborders>Карточка</th> 
+<!--     <th class=table_gborders>Услуга</th>-->
+     <th class=table_gborders>Оператор проведения</th>
+     <th class=table_gborders>Статус проведения</th>
+
+     <th class=table_gborders colspan=2>Действия</th>
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  	[% IF row.ct_aid||row.orig__ct_status=='transit' %]
+
+	[% class='table_gborders_blue' %]
+
+	[% ELSIF row.ct_req=='yes'%]
+
+	[% class='table_gborders_whiteskin' %]	
+
+	[% ELSE %]
+	[% class='table_gborders' %]	
+	[% END %]  
+<tr class=$class>
+	
+	
+		
+
+	
+
+	<td class=$class>
+		<input type='checkbox' name='ct_id' class="simple_borders" value="$row.ct_id">
+
+        </td>
+        <td class=$class>
+       <a name="$row.ct_id" /> $row.ct_id        
+        </td>
+
+        <td class=$class>
+        $row.ct_date
+        </td>
+
+        <td class=$class>
+	 <nobr class="comment" title='[% row.ct_fid FILTER html  %]'>[% row.ct_fid FILTER html  %]</nobr>
+        </td>
+
+        <td class=$class onclick="sum(this)">
+        $row.ct_amnt
+        </td>
+
+        <td class=$class>
+        $row.ct_currency
+        </td>
+
+      
+        <td class="$class" title='[% row.ct_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.ct_comment FILTER html  %]'>[% row.ct_comment FILTER html  %]</nobr>
+	</td>
+
+        <td class=$class>
+        $row.ct_oid
+        </td>
+
+        <!--
+        <td class=table_gborders>
+        $row.ct_tid
+        </td>
+        -->
+
+        <td class=$class>
+        $row.ct_ts2
+        </td>
+
+        <td class=$class>
+        
+<a class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.orig__ct_aid">$row.ct_aid
+</a>
+        
+
+
+        </td>
+
+      <!--  <td class=$class>
+<nobr class="comment" title='[% row.ct_fsid FILTER html  %]'>[% row.ct_fsid FILTER html  %]</nobr>
+        </td>-->
+
+        <td class=$class>
+        $row.ct_oid2
+        </td>
+
+        <td class=$class>
+        $row.ct_status
+        </td>
+
+        <td class=$class>
+        [% IF row.orig__ct_status == 'created' %]
+        <a  class=table_gborders href="?do=edit&amp;id=$row.id">идентифицировать</a>
+        [% END %]
+        </td>
+
+
+
+        <!--
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=edit&amp;id=$row.id">редактировать</a>
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=del&amp;id=$row.id">удалить</a>
+        </td>
+
+        -->
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+</form>
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

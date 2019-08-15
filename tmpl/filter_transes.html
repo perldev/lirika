@@ -1,0 +1,215 @@
+
+<tr class=table_gborders>
+<td colspan=7 class=table_gborders>
+<!--
+<input class=simple_borders type="button" onclick="if(this.value=='Показать расширенный фильтр'){document.getElementById('filter_transes3').style.display='';document.getElementById('filter_transes2').style.display='';document.getElementById('filter_transes1').style.display='';this.value='Скрыть расширенный фильтр'}else{document.getElementById('filter_transes3').style.display='none';document.getElementById('filter_transes2').style.display='none';document.getElementById('filter_transes1').style.display='none';this.value='Показать расширенный фильтр' }" value="Показать расширенный фильтр">
+-->
+</td>
+</tr>
+
+<tr  class=table_gborders>
+<form action='oper.cgi' method=POST>
+<td  id="filter_transes1" style="display:none"  colspan=7 class=table_gborders > 
+Количество записей на странице :                             
+<input type="text"   class=simple_borders  id=how_id  name="how"> 
+&nbsp;                  
+</td>
+
+</tr>
+<tr style="display: none" id="filter_transes2" class=table_gborders>
+<td></td>
+  <input type="hidden" name="a_id" value="$trans_list.a_id">
+<td class=table_gborders><input class=simple_borders name="f_payee" value="$f_payee" type="text"></td>
+<td class=table_gborders><input   class=simple_borders name="f_benef" value="$f_benef" type="text"></td>
+<td class=table_gborders><input   class=simple_borders name="f_operator" value="$f_operator" type="text"></td>
+<td class=table_gborders><input   size="2"  class=simple_borders name="f_amnt" value="$f_amnt" type="text">&nbsp;<select  id=currencies_id class="simple_borders" name='f_currency'>
+        <option></option>
+        [% FOREACH thing=currencies %]
+                <option value='$thing.value'>$thing.name</option>
+        [% END %]
+        </select></td>
+<td class=table_gborders>              
+                <table border="0" cellpadding="0" cellspacing="1">
+                  <tbody><tr>
+                    <td class=table_gborders >С:&nbsp;</td>
+                    <td>
+                      <nobr>
+                      <select   class=simple_borders id=filter_p_ts_begin_d_id name="filter_p_ts_begin_d">
+                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>25</option>
+                        <option>26</option>
+                        <option>27</option>
+                        <option>28</option>
+                        <option>29</option>
+                        <option>30</option>
+                        <option>31</option>
+                      </select>
+
+                      &nbsp;
+                      <select  class=simple_borders  id=filter_p_ts_begin_m_id name="filter_p_ts_begin_m">
+                    <option></option>   
+                        [% FOREACH thing=months %]
+                        <option value="$thing.value">$thing.name</option>
+                        [% END %]
+                        </select>
+
+                      &nbsp;
+                      <input  class=simple_borders size="2" name="filter_p_ts_begin_y" value="$filter_p_ts_begin_y" type="text">
+                      
+                      </nobr>
+                    </td>
+                  </tr>
+                  <tr>  
+                    <td class=table_gborders >По:&nbsp;</td>
+                    <td>
+                      <nobr>
+
+                      
+                      <select  class=simple_borders id=filter_p_ts_end_d_id name="filter_p_ts_end_d">
+                        <option></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                        <option>24</option>
+                        <option>25</option>
+                        <option>26</option>
+                        <option>27</option>
+                        <option>28</option>
+                        <option>29</option>
+                        <option>30</option>
+                        <option>31</option>
+                      </select>
+                      
+                      &nbsp;
+                       <select  class=simple_borders id=filter_p_ts_end_m_id name="filter_p_ts_end_m">
+                        <option></option>   
+                       [% FOREACH thing=months %]
+                        <option value="$thing.value">$thing.name</option>
+                        [% END %]
+                      </select>
+
+                      &nbsp;
+                      <input   class=simple_borders size="2" name="filter_p_ts_end_y" value="$filter_p_ts_end_y" type="text">
+                      
+                      </nobr>
+                    </td>
+                   </tr> 
+                </tbody></table>    
+</td>
+<td class=table_gborders><input  class=simple_borders name="f_comment" value="$f_comment" type="text"></td>
+</tr>
+ <tr id="filter_transes3" style="display:none" class=table_gborders>
+<td colspan="7" class=table_gborders><input  class=simple_borders class="simple_borders" value="Фильтровать" type="submit"></td>
+</tr>
+</form>
+
+<script type="text/javascript">
+var s=document.getElementById('filter_p_ts_end_d_id');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$filter_p_ts_end_d')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+s=document.getElementById('filter_p_ts_end_m_id');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$filter_p_ts_end_m')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+
+s=document.getElementById('filter_p_ts_begin_m_id');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$filter_p_ts_begin_m')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+s=document.getElementById('filter_p_ts_begin_d_id');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$filter_p_ts_begin_d')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+s=document.getElementById('how_id');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$how')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+var s=document.getElementById('currencies_id');
+for (i=0;i<s.length;i++)
+    {
+        if(s.options[i].value=='$f_currency')
+        {
+                s.selectedIndex=i;
+                break;
+        }
+        
+    }
+
+</script>
+
+

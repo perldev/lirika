@@ -1,0 +1,603 @@
+[%INCLUDE  header.html %]
+
+<center>
+<div class=center_div_table>
+
+  <form method="post">
+[%IF a_id%]	
+
+  <input type="hidden" name="do" value="edit_do">
+[%ELSE%]
+	 <input type="hidden" name="do" value="add_do">
+[%END%]
+
+  <input type="hidden" name="action" value="apply">
+  <input type="hidden" name="id" value="$a_id">
+
+  
+  <table class=table_gborders>
+ <tr class=table_gborders>
+ <td class=table_gborders colspan=2>
+	<strong>$page_title</strong></td>
+
+</tr> 
+ 
+
+[% IF a_id %] 
+      <tr class=table_gborders>
+
+	  <td class=table_gborders>
+        Дата регистрации
+        </td>
+
+        <td class=table_gborders>
+                            $a_ts
+                          </td>
+  	</tr>
+   	<tr class=table_gborders>
+	<td class=table_gborders>
+        ID
+        </td>
+	 <td class=table_gborders>
+                      $a_id
+        </td>
+  </tr>
+[% END %]
+
+
+
+        <td class=table_gborders>
+        ФИО
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+
+                      
+     
+
+	
+                              <input class="simple_borders"  type="text" id=a_name name="a_name" value="$a_name">
+              
+            
+           
+
+                          </td>
+  </tr>
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Комментарии
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+
+                      
+     
+
+	
+                              <input class="simple_borders"  type="text" id=a_phones name="a_phones" value="$a_phones">
+
+              
+            
+           
+
+                          </td>
+  </tr>
+ 
+  	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Электронный адрес(email) 
+        </td>
+
+        <td class=table_gborders>
+    <input class="simple_borders"  type="text" id=a_email name="a_email" value="$a_email">
+              
+            
+           
+
+                          </td>
+  </tr>
+
+<tr class=table_gborders>
+
+
+        <td class=table_gborders>
+	Пароль для архива отчетов
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+
+                      
+     
+
+	
+                              <input class="simple_borders"  type="text" id=a_report_passwd name="a_report_passwd" value="$a_report_passwd">
+              
+            
+           
+
+                          </td>
+  </tr>
+	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Час отправления( 1-24 )
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+
+                      
+     
+
+    
+                              <input class="simple_borders"  type="text" id='a_hour_report' name="a_hour_report" value="$a_hour_report">
+              
+            
+           
+
+                          </td>
+  </tr>
+    
+  
+
+    
+    
+  
+  	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+
+        Класс
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+
+          
+  
+
+<!--only for accounts an creating projects-->
+
+         
+           
+            <select  class="simple_borders"  id=a_class name="a_class" onchange="select_change_class()">
+                    [% FOREACH row=classes %]   
+			<option  value=$row.c_id >$row.c_name</option>
+		    [% END %]	
+
+           </select>
+   
+
+                  </td>
+  </tr>
+ 
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Подписка на уведомление о состоянии счета
+        </td>
+
+        <td class=table_gborders>
+<!--only for accounts an creating projects-->
+
+         
+           
+            <select  class="simple_borders"  id=a_issubs name="a_issubs" onchange="select_change(a_issubs)">
+                        <option  value="yes"
+                          >Подписан</option>
+                        <option  value="no"
+                          >Не подписан</option>
+                        </select>
+
+           
+   
+
+                  </td>
+  </tr>
+ 
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+	Оператор :
+        </td>
+
+        <td class=table_gborders>
+<!--only for accounts an creating projects-->
+
+         
+           
+            <select  class="simple_borders"  name="a_oid" >
+                     
+  		    [% FOREACH row=operators %]   
+			<option [% IF  row.selected %] selected='selected' [% END %] value=$row.o_id >$row.o_login</option>
+		    [% END %]	
+             </select>
+
+           
+   
+
+                  </td>
+  </tr>
+  <tr class=table_gborders>                                                                                                                                  
+                                                                                                                                                               
+                                                                                                                                                               
+          <td class=table_gborders>                                                                                                                            
+	          Состояние сверки                                                                                                            
+          </td>                                                                                                                                                
+       
+			          <td class=table_gborders>                                                                                                                            
+				  <!--only for accounts an creating projects-->                                                                                                                
+				                                                               
+				                                                                                                                                                               
+				              <select  class="simple_borders"  id=a_is_debt name="a_is_debt" onchange="select_change('a_is_debt')">                                                 
+					                              <option  value="yes"                                                                                                                 
+								                                >Да</option>                                                                                                                 
+												                        <option  value="no"                                                                                                                  
+															                          >Нееее ;(</option>                                                                                                              
+																		                          </select>                                                                                                                            
+																					                                                                                                                                                               
+																					                                                                                                                                                               
+																					                                                                                                                                                               
+																					                                                                                                                                                               
+																					                    </td>                                                                                                                                      
+																							      </tr>              
+
+
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Cтатус
+        </td>
+
+        <td class=table_gborders>
+<!--only for accounts an creating projects-->
+            		<select  class="simple_borders"  id=a_status name="a_status" onchange="select_change(a_status)">
+                        <option  value="active">активен</option>
+                        <option  value="blocked">заблокирован</option>
+                        </select>
+         </td>
+
+  </tr>
+ 
+
+
+
+ 	
+ 
+
+ <!--    
+
+ 
+
+	<script>
+		
+	</script>
+  
+   <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Приходная программа
+        </td>
+
+        <td class=table_gborders>
+
+
+
+       <table>
+        <tr>
+ <td>         
+            <span class="simple_text">   поиск: </span>
+       </td>
+           <td>
+  
+            <input class="simple_borders" type="text" id="a_incom_id__search" value=""
+            
+            onchange="return accounts_search_event('a_incom_id');"
+            onkeyup="return accounts_search_event('a_incom_id');"
+
+            size="10"
+            >
+    </td>
+
+       <td>     
+           <span class="simple_text"> id:</span>
+       </td>
+           <td>
+            <input class="simple_borders" type="text" name="a_incom_id" value="$a_incom_id"
+            
+            id="a_incom_id"
+            onchange="return accounts_id_event('a_incom_id');"            
+            onkeyup="return accounts_id_event('a_incom_id');"
+            size="5"
+
+            >
+      </td>
+     
+            
+    <td>
+            <select class="simple_borders" id="a_incom_id__select"            
+            onchange="return accounts_select_event('a_incom_id');"
+            onkeyup="return accounts_select_event('a_incom_id');"            
+            >
+
+            </select>
+    </td>
+</tr>
+</table>
+
+            <script>
+        
+              accounts_id_event('a_incom_id');
+        document.getElementById("a_incom_id__search").value='';
+            </script>
+
+
+
+
+                
+   
+        
+           
+
+                          </td>
+
+  </tr>
+  
+  -->
+
+    
+    <!--/only for accounts an creating projects-->  
+
+  <!--
+  	
+  <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Кто привел в банк
+        </td>
+
+        <td class=table_gborders>
+
+
+
+	   <table>
+	    <tr>
+ <td>         
+            <span class="simple_text">   поиск: </span>
+	   </td>
+           <td>
+  
+            <input class="simple_borders" type="text" id="a_aid__search" value=""
+            
+            onchange="return accounts_search_event('a_aid');"
+            onkeyup="return accounts_search_event('a_aid');"
+
+            size="10"
+            >
+	</td>
+
+	   <td>		
+           <span class="simple_text"> id:</span>
+	   </td>
+           <td>
+            <input class="simple_borders" type="text" name="a_aid" value="$a_aid"
+            
+            id="a_aid"
+            onchange="return accounts_id_event('a_aid');"            
+            onkeyup="return accounts_id_event('a_aid');"
+            size="5"
+
+            >
+	  </td>
+	 
+            
+	<td>
+            <select class="simple_borders" id="a_aid__select"            
+            onchange="return accounts_select_event('a_aid');"
+            onkeyup="return accounts_select_event('a_aid');"            
+            >
+
+            </select>
+	</td>
+</tr>
+</table>
+
+            <script>
+		
+              accounts_id_event('a_aid');
+		document.getElementById("a_aid__search").value='';
+            </script>
+
+
+
+
+              	
+   
+	    
+           
+
+                          </td>
+
+  </tr>-->
+<!--/only for accounts an creating projects-->  
+
+<script type="text/javascript"> 
+var fs_percents={};
+
+var keys_percent=new Array();
+var keys_hash=new Array();
+[% FOREACH row=classes_percent_services %]
+	var tmp_hash1$row.c_id={};
+	[% FOREACH row1=row.services %]	
+		tmp_hash1$row.c_id[$row1.fs_id]=$row1.percent;
+	
+	[% END %]
+	fs_percents[$row.c_id]=tmp_hash1$row.c_id;
+	keys_hash.push($row.c_id);
+[% END %]
+
+[% FOREACH row=services %]
+	keys_percent.push($row.fs_id);
+[% END %]
+
+function select_change_class()
+{
+	[%IF a_id%]
+		return;
+
+	[%ELSE%]
+		var i;
+	var c=document.getElementById('a_class');
+	if(!c)
+		return ;
+	for(i=0;i<keys_percent.length;i++)
+	{
+		
+		document.getElementById('fsp_'+keys_percent[i]).value=fs_percents[c.value][keys_percent[i]];
+
+	}
+	[%END%]
+	
+
+
+}
+
+
+</script>
+
+<tr class="table_gborders">
+<td class="table_gborders" >
+  <strong>Категория: </strong>
+</td>
+<td>
+<select name='a_acid'>
+		   [% FOREACH row=cats %]   
+<option [% IF  row.selected %] selected [% END %] value="$row.value" >$row.title</option>
+		    [% END %]
+
+</select>
+
+</td>
+</tr>
+ 
+
+<tr class="table_gborders">
+<td class="table_gborders" colspan="2">
+  <strong>  Процент за использования сервисов:</strong>
+</td>
+</tr>
+ <tr class="table_gborders">
+        <th class="table_gborders">
+        Наименование
+        </th>
+	<th class="table_gborders">
+        Процент
+        </th>
+</tr>
+
+[%IF a_id%]
+
+
+[%FOREACH row=client_services_percents%]
+
+
+<tr class=table_gborders>
+        <td class=table_gborders>
+	$row.fs_name
+        </td>
+        <td class=table_gborders>
+	<input type="text" class=simple_borders name=fsp_$row.fs_id id="fsp_$row.fs_id" value=$row.percent >
+        </td>
+	</tr>
+	
+[%END%]
+
+
+[%ELSE%]
+
+	[% FOREACH row=services %]
+	<tr class=table_gborders>
+        <td class=table_gborders>
+	$row.fs_name
+        </td>
+        <td class=table_gborders>
+	<input type="text" class=simple_borders name=fsp_$row.fs_id id="fsp_$row.fs_id" value=$row.percent >
+        </td>
+	</tr>
+	[% END %]
+
+[%END%]
+ 
+
+
+
+ 	
+ 
+
+    <tr class=table_gborders>
+    <td class=table_gborders colspan=2>
+[%IF a_id%]
+  <input class="simple_borders" type="submit" name="__submit" value=
+      
+              "Сохранить"                  
+      >
+[%ELSE%]
+      <input class="simple_borders" type="submit" name="__submit" value=
+      
+              "Добавить"                  
+      >
+[%END%]
+<script>
+</script>
+
+      <input class="simple_borders" type="button" name="__cancel" onclick="history.back()" value="Отменить" >      
+    </td>
+  </tr>
+
+  </table>
+
+  </form>
+<script type="text/javascript">
+[%IF a_id %]
+
+document.getElementById('a_issubs').value='$a_issubs';
+document.getElementById('a_class').value='$a_class';
+document.getElementById('a_status').value='$a_status';
+document.getElementById('a_is_debt').value='$a_is_debt';
+
+[%ELSE%]
+select_change_class();
+[%END%]
+
+
+</script>
+</div>  
+</center>
+[%INCLUDE footer.html %]

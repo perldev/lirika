@@ -1,0 +1,100 @@
+<table class=table_gborders   id="add_form_table" >
+ 
+[% IF params.error_msg %]
+       <tr class=table_gborders>
+             <td class=table_gborders colspan='2'>
+       <font color='red'> $params.error_msg</font>
+
+        </td>
+</tr>
+[% END %]
+
+    <tr class=table_gborders>
+
+        <td class=table_gborders>
+        Отправитель
+        </td>
+
+          <td class=table_gborders>
+    [% aid="t_aid1$user_number"  %]
+    <input type='hidden' name='$aid' value='[% params.t_aid1 %]'>
+      [% aid="formated_t_aid1"  %]
+    [% params.$aid %]
+        </td>
+  </tr> <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Получатель
+        </td>
+
+        <td class=table_gborders>
+        
+        [% aid="t_aid2$user_number"  %]
+    
+<input type='hidden' name='$aid' value='[% params.t_aid2 %]'>
+            [% aid="formated_t_aid2"  %]
+        [% params.$aid %]
+        </td>
+  </tr>
+ 
+    <tr class=table_gborders>
+
+        <td class=table_gborders>
+        Сумма
+        </td>
+
+        <td class=table_gborders>
+
+         [% aid="t_amnt$user_number"  %]
+    
+       <input type='hidden' name='$aid' value='[% params.t_amnt %]'>
+        [% params.t_amnt %]
+       </td>
+  </tr>
+ <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Дата
+        </td>
+
+        <td class=table_gborders>
+          [% aid="ts$user_number"  %]
+           <input type='hidden' name='$aid' value='[% params.ts %]'>
+            [% aid="formated_ts"  %]
+           [% params.$aid %]
+        </td>
+  </tr>
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Валюта
+        </td>
+
+        <td class=table_gborders>
+                  [% aid="t_currency$user_number"  %]
+           <input type='hidden' name='$aid' value='[% params.t_currency %]'>
+
+                    [% params.t_currency %]
+
+
+        </td>
+  </tr>
+
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Назначение
+        </td>
+
+        <td class=table_gborders>
+       [% aid="t_comment$user_number"  %]
+           <input type='hidden' name='$aid' value='[% params.t_comment FILTER html %]'>
+               
+            [% params.t_comment %]
+        </td>
+  </tr>
+</table>

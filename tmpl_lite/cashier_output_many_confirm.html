@@ -1,0 +1,73 @@
+[%INCLUDE  header.html %]
+<center>
+<div class=center_div_table>
+ [% INCLUDE today.html %]
+
+  
+
+  <form method="post" id="my_form">
+  <input name="do" value="add_many_do" type="hidden">
+
+ 
+  <table class="table_gborders" id="add_form_table">
+ <tbody>
+<tr class="table_gborders">
+ <td class="table_gborders" colspan="3">
+	$page_title</td>
+</tr> 
+
+[% FOREACH row=requests %] 	
+
+[% IF row.name %]
+	<tr class="table_gborders">
+        <th colspan="3"  align='left' class="table_gborders">
+        Карточка
+        </th>
+</tr>
+	<tr class="table_gborders">
+        <td colspan="3"  align='left' class="table_gborders">
+        $row.a_name <input type='hidden' name="$row.field_name" value="$row.a_id">
+	</td>
+</tr>
+[% ELSE %]
+
+	<tr class="table_gborders">
+ <td class="table_gborders">
+         <input class="simple_borders"  name="ct_amnt$row.field_name" value="$row.ct_amnt" type="hidden">
+         $row.amnt
+        </td>
+       <td class="table_gborders">
+          <input class="simple_borders"  name="ct_comment$row.field_name" value="[% row.comment FILTER html %]" type="hidden">
+	    [% row.comment FILTER html %]     
+	</td>
+	<td class="table_gborders">
+	<input class="simple_borders"  name="ct_currency$row.field_name" value="[% row.ct_currency FILTER html %]" type="hidden">
+	    [% row.currency FILTER html %]    
+        </td>
+
+  </tr>
+[%END%]
+
+[%END%]
+<tr class="table_gborders">
+    <td class="table_gborders" colspan="3">
+   <input class="simple_borders" id="submit_button" name="__submit" value="Добавить" type="submit">
+
+      <input class="simple_borders" id="id" onclick="window.history.back(-1)" name="__cancel" value="Назад" type="button">      
+    </td>
+  </tr>
+<script>
+
+document.getElementById('submit_button').disabled=false;
+document.getElementById('id').disabled=false;
+
+</script>
+
+
+  </tbody></table>
+
+  </form>
+
+</div>  
+</center>
+[% INCLUDE  footer.html %]

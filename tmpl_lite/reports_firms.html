@@ -1,0 +1,81 @@
+[%INCLUDE  header.html %]
+
+<center>
+  
+   <div class=center_div_table>
+
+[% INCLUDE stat_menu.html %]
+
+
+ [% INCLUDE proto_filter.html %]
+ [% INCLUDE  image.html %] 	
+
+
+
+  <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=4>
+        <strong>
+	$title
+</strong>       
+    </td>   
+    
+                
+  </tr> 
+  <tr class=table_gborders>
+
+    <td class=table_gborders>Сумма переводов на счета фирм: </td><td>$common_params.plus</td><td colspan=2><span class=div_tab onclick="new_image('firms','$t_ts','$currency','plus','','Сумма переводов на счета фирм')" > Просмотреть  </span></td>
+  </tr>
+   <tr class=table_gborders>
+
+    <td class=table_gborders>Сумма переводов со счетов фирм: </td><td>$common_params.mines</td><td colspan=2><span class=div_tab onclick="new_image('firms','$t_ts','$currency','mines','','Сумма переводов со счетов фирм')" > Просмотреть </span></td>
+    </tr>
+     <tr class=table_gborders>
+
+    <td class=table_gborders>Количество переводов: </td> <td>$common_params.freq</td><td colspan=2><span class=div_tab onclick="new_image('firms','$t_ts','$currency','freq','','Кол-во переводов')" > Просмотреть </span></td>
+
+  </tr>
+
+
+  <tr class=table_gborders>
+    <th class=table_gborders> Фирма </th>
+    [% INCLUDE reports_table_headers.html %]
+
+  
+  </tr>                         
+   	[% FOREACH thing = list %]
+ 		[%  class='table_gborders' %]
+		<tr    class=$class >
+		<td  class=$class>
+		<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_currency=$thing.currency&amp;ct_date=$thing.t_ts&amp;ct_fid=$thing.id">$thing.name(#$thing.id)</a>
+		</td>
+		<td   class=$class>
+		<span class=simple_tab onclick="new_image('firms','$thing.t_ts','$thing.currency','plus','$thing.id','Сумма переводов на счета фирм')" >
+		$thing.plus
+		</span>
+		
+		</td>
+	
+		<td class=$class >
+		
+		<span   class=simple_tab onclick="new_image('firms','$thing.t_ts','$thing.currency','mines','$thing.id','Сумма переводов со счетов фирм')" >$thing.mines</span> 
+
+		
+		</td>
+		<td  class=$class>
+		<span  class=simple_tab  onclick="new_image('firms','$thing.t_ts','$thing.currency','freq','$thing.id','Кол-во переводов')" >$thing.freq</span> 
+
+		
+		</td>
+		</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+  <!--  <td class=table_gborders colspan=7>
+    </td> -->              
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

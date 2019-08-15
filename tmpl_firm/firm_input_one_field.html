@@ -1,0 +1,43 @@
+<tr id="desc_amnt_10$id1"  class="table_gborders" style="display:$display">
+    <td id="select_firm$id2" class="table_gborders">
+
+    [% INCLUDE firm_input_select_firm.html number=id2%]
+
+    </td>
+        <td class="table_gborders">
+             <input class="simple_borders" 
+            tabindex="$id1" 
+            id="ct_amnt$id2" name="ct_amnt" size="10" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+  <input class="simple_borders" size="15"  tabindex="10$id1" id="ct_comment$id2" name="ct_comment" value="" type="text">
+        </td>  <td class="table_gborders">
+                      <select id="ct_fsid$id2" class="simple_borders" name="ct_fsid" >
+    <option selected value=''>  </option>
+        [% FOREACH option = firm_services %]
+             <option  value="$option.fs_id" 
+            >$option.fs_name</option>
+            [% END %]       
+            
+            </select>
+    </td>
+   <td class="table_gborders">
+   <input  type="hidden" id="ct_drid$id2" name="dr_id" value=''>
+
+   <select class="simple_borders" id="ct_aid$id2" name="ct_aid" onchange="select_prog($id2)">
+    <option selected  value=''>  </option>
+        [% FOREACH option = right_accounts %]
+             <option  value="$option.a_id" 
+            >$option.a_name</option>
+            [% END %]       
+            
+            </select>
+    </td>
+<td class='table_gborders'>
+<span class='simple_tab' id='ident_form_$id2' onclick='open_doc_form(event,$id2,$my_firm.f_id)'>определить</span>
+
+</td>
+
+
+  </tr> 

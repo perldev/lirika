@@ -1,0 +1,44 @@
+<div style='position:relative; float: right;cursor:pointer' onclick='show_form("[% id %]_spents")'>x</div>
+
+<table class=table_gborders>
+   <tr>
+<td class=table_gborders colspan="5">
+<strong> Список расходов </strong>
+</td>
+</tr> 
+ <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Программа </th>
+     <th class=table_gborders> Сумма </th> 
+     <th class=table_gborders> Оператор </th>
+     <th class=table_gborders> Назначение </th>
+  </tr>                         
+    
+     [% FOREACH row = list %]
+
+    [% table_gborders='table_gborders' %]
+
+    [% IF row.mines %]
+
+    [% table_gborders='table_gborders_red' %]
+    
+    [% END %]
+     <tr  class=$table_gborders>
+        <td class=$table_gborders>
+        $row.t_id        
+        </td>
+        <td class=$table_gborders>
+        $row.a_name1
+        </td>
+<td onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class=$table_gborders>
+        $row.t_amnt  $row.t_currency
+        </td>
+    <td class=$table_gborders>
+        $row.o_login
+        </td>
+    <td class="$table_gborders" title='[% row.t_comment FILTER html  %]'>
+  $row.t_comment
+        </td>
+</tr>
+  [% END %]
+</table>

@@ -1,0 +1,311 @@
+<html>
+<head>
+
+<title>$page_title</title>
+
+<style type="text/css">
+body {margin:0px}
+.linx {font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#FFFFFF; text-decoration:underline;}
+.linx:hover {font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000; text-decoration:underline;}
+.simple_text{border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+
+.menu_text {font-family: sans-serif; font-size:11px; color:#FFFFFF;cursor:pointer;font-weight:bolder;background-color:#006493;padding:4px;margin-top:1px;border:1px solid black;text-decoration:none}
+
+.menu_text:hover {font-family:Arial; font-size:11px; color:#FFFFFF;cursor:pointer;font-weight:bolder;color:black;background-color:white;padding:4px;margin-top:1px;text-decoration:none}
+.menu_text_selected {font-family:Arial; font-size:11px; color:#FFFFFF;cursor:pointer;font-weight:bolder;color:black;background-color:white;padding:4px;margin-top:1px;text-decoration:none}
+
+.page_text {font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000;}
+table.table_gborders{background-color:gray;border-spacing:1px;border:0;padding:1px}
+td.table_gborders{background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+th.table_gborders{background-color:#CCCCCC;font-size: 13px;margin:0px; border:0;padding: 4px}
+td.table_gborders_main{background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding-top:4px;padding-bottom:4px;padding: 6px;}
+.table_gborders{color:#000000;}
+.simple_tab{cursor:pointer}
+.table_gborders_red2{background-color:#CC1122;font-size: 13px;margin:0px; border:0;padding: 4px }
+.table_gborders_blue{background-color:#D4E7F9;font-size: 13px;margin:0px; border:0;padding: 4px }
+.table_gborders_vial{background-color:#C4CCE9;font-size: 13px;margin:0px; border:0;padding: 4px }
+
+
+
+
+
+th.table_gborders_red{background-color:#CCCCCC;font-size: 13px;margin:0px; border:0;padding: 4px}
+td.table_gborders_red{background-color:#F4D5D5;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+tr.table_gborders_red{color: #F4D5D5;}
+
+td.table_gborders_veryred{background-color:#FF1D08;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+
+td.table_gborders_verygreen{background-color:#B6D764;border:0;font-color: ;font-size: 13px;border:0; margin:0px; padding: 4px}
+
+
+.table_gborders_red{color:black;}
+a.table_gborders_red{margin:10px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;}
+a.table_gborders_red:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:white; text-decoration:underline;}
+
+a.table_gborders{margin:10px;font-family:Arial, Helvetica, sans-serif; font-size:11px; color:rgb(100, 140, 159); text-decoration:none;}
+a.table_gborders:hover{font-family:Arial, Helvetica, sans-serif; font-size:11px; color:#000000; text-decoration:underline;}
+
+.simple_borders{border:solid;border-width:1px;border-color:gray;font-size: 13px; padding: 1px;font-weight:-1}
+input.simple_borders{border:solid;border-width:1px;border-color:gray;font-size: 13px; padding: 2px;font-weight:-1;margin:5px}
+.table_gborders{ background-color:white;border:0;font-size: 13px;border:0; margin:0px; padding: 4px}
+td.reg_error_borders{width: 35%;}
+table.table_gborders_none{background-color:white;border-spacing:5px;border:0;padding:10px;width:55%}
+td.table_gborders_none{background-color:white;border-spacing:5px;border:0;padding:1px;}
+.button{background-color:#709FB5;padding:4px;font-size:12px;border:solid;border-width:1px;border-color:black;cursor:pointer;border-style: ridge}
+.center_div{width:70%;margin-top:10px;background-color:#ADD8E6;padding:10px}
+.center_div_table{margin-left:0px;margin-right: 10px;margin-top:10px;margin-bottom:10px;background-color:#ADD8E6;padding:10px}
+.center_div_table_left{width:20%;margin-left:40px;margin-top:10px;background-color:#ADD8E6;padding:10px}
+span.div_tab {cursor:pointer};
+
+</style>
+<script type="text/javascript" src="/jQuery.js"></script>
+<script type="text/javascript" src="/jQuery.Sheet.js"></script>
+<link rel="stylesheet" type="text/css" href="/jQuery.Sheet.Base.css"></link>
+<link rel="stylesheet" type="text/css" href="/jQuery.Sheet.Grey.css"></link>
+<script>
+// \$(document).ready(function() {
+// 	\$('#spreadsheetEditor').Sheet();
+// });
+
+var rate_forms=new Array();
+
+[% FOREACH thing=rate_forms %]
+        if (! rate_forms['$thing.from'])
+                rate_forms['$thing.from']=[];
+         rate_forms['$thing.from']['$thing.to']=$thing.rate_form;
+[% END %]
+
+var accounts = [
+ ['', 'Выберите карточку', 'Выберите карточку',''],
+[% FOREACH row = filter_accounts %]
+  [$row.a_id, '$row.a_name', '$row.title','$row.c_id'],
+[% END %]
+];
+
+
+function select_clear(sel){
+        var len=sel.length;
+                
+        for(var i=0;i<len;i++)
+        sel.remove(0);
+}
+function set_element(id,val)
+{
+		if(!document.getElementById(id))		
+				return ;
+			
+		 if(document.getElementById(id).type)
+					{	
+						 document.getElementById(id).value=val;
+					}			
+		else if(document.getElementById(id).innerHTML||document.getElementById(id).innerHTML=='')
+					{
+						document.getElementById(id).innerHTML=val;
+					}
+					else
+					{
+						document.getElementById(id).value=0;
+					}
+					
+		}
+function calculate_exchange(amnt,rate,from,to)
+{
+	var rate_form;
+	if(rate_forms[from]&&rate_forms[from][to])
+        {
+                                rate_form=rate_forms[from][to];  
+        }else
+	{
+				rate_form=1;
+	}	
+	rate=Math.pow(rate,rate_form);
+	return Math.floor(((rate)*amnt)*100)/100;
+}
+function get_element(id,type)
+{	
+					if(!document.getElementById(id))		
+						return 0;
+						var str;
+					
+						if(document.getElementById(id).type)
+							str=document.getElementById(id).value;		
+						else if(document.getElementById(id).innerHTML)
+							str=document.getElementById(id).innerHTML;
+						else
+							str=0;
+				if(type)
+				{
+					str=str.replace(/[ ]/,'');
+					str=str.replace(/[,]/,'.');
+					set_element(id,str);
+					return  str*1;
+				
+				}else
+				{
+					return str;
+				}
+					
+}
+function select_add_option(sel, value, text){
+
+          var y=document.createElement('option');
+          y.text=text;
+          y.value=value;
+          try
+          {
+            sel.add(y,null); // standards compliant
+          }
+          catch(ex)
+          {
+            sel.add(y); // IE only
+          }
+}
+
+function selectedValue(selectObj){
+  return selectObj.options[selectObj.selectedIndex].value;
+}
+function  selectedName(selectObj){
+	var val=selectedValue(selectObj);
+	var len=accounts.length;
+	
+  	for(var i=0;i<len;i++){
+    	var account = accounts[i];
+  	       if(account[0]==val)
+      			return account[1];
+		
+    		}
+}
+
+function accounts_id_event(id){
+  var id_obj = document.getElementById(id);
+  var sel_obj = document.getElementById(id+'__select');
+
+  var id_val = id_obj.value;
+
+  select_clear(sel_obj);
+
+  
+  if(id_val=='')
+  {
+	  	var len=accounts.length;
+  		for(var i=0;i<len;i++){
+    		var account = accounts[i];
+  	        if(account)
+      			select_add_option(sel_obj, account[0], account[2]);
+		
+    		}
+	  var search_obj = document.getElementById(id+'__search');
+ 	  search_obj.value=selectedName(sel_obj);
+	
+	  return;
+  
+  }
+
+  var len=accounts.length;
+   
+  for(var i=0;i<len;i++){
+    var account = accounts[i];
+
+    if(account)
+    if(account[0] == id_val){
+      select_add_option(sel_obj, account[0], account[2]);
+    }
+  }
+if(search_obj)
+  search_obj.value=selectedName(sel_obj);
+  var selected_service=document.getElementById('ct_fsid');
+	if(selected_service)
+		change_services();
+  return true;
+}
+
+function trim(val){   
+   //val = val.replace(/^(\s*)(.*)(\s*)$/, "$2");
+   return val;
+}
+
+function accounts_search_event(id){
+  var id_obj = document.getElementById(id);
+  var search_obj = document.getElementById(id+'__search');
+	
+  var sel_obj = document.getElementById(id+'__select');
+  var search = ''+search_obj.value;
+  search = trim(search);
+  search = search.toLowerCase();
+
+  if(search == '') return true;
+	
+	
+
+  select_clear(sel_obj);
+
+  var len=accounts.length;  
+  var id_val = 0;
+  for(var i=0;i<len;i++){
+
+    var account = accounts[i];
+    if(account)
+    if(account[1].toLowerCase().indexOf(search) == 0){
+	
+      select_add_option(sel_obj, account[0], account[2]);
+
+      if(id_val == 0) id_val=account[0];
+    }
+  }
+
+  if(id_val) id_obj.value = id_val;
+
+	if(document.getElementById('ct_fsid'))
+		change_services();
+
+  return true;
+}
+
+
+function accounts_select_event(id){
+  var id_obj = document.getElementById(id);
+
+  var sel_obj = document.getElementById(id+'__select');
+  var search_obj = document.getElementById(id+'__search');
+
+
+
+  var id_val = selectedValue(sel_obj);
+  //search_obj.value=sel_obj.value;
+  id_obj.value = id_val;
+	
+   if(document.getElementById('ct_fsid'))
+   {	   
+	
+	
+	var selected_service=document.getElementById('ct_fsid');
+	if(selected_service)
+	{
+		
+		change_services();
+				
+	}else
+	{  	
+		select_clear(sel_obj);
+		var len=accounts.length;
+  		for(var i=0;i<len;i++)
+		{
+    			var account = accounts[i];
+  	      		select_add_option(sel_obj, account[0], account[2]);
+		
+    		}	
+	
+	}
+    
+    }
+  return true;
+}
+
+
+</script>
+<script type="text/javascript" src="/calendarDateInput.js"></script>
+
+
+</head>
+<body>
+[% INCLUDE menu.html %]

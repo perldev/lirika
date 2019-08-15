@@ -1,0 +1,154 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+<div class=center_div_table>
+[% INCLUDE proto_filter.html %]
+
+  <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=7>
+     <strong>
+	[% page_title %]
+     </strong>       
+    </td>               
+  </tr> 
+ [% INCLUDE cash_conclusions_header.html %]
+ <tr class=table_gborders>
+[%  IF proto_params.non_list %]
+	[% my_class='table_gborders' %]
+	[% my_class1='table_gborders_blue' %]
+[% ELSE %]
+	[% my_class='table_gborders_blue' %]
+	[% my_class1='table_gborders' %]
+[% END %]
+     <td class=$my_class  colspan=3>
+<input type='button' class="simple_borders" name="Не выданые" onclick="window.location.href='?do=list&amp;action=filter&amp;ct_date=all_time'" value="Выданые" >
+
+</th>
+
+
+     <td class=$my_class1  colspan=4>
+<input type='button' class="simple_borders" name="Не выданые" onclick="window.location.href='?do=non_list&amp;action=filter&amp;ct_date=all_time'" value="Не выданые" >
+
+
+</th>
+ </tr>       
+
+ <tr class=table_gborders>
+
+     <th class=table_gborders>Дата</th>
+
+     <th class=table_gborders>Поступления ГРН </th>
+     <th class=table_gborders>Отчисления ГРН </th>
+
+     <th class=table_gborders>Поступления USD </th>
+     <th class=table_gborders>Отчисления USD </th>
+
+     <th class=table_gborders>Поступления EUR </th>
+     <th class=table_gborders>Отчисления EUR </th>
+
+ </tr>                         
+   	[% FOREACH thing = rows %]
+
+	 	[%  class='table_gborders' %]
+		[% IF  thing.type=='concl' %]
+		<tr    class=$class >
+		<td  class=$class>
+		$thing.date
+		</td>
+		
+		[% IF thing.UAH>0 %]
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+			$thing.UAH_FORMAT
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		</td>
+		[% ELSE %]
+		<td  onclick="sum(this)" class=$class>
+			
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+			$thing.UAH_FORMAT
+		</td>
+		[% END %]
+		[% IF thing.USD>0 %]
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+			$thing.USD_FORMAT
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		</td>
+		[% ELSE %]
+		<td  onclick="sum(this)" class=$class>
+			
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+			$thing.USD_FORMAT
+		</td>
+		[% END %]
+
+		[% IF thing.EUR>0 %]
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+			$thing.EUR_FORMAT
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		</td>
+		[% ELSE %]
+		<td  onclick="sum(this)" class=$class>
+			
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+			$thing.EUR_FORMAT
+		</td>
+		[% END %]
+
+
+
+		[%ELSE%] 
+		<tr    class=$class >
+		<td  class=$class>
+		
+		</td>
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+		$thing.ct_amnt_uah
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		$thing.ct_amnt_uah_mines
+		</td>
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+		$thing.ct_amnt_usd
+		</td>
+	 	[%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		$thing.ct_amnt_usd_mines
+		</td>
+		
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+		$thing.ct_amnt_eur
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		$thing.ct_amnt_eur_mines
+		</td>
+		</tr>
+
+  	[% END %]
+[% END %]
+ 
+</table>
+</div>  
+</center>
+[% INCLUDE footer.html %]

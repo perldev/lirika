@@ -1,0 +1,150 @@
+<html>
+<head>
+<style>
+#my_table {font-size:
+11px}
+</style>
+</head>
+<body >
+<center>
+  <table  width='70%' style="border:1px black" border="1" class="table_gborders" id='my_table'>
+
+  <tr>
+     <th class=table_gborders>Фирма </th> 
+     <th class=table_gborders>Входящий(ГРН) </th>
+     <th class=table_gborders>Общая сумма </th>
+     <th class=table_gborders>Исходящий отстаток </th>
+
+     <th class=table_gborders>&nbsp;</th>
+     <th class=table_gborders>Карточка</th>
+
+
+    
+  </tr>                         
+
+
+[% FOREACH row = list %]
+
+[% IF row.type=='begin' %]
+[% class = 'table_gborders_gray' %]
+
+<tr class=$class>
+   <strong>
+     <td class=$class>
+	<strong  class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$row.f_id">
+	$row.f_name(#$row.f_id)</strong>
+        </td>
+ 	[% IF row.unformat_uah_beg < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen'%]
+	[% END %]	
+        <td class=$class onclick="sum(this)">
+	<strong>$row.UAH_BEG</strong>     
+        </td>
+	
+	 <td class=$class onclick="sum(this)">
+		<strong>$row.SUM_UAH_REQ</strong>
+        </td>
+ 	<td class=$class onclick="sum(this)">
+		<strong>$row.UAH_FIN</strong>
+        </td>
+<td class=$class >
+        &nbsp;
+
+        </td>
+ 	 <td class=$class >
+        &nbsp;
+        </td>
+ 	
+  
+</tr>
+[%ELSIF  row.type=='operation' %]
+
+	
+	
+	[% class1 = 'table_gborders' %]
+
+	
+
+<tr class=$class>
+   <strong>
+	
+     <td class=$class>
+	&nbsp;
+        </td>
+	
+[% class = 'table_gborders' %]
+	[% IF 	row.ct_status=='transit' %]	
+
+	[% class='table_gborders_blue'%]
+
+	[% ELSIF row.non_format_amnt < 0%]
+
+	[% class='table_gborders_red'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen'%]
+	[% END %]	
+
+        <td class=$class onclick="sum(this)">
+	[% IF row.currency=='UAH'&& row.non_format_amnt > 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+    [% ELSE %]
+    &nbsp;
+
+	[% END %]
+	</td>
+        <td class="$class" onclick="sum(this)">
+	[% IF row.currency=='UAH'&&row.non_format_amnt <= 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+    [% ELSE %]
+    &nbsp;
+	[% END %]
+        </td>
+
+
+	<td class=$class1>
+	[% IF row.currency=='UAH' %]
+	
+	<nobr onclick="show_form('form_$row.ct_id')" class="comment" title='[% row.ct_comment FILTER html %]'> $row.ct_comment</nobr> 
+
+	[% END %]
+	</td>
+	<td class=$class>
+	[% IF row.currency=='UAH' %]
+
+		<nobr class="comment" title='[% row.ct_ts FILTER html %]'> $row.ct_ts</nobr> 
+	[% END %]
+	</td>
+	<td class=$class>
+		<strong class="table_gborders_href"	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.ct_aid">$row.a_name
+</strong>
+	</td>
+	
+        
+</tr>
+
+
+
+
+[% END %]
+
+[% END %]
+
+</table>
+<script>
+
+window.print();
+</script>
+
+</center>
+
+</body></html>

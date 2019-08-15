@@ -1,0 +1,88 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<center>
+  
+   <div class=center_div_table>
+
+
+ [% INCLUDE proto_filter.html %]
+
+  <input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+
+
+   <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        <strong>[% page_title %] <!--Обмены--></strong>       
+    </td>               
+  </tr> 
+
+
+  <tr class=table_gborders>
+    <th class=table_gborders> Id  </th>
+     <th class=table_gborders> Кому  </th>
+     <th class=table_gborders> Из </th>   
+     <th class=table_gborders> В </th>
+     <th class=table_gborders> Курса </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Комментарии </th>
+     <th class=table_gborders>  Оператор </th>
+[% IF rights.correct %] 
+     <th class=table_gborders>  Действие </th>
+[% END %]
+  </tr>                         
+[% FOREACH thing = rows %]
+
+
+[% class='table_gborders' %]
+	<tr    class=$class >
+	<td  class=$class>
+	
+        $thing.fe_id
+	</td>
+	<td  class=$class>
+
+	$thing.ct_fid
+
+	<td  class=$class>
+
+        $thing.fe_amnt1&nbsp;$thing.currency1
+	</td>
+	<td   class=$class>
+	 $thing.fe_amnt2&nbsp;$thing.currency2
+	</td>
+	
+	<td class=$class >
+	$thing.fe_rate
+	</td>
+	<td  class=$class>
+	$thing.fe_date
+	</td>      
+    	<td class="table_gborders" title='[% thing.fe_comment FILTER html  %]' >
+        <nobr class="comment" title='[% thing.fe_comment FILTER html  %]'>[% thing.fe_comment FILTER html  %]</nobr>
+	</td>
+	<td  class=$class>
+	$thing.o_id
+	</td>  
+
+	[% IF rights.correct %]
+	<td class="$class" id=center_id_$thing.fe_id >
+	 <span class="simple_tab" onclick="ajax_action_firm_exc_del('$thing.fe_id')" >Удалить</span>
+
+<!--<a class="table_gborders" href="?do=del&amp;ct_id1=$thing.ct_id1&amp;ct_id2=$thing.ct_id2">Удалить</a>--> </td>       
+ 
+	<!--<td  class=$class id="">
+
+	<a class=$class href="?do=back&amp;id=$thing.fe_id">откатить</a>
+	</td> --> 
+	[% END %]
+ 	</tr>
+
+  [% END %]
+  
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

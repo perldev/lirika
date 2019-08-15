@@ -1,0 +1,64 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+  <div class=center_div_table>
+
+	
+[% INCLUDE settings_menu.html %]
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]</strong>
+    </td>
+  </tr>
+
+  <tr>
+     <th class=table_gborders> Текущее название вкладки  </th>
+     <th class=table_gborders> Новое название вкладки </th>
+    <th class=table_gborders>  Описание  вкладки </th>
+    
+
+     <!--
+     <th class=table_gborders colspan=2> Действия </th>
+     -->
+  </tr>                         
+
+<form  method="POST">
+<input type="hidden" name="do" value="save_tabs">
+  [% FOREACH row = tabs_name_list %]
+
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+       <strong> $row.title        </strong>
+        </td>
+
+        <td class=table_gborders>
+        <input type="text" class="simple_borders" name="$row.value" value="$row.title">
+        </td>
+        <td class=table_gborders>
+       $row.desc
+        </td>
+
+  </tr>
+	
+  [% END %]
+
+  <tr class=table_gborders>
+	<td colspan="3">
+	<input type="submit"  class="simple_borders" name="submit" value="Сохранить"></form><input type="button" name="Вернуть по умолчанию"  class="simple_borders" value="Вернуть по умолчанию" onclick="window.location.href='?do=reset_tabs'">
+
+	</td>
+      
+  </tr>
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

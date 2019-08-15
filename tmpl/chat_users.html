@@ -1,0 +1,48 @@
+<html>
+<head>
+<meta http-equiv="refresh" content="40" />
+<style type="text/css">
+table.table_gborders{background-color:gray;border-spacing:1px;border:0;padding:1px}
+td.table_gborders{background-color:white;border:0;font-size: 11px;border:0; margin:0px; padding: 4px}
+th.table_gborders{background-color:#CCCCCC;font-size: 11px;margin:0px; border:0;padding: 4px}
+td.table_gborders_main{background-color:white;border:0;font-size: 11px;border:0; margin:0px;}
+</style>
+<script>
+function confirm_menu(id,login)
+{
+	var r=confirm("ѕригласить пользовател€ "+login+" в приватный чат");
+  	if (r==true)
+   	{
+	      
+	      
+	      window.open('/chat.cgi?do=send_invite&id='+id,'', 'scrollbars=yes, resizable=no, toolbar=no, location=no, directories=no, status=no, menubar=no, width=800, height=200'); return false;		
+	
+	}
+  	
+}
+</script>
+
+ <table bgcolor=gray  border=0 cellspacing=1 cellpadding=0 style="margin:1px;padding:1px" width="100%" >
+
+<tr class=table_gborders >
+<td class=table_gborders width="20%" align=left>
+ ликните на пользователе,
+чтобы отправить 
+ему приглашение 
+"в приват"
+</td>
+</tr>
+ 	[% FOREACH thing = list %]
+	<tr class=table_gborders >
+	<td class=table_gborders width="20%" align=left>
+	[% IF thing.color %]
+	 <font style="cursor:pointer" onclick="confirm_menu('$thing.o_id','$thing.o_login')" color="#19FF00">$thing.o_login</font>
+	[% ELSE %]
+        <strong  style="cursor:pointer" onclick="confirm_menu('$thing.o_id','$thing.o_login')" >$thing.o_login<strong>
+	[% END %]
+	</td>
+	</tr>
+  [% END %]
+</table>
+
+[%INCLUDE chat_footer.html %]

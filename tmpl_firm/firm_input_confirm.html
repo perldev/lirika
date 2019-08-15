@@ -1,0 +1,179 @@
+
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<center>
+<div class=center_div_table>
+
+  <form method="post">
+  <input name="do" value="add_do" type="hidden">
+  <input name="action" value="apply" type="hidden">
+  <input name="id" value="" type="hidden">
+
+  
+  <table class="table_gborders">
+ <tbody><tr class="table_gborders">
+ <td class="table_gborders" colspan="6">
+	[%page_title%]</td>
+</tr> 
+<tr class="table_gborders">
+        <td class="table_gborders">
+        Дата поступления
+        </td>
+       <td  colspan="5" class="table_gborders">
+        $format_ct_date
+      <input class="simple_borders"  id="ct_date" name="ct_date" value="$ct_date" type="hidden">
+       </td>
+  </tr>
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Фирма
+        </td>
+
+        <td  colspan="5" class="table_gborders">
+        
+        
+	<input type=hidden name=ct_fid value="$firm_id" >
+	$firm_name
+
+   </td>
+  </tr>
+
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Валюта
+        </td>
+
+        <td colspan="5" class="table_gborders">
+        
+        
+
+
+          
+  	<input type=hidden name=ct_currency value="$ct_currency" >
+	ГРН
+
+<!--only for accounts an creating projects-->
+
+
+   </td>
+  </tr>
+ <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Текущий баланс
+        </td>
+
+        <td colspan="5" onclick="sum(this)" class="table_gborders">
+    $firm_balance
+   </td>
+  </tr>
+
+<tr class="table_gborders">
+<th class="table_gborders">
+        Сумма
+        </th>
+        <th class="table_gborders">
+	    Программа
+        </th>
+<th class="table_gborders">
+        Услуга
+        </th>
+	<th class="table_gborders">
+        Назначение
+        </th>
+	<th class="table_gborders">
+        Фирма
+        </th>    
+<th class="table_gborders">
+        Документы
+        </th>        
+</tr>
+	
+[% FOREACH row=desc_amnts %]
+<tr class="table_gborders">
+	<input type="hidden" name="amnt_desc_index" value="$row.i">
+	<input name="ct_comments_$row.i"  value="[%row.comments  FILTER html %]"  type=hidden >
+	<input name="ct_amnt_$row.i"  value="[%row.value  FILTER html %]"  type=hidden >
+	<input name="ct_account_$row.i"  value="[%row.a_id  FILTER html %]"  type=hidden >
+    <input name="ct_fsid_$row.i"  value="[%row.fs_id  FILTER html %]"  type=hidden >
+    <input name="ct_ofid_$row.i"  value="[%row.ofid  FILTER html %]"  type=hidden >
+    <input name="ct_okpo_$row.i"  value="[%row.okpo  FILTER html %]"  type=hidden >
+    <input name="ct_drid_$row.i"  value="[%row.drid  FILTER html %]"  type=hidden >
+
+	[% IF	row.value<0 %]
+	[%class='table_gborders_red'%]
+	[%ELSE%]
+	[%class='table_gborders'%]
+	[% END %]
+        <td  onclick="sum(this)" class="$class">
+	$row.value
+        </td>
+        
+        <td class="$class">
+    	$row.account
+        </td>
+	<td class="$class">
+    $row.service
+    </td>
+	<td class="$class">
+	$row.comments
+	</td>
+    
+    <td class="$class">
+	
+		
+
+	
+
+	[% IF row.new_firm %]	
+		
+	$row.ofid ($row.okpo) 	<b>(будет заведена)</b>		
+
+	
+	[% ELSE  %]
+
+	$row.of_name ($row.okpo)
+
+	[% END %]
+
+
+	
+	
+    
+    </td>
+<td class="$class" > [%  row.doc FILTER html %] </td>
+</tr>
+[% END %]
+
+<tr class="table_gborders">
+	
+	<td class="table_gborders">Баланс после добавления:  </td>
+
+	<td class="table_gborders" colspan="5">$result_amnt $result_currency</d>
+</tr>
+ 	
+ 
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="6">
+      <input class="simple_borders" name="__submit" value="Подтвердить" type="submit">
+
+
+      <input class="simple_borders" name="__cancel" value="Назад" type="button" onclick="window.history.back()">
+  	
+<input class="simple_borders" name="__cancel" onclick="location.href='firms.cgi'" value="Отменить" type="button">      
+    </td>
+  </tr>
+
+  </tbody></table>
+
+  </form>
+</div>  
+</center>
+[%INCLUDE footer.html %]
+

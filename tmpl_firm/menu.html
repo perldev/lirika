@@ -1,0 +1,43 @@
+[% IF user_id %]
+<center>
+<div class="center_div_table">
+<div class="menu">
+
+
+  [% IF 'notes' == rights.current %]
+	<a class="menu_text_selected" href="notes.cgi">Мои заметки</a>
+  [% ELSE %]      
+	<a class="menu_text" href="notes.cgi">Мои заметки</a>
+  [% END %]  
+ 
+  [% IF 'firm' == rights.current %]
+  <a class="menu_text_selected" href="firms.cgi">Фирмы</a>
+  [% ELSE %]      
+  <a class="menu_text" href="firms.cgi">Фирмы</a>
+  [% END %]  
+
+  [% IF 'firm_list' == rights.current %]
+  <a class="menu_text_selected" href="firm_trans.cgi">Выписки по моим фирмам</a>
+  [% ELSE %]      
+  <a class="menu_text" href="firm_trans.cgi">Выписки по моим фирмам</a>
+  [% END %]
+  
+ [% IF 'out_firms' == rights.current %]
+  <a class="menu_text_selected" href="outfirms.cgi">Архив контрагентов</a>
+  [% ELSE %]      
+  <a class="menu_text" href="outfirms.cgi">Архив контрагентов</a>
+  [% END %]
+
+	
+ [% IF 'docs' == rights.current %]
+  <a class="menu_text_selected" href="docs.cgi">Документооборот</a>
+  [% ELSE %]      
+  <a class="menu_text" href="docs.cgi">Документооборот</a>
+  [% END %]  
+
+
+  <a class="menu_text" href="index.cgi?do=logout">Выход</a>
+</div>
+</div>
+</center>
+[% END %]

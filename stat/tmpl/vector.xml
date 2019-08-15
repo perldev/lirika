@@ -1,0 +1,1 @@
+<?xml version="1.0" ?><root>[% FOREACH row=rows %]<record><xxx>$row.xxx</xxx><yyy>$row.yyy</yyy></record>[%END%]</root>

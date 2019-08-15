@@ -1,0 +1,196 @@
+
+[%INCLUDE  header.html %]
+<center>
+<div class=center_div_table>
+
+  <form method="post" id='proto_form'>
+  <input name="do" value="add_do" type="hidden">
+  <input name="action" value="apply" type="hidden">
+  <input name="id" value="" type="hidden">
+
+
+  
+  <table id='add_form_table' class="table_gborders">
+ <tbody><tr class="table_gborders">
+ <td class="table_gborders" colspan="6">
+	[%page_title %]</td>
+</tr> 
+ 
+    
+
+
+ 
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Дата поступления
+        </td>
+
+        <td  colspan="5" class="table_gborders">
+       $ct_date
+	 <input class="simple_borders"  id="ct_date" name="ct_date" value="$ct_date" type="hidden">
+              
+            
+           
+
+                          </td>
+  </tr>
+ 
+
+
+
+ 	
+ 
+
+     
+
+
+    
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Фирма
+        </td>
+
+        <td  colspan="5" class="table_gborders">
+        
+        
+	<input type=hidden name=ct_fid value="$firm_id" >
+	$firm_name
+
+   </td>
+  </tr>
+ 
+
+
+
+ 	
+ 
+
+     
+
+  
+
+    
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Валюта
+        </td>
+
+        <td colspan="5" class="table_gborders">
+        
+        
+
+
+          
+  	<input type='hidden' name='ct_currency' id='ct_currency' value="$ct_currency" >
+	$currency
+
+<!--only for accounts an creating projects-->
+
+         
+           
+     
+           
+   
+
+   </td>
+  </tr>
+
+
+<tr class="table_gborders">
+<th class="table_gborders">
+        Сумма
+        </th>
+  <!--      <th class="table_gborders">
+        % за приход грн
+        </th>-->
+	<th class="table_gborders" colspan="5">
+        Назначение
+        </th>
+</tr>
+	
+[% FOREACH row=desc_amnts %]
+<tr class="table_gborders">
+	<input type="hidden" name="amnt_desc_index" value="$row.i">
+	<input name="ct_comments_$row.i"  value="[%row.comments  FILTER html %]"  type=hidden >
+	<input  id="ct_amnt_$row.i" name="ct_amnt_$row.i"  value="[%row.value  FILTER html %]"  type=hidden >
+	[% IF	row.value<0 %]
+	[%class='table_gborders_red'%]
+	[%ELSE%]
+	[%class='table_gborders'%]
+	[% END %]
+        <td class="$class" colspan="1">
+	$row.value <span class='simple_tab' onclick="search_sum('$row.value','$ct_currency')"> Поискать...</span>
+        </td>
+        
+     <!--   <td class="$class">
+	         $row.in_percent
+        </td>-->
+	<td class="$class" colspan="5">
+	$row.comments
+	</td>
+</tr>
+[%END%]
+
+<tr class="table_gborders">
+	[% IF ct_req %]
+	<td class="table_gborders">На текущий баланс не влияет!!</td>
+	<td class="table_gborders" > С учетом заявок: </td>
+	
+	<td class="table_gborders" > $result_amnt $result_currency </td>
+
+	[% ELSE %]	
+	<td class="table_gborders" colspan="4" >Баланс после добавления:  </td>
+
+	<td class="table_gborders" colspan="2">$result_amnt $result_currency</d>
+	[% END %]
+</tr>
+
+ 	
+ 
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="6">
+      <input class="simple_borders" name="__submit" onclick="this.disabled='disabled';$(\"#proto_form\").submit()" value="Подтвердить" type="submit">
+
+
+      <input class="simple_borders" name="__cancel" value="Назад" type="button" onclick="window.history.back()">
+  	
+	<input class="simple_borders" name="__cancel" onclick="location.href='firm_input.cgi'" value="Отменить" type="button">      
+    </td>
+  </tr>
+
+
+
+  </tbody></table>
+<script>
+
+	var size=document.getElementById('add_form_table').rows.length;
+	
+	if(size==8)
+	{
+		var cur=document.getElementById('ct_currency').value;
+		var amnt=document.getElementById('ct_amnt_0').value;
+		search_sum(amnt,cur);
+	}
+
+</script>
+  </form>
+</div>  
+</center>
+[%INCLUDE footer.html %]
+

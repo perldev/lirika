@@ -1,0 +1,99 @@
+[%INCLUDE  header.html %]
+<center>
+
+<div class="center_div">
+<div id="trans_oper_add" style="display:block">
+<table class=table_gborders >
+        <form action="transit.cgi" method="POST">
+        <input  type="hidden" name='do' value="oper_add_trans">
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Транзит </strong> 
+        </td>
+        </tr>
+        <tr class=table_gborders >
+        <td class=table_gborders>       
+        С фирмы :      
+        </td>
+        <td class=table_gborders>
+        [% INCLUDE firm_field.html field='f_id1' value=f_id1 %]
+        </td>   
+        </tr>
+        <tr  class=table_gborders>
+        <td class=table_gborders>
+        На фирму :       
+        </td>
+        <td  class=table_gborders>
+        [% INCLUDE firm_field.html field='f_id2' value=f_id2 %]
+        </td>
+	 
+	
+
+	<tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <strong style="padding-left:20px">Сумму</strong> 
+        </td>
+        </tr>
+	        
+
+        <tr class=table_gborders >
+        <td class=table_gborders>       
+        Сумма : 
+        </td>
+        <td class=table_gborders>
+        <input class="simple_borders" type="text" name='amnt' value="$amnt">
+        </td>   
+        </tr>
+        <tr class=table_gborders>
+        <td class=table_gborders>
+        В валюте  :     
+        </td>
+        <td class=table_gborders>
+        <select  class="simple_borders" id="currencies" name='currency'>
+        [% FOREACH thing=currencies %]
+                <option value='$thing.value'>$thing.name</option>
+        [% END %]
+        </select>
+        </td>
+        
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+
+        <strong style="padding-left:20px">За дату :</strong> 
+        </td>
+        </tr>
+         <tr class=table_gborders>
+        <td class=table_gborders colspan=2>
+	<!--<script>DateInput('date', true)</script>-->
+        </td>
+        </tr>
+	
+        <tr class=table_gborders>
+        <td  class=table_gborders colspan=2>
+        <input type=submit name='' value="Перевести" class="button">
+        </td>
+        </tr>
+        </form>
+
+<script type="text/javascript">
+var s=document.getElementById('currencies');
+	for (i=0;i<s.length;i++)
+	{
+		if(s.options[i].value=='$currency')
+		{
+			s.selectedIndex=i;
+			break;
+		}
+		
+	}
+</script>
+
+</table>
+
+
+
+        </div>
+</div>
+
+</center>
+[%INCLUDE footer.html %]

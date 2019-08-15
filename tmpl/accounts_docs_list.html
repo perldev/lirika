@@ -1,0 +1,181 @@
+[%INCLUDE  header.html %]
+
+
+
+<center>
+  <div class=center_div_table>
+
+<div id='date_form' class='center_div_table_poup_nopacity' style='display: none'>
+<form>
+ <span class="simple_tab">
+    Выберите новую дату : <script> DateInput('new_date', true) </script>
+    <input type='button' id='date_form_button' class='simple_borders' value='Подтвердить' />
+</span>
+</form>
+</div>
+  [% INCLUDE proto_filter.html %]
+
+
+ <table id="my_table"  class=table_gborders>
+
+
+
+
+
+
+	[% IF proto_params.a_id %]
+	<tr>
+	<td class=table_gborders colspan=17>
+	Баланс на начало периода $proto_params.from_date:<font size="+1"> $proto_params.beg_uah <strong>ГРН</strong> $proto_params.beg_usd <strong>USD</strong> $proto_params.beg_eur <strong>EUR</strong> </font>	
+	</td>
+		
+	</tr> 
+	<tr>
+	<td class=table_gborders colspan=17>
+	Баланс на конец периода $proto_params.to_date:<font size="+1">	$proto_params.fin_uah <strong>ГРН</strong> $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</strong> </font>	
+	</td>
+  </tr> 
+	[% END %]	
+
+
+
+     <tr  id='float_header'  style='display:none;background-color:black;position:fixed;top:0px'>
+ 
+<th class=table_gborders  >
+
+    <input [% IF proto_params.checked_all %] checked="checked"  [% END %]
+         class='simple_borders'  type='checkbox' disable="disable"
+         onclick="change_status_col_all(this,$proto_params.ct_aid)" 
+    >
+        
+        </th>
+        
+        <th style="width:6em" class=table_gborders>Дата </th>
+        <th style="width:8em" class=table_gborders>Б/н приход</th>
+        <th style="width:8em" class="table_gborders">Итого</th>   
+        <th style="width:8em" class="table_gborders">Итого (ГРН)</th>   
+        <th style="width:8em" class="table_gborders">Итого накоп</th> 
+        <th style="width:8em" class=table_gborders>Касса</th>        
+        <th  style="width:8em" class=table_gborders>База приходы</th>
+        <th  style="width:8em" class=table_gborders>%доки </th>
+        <th style="width:8em" class=table_gborders>Стоимость док</th>
+        <th style="width:8em" class=table_gborders>Б/н приходы</th><!--базовая программа-->
+        <th  style="width:8em" class=table_gborders>Зад-ть док.</th>
+<!--        <th class=table_gborders>Безнал без док</th>-->
+        <th  style="width:8em" class=table_gborders>стоимость без док</th>
+        <th style="width:8em" class=table_gborders>Транзит</th>
+        <th style="width:8em" class=table_gborders>Касса</th>
+
+        <th style="width:12em" class="table_gborders">Ком-рии </th>
+        <th style="width:12em" class="table_gborders">От кого </th>
+
+     </tr>
+
+
+     <tr>
+
+<th class=table_gborders  >
+
+	<input [% IF proto_params.checked_all %] checked="checked"  [% END %]
+         class='simple_borders'  type='checkbox' disable="disable"
+		 onclick="change_status_col_all(this,$proto_params.ct_aid)" 
+    >
+		
+		</th>
+		
+		<th style="width:6em" class=table_gborders>Дата </th>
+		<th style="width:8em" class=table_gborders>Б/н приход</th>
+        <th style="width:8em" class="table_gborders">Итого</th> 
+		<th style="width:8em" class="table_gborders">Итого (ГРН)</th>	
+        <th style="width:8em" class="table_gborders">Итого накоп</th> 
+		<th style="width:8em" class=table_gborders>Касса</th>	     
+		<th  style="width:8em" class=table_gborders>База приходы</th>
+		<th  style="width:8em" class=table_gborders>%доки </th>
+		<th style="width:8em" class=table_gborders>Стоимость док</th>
+        <th style="width:8em" class=table_gborders>Б/н приходы</th><!--базовая программа-->
+        <th  style="width:8em" class=table_gborders>Зад-ть док.</th>
+<!--        <th class=table_gborders>Безнал без док</th>-->
+        <th  style="width:8em" class=table_gborders>стоимость без док</th>
+        <th style="width:8em" class=table_gborders>Транзит</th>
+        <th style="width:8em" class=table_gborders>Касса</th>
+        <th style="width:12em" class="table_gborders">Ком-рии </th>
+
+		<th style="width:12em" class="table_gborders">От кого </th>
+
+     </tr>
+
+   [% FOREACH row = rows %]
+    <tr>
+    [% IF row.concl==1 %]
+
+           [% table_gborders='table_gborders_deleted' %] 
+    [% ELSIF row.orig__in_base<0 %]
+        [% table_gborders='table_gborders_red' %]
+    
+    [% ELSIF row.orig__in_base>0 %]
+
+    [% table_gborders='table_gborders_verygreen' %]
+    
+    [% END %]
+
+
+
+
+
+	<td class=$table_gborders  >
+    <input [% IF proto_params.checked_all %] checked="checked"  [% END %]
+         class='simple_borders'  type='checkbox' disable="disable"
+         onclick="change_status_col_all(this,$proto_params.ct_aid)" 
+    >
+        
+        </td>
+        
+        <td class="$table_gborders"  style="width:6em" > $row.date</td>
+        <td class="$table_gborders" onclick="sum(this)">$row.in </td><!--Б/н приход-->
+        <td class="$table_gborders" onclick="sum(this)">$row.all</td>
+        <td class="$table_gborders" onclick="sum(this)">$row.in_all_concl</td> <!--Итого (ГРН)-->
+        <td class="$table_gborders" onclick="sum(this)">$row.in_all</td> <!--Итого (ГРН)-->
+
+        <td class=$table_gborders onclick="sum(this)">$row.in_cash</td>      <!--Касса-->
+        <td class=$table_gborders onclick="sum(this)">$row.sum_doc</td><!--База приходы-->
+        <td class=$table_gborders onclick="sum(this)"> $row.percent </td><!--%доки-->
+        <td class=$table_gborders onclick="sum(this)">$row.doc_price</td><!--Стоимость док-->
+        <td class=$table_gborders onclick="sum(this)">$row.in_base</td><!--б/н приходы--><!--базовая программа-->
+        <td class=$table_gborders onclick="sum(this)">$row.in_dept</td><!--Долг док.-->
+<!--        <td class=$table_gborders onclick="sum(this)">$row.in_base_without_doc</td><!--Безнал без док-->
+        <td class=$table_gborders onclick="sum(this)">$row.price_without_doc</td><!--стоимость без док-->
+        <td class=$table_gborders onclick="sum(this)">$row.transit_without</td><!--стоимость без док-->
+        <td class=$table_gborders onclick="sum(this)">$row.cash_without</td><!--стоимость без док-->
+        <td style="width:12em" class="$table_gborders">
+        <nobr class=comment  title='[% row.comment FILTER html %]'>$row.comment </nobr>  
+        </td>
+        <td style="width:12em" class="$table_gborders">
+        <nobr class=comment  title='[% row.firm FILTER html %]'>$row.firm </nobr>  
+        </td>
+<!--От кого-->
+     </tr>
+
+
+   [% END %]
+
+
+
+
+</table>
+</div>  
+
+</center>
+<script>
+	var my_table=document.getElementById('my_table');
+	var rows=my_table.rows;
+			for(var i=0;i<rows.length;i++)
+			{
+				if(rows[i].style.display=='none')
+				{
+					hidden_arries.push(i);
+				}
+
+			}
+
+</script>
+[% INCLUDE footer.html %]

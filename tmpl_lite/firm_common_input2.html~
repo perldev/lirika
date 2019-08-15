@@ -1,0 +1,376 @@
+[%INCLUDE  header.html %]
+<center>
+  <div class=center_div_table>
+<script>
+var REQ;
+		var READY_STATE_COMPLETE=4;
+		var services_percents=new Array();
+		var start_;
+		function getHttp()
+		{
+			var req=null;
+			if(window.XMLHttpRequest)
+			{
+					
+				req=new XMLHttpRequest();
+				return req;
+			}else if (window.ActiveXObject)	
+			{
+				req=new ActiveXObject("Microsoft.XMLHTTP");
+				return req;
+			}else
+			{
+				alert("sorry,change you browser please");
+				return req;
+			}
+		
+		}	
+		function SendRequest(url,params,HttpMethod)
+		{
+			if(!HttpMethod)
+				HttpMethod='POST';
+			
+			 REQ=getHttp();
+			if(REQ)
+			{
+				REQ.onreadystatechange=getReq;
+				REQ.open(HttpMethod,url,true);
+				REQ.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+				REQ.send(params);
+			}
+			
+	
+			
+			
+		}
+		function getReq()
+		{
+			var ready=REQ.readyState;
+			var data=null;
+			if(ready==READY_STATE_COMPLETE)
+			{
+				data=REQ.responseText;
+				fill_array(data);
+				//very important thing there 
+				change_services();
+				
+				start_=0;
+			}
+		
+		}
+		
+		function fill_array(data)
+		{
+				//read xml		
+		
+				if (window.ActiveXObject)
+  				{
+  					var doc=new ActiveXObject("Microsoft.XMLDOM");
+					doc.async="false";
+  					doc.loadXML(data);
+  				}// code for Mozilla, Firefox, Opera, etc.
+				else
+  				{
+  					var parser=new DOMParser();	
+  					var doc=parser.parseFromString(data,"text/xml");
+  				}
+				
+				
+				var x=doc.documentElement;
+				var users=x.getElementsByTagName("user");
+				var services=x.getElementsByTagName("service");
+				var percents=x.getElementsByTagName("percent");
+				for(var i=0;i<users.length;i++)
+				{
+					
+					var tmp=new Array();
+					
+					tmp[0]=users[i].childNodes[0].nodeValue*1;
+					tmp[1]=services[i].childNodes[0].nodeValue*1;
+					if(percents[i].childNodes[0]&&percents[i].childNodes[0].nodeValue)
+					tmp[2]=percents[i].childNodes[0].nodeValue*1;
+					
+					services_percents.push(tmp);
+					
+				}
+				
+				
+				//	
+				
+			
+			
+		}
+		function search_if_exist(id,service)	
+		{
+			if(!id||!service)
+				return;
+				id=id*1;
+				service=service*1;
+				for(var i=0;i<services_percents.length;i++)
+				{
+					
+					if(1*services_percents[i][0]==id&&1*services_percents[i][1]==service)
+					{	
+						return services_percents[i][2]*1;
+					}
+		
+				}
+			
+			return null; 
+		}
+		function change_services()
+		{
+			var id_val=document.getElementById('ct_aid').value;
+			var commission_percent;
+			if(!id_val)
+			document.getElementById('ct_aid').value=document.getElementById('ct_aid__select').value;
+				var selected_service=document.getElementById('ct_fsid').value;
+			
+			if(!selected_service)
+			{
+					change_commission();
+					return;
+				
+			}
+			
+			var user_status;
+			
+			var val=search_if_exist(id_val,selected_service);
+			if(!val&&val!=0)
+			{
+				start_=1;
+				SendRequest("ajax.cgi","do=get_account_services_percent&service="+selected_service,null);
+				
+				
+				
+			}else
+			{	
+			//calculate the commssions
+					
+					set_element('ct_comis_percent',val);
+					change_commission();
+					
+				
+			}
+		}
+	
+		///varios calculating of comission for input and output
+		[% IF ext%]
+		function change_commission(percent)
+		{
+					
+
+
+					if(percent)
+					{
+						set_element('ct_comis_percent',percent);
+						set_element('ct_comis_percent_exchange',percent);
+
+					}
+					var amnt;
+					amnt=get_element('ct_amnt',1);
+						
+					var count_records=get_element('count_records',1);
+
+					var ext_com;
+				
+					ext_com=get_element('ct_ext_comission',1);
+					var val;
+					val=get_element("ct_comis_percent",1);
+					amnt1=(amnt*val)/100;
+					amnt1=Math.ceil(amnt1*100)/100;
+					set_element('commission',amnt1);
+					amnt=1*amnt+amnt1*1+ext_com*count_records;
+				   	set_element('common_sum',Math.ceil(amnt*100)/100);
+
+		
+		}
+		[% ELSE %]
+
+	
+		function change_commission()
+		{
+					var amnt=get_element('ct_amnt',1);
+					commission_percent=get_element('ct_comis_percent',1);
+					
+
+					set_element('ct_comis_percent',commission_percent);
+				//	set_element('ct_comis_percent_exchange',commission_percent);
+
+					var amnt1=(amnt*commission_percent)/100;
+					amnt1=Math.ceil(amnt1*100)/100;
+					set_element('commission',amnt1);
+					set_element('common_sum',(1*amnt-amnt1*1));
+					return;
+		}
+		[% END %]	
+
+</script>
+
+ <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=4>
+        <strong>[% page_title %]</strong>       
+    </td>
+  </tr> 
+<tr>
+	<input type="hidden" name="ct_fid" value="$ct_fid">
+
+     <td class=table_gborders colspan="2"> Фирма :</td>
+
+     <td class=table_gborders colspan="2"> $f_name (#$f_id) $f_uah ГРН $f_usd USD $f_usd EUR</td>
+     
+  </tr>    
+  <tr>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+  </tr>         
+<form method="POST">                
+[% class='table_gborders' %]
+	
+  [% FOREACH row = list %]
+	
+  <tr class="$class">
+  	<input type="hidden" name="ct_id" value="$row.ct_id">
+
+	      <td class=$class>
+		        $row.ct_date
+        	</td>
+        	<td class=$class>
+			$row.ct_amnt
+        	</td>
+        	<td class=$class>
+        		$row.ct_currency
+        	</td>
+<td class="table_gborders" >
+        [% row.ct_comment FILTER html  %]
+	</td>
+        
+	
+  </tr>
+  [% END %]
+<tr>
+
+<td class="$class" colspan=2>	
+Общая сумма
+</td>
+<td class="$class" id=ct_amnt colspan=2> 
+  $sum
+</td>
+</tr>
+<tr>
+
+<td class="$class" colspan=4>	
+Карточка 
+</td>
+</tr>
+<tr>
+<td class="$class" colspan=4> 
+[% INCLUDE account_field.html field='ct_aid' %]
+</td>
+</tr>
+
+<tr>	
+
+	<td class="$class" colspan=2>	
+	Услуга
+	</td>
+	<td class="$class" colspan=2> 
+		<select  class="simple_borders" 
+			id=ct_fsid name="ct_fsid" onchange="change_services('ct_fsid')">
+				[% FOREACH option=services %]
+					<option  value="$option.fs_id" >$option.fs_name</option>
+				[% END %]
+			</select>
+	
+	</td>
+</tr>
+<tr>
+
+<td class="$class" colspan=2>	
+Комиссия 
+</td>
+<input type="hidden" name="ct_currency" id="ct_currency" value="$ct_currency">
+<td class="$class" colspan=2> 
+
+	<input type="text" class="simple_borders" onkeyUp="change_commission()"  name="ct_comis_percent"  id="ct_comis_percent" value="0.00">
+
+</td>
+</tr>
+	
+<tr>
+<td class="$class" colspan=2>	
+Сумма комиссии
+</td>
+<td class="$class" colspan=2>&nbsp; 
+	<span id="commission"> 0.00</span>
+</td>
+</tr>
+[% IF ext%]
+<tr>
+<td class="$class" colspan=2>	
+Дополнительная комиссия для каждой записи
+</td>
+<td class="$class" colspan=2>&nbsp; 
+	<input type="text" class="simple_borders" onkeyUp="change_commission()"  name="ct_ext_comission"  id="ct_ext_comission" value="0.00">
+</td>
+</tr>
+	[% END %]
+
+
+	
+
+
+<tr>
+<td class="$class" colspan=2>	
+Общая сумма
+</td>
+<td class="$class" colspan=2>&nbsp; 
+	<span id="common_sum"></span>
+</td>
+</tr>
+<!--<tr>
+<td class="$class" colspan=2>	
+	Обмен
+</td>
+
+<td class="$class" colspan=2> 
+	[% INCLUDE  exchange_field.html %]
+</td></tr>-->
+
+<tr>
+<td class="$class" colspan=2>	
+	Дата занесения:
+</td>
+
+<td class="$class" colspan=2> 
+           <script>DateInput('ct_ts2', true)</script>
+</td></tr>
+
+</table>
+
+<input type="hidden" name="do" value="add_common_confirm">
+<input type="hidden" name="count_records" id="count_records" value="$count_records">
+
+
+<input type=submit  class="simple_borders" 
+name="Сохранить" value="Сохранить">
+
+</div>  
+</form>
+</center>
+<script>
+if(document.getElementById('__confirm'))
+		{
+  		 	change_commission();
+		 
+		}else
+		{
+			change_services();
+		}
+</script>
+
+[%INCLUDE footer.html %]

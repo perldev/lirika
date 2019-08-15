@@ -1,0 +1,30 @@
+[%INCLUDE  header.html %]
+<center>	
+<div style="width:400px;margin:100px;background-color:#ADD8E6;padding:10px">	
+	<table class=table_gborders>
+	[% IF error%]
+	<tr class=table_gborders>
+	<td colspan=2  class=table_gborders>
+	<font color=red>Ошибка авторизации!</font>
+	</td>
+	</tr>		
+	[% END %]
+	<input type='hidden' name='do' value='login_do'>
+	<tr class=table_gborders>
+	<form action='login.cgi' method=POST>
+	<td class=table_gborders>
+	<input type='text' name=login value="$login">
+	</td><td class=table_gborders>
+	<input type='password' name=pwd value="">	
+	</td>
+	</tr>
+	<tr class=table_gborders>
+	<td colspan=2 class=table_gborders align=center>
+	<input type="submit" name='Войти' value="Войти">		
+	</td>
+	</tr>
+	</form>
+	</table>
+</div>	
+</center>
+[%INCLUDE footer.html %]

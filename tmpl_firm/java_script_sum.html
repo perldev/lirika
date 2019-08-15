@@ -1,0 +1,51 @@
+<script>
+
+var _sum=0;
+var summed=[];
+var title=document.title;
+function sum(o){
+               var n=o.innerHTML;
+		n=n.replace(/<nobr[^>]*>/g,"");
+		n=n.replace(/[^0-9\.\-]/g,"");
+
+	       n=n*1;
+	       if (!o.className.match('summed')){
+                       _sum+=parseInt(parseFloat(n)*100);
+                       if (o.className)
+                           o.oldclass=o.className;
+                       else
+                           o.className='';
+                       o.className=o.className+' summed';
+                       summed.push(o);
+               } else {
+                       _sum-=parseInt(parseFloat(n)*100);
+                       o.className=o.oldclass;
+               }
+               document.title=title + '( ..... = ' + _sum/100 + ')';
+ }
+
+ function clearsum(){
+   var i;
+   for (i in summed){
+       summed[i].className=summed[i].oldclass;
+       _sum=0;
+       document.title=title;
+   }
+ }
+
+function form_work(don)
+{
+	if(don=='clear')
+	{
+		clearsum();
+	}else
+	{
+		document.getElementById('do').value=don;
+		document.getElementById('my_form').submit()
+	}
+}
+
+
+
+
+</script>

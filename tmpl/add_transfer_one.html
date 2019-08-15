@@ -1,0 +1,107 @@
+<table class=table_gborders   id="add_form_table" >
+ 
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Отправитель
+        </td>
+
+          <td class=table_gborders>
+    [% aid="t_aid1$user_number"  %]
+
+    [% INCLUDE account_field.html field=aid %]
+
+        </td>
+  </tr>
+ 
+
+    
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Получатель
+        </td>
+
+        <td class=table_gborders>
+        
+        [% aid="t_aid2$user_number"  %]
+    
+        [% INCLUDE account_field.html field=aid %]
+
+        </td>
+  </tr>
+ 
+    <tr class=table_gborders>
+
+        <td class=table_gborders>
+        Сумма
+        </td>
+
+        <td class=table_gborders>
+   
+<input class="simple_borders"  type="text" 
+        size="60"
+        id=t_amnt name="t_amnt[% user_number %]" value="">
+       </td>
+  </tr>
+ 
+
+
+    
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Дата
+        </td>
+
+        <td class=table_gborders>
+        
+          
+                 <script>DateInput('ts[% user_number %]', true)</script>
+        </td>
+  </tr>
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Валюта
+        </td>
+
+        <td class=table_gborders>
+        
+        
+
+        <select class="simple_borders"  name="t_currency[% user_number %]" >
+                            [% FOREACH thing=currencies %]
+                                <option value='$thing.value'>$thing.name</option>
+                            [% END %]
+                            </select>
+        </td>
+  </tr>
+
+    <tr class=table_gborders>
+
+
+        <td class=table_gborders>
+        Назначение
+        </td>
+
+        <td class=table_gborders>
+        <input class="simple_borders"  type="text" 
+        size="60"  id=t_comment 
+        name="t_comment[% user_number %]" value="$comment">
+            
+    
+   
+
+           
+
+        </td>
+  </tr>
+  
+
+
+</table>

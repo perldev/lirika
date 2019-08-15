@@ -1,0 +1,101 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %] 
+<center>
+  
+   <div class=center_div_table>
+
+
+ [% INCLUDE proto_filter.html %]
+[% INCLUDE oper_add_trans.html %]     
+   <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=7>
+        <strong>[% IF trans_list.a_id %]
+	    Выписка по переводам :<a class="table_gborders" href="accounts.cgi?do=edit&amp;id=$trans_list.a_id" >$trans_list.a_name [% IF trans_list.a_id>0 %](#$trans_list.a_id)[% END %]</a>&nbsp; UAH:&nbsp;$trans_list.a_uah,&nbsp;USD:&nbsp;$trans_list.a_usd,&nbsp;EUR:&nbsp;$trans_list.a_eur
+  [% ELSE %] Переводы [%END%]</strong>       
+    </td>               
+  </tr> 
+
+ 
+
+
+  <tr class=table_gborders>
+    <th class=table_gborders> Id  </th>
+     <th class=table_gborders> От  </th>
+     <th class=table_gborders> Кому </th> 
+     <th class=table_gborders> Оператор </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Комментарии </th>
+  </tr>                         
+
+
+
+   	[% FOREACH thing = transes %]
+
+        [% IF thing.color_set==1 %]
+	
+	[% IF thing.color!='0'||thing.t_amnt<0 %]
+	
+	[% class='table_gborders_red' %]
+	
+	[% ELSE %]
+		[% class = 'table_gborders' %]
+	[% END %]
+		
+	[% ELSE %]
+		
+		[%  class='table_gborders' %]
+
+	 [% END %]
+	
+	
+	<tr    class=$class >
+	<td  class=$class>
+       $thing.t_id
+	</td>
+	<td   class=$class>
+	
+	[% IF  thing.firm1 %]
+		<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_currency=$thing.t_currency_f&amp;ct_ts=$thing.t_ts_mysql_f&amp;ct_fid=$thing.firm1_id">
+			<span color=black>Фирма:&nbsp;$thing.firm1_name&nbsp;(id#$thing.firm1_id)</span></a>
+	[% ELSE %]
+		<a class=$class href="oper.cgi?do=trans_list&amp;a_id=$thing.t_aid1&amp;action=filter&amp;t_ts_mysql=$thing.t_ts_mysql_f&amp;t_amnt=$thing.t_amnt_f&amp;t_currency=$thing.t_currency_f">$thing.a_name1&nbsp;[% IF  thing.t_aid1 > 0 %]  (id#&nbsp;$thing.t_aid1)[% END %] </a>
+
+	[% END %]
+	
+		
+	</td>
+	<td class=$class >
+	[% IF  thing.firm2 %]
+		<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_currency=$thing.t_currency_f&amp;ct_ts=$thing.t_ts_mysql_f&amp;ct_fid=$thing.firm2_id"><span color=black>Фирма:&nbsp;$thing.firm2_name&nbsp;(id#$thing.firm2_id)</span></a>
+	[% ELSE %]
+		<a class=$class href="oper.cgi?do=trans_list&amp;a_id=$thing.t_aid2&amp;action=filter&amp;t_ts_mysql=$thing.t_ts_mysql_f&amp;t_amnt=$thing.t_amnt_f&amp;t_currency=$thing.t_currency_f">$thing.a_name2&nbsp;[% IF  thing.t_aid2 > 0 %]  (id#&nbsp;$thing.t_aid2)[% END %]</a>
+		
+	[% END %]
+	</td>
+	<td  class=$class>
+	 $thing.o_login
+	</td>
+	<td  class=$class onclick="sum(this)">
+ 	$thing.t_amnt $thing.t_currency
+	</td>
+	<td  class=$class>
+	$thing.t_ts
+	</td>      
+	<td  class=$class>
+	$thing.t_comment
+	</td>   
+ 	</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=7>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

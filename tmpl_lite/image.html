@@ -1,0 +1,89 @@
+<div id=image_div style="display:block;padding:10px">
+	<table>
+	<tr id=prec_menu style="display:none">
+	<td align=left>
+	Точность расчетов&nbsp;:&nbsp; 
+	</td>
+	
+	<td>
+	<select id=prec onchange="change_prec()">
+	<option  selected value='month'>По месяцам</option>
+	<option value='week'>По не неделям</option>
+	<option value='day'>По дням</option>
+	</select>	
+	</td>
+	</tr>
+	<td align=left>
+	<span id='y_count' align=left style="font-size: 10px;"></span>
+	</td>
+	</tr>
+	<tr>
+	<td colspan=2>
+	<center>
+	 <div id=image  style="width:1000px;height: 230px;display: block"></div>	        
+	</center>
+	</td>
+	</tr>
+	<tr>
+	<td align=right style="font-size: 10px;">
+	$precision
+	</td>
+	</tr>	
+	</table>
+
+
+</div>
+<script>
+function change_prec()
+{
+	var prec=document.getElementById('prec').value;
+	if(document.getElementById('image'))
+	{
+		html=document.getElementById('image').innerHTML;
+
+		count_from=html.search('src');
+		count_to=html.search('end_param=1');
+		url=html.substring(count_from+5,count_to+12);
+		//str=str.replace(/&end_param=1/,'');
+		url+='&prec='+prec;
+		document.getElementById('image').innerHTML="<img src='"+url+"' border=0 >";
+	}
+
+
+}
+
+function new_image(type,date,currecny,count_param,id,str_y)
+{
+	
+	if(date.search('year')>=0)
+	{
+		document.getElementById('prec_menu').style.display='';
+	}else
+	{
+		document.getElementById('prec_menu').style.display='none';
+	
+	}
+	
+
+	if(id)
+		id=id
+	else
+		id='';
+	var url='reports.cgi?do=get_image&t_ts='+date+'&currency='+currecny+'&type='+type+'&count_param='+count_param+'&id='+id+'&end_param=1';
+	
+	var prec=document.getElementById('prec').value;
+	url+='&prec='+prec;
+
+	if(document.getElementById('y_count'))
+		document.getElementById('y_count').innerHTML=str_y;
+
+	if(document.getElementById('image'))
+		document.getElementById('image').innerHTML="<img src='"+url+"' border=0 >";
+
+	if(document.getElementById('image_div'))
+		document.getElementById('image_div').style.display='';	
+	
+	
+	
+}
+</script>

@@ -1,0 +1,381 @@
+
+[%INCLUDE  header.html %]
+<center>
+<div class=center_div_table>
+
+  <form method="post">
+  <input name="do" value="add_confirm" type="hidden">
+  <input name="action" value="apply" type="hidden">
+  <input name="id" value="" type="hidden">
+
+  
+  <table class="table_gborders">
+ <tbody><tr class="table_gborders">
+ <td class="table_gborders" colspan="2">
+	$page_title <!--Добавить выписку--></td>
+</tr> 
+ 
+    
+
+
+ 
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Дата поступления
+        </td>
+
+        <td class="table_gborders">
+<script>DateInput('ct_date',true)</script>
+            
+           
+
+                          </td>
+  </tr>
+ 
+
+
+
+ 	
+ 
+
+     
+
+
+    
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Фирма
+        </td>
+
+        <td class="table_gborders">
+        
+        
+
+
+          
+  
+
+<!--only for accounts an creating projects-->
+
+         
+           
+            <select class="simple_borders" id="ct_fid" name="ct_fid" >
+  	<option  value=''> Выберите фирму </option>
+	    [% FOREACH option = my_firms %]
+             <option  value="$option.value" [% IF option.value == row.value %]selected[% END %]
+            >$option.title</option>
+            [% END %]       
+            
+            </select>
+
+           
+   
+
+                          </td>
+  </tr>
+ 
+
+
+
+ 	
+ 
+
+     
+
+  
+
+    
+    
+  
+  	
+  <tr class="table_gborders">
+
+
+        <td class="table_gborders">
+        Валюта
+        </td>
+
+        <td class="table_gborders">
+        
+        
+
+
+          
+  
+
+<!--only for accounts an creating projects-->
+
+         
+           
+            <select class="simple_borders" id="ct_currency" name="ct_currency" >
+                      [% FOREACH thing=currencies %]
+                		<option value='$thing.value'>$thing.name</option>
+        	      [% END %]
+                        </select>
+
+           
+   
+
+                          </td>
+  </tr>
+
+
+
+ 	
+ 
+
+     
+
+
+ 
+
+	<script>
+		
+	</script>
+  
+ 
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="2">
+<script>
+var id=11;
+function add_one()
+{
+	id=1*id+1;
+	var s=document.getElementById('desc_amnt_10'+id);
+	if(s)
+		s.style.display='';	
+
+
+}
+</script>
+      <input class="simple_borders" name="__submit" onclick="add_one()" value="Добавить еще одну выписку" type="button">
+    </td>
+  </tr>
+
+
+  
+  	
+  <tr class="table_gborders">
+        <th class="table_gborders">
+        Сумма
+        </th>
+	<th class="table_gborders">
+        Назначение
+        </th>
+</tr>
+<tr id="desc_amnt_1011" class="table_gborders">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=11 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 
+		        tabindex=1011 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+	</td>
+</tr>
+<tr id="desc_amnt_1012"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=12 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1012 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr  id="desc_amnt_1013"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=13 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1013 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr   id="desc_amnt_1014"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=14 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1014 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+
+</tr>
+<tr id="desc_amnt_1015"  class="table_gborders" style="display:none" >
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=15 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1015 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+  </tr>
+
+<tr id="desc_amnt_1016"  class="table_gborders" style="display:none" >
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=16 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1016 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+	</td>
+</tr>
+<tr  id="desc_amnt_1017"  class="table_gborders" style="display:none" >
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=17 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1017 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr id="desc_amnt_1018"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=18 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders"  size=60 tabindex=1018 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr id="desc_amnt_1019"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=19 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1019 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+
+</tr>
+<tr  id="desc_amnt_1020"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=20 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1020 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+  </tr>
+<tr  id="desc_amnt_1021"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=21 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1021 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+	</td>
+</tr>
+<tr  id="desc_amnt_1022"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=22 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1022 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr  id="desc_amnt_1023"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=23 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1023 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr id="desc_amnt_1024"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=24 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1024 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+
+</tr>
+<tr id="desc_amnt_1025"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=25 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1025 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+  </tr>
+<tr id="desc_amnt_1026"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=26 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1026 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+	</td>
+</tr>
+<tr  id="desc_amnt_1027"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=27 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1027 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr  id="desc_amnt_1028"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=28 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1028 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+</tr>
+<tr  id="desc_amnt_1029"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=29 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60 tabindex=1029 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+
+</tr>
+<tr id="desc_amnt_1030"  class="table_gborders" style="display:none">
+        <td class="table_gborders">
+             <input class="simple_borders" tabindex=30 id="ct_amnt" name="ct_amnt" value="" type="text">
+        </td>
+
+        <td class="table_gborders">
+                       <input class="simple_borders" size=60  tabindex=1030 id="ct_comment" name="ct_comment" value="Ввод безналом" type="text">
+        </td>
+  </tr>
+
+ 	
+ 
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="2">
+      <input class="simple_borders" name="__submit" value="Добавить" type="submit">
+
+
+      <input class="simple_borders" name="__cancel" onclick="location.href='firm_input.cgi'" value="Отменить" type="button">      
+    </td>
+  </tr>
+
+  </tbody></table>
+
+  </form>
+</div>  
+</center>
+[%INCLUDE footer.html %]
+

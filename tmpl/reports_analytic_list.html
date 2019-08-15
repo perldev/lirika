@@ -1,0 +1,46 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+
+<center>
+<div class=center_div_table>
+[% INCLUDE proto_filter.html %]
+<table id='my_table' class=table_gborders>
+<tr class=table_gborders>
+<td class=table_gborders colspan='5'>
+<a class="table_gborders" href="?do=save_common_report_without"><font size=-1>Сделать отчет</font></a>
+</td>
+</tr>
+  <tr class=table_gborders>
+     <th class=table_gborders > Время отчета  </th>
+    <th class=table_gborders> Дельта USD</th>   
+     <th class=table_gborders> Дельта EUR</th>   
+     <th class=table_gborders> Дельта ГРН</th>
+      <th class=table_gborders >  </th>
+  </tr>
+    [% FOREACH thing = rows %]
+    [%  class1='table_gborders' %]
+    [%  class='table_gborders' %]
+
+    <tr    class="$class" >
+    <td   class="$class"  >
+    $thing.cr_ts
+    </td>
+     <td  onclick="sum(this)" class="$class" >
+    $thing.cr_delta_usd
+    </td>
+    <td onclick="sum(this)"  class="$class" >
+    $thing.cr_delta_eur
+    </td>
+    <td  onclick="sum(this)" class="$class" >
+    $thing.cr_delta_uah
+    </td>
+    <td  class="$class"  >
+    <a  class="$class1" target='blank' href="?do=view_report_without&amp;id=$thing.cr_id"> Просмотреть</a>
+    </td>
+    </tr>
+[% END %]
+</table>
+</div>
+</center>
+[%INCLUDE  footer.html %]

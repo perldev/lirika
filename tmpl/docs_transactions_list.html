@@ -1,0 +1,132 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<center>
+  <div class=center_div_table>
+<div   id="comment_form_change_cat"   class="center_div_table_poup" style="position:absolute;left:40em;display:none">
+Программа : 
+<br/>	
+<input  type="hidden" id="dt_id" value="">
+<select  id="accounts" class="simple_borders">
+ [% FOREACH row=accounts %]   
+	<option  value="$row.value" >$row.title</option>
+[% END %]
+</select>
+<br/>
+
+<input type='button' onclick='save_account(this,"form_change_cat")' class='simple_borders' name='Сохранить' value="Сохранить">
+<input type='button' onclick='operators_show_note("form_change_cat")' class='simple_borders'  value="Закрыть окно">
+
+</div>
+
+  [%INCLUDE proto_filter.html %]
+
+<table id='my_table' class=table_gborders>
+  <tr class=table_gborders>
+    <td class=table_gborders colspan="12">
+        <strong> [% page_title %] <input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="unify_get_excel(2,1,12)" ><a class='table_gborders' style='display:none' href='' id='file_id_url'>Сохранить файл</a>
+ </strong>
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class='table_gborders'>Привязанная сделка </th>
+     <th class=table_gborders> Внешний оператор  </th>
+     <th class=table_gborders> Период </th> 
+     <th class=table_gborders> Дата заведения </th> 
+     <th class=table_gborders> Фирма </th>
+    <th class=table_gborders> ОКПО </th>
+
+     <th class=table_gborders> Покупатель </th>
+     <th class=table_gborders> Программа </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+  </tr>                         
+	 [% FOREACH row = rows %]
+  <tr id='$row.dt_id' class=table_gborders>
+
+        <td class=table_gborders>
+        $row.dt_id        
+        </td>
+ <td class=table_gborders>
+        [% IF !row.dt_drid  %]
+            Нет        
+        [%ELSE%]
+        <span class='simple_tab' id='button_$row.dt_drid'
+         onclick='show_doc_tab(this,"$row.dt_drid")'>Показать</span>
+        [%END%]
+        </td>
+<td class=table_gborders>
+        $row.dt_oid
+        </td>
+       
+ 	<td class=table_gborders>
+        $row.dt_date
+        </td>
+	<td class=table_gborders>
+        $row.dt_ts
+        </td>
+ 
+ 	<td class=table_gborders>
+        $row.dt_fid
+        </td>
+    <td class=table_gborders>
+        $row.dt_okpo
+        </td>
+<td class=table_gborders>
+        $row.dt_ofid
+        </td>
+	 <td class=table_gborders>
+	
+	[% IF !row.orig__dt_aid %]
+    
+	<span class="simple_tab"  onclick="change_account(this,'$row.dt_id',0)">идентифицировать
+
+	</span>
+
+	[% ELSE %]
+ 	<span class="simple_tab"  onclick="change_account(this,'$row.dt_id',$row.orig__dt_aid)">$row.dt_aid
+
+
+	</span>
+
+	[% END %]
+
+        </td><td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class=table_gborders>
+        $row.dt_amnt
+        </td>
+ 	<td class=table_gborders>
+        $row.dt_currency
+        </td>
+        
+         <td class="table_gborders" title='[% row.dt_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.dt_comment FILTER html  %]'>[% row.dt_comment FILTER html  %]</nobr>
+	</td>
+
+       
+
+       
+  </tr>
+  [% END %]
+</table>
+
+
+
+
+
+<br>
+
+
+
+
+
+
+
+
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

@@ -1,0 +1,457 @@
+
+[%INCLUDE  header.html %]
+
+<center>
+
+
+<div class="center_div_table">
+  <form method="post" id="my_form">
+  <input name="do" value="add_many_do" type="hidden">
+  <input name="action" value="apply" type="hidden">
+  <input name="id" value="" type="hidden">
+ 
+<table class="table_gborders" id="add_form_table">
+ <tbody>
+<tr class="table_gborders">
+ <td class="table_gborders" colspan="4">
+	Документы по фирмам</td>
+</tr> 
+
+  	<tr class="table_gborders">
+
+
+        <td class="table_gborders" colspan="2" >
+        Дата
+        </td>
+
+        <td class="table_gborders"  colspan="2" >
+        <script>DateInput('dt_date', true)</script>
+        </td>
+  	</tr>
+	<tr class="table_gborders">
+
+ <td class="table_gborders" colspan="2" >
+        Фирма :
+        </td> 
+<td class="table_gborders" colspan="2">
+	 <select class="simple_borders" id="dt_fid" name="dt_fid" >
+        			[% FOREACH option = firms %]
+					<option  value="$option.value"
+					[% IF option.value == row.value %]selected[% END %]>[%option.title  FILTER html %]</option>
+				[% END %]
+			            	</select>	
+
+</td>
+</tr>
+<tr class="table_gborders">
+<script>
+ var out_firms=new Array();
+ var out_firms_okpo=new Array();
+ var out_firms_id=new Array();
+
+ [% FOREACH option = out_firms %]
+      out_firms_okpo['$option.of_okpo']=$option.value;
+ [% END %]
+
+ [% FOREACH option = out_firms %]
+	
+	out_firms['$option.title']=$option.value;
+
+ [% END %]
+
+ [% FOREACH option = out_firms %]
+	
+	out_firms_id['$option.value']='$option.title';
+
+ [% END %]
+  
+ var users=new Array();
+
+ [% FOREACH option = accounts %]
+	
+	users['$option.title']=$option.value;
+
+ [% END %]
+ function input_excel()
+{
+	var errMess = 	document.getElementById('alert_error');
+	var errWind = document.getElementById('notokpo');
+    var s=document.getElementById('data').value;
+    var arr=s.split("\n");
+    //  'desc_amnt_1011'
+    var tmp=0;
+    var table=document.getElementById('insert_');
+	document.getElementById('alert_error').innerHTML="";
+    for(var i=0;i<arr.length; i++)
+    {
+
+
+        var arr1=arr[i].split("\t");    
+	
+        if(arr1.length==3)
+        {
+        
+	        if(!arr1[0]||!arr1[2])
+	        {
+			    alert(" i cant find in "+i+" record");
+			    break;
+			}
+		    //arr1[2]=arr1[2].replace(/[ ]/g,"");
+		    //arr1[2]=arr1[2].replace(/[,]/g,".");
+	        
+		    var sum1=get_my_number(arr1[2]);
+		    if(!sum1)
+		    {
+			    alert("i cant' find sum in record "+i);
+			    break;
+			}
+		    // var obj=document.getElementById('ct_aid'+tmp);
+		    //  var opt=obj.options;
+
+		    var flag=1;
+		    var tm1=arr1[0].toLowerCase();
+		    //  "/\([ \t]*(\d+)[\t ]*\)[ \t]*/"
+		    var patt1=/(\d+)/g;       
+		    var tm2=out_firms[tm1];
+		    var okpo_=0;
+            if(!tm2)
+            {
+	            var okpo=tm1.match(patt1); 
+	    	
+	            if(!okpo)
+	            {
+	            	errMess.innerHTML+="Не могу определить окпо покупателя у фирмы '"+tm1+"'<br/>";
+	            	errWind.style.display='';
+	                //continue;
+	                //alert("Не могу определить окпо покупателя у фирмы '"+tm1+"'\n Введите номер окпо в кругых скобках в конце названия \n наприме 'Фирма 2009 (666) ',где 666 - номер окпо, \n иначе будем ругаться ;)");
+	        
+	            }else
+	            {
+	            	
+	                okpo_=okpo[okpo.length-1];
+	                tm2=out_firms_okpo[okpo_];
+					if(okpo_.length<8)
+					{
+		            	errMess.innerHTML+="Код окпо покупателя у фирмы '"+tm1+"' должен состоять из 8 цифр<br/>";
+		            	errWind.style.display='';
+		                //continue;
+					}
+	            }
+        	}
+			if(out_firms_id[tm2]!=undefined)
+				tm1 = out_firms_id[tm2];
+	        if(!tm2)
+	        {
+	            tm2=tm1;
+	            tm1=tm1+'(<strong>будет заведена</strong>)';
+	        }
+	        var ac1=arr1[1].toLowerCase();
+	        
+	        ac1=ac1.replace(/[ ]/,"");
+	//      ac1=ac1.replace(/[ ]+/,"");
+	        
+	        var ac2=users[ac1];
+	        if(!ac2)
+	        {
+	            
+	            ac1=arr1[1]+'(<strong>неизвестен<strong>)';
+	            ac2=0;
+	        }
+
+
+	        var row=table.insertRow(1);
+	        
+	        var firm=row.insertCell(0);
+	        var okpo=row.insertCell(1);
+            var account=row.insertCell(2);
+            var sum=row.insertCell(3);
+            
+            sum.className='table_gborders';
+            account.className='table_gborders';
+            firm.className='table_gborders';
+	        okpo.className='table_gborders';
+            row.className='table_gborders';
+            
+     	    okpo.innerHTML=okpo_;
+            firm.innerHTML=tm1;
+        	account.innerHTML=ac1;
+        	sum.innerHTML=arr1[2];
+        
+        
+	        create_my_input(table,tm2,'dt_ofid'+tmp);
+	        create_my_input(table,ac2,'dt_aid'+tmp);
+	        create_my_input(table,sum1,'dt_amnt'+tmp);
+	        tmp++;
+        }
+        else if(arr1.length==4)
+        {
+        
+	        if(!arr1[0]||!arr1[3]){
+		    alert(" i cant find in "+i+" record");                                                                                                           
+	                break; 
+	            continue ;
+			}
+        
+	        var sum1= get_my_number(arr1[3]);
+	        if(!sum1){
+            
+				alert(" i cant find sum in "+i+" record");                                                                                                           
+	            break;     
+		    	continue ;
+	    
+	    	}
+	        // var obj=document.getElementById('ct_aid'+tmp);
+	        //  var opt=obj.options;
+	    
+	        var flag=1;
+            var tm1=arr1[0].toLowerCase();
+	        //  "/\([ \t]*(\d+)[\t ]*\)[ \t]*/"
+            //var patt1=/(\d+)/g;       
+        
+            var tm2=out_firms[tm1];
+            var okpo_=0;
+            var okpo=arr1[1]; 
+    	    okpo=okpo.replace(/[^\d]/g,"");
+			if(!okpo)
+            {
+            	errWind.style.display='';
+            	errMess.innerHTML+="Не могу определить окпо покупателя у фирмы '"+tm1+"'\n Введите номер окпо в кругых скобках в конце названия \n наприме 'Фирма 2009 (666) ',где 666 - номер окпо, \n иначе будем ругаться ;)";
+                //continue;
+                //alert("Не могу определить окпо покупателя у фирмы '"+tm1+"'\n Введите номер окпо в кругых скобках в конце названия \n наприме 'Фирма 2009 (666) ',где 666 - номер окпо, \n иначе будем ругаться ;)");
+        
+            }else
+            {
+	    
+		
+               okpo_=okpo;
+                tm2=out_firms_okpo[okpo];
+				if(okpo_.length<8)
+				{
+	            	errMess.innerHTML+="Код окпо покупателя у фирмы '"+tm1+"' должен состоять из 8 цифр<br/>";
+	            	errWind.style.display='';
+	                //continue;
+				}
+            }
+			if(out_firms_id[tm2]!=undefined)
+				tm1 = out_firms_id[tm2];
+        
+            
+
+		    if(!tm2)
+		    {
+		        tm2=tm1;
+		        tm1=tm1+'(<strong>будет заведена</strong>)';
+		        
+		    }
+		    var ac1=arr1[2].toLowerCase();
+		    
+		    ac1=ac1.replace(/[ ]/,"");
+			//      ac1=ac1.replace(/[ ]+/,"");
+        
+	        var ac2=users[ac1];
+	        if(!ac2)
+	        {
+	            
+	            ac1=arr1[2]+'(<strong>неизвестен<strong>)';
+	            ac2=0;
+	        }
+
+
+	        var row=table.insertRow(1);
+        
+            var firm=row.insertCell(0);
+            var okpo=row.insertCell(1);
+	        var account=row.insertCell(2);
+	        var sum=row.insertCell(3);
+        
+	        sum.className='table_gborders';
+	        account.className='table_gborders';
+	        firm.className='table_gborders';
+            okpo.className='table_gborders';
+	        row.className='table_gborders';
+        
+            okpo.innerHTML=okpo_;
+    	    firm.innerHTML=tm1;
+        	account.innerHTML=ac1;
+        	sum.innerHTML=arr1[3];
+        
+        
+	        create_my_input(table,tm2+' ('+okpo_+')','dt_ofid'+tmp);
+	        create_my_input(table,ac2,'dt_aid'+tmp);
+	        create_my_input(table,sum1,'dt_amnt'+tmp);
+	        tmp++;
+
+
+            
+        }
+
+
+        }   
+       	document.getElementById('alert_error').innerHTML+="<br/><b>Введите номер окпо в кругых скобках в конце названия . например 'Фирма 2009 (666) ',где 666 - номер окпо, иначе будем ругаться ;)</b><br/>";
+
+        document.getElementById('number').value=tmp;
+
+        
+    
+        document.getElementById('excel_add').style.display='none';
+
+
+
+
+
+    
+}
+function get_my_number(val)
+{
+    var coma=val.indexOf(',',0);
+    var dot=val.indexOf('.',0);
+    
+    if(dot>=0&&coma>=0){
+        if(dot>coma)
+	{
+    
+        	val=val.replace(/[^\d\.]/g,"");
+    	        return val*1;
+            
+    
+	}else
+	{
+    	    val=val.replace(/[^\d,]/g," ");
+    	    val=val.replace(/[,]/g,".");
+            return val*1;   
+	}
+   }
+	
+	if(dot&&coma<0)
+	{
+	    val=val.replace(/[ ]/g,"");                                                                                                                  
+    
+	    return val*1;  
+	}
+	if(dot<0&&coma)
+	{
+	     val=val.replace(/[ ]/g,"");                                                                                                                       
+    	     val=val.replace(/[,]/g,".");                                                                                                 
+	     
+	    return val*1; 
+	}
+	
+
+    
+}
+function create_my_input(_ob,_class,_title)
+{
+	var tab = document.createElement('input');
+	tab.setAttribute('type','hidden');
+	tab.setAttribute('value',_class);
+	tab.setAttribute('name',_title);
+ 	_ob.appendChild(tab);
+	
+	
+}
+
+function show_form()
+{
+	document.getElementById('data').value='';
+	if(document.getElementById('excel_add').style.display=='none')	
+	{
+		document.getElementById('excel_add').style.display='';
+	}else
+	{
+		document.getElementById('excel_add').style.display='none';
+	}
+	
+
+	
+}
+function clean_excel()
+{
+
+	return;
+
+}
+
+
+</script>
+
+<td class='table_gborders' colspan="4">
+
+   <input class="simple_borders" onclick='show_form()' value="Excel insert" type="button">
+	<div   id="excel_add"   class="center_div_table_poup" style="position:absolute;display:none">
+	Вставьте данные из excel в поле ниже
+	<br/>	
+	<textarea id="data"  class='simple_borders'>
+	
+	</textarea>
+	<br/>
+	<input type='button' onclick='input_excel()' class='simple_borders' name='Вставить' value="Вставить">
+	<input type='button' onclick='clean_excel()' class='simple_borders' name='Очистить ' value="Очистить">
+
+	</div>
+</td>
+</tr>
+
+
+
+<tr class="table_gborders">
+
+
+
+</tr>
+<tr  class="table_gborders">
+<td colspan=4 class='table_gborders'>
+<div id="notokpo" class="center_div_table_poup" style='position:absolute; display:none'>
+	<div id="closeButton" style="	position: absolute;	top: 0px;	right: 0px;	border-bottom: 1px solid gray;	border-left: 1px solid gray; font-weight: bold;	cursor: pointer; padding: 2px 4px 2px 4px;" onclick="document.getElementById('notokpo').style.display='none'">Х</div>
+	<span id='alert_error'></span>
+</div>
+<table id='insert_' class="table_gborders">
+ <input class="simple_borders" id="number" name="number" value="" type="hidden">
+
+<tr  class="table_gborders">
+
+<th class="table_gborders" >
+Фирма(покупатель)	
+</th>
+<th class="table_gborders" >
+ОКПО   
+</th>
+<th class="table_gborders" >
+Программа	
+</th>
+<th class="table_gborders" >
+Сумма	
+</th>
+</tr>
+</table>
+</td>
+
+  </tr>
+ 
+	
+ 
+
+    <tr class="table_gborders">
+    <td class="table_gborders" colspan="4">
+   <input class="simple_borders" id="submit_button" name="__submit" value="Добавить" type="submit">
+<script>
+</script>
+
+      <input class="simple_borders" id="id" onclick="window.history.back(-1)" name="__cancel" value="Отменить" type="button">      
+    </td>
+  </tr>
+<script>
+
+document.getElementById('submit_button').disabled=false;
+document.getElementById('id').disabled=false;
+
+</script>
+
+
+  </tbody></table>
+
+  </form>
+
+</div>
+  
+</center>
+[%INCLUDE footer.html %]

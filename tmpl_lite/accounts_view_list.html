@@ -1,0 +1,136 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+<div   id="comment_form_change_cat"   class="center_div_table_poup" style="position:absolute;left:0px;display:none">
+Категория : 
+<br/>	
+<input  type="hidden" id="ct_aid" value="">
+<select  id="accounts_cats" class="simple_borders">
+ [% FOREACH row=accounts_cats %]   
+	<option  value="$row.value" >$row.title</option>
+[% END %]
+</select>
+<br/>
+
+<input type='button' onclick='save_cat(this,"form_change_cat")' class='simple_borders' name='Сохранить' value="Сохранить">
+</div>
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+
+ <!-- <a  class=table_gborders href="?do=add">Добавить</a>-->
+
+  <table class=table_gborders>
+
+  
+
+  <tr  class=table_gborders>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Категория </th> 
+     <th class=table_gborders> ФИО </th>   
+     <th class=table_gborders> Комментарии </th>
+     <th class=table_gborders> Эл.адрес(email) </th>
+ <th class=table_gborders> Оператор </th>
+     <th class=table_gborders> Класс </th>
+     <th class=table_gborders> Статус </th>
+     <th class=table_gborders> ГРН </th>
+     <th class=table_gborders> USD </th>
+     <th class=table_gborders> EUR </th>     
+<!--    <th class=table_gborders width="20">Уведомления</th>-->
+<!--   <th class=table_gborders>Привязан к проекту</th>   -->
+<!--     <th class=table_gborders>Кто привел </th>     -->
+
+     <th class=table_gborders > Действия </th>
+  </tr>                         
+
+
+
+  [% FOREACH row = rows %]
+  <tr id='account_$row.id' class=table_gborders>
+
+        <td class=table_gborders>
+        $row.a_id       
+        </td>
+        <td class=table_gborders>
+<span class="simple_tab"  onclick="change_cat(this,'$row.id','$row.ac_id')">$row.ac_title
+</span>
+
+        </td>
+
+        <td class=table_gborders>
+        $row.a_name
+        </td>
+
+        <td class=table_gborders>
+        $row.a_phones
+        </td>
+
+   	<td class="table_gborders" title='[% row.a_email FILTER html  %]' >
+        <nobr class="comment" title='[% row.a_email FILTER html  %]'>[% row.a_email FILTER html  %]</nobr>
+	</td>
+
+	<td class=table_gborders>
+        $row.a_oid
+        </td>
+
+        <td class=table_gborders>
+        $row.a_class
+        </td>
+
+        <td class=table_gborders>
+        $row.a_status
+        </td>
+
+        <td class="table_gborders sum">
+        $row.a_uah
+        </td>
+	<td class="table_gborders sum">
+        	$row.a_usd
+        </td>
+
+		<td class="table_gborders sum">
+        $row.a_eur
+        </td>
+ 	<!--<td class=table_gborders>
+        $row.a_issubs
+        </td>-->
+        <td class=table_gborders>
+	<table >
+	<tr class=table_gborders>
+	<td class=table_gborders>
+	
+       <a  class=table_gborders href="?do=edit&amp;id=$row.id"> редактировать</a>
+     </td>
+	<td class=table_gborders>
+
+
+	[% IF row.id>0%]
+<a class=table_gborders	 
+href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$row.id">Выписка</a><br><!--<a  class=table_gborders href="oper.cgi?do=send_trans_list&amp;a_id=$row.id">Отослать  выписку </a>-->
+	[% END %]
+	</td>
+	</tr>
+	</table>
+
+        </td>
+
+
+        
+      
+        
+
+  </tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

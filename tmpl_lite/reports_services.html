@@ -1,0 +1,99 @@
+[%INCLUDE  header.html %]
+
+<center>
+  
+   <div class=center_div_table>
+
+[% INCLUDE stat_menu.html %]
+
+
+ [% INCLUDE proto_filter.html %]
+[% INCLUDE image.html %]
+  <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=7>
+        <strong>
+	$title
+</strong>       
+    </td>               
+  </tr> 
+  
+<tr class=table_gborders>
+
+    <td class=table_gborders>Общий оборот: </td><td>$common_params.plus</td><td colspan=3><span class=div_tab onclick="new_image('services','$t_ts','$currency','plus','','Оборот')" > Просмотреть  </span></td>
+  </tr>
+   <tr class=table_gborders>
+
+    <td class=table_gborders>Сумма коммиссий за услуги: </td><td>$common_params.com_sum</td><td colspan=3><span class=div_tab onclick="new_image('services','$t_ts','$currency','com_sum','','Сумма коммиссий')" > Просмотреть </span></td>
+    </tr>
+     <tr class=table_gborders>
+
+    <td class=table_gborders>Количество использований: </td> <td>$common_params.freq</td><td colspan=3><span class=div_tab onclick="new_image('services','$t_ts','$currency','freq','','Кол-во использований')" > Просмотреть </span></td>
+
+  </tr>
+   <tr class=table_gborders>
+    <td class=table_gborders>Количество пользователей услуг : </td> <td>$common_params.users</td><td colspan=3><span class=div_tab onclick="new_image('services','$t_ts','$currency','users','','Пользователей услуг')" > Просмотреть </span></td>
+
+  </tr>
+
+
+
+  <tr class=table_gborders>
+    <th class=table_gborders> Услуга  </th>
+    [% INCLUDE reports_table_headers.html %]
+  </tr>                         
+   	[% FOREACH thing = list %]
+ 
+<!--		SELECT  firm_services.fs_id as id,
+# 			firm_services.fs_name as name,
+# 			abs(sum(`from`.ct_amnt)) as  'all',
+# 			sum(t_amnt) as com_sum,
+# 			count(distinct `from`.ct_aid) as users,
+# 		count(`from`.ct_id) as freq,
+# 		`from`.ct_currency as currency
+# 		FROM 
+# 		firm_services
+# 		LEFT JOIN cashier_transactions as `from` ON (`from`.ct_fsid=fs_id  AND `from`.ct_currency='$params->{currency}' AND ].$params->{'`from`.ct_ts'}.q[ )
+# 		LEFT JOIN transactions ON ct_tid2_comis=t_amnt	GROUP BY fs_id]-->
+		
+		[%  class='table_gborders' %]
+		<tr    class=$class >
+		<td  class=$class>
+
+		$thing.name
+		</td>
+		<td   class=$class>
+<span class=simple_tab onclick="new_image('services','$thing.t_ts','$thing.currency','plus','$thing.id','Оборот по услуге')" >
+		 $thing.plus
+</span>
+		</span></td>
+	
+		<td class=$class >
+<span class=simple_tab onclick="new_image('services','$thing.t_ts','$thing.currency','com_sum','$thing.id','Сумма коммиссий')" >		
+$thing.com_sum
+</span>
+
+		</td>
+		<td  class=$class>
+<span class=simple_tab onclick="new_image('services','$thing.t_ts','$thing.currency','freq','$thing.id','Частота использования')" >
+		$thing.freq
+</span>
+		</td>
+		<td  class=$class>
+<span class=simple_tab onclick="new_image('services','$thing.t_ts','$thing.currency','users','$thing.id','Кол-во пользователей')" >
+		$thing.users
+</span>
+		</td>
+	
+		</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+  <!--  <td class=table_gborders colspan=7>
+    </td> -->              
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

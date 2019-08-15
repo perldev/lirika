@@ -1,0 +1,279 @@
+<html>
+<head>
+<style>
+#my_table {font-size:
+11px}
+</style>
+</head>
+<body >
+<center>
+  <table width='70%' style="border:1px black" border="1" class="table_gborders" id='my_table'>
+
+	
+  <tr>
+     <th class=table_gborders>Фирма </th> 
+     <th class=table_gborders>Входящий(USD) </th>
+     <th class=table_gborders>Сумма заявок </th>
+     <th class=table_gborders>Исходящий отстаток </th>
+
+     <th class=table_gborders>&nbsp;</th>
+     <th class=table_gborders>Входящий(EUR) </th>
+     <th class=table_gborders>Сумма заявок </th>
+     <th class=table_gborders>Исходящий отстаток </th>
+
+  </tr>                         
+
+
+[% FOREACH row = list %]
+
+[% IF row.type=='begin' %]
+
+[% class = 'table_gborders_gray' %]
+
+<tr class="$class" >
+   <strong>
+     <td class=$class>
+	<strong  class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$row.f_id">
+	$row.f_name(#$row.f_id)</strong>
+        </td>
+ 	[% IF row.unformat_usd_beg < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen'%]
+
+	[% END %]	
+
+        <td class=$class onclick="sum(this)">
+
+	<strong >$row.USD_BEG</strong>     
+	
+        </td>
+	[% IF row.unformat_sum_usd < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen '%]
+
+	[% END %]
+	 <td class=$class id='req_sum_usd_$row.f_id' onclick="sum(this)">
+		<strong>$row.SUM_USD_REQ</strong>
+        </td>
+	[% IF row.unformat_usd_fin < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen '%]
+
+	[% END %]	
+ 	<td class=$class id="fin_sum_usd_$row.f_id" onclick="sum(this)">
+		<strong>$row.USD_FIN</strong>
+        </td>
+
+ 	 <td class=$class >
+        </td>
+ 	
+	[% IF row.unformat_eur_beg < 0%]
+	[% class='table_gborders_veryred'%]
+	[% ELSE %]
+	[% class='table_gborders_verygreen'%]
+	[% END %]
+		
+        <td class="$class" onclick="sum(this)">
+	<strong>$row.EUR_BEG</strong>
+        </td>
+	[% IF row.unformat_sum_eur < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen '%]
+
+	[% END %]
+	
+
+ 	   <td class=$class id='req_sum_eur_$row.f_id' onclick="sum(this)">
+	$row.SUM_EUR_REQ
+        </td>
+
+	[% IF row.unformat_eur_fin < 0%]
+
+	[% class='table_gborders_veryred'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen '%]
+
+	[% END %]
+	
+
+	<td class=$class id='fin_sum_eur_$row.f_id' onclick="sum(this)">
+
+		<strong>$row.EUR_FIN</strong>
+        </td>
+	<td class=$class >
+	
+	[% IF row.is_payments %] 
+
+<span id="make_payments_$row.f_id" class="simple_tab" onclick="make_payments(this,$row.p_count_e,$row.p_count_u,'$row.f_id','dialog_payment','$row.f_name(#$row.f_id)');">Проставить платежи</span>
+	[% ELSIF !row.is_payments %]
+		<span class="simple_tab" > Платежи проставлены</span>
+
+	[% END %]
+
+        </td>
+  
+</tr>
+[% ELSIF  row.type=='operation' %]
+
+	[% IF  row.req %]
+		
+		[% class1_usd='table_gborders_whiteskin' %]
+		[% class1_eur='table_gborders_whiteskin' %]
+		
+	[% ELSIF row.ct_col_status %]
+		
+		[% class1_usd='table_gborders_confirm' %]
+		[% class1_eur='table_gborders_confirm' %]
+		
+	
+	[% ELSE %]
+		[% class1_usd='table_gborders' %]
+		[% class1_eur='table_gborders' %]
+		
+
+	[% END %]
+
+<tr id="row_$row.ct_id" class=$class>
+   <strong>
+	
+     <td class=$class>
+	 [%IF row.ct_aid %]
+         $row.a_name (# $row.ct_aid) 
+     [% END %] 
+        </td>
+	
+	[% class = 'table_gborders' %]
+	[% IF 	row.ct_status=='transit' %]	
+
+	[% class='table_gborders_blue'%]
+
+	[% ELSIF row.non_format_amnt < 0%]
+
+	[% class='table_gborders_red'%]
+
+	[% ELSE %]
+
+	[% class='table_gborders_verygreen'%]
+	[% END %]	
+
+        <td class=$class onclick="sum(this)">
+	[% IF row.currency=='USD'&& row.non_format_amnt > 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+		
+	
+	[% END %]
+	</td>
+
+        <td class="$class" onclick="sum(this)">
+	[% IF row.currency=='USD'&&row.non_format_amnt <= 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+		
+	[% ELSIF row.currency!='USD'  %]
+
+		[% class1_usd='table_gborders' %]
+	
+	[% END %]
+        </td>
+
+[% IF row.currency=='USD' %]
+
+	<td id="cel_$row.ct_id" onclick="show_form('form_$row.ct_id')" class=$class1_usd >
+
+	
+	[% class1_eur='table_gborders'%]	
+	
+	[% INCLUDE components/day_menu.html tmp_row=row %]
+	</td>
+
+	[% ELSE %]
+		<td  class=$class1_usd >
+&nbsp;
+	</td>
+
+	
+
+	[% END %]
+
+	<td class=$class>
+	[% IF row.currency=='USD' %]
+		
+		<nobr class="comment" title='[% row.ct_ts FILTER html %]'> $row.ct_ts</nobr> 
+		
+
+	[% END %]
+	</td>
+         <td class=$class onclick="sum(this)">
+	[% IF row.currency=='EUR'&& row.non_format_amnt > 0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+
+	[% END %]
+	</td>
+        <td class="$class" onclick="sum(this)">
+	[% IF row.currency=='EUR'&&row.non_format_amnt<=0 %]	
+		$row.amnt
+		[% class='table_gborders'%]
+
+	[% END %]
+        </td>
+
+	[% IF row.currency=='EUR' %]
+	
+	<td   id="cel_$row.ct_id" onclick="show_form('form_$row.ct_id')" class="$class1_eur">
+
+
+	[% INCLUDE components/day_menu.html tmp_row=row %]
+
+	</td>
+	[% ELSE %]
+	<td   class="$class1_eur">
+
+&nbsp;
+
+	</td>
+
+	[% END %]
+
+<td class=$class>
+	[% IF row.currency=='EUR' %]
+		<nobr class="comment" title='[% row.ct_ts FILTER html %]'> $row.ct_ts</nobr> 
+	[% END %]
+	</td>
+</tr>
+
+
+
+[% END %]
+
+[% END %]
+
+</table>
+
+
+</center>
+<script>
+
+window.print();
+</script>
+</body>
+<html>

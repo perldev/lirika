@@ -1,0 +1,32 @@
+[%INCLUDE  header.html %]
+<center>	
+<div class=center_div>	
+	<table class=table_gborders>
+	[% IF error%]
+	<tr class=table_gborders>
+	<td colspan=2  class=table_gborders>
+	<font color=red>Ошибка авторизации!</font>
+	</td>
+	</tr>		
+	[% END %]
+	<tr class=table_gborders>
+	<form  method=POST>
+	<input type='hidden'  name='do' value='login_do'>
+
+	<td class=table_gborders>
+	<table> <tr> <td> <font class=page_text>Логин :</font></td><td><input type='text'  class="simple_borders" name=login value="$login"></td>
+	</tr></table>
+	</td><td class=table_gborders>
+	<table> <tr> <td><font class=page_text>Пароль :</font></td><td><input type='password' class="simple_borders" name=pwd value=""></td></tr></table>	
+	</td>
+	</tr>
+	<tr class=table_gborders>
+	<td colspan=2 class=table_gborders align=center>
+	<input class="simple_borders" type="submit" name='Войти' value="Войти">		
+	</td>
+	</tr>
+	</form>
+	</table>
+</div>	
+</center>
+[%INCLUDE footer.html %]

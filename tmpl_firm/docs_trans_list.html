@@ -1,0 +1,86 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+
+<center>
+<div id="ident_form" class="center_div_table_poup_nopacity" style='position:absolute;left:0px;top:10em;display:none;z-index:+1;width:75em;height:40em'> 
+<iframe id='ident_form_frame' style='border:none;width:75em;height:40em' ></iframe>
+</div>
+<div   id="comment_form_change_cat"   class="center_div_table_poup" style="position:absolute;left:40em;display:none">
+Программа : 
+<br/>	
+<input  type="hidden" id="dr_id" value="">
+<select  id="accounts" class="simple_borders">
+ [% FOREACH row=accounts %]   
+	<option  value="$row.value" >$row.title</option>
+[% END %]
+</select>
+
+<input type='button' onclick='save_account_docs(this,"form_change_cat")' class='simple_borders' name='Сохранить' value="Сохранить">
+<input type='button' onclick='operators_show_note("form_change_cat")' class='simple_borders'  value="Закрыть окно">
+</div>
+
+<span id="return_function" style="display:none"></span>
+<input type='hidden' id='buffer_amnt' value=''>
+<input type='hidden' id='buffer_id' value=''>
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+
+
+
+  <table id='my_table' class=table_gborders>
+<form method="POST">
+ <tr  class=table_gborders>
+     <input type='hidden' name='do' value='get_payement'>
+     <td class=table_gborders colspan="12">     
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='docs.cgi?do=add'" name="Добавить" value="Добавить ">
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='docs.cgi?do=add_many'" 
+name="Добавить" value="Добавить много">
+
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='docs.cgi?do=list'" 
+name="Общий вид" value="Общий вид">
+<input type='button'  class="simple_borders"   name="1" value="Экспорт в Excel"
+onclick="unify_get_excel(0,1,8)" ><a class='table_gborders' style='display:none' href='' id='file_id_url'>Сохранить файл</a>
+
+
+
+  </tr>                         
+   <tr  class=table_gborders>
+
+
+  <th class=table_gborders > Период  </th>
+  <th class=table_gborders > Фирма  </th>
+<!--  <th class=table_gborders >  Покупатель  </th>-->
+  <th class=table_gborders > Сумма </th>   
+<!--  <th class=table_gborders > Действия </th>-->
+
+  </tr>                         
+ [% FOREACH row = rows %]
+        <tr id='$row.dr_id' class="table_gborders">
+		<td class=table_gborders>
+		$row.dt_date
+		</td>
+		<td class=table_gborders>
+		$row.dt_fid       
+		</td>
+<!--   		<td class=table_gborders>
+		$row.dt_ofid
+		</td>-->
+		<td  onmousedown="sum(this)" class=table_gborders  onmouseover="sum1(this)"   onmouseup="sum2(this)" >
+		$row.dt_amnt
+		</td>
+      <!--  <td >
+		Нечто ;)
+		</td>-->
+	</tr>
+  [% END %]
+
+
+</table>
+</div>  
+</form>
+</center>
+
+[%INCLUDE footer.html %]

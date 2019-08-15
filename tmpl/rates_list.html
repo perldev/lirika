@@ -1,0 +1,100 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+  <div class=center_div_table>
+
+  [%INCLUDE proto_filter.html %]
+
+  <!--
+  <a  class=table_gborders href="?do=add">Добавить</a>
+  -->
+
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]<!--История курсов--></strong>
+    </td>
+  </tr>
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Валюта c какой </th>
+     <th class=table_gborders> Валюта на какую </th>
+     <th class=table_gborders> Курс </th>
+     <th class=table_gborders> Тип </th>
+     <th class=table_gborders> Оператор </th>
+
+     <!--
+     <th class=table_gborders colspan=2> Действия </th>
+     -->
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.r_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.r_ts
+        </td>
+
+
+        <td class=table_gborders>
+        $row.r_currency1
+        </td>
+
+        <td class=table_gborders>
+        $row.r_currency2
+        </td>
+
+
+        <td class=table_gborders>
+        $row.r_rate
+        </td>
+
+        <td class=table_gborders>
+        $row.r_type
+        </td>
+
+
+        <td class=table_gborders>
+        $row.r_oid
+        </td>
+
+
+        <!--
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=edit&amp;id=$row.id">редактировать</a>
+        </td>
+
+        <td class=table_gborders>
+        <a  class=table_gborders href="?do=del&amp;id=$row.id">удалить</a>
+        </td>
+
+        -->
+
+  </tr>
+  [% END %]
+
+<!--
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=6>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+-->
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

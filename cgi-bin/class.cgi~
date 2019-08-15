@@ -1,0 +1,8 @@
+#/usr/bin/perl
+use CGI::Carp qw(fatalsToBrowser);
+#use lib '../lib';
+
+#use Oper::Class;
+Oper::Class->new->run;
+
+exit(0);

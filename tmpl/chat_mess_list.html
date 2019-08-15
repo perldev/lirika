@@ -1,0 +1,18 @@
+[%INCLUDE chat_header.html  %]
+
+[% IF user_id %]
+
+ <table  style="margin:1px;padding:1px" width="98%" >
+ 	[% FOREACH thing = list %]
+	[%  class='table_gborders' %]
+	<tr class=$class >
+	<td class=$class width="15%" align=right>
+        $thing.o_login&nbsp;$thing.date:
+	</td>
+	<td width="80%"  align=left class=$class>$thing.c_msg</td>
+	</tr>
+  [% END %]
+</table>
+
+[%END%]
+[%INCLUDE chat_footer.html %]

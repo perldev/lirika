@@ -1,0 +1,100 @@
+[%INCLUDE  header.html %]
+[% INCLUDE java_script_sum.html %]
+<center>
+  
+   <div class=center_div_table>
+
+
+ [% INCLUDE proto_filter.html %]
+
+ [% INCLUDE exchange_add.html %]
+
+   <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        <strong>[% page_title %] <!--Обмены--></strong>       
+    </td>               
+  </tr> 
+
+
+
+  <tr class=table_gborders>
+    <th class=table_gborders> Id  </th>
+     <th class=table_gborders> Кому  </th>
+     <th class=table_gborders> Из </th>   
+     <th class=table_gborders> В </th>
+     <th class=table_gborders> Базовый курс </th>
+     <th class=table_gborders> Коррекция курса </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> Комментарии </th>
+     <th class=table_gborders> Нал/Безнал </th>
+     <th class=table_gborders>  Оператор </th>
+[% IF rights.correct %] 
+     <th class=table_gborders>  Действие </th>
+[% END %]
+  </tr>                         
+
+
+		
+   [% FOREACH thing = list %]
+		
+[% class='table_gborders' %]
+	<tr    class=$class >
+	<td  class=$class>
+	
+        $thing.e_id
+	</td>
+	<td  class=$class>
+	<!--accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$thing.a_id
+	&amp;ct_currency=$thing.e_currency1-->
+
+
+	<a class=$class href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&amp;ct_aid=$thing.a_id">$thing.a_name&nbsp;(id#&nbsp;$thing.a_id)</a>
+	<td  class=$class onclick="sum(this)">
+        $thing.e_amnt1&nbsp;$thing.e_currency1
+	</td>
+	<td   class=$class onclick="sum(this)">
+	 $thing.e_amnt2&nbsp;$thing.e_currency2
+	</td>
+	<td class=$class >
+	[% IF thing.e_rate_base%]
+	 $thing.e_rate_base
+	[% ELSE%]
+	базовый курс не был задан на момент проведения операции
+	[%END%]
+	</td>
+	<td class=$class >
+	$thing.e_rate
+	</td>
+	<td  class=$class>
+	$thing.e_date
+	</td>      
+    	<td class="table_gborders" title='[% thing.t_comment FILTER html  %]' >
+        <nobr class="comment" title='[% thing.t_comment FILTER html  %]'>[% thing.t_comment FILTER html  %]</nobr>
+	</td>
+
+	<td  class=$class>
+	$thing.e_type
+	</td>  
+	<td  class=$class>
+	$thing.o_login
+	</td>  
+	<td id='center_id_$thing.e_id' class=$class>
+
+        <span class="simple_tab" onclick="ajax_action_exc_back('$thing.e_id')" >откатить</span>
+
+<!--	<a class=$class href="?do=back&amp;id=$thing.e_id">откатить</a>-->
+	</td>  
+ 	</tr>
+
+  [% END %]
+        <tr class=table_gborders>
+    <td class=table_gborders colspan=11>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

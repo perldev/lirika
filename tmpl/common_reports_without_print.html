@@ -1,0 +1,355 @@
+<html>
+<head>
+<title>Распечатка отчета за : $date ,дельта : $delta_usd USD,$delta_eur EUR,$delta_uah UAH </title>
+<style>
+#my_table{font-size:11px}
+</style>
+
+</head>
+
+<body>
+
+<TABLE id='my_table' border="1" >
+<TBODY>
+		
+		<tr>
+		<td  colspan="10">
+		отчета за : $date ,дельта : $delta_usd USD,$delta_eur EUR,$delta_uah UAH
+		</td>
+		</tr>
+		<TR>
+			<th  COLSPAN=5  HEIGHT=16>Заёмные средства</Th>
+			<Th  COLSPAN=5 ALIGN=CENTER>Собственные средства</Th>
+		</TR>
+		<TR>
+			<Th  HEIGHT=16 ALIGN=CENTER><I>Наименование</I></Th>
+			<Th  ALIGN=CENTER><I>Дата</I></Th>
+			<Th  ALIGN=CENTER><I>USD</I></Th>
+			<Th  ALIGN=CENTER><I>EUR</I></Th>
+			<Th  ALIGN=CENTER><I>ГРН</I></Th>
+			<Th   ALIGN=CENTER><I>Наименование</I></Th>
+			<Th  ALIGN=CENTER><I>Дата</I></Th>
+			<Th  ALIGN=CENTER><I>USD</I></Th>
+			<Th  ALIGN=CENTER><I>EUR</I></Th>
+			<Th  ALIGN=CENTER><I>ГРН</I></Th>
+		</TR>
+		<TR>
+	<Th align=left colspan=10 >Постоянные&nbsp;(считаються все остатки на карточках)</Th>
+
+		</tr>
+		<tr>
+		<td colspan=5 >Мы должны :</td>
+		<td colspan=5 >Нам должны :</td>
+
+		</tr>
+	
+		[% FOREACH  rows=permanent_cards%]
+		[% IF rows.is_cat_title %]	
+		
+		<TR>
+			</a>
+			<TH colspan="10"   ALIGN="LEFT">
+			$rows.cat_name
+			</TH>
+			
+		</TR>
+		<TR>
+			<Th colspan="2"  ALIGN=LEFT>
+			<strong> Всего : </strong>
+			</Th>
+
+			<Th colspan="1"  ALIGN=LEFT>
+			<strong> $rows.sum_plus.usd </strong>
+			</Th>
+
+			<Th colspan="1"  ALIGN=LEFT>
+			<strong> $rows.sum_plus.eur </strong>
+			</Th>
+			<Th colspan="1"  ALIGN=LEFT>
+			<strong> $rows.sum_plus.uah </strong>
+			</Th>
+			<Th colspan="2"  ALIGN=LEFT>
+			<strong> Всего : </strong>
+			</Th>
+			<Th colspan="1"  ALIGN=LEFT>
+			<strong> $rows.sum_mines.usd </strong>
+			
+			</Th>
+			<Th colspan="1"  ALIGN=LEFT>
+			<strong> $rows.sum_mines.eur </strong>
+			
+			</Th>
+			<Th colspan="1"  ALIGN=LEFT>
+			<strong> $rows.sum_mines.uah </strong>
+			
+			</Th>
+			
+
+			
+		</TR>
+
+
+		[% ELSE %]
+	
+		<TR>
+			</a>
+			<TD  ALIGN=LEFT>
+			<a  href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&ct_aid=$rows.plus_column.a_id">$rows.plus_column.a_name</a> 
+			</TD>
+			<TD  align=right>$rows.plus_column.last_ts</TD>
+			<TD  ALIGN=RIGHT    onclick="sum(this)">$rows.plus_column.a_usd</TD>
+			<TD  ALIGN=RIGHT    onclick="sum(this)">$rows.plus_column.a_eur</TD>
+			<TD  ALIGN=RIGHT    onclick="sum(this)">$rows.plus_column.a_uah</TD>
+
+			<TD  ALIGN=LEFT ><a  href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&ct_aid=$rows.mines_column.a_id">$rows.mines_column.a_name</a></TD>
+			<TD ALIGN=RIGHT >$rows.mines_column.last_ts</TD>
+			<TD  ALIGN=RIGHT    onclick="sum(this)">$rows.mines_column.a_usd</TD>
+			<TD  ALIGN=RIGHT    onclick="sum(this)">$rows.mines_column.a_eur</TD>
+			<TD  ALIGN=RIGHT    onclick="sum(this)">$rows.mines_column.a_uah</TD>
+
+		</TR>
+	
+		[% END %]
+		[%END%]
+		
+		<tr>
+			<Th colspan=10  align=left>Разовые&nbsp;(все суммы ,находящиеся в процессе идентификации )</Th>
+		</TR>
+
+		[% FOREACH rows=non_identifier %]
+		<TR>
+			<TD    HEIGHT=16 ALIGN=LEFT >
+<a  href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.left_column.f_id">
+ $rows.left_column.f_name </a></TD>
+			<TD ALIGN=RIGHT ></TD>
+			<TD    ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.f_usd </TD>
+			<TD    ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.f_eur </TD>
+			<TD    ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.f_uah </TD>
+
+			
+			<TD   ALIGN=LEFT >
+			<a  href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.right_column.f_id">$rows.right_column.f_name </a></TD>
+	<TD ALIGN=RIGHT ></TD>
+			<TD   ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.f_usd</TD>
+			<TD   ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.f_eur</TD>
+			<TD   ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.f_uah</TD>
+
+
+		</TR>
+		[%END%]
+		
+		
+		<TR>
+			<TH  HEIGHT=16 ALIGN=LEFT colspan=10 >Процентные выплаты</TD>
+			
+		</TR>
+		[% FOREACH rows=pay_credits %]
+		<TR>
+			<TD   ALIGN=LEFT>$rows.left_column.a_name1</TD>
+			<TD   ALIGN=LEFT>$rows.left_column.ts</TD>
+			<TD    ALIGN=LEFT  onclick="sum(this)">$rows.left_column.credit_sum</TD>
+			<TD    ALIGN=LEFT>$rows.right_column.a_name1</TD>
+			<TD   ALIGN=LEFT>$rows.right_column.ts</TD>
+			<TD   ALIGN=LEFT  onclick="sum(this)">$rows.right_column.credit_sum</TD>
+		</TR>
+		[% END %]
+	
+		<TR>
+			<Th  colspan=10 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;</Th>
+</tr>
+		
+		</TR>
+
+		[% FOREACH rows=firm_balances %]		
+		<TR>
+	<TD    ALIGN=LEFT><a  href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.left_column.f_id">$rows.left_column.f_name</a></TD>
+			<TD   >$rows.left_column.last_ts</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  >$rows.left_column.f_usd</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  >$rows.left_column.f_eur</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  >$rows.left_column.f_uah</TD>
+
+			
+			
+			<TD    ALIGN=LEFT><a  href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.right_column.f_id">$rows.right_column.f_name</a></TD>
+			<TD   >$rows.right_column.last_ts</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  >$rows.right_column.f_usd</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  >$rows.right_column.f_eur</TD>
+			<TD    onclick="sum(this)" ALIGN=RIGHT  >$rows.right_column.f_uah</TD>
+
+		</TR>
+		[% END %]
+	
+
+
+		<TR>
+			<th  rowspan=3 colspan=3>
+			
+<!--Master cards-->
+	
+			<table  width=100%>		
+			
+	[% FOREACH rows=master_cards %]
+			
+			<TR >
+			<th  align=left >$rows.a_name</th>
+			<td   onclick="sum(this)">$rows.USD</td>
+			<td   onclick="sum(this)">$rows.EUR</td>
+			<td   onclick="sum(this)">$rows.UAH</td>
+
+
+			</tr>
+			
+	[% END %]
+	
+	
+	</table>
+
+<!--master cards-->	</th>
+		
+			<TH ALIGN=RIGHT  colspan=2>Средств в работе(USD):&nbsp;
+					
+
+			</Th>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$work_money_usd</Td>
+			
+			<TH ALIGN=RIGHT  >Средств в работе(EUR):&nbsp;
+					
+
+			</Th>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$work_money_eur</Td>
+			
+			<TH ALIGN=RIGHT  >Средств в работе(ГРН):&nbsp;
+					
+
+			</Th>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$work_money_uah</Td>
+
+		</TR>
+		
+
+		<TR>	
+			<!--<TH  ALIGN=LEFT colspan=2 >к1</Th>
+			<TH  ALIGN=RIGHT >$sum_k1 </Th>
+			-->
+			<TH ALIGN=RIGHT colspan=2  >Средств в работе с учётом общих затрат(USD):
+			</TH>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$whole_sum_with_commons_usd</Td>
+			<TH ALIGN=RIGHT  > с учётом общих затрат(EUR):
+			</TH>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$whole_sum_with_commons_eur</Td>
+			<TH ALIGN=RIGHT   > с учётом общих затрат(ГРН):
+			</TH>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$whole_sum_with_commons_uah</Td>
+		</TR>
+		
+		<TR>
+			<!--<Th colspan=2  ALIGN=LEFT>к2</Th>
+		
+			<Th  ALIGN=RIGHT >$sum_k2</Th>-->
+		
+		<TH ALIGN=RIGHT  colspan=2>Предыдущее значение:</TH>
+			<td ALIGN=RIGHT   onclick="sum(this)">$last_sum_exc.last_sum_exc_usd</Td>
+	<TH ALIGN=RIGHT  >Предыдущее значение:</TH>
+			<td ALIGN=RIGHT   onclick="sum(this)">$last_sum_exc.last_sum_exc_eur</Td>
+	<TH ALIGN=RIGHT  >Предыдущее значение:</TH>
+			<td ALIGN=RIGHT   onclick="sum(this)">$last_sum_exc.last_sum_exc_uah</Td>
+		</TR>
+		<TR>
+		
+			<Th  ALIGN=RIGHT colspan=5 >Фирмы И Касса:<br>(USD)</Th>
+			<Td  ALIGN=RIGHT   onclick="sum(this)">$firms_balances_usd</Td>
+	<Th  ALIGN=RIGHT  >Фирмы И Касса:<br>(EUR)</Th>
+			<Td  ALIGN=RIGHT   onclick="sum(this)">$firms_balances_eur</Td>
+	<Th  ALIGN=RIGHT >Фирмы И Касса:<br>(ГРН)</Th>
+			<Td  ALIGN=RIGHT   onclick="sum(this)">$firms_balances_uah</Td>
+		</TR><TR>
+			
+			<Th  ALIGN=RIGHT colspan=5 >Не расчитанные:(USD)</Th>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$non_ident_usd</Td>
+<Th  ALIGN=RIGHT >Не расчитанные:(EUR)</Th>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$non_ident_eur</Td>
+<Th  ALIGN=RIGHT  >Не расчитанные:(ГРН)</Th>
+			<Td ALIGN=RIGHT   onclick="sum(this)">$non_ident_uah</Td>
+		</TR><TR>
+			
+			<Th  ALIGN=RIGHT colspan=5 >Карточки: (USD)</Th>
+			<Td  ALIGN=RIGHT   onclick="sum(this)">$cards_usd</Td>
+<Th  ALIGN=RIGHT  >Карточки: (EUR)</Th>
+			<Td  ALIGN=RIGHT   onclick="sum(this)">$cards_eur</Td>
+<Th  ALIGN=RIGHT  >Карточки: (UAH)</Th>
+			<Td  ALIGN=RIGHT   onclick="sum(this)">$cards_uah</Td>
+		</TR>
+
+<TR>
+		<Th  ALIGN=RIGHT colspan=5 >Дельта:(USD)</Th>
+			<Td  ALIGN=RIGHT   id='delta_usd_normal' onclick="sum(this)">$delta_usd</Td>
+<Th  ALIGN=RIGHT >Дельта:(EUR)</Th>
+			<Td  ALIGN=RIGHT  id='delta_eur_normal' onclick="sum(this)">$delta_eur</Td>
+<Th  ALIGN=RIGHT >Дельта:(ГРН)</Th>
+			<Td  ALIGN=RIGHT  id='delta_uah_normal' onclick="sum(this)">$delta_uah</Td>
+		</TR>
+<TR>
+		<Th  ALIGN=RIGHT colspan=5 >Траты:(USD)</Th>
+			<Td  ALIGN=RIGHT   id='delta_usd_normal' onclick="sum(this)">$of_usd</Td>
+<Th  ALIGN=RIGHT >Траты:(EUR)</Th>
+			<Td  ALIGN=RIGHT  id='delta_eur_normal' onclick="sum(this)">$of_eur</Td>
+<Th  ALIGN=RIGHT >Траты:(ГРН)</Th>
+			<Td  ALIGN=RIGHT  id='delta_uah_normal' onclick="sum(this)">$of_uah</Td>
+		</TR>
+
+<TR>
+		<Th  ALIGN=RIGHT colspan=5 >Доход:(USD)</Th>
+			<Td  ALIGN=RIGHT   id='delta_usd_normal' onclick="sum(this)">$incom_usd</Td>
+<Th  ALIGN=RIGHT >Доход:(EUR)</Th>
+			<Td  ALIGN=RIGHT  id='delta_eur_normal' onclick="sum(this)">$incom_eur</Td>
+<Th  ALIGN=RIGHT >Доход:(ГРН)</Th>
+			<Td  ALIGN=RIGHT  id='delta_uah_normal' onclick="sum(this)">$incom_uah</Td>
+		</TR>
+
+
+		[% FOREACH row=conclusions_sum %]
+			
+			<tr >
+			<th  align=right colspan=4>$row.a_name</th>
+			</tr>
+			<tr>
+				<td  align=right >На начало периода :</td>
+				<td   onclick="sum(this)">$row.usd.before</td>
+				<td   onclick="sum(this)">$row.eur.before</td>
+				<td   onclick="sum(this)">$row.uah.before</td>
+
+
+			</tr>
+			<tr>
+				<td  align=right >Общии затраты :</td>
+				<td   onclick="sum(this)">$row.usd.common</td>
+				<td   onclick="sum(this)">$row.eur.common</td>
+				<td   onclick="sum(this)">$row.uah.common</td>
+
+
+			</tr>
+			<tr>
+				<td  align=right >Затраты на офис($row.usd.per%) :</td>
+				<td   onclick="sum(this)">$row.usd.of</td>
+				<td   onclick="sum(this)">$row.eur.of</td>
+				<td   onclick="sum(this)">$row.uah.of</td>
+			</tr>
+			<tr>
+				<td  align=right>Заработано ($row.usd.per%) :</td>
+				<td   onclick="sum(this)">$row.usd.earn</td>
+				<td   onclick="sum(this)">$row.eur.earn</td>
+				<td   onclick="sum(this)">$row.uah.earn</td>
+			</tr>
+			<tr>
+				<td  align=right >ИТОГО:</td>
+				<td   onclick="sum(this)">$row.usd.concl</td>
+				<td   onclick="sum(this)">$row.eur.concl</td>
+				<td   onclick="sum(this)">$row.uah.concl</td>
+			</tr>
+		[% END %]
+</TBODY>
+</TABLE>
+<script>
+window.print();
+</script>
+</body></html>

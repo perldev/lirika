@@ -1,0 +1,145 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+  <div class="center_div_table">
+
+<form action="/cgi-bin/accounts.cgi" method="post">
+ <input type="hidden" value="filter" name="action">
+       
+        <input type="hidden" value="marina" name="name">
+<input type="hidden" value="get" name="do">
+<table class="table_gborders">
+<tr class="table_gborders">
+<td  class="table_gborders" >
+<select name='cid'>
+<option value=''>Все</option>
+[% FOREACH row=cats_list %]
+<option  value='$row.value' > $row.title </option>
+[% END %]
+</select>
+</td>
+<td  class="table_gborders" >
+<input type='submit'  class='simple_borders' value=">>" />
+</td>
+</tr>
+
+</table>
+</form>
+
+
+<table id='my_table' class=table_gborders>
+<tr class="table_gborders">
+<td class="table_gborders" colspan="13">
+
+<input type='button' class="simple_borders" onclick="unify_get_excel(0,0,12)" value='Get Excel' />
+<a id="file_id_url" href="" style="display: none;" class="table_gborders">Сохранить файл</a>
+
+</td>
+</tr>
+   <tr  class=table_gborders>
+
+     <th class=table_gborders > Программа  </th>
+
+     <th class=table_gborders onclick="sum_this(this,2,1)" style="cursor: pointer;">Приход нал(ГРН)</th>
+     <th class=table_gborders  onclick="sum_this(this,2,2)" style="cursor: pointer;">Расход нал(ГРН)</th>
+
+     <th class=table_gborders onclick="sum_this(this,2,3)" style="cursor: pointer;">Приход безнал(ГРН)</th>
+
+     <th class=table_gborders onclick="sum_this(this,2,4)" style="cursor: pointer;">Расход безнал(ГРН)</th>
+
+
+     <th class=table_gborders onclick="sum_this(this,2,5)" style="cursor: pointer;">Приход нал(USD)</th>
+     <th class=table_gborders onclick="sum_this(this,2,6)" style="cursor: pointer;">Расход нал(USD)</th>
+
+     <th class=table_gborders onclick="sum_this(this,2,7)" style="cursor: pointer;">Приход безнал(USD)</th>
+
+     <th class=table_gborders onclick="sum_this(this,2,8)" style="cursor: pointer;">Расход безнал(USD)</th>
+
+
+     <th class=table_gborders onclick="sum_this(this,2,9)" style="cursor: pointer;">Приход нал(EUR)</th>
+     <th class=table_gborders onclick="sum_this(this,2,10)" style="cursor: pointer;"  >Расход нал(EUR)</th>
+     <th class=table_gborders onclick="sum_this(this,2,11)" style="cursor: pointer;">Приход безнал(EUR)</th>
+     <th class=table_gborders onclick="sum_this(this,2,12)" style="cursor: pointer;">Расход безнал(EUR)</th>
+
+     
+  </tr>                         
+
+[% FOREACH row = list %]
+
+<tr  class='table_gborders'>
+
+		<td class='table_gborders'>
+		$row.a_name (#$row.a_id)      
+		</td>
+		
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders'>
+		$row.uah_nal_in   
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders_red'>
+		$row.uah_nal_out
+
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders'>
+		$row.uah_beznal_in   
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders_red'>
+		$row.uah_beznal_out
+
+		</td>
+
+
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders'>
+		$row.usd_nal_in   
+
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders_red'>
+		$row.usd_nal_out
+   
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders'>
+		$row.usd_beznal_in   
+
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders_red'>
+		$row.usd_beznal_out
+   
+		</td>
+
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders'>
+		$row.eur_nal_in   
+ 
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders_red'>
+		$row.eur_nal_out
+		</td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders'>
+		$row.eur_beznal_in   
+	        </td>
+
+		<td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class='table_gborders_red'>
+		$row.eur_beznal_out
+		</td>
+
+
+
+	</tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

@@ -1,0 +1,295 @@
+
+<div id='header'>
+[% INCLUDE today.html %]
+
+
+  <form method="post" action="$form_action">
+ 
+  <input type="hidden" name="action" value="filter">
+[% IF proto_params.ext_params %]
+        [% FOREACH r = proto_params.ext_params %]
+        
+        <input type="hidden" name="$r.name" value="$r.value">
+        [% END %]
+[% END %]
+        
+
+
+  [% IF proto_params.do %]
+  <input type="hidden" name="do" value="$proto_params.do.value">
+  [% END %]
+        
+  <table class=table_gborders align=center>
+<script>
+function to_back()
+{
+	window.history.back();
+	
+
+
+}
+function to_forward()
+{
+
+	window.history.forward();
+
+
+}
+</script>
+
+
+  <tr class=table_gborders>
+<!--<td class="table_gborders"><img class="history" onclick="to_back()" alt="Назад" src="/back.jpg"></td>-->
+
+  [% FOREACH row = fields %]
+  [% IF row.filter&&!row.filter_invisible  %]
+
+        <td class=table_gborders align="center">
+        $row.title<br>
+        
+          [% IF row.type == 'set' %]            
+            [% FOREACH option = row.titles %]
+            <input class=simple_borders type=checkbox name="[% row.field %]__[% option.value %]" value=1
+              [% IF option.checked %]checked[% END %]
+            > $option.title <br>
+            [% END %]
+
+          [% ELSIF row.filter == 'date_month_year' %]
+            
+
+          [% INCLUDE components/date_month_year.html name=row.field %]
+
+          [% ELSIF row.filter == 'time' %]
+	<table>
+	
+	<script>
+	function change_filter(id)
+	{
+		var id_1;
+		
+		
+		document.getElementById(id+"_flag").checked='true';
+;
+		if(id=='time_filterinterval')
+		{
+			id_1='time_filterperiod';
+			
+			 
+
+
+		
+		}else
+		{
+		
+			id_1='time_filterinterval';
+			
+			
+
+
+
+		}
+		
+		
+		document.getElementById(id).style.display='';
+		document.getElementById(id_1).style.display='none';
+		
+		
+	
+	}	
+	</script>
+
+	<tr>
+	<td>
+	
+		<input type="radio" id="time_filterinterval_flag"  onclick="change_filter('time_filterinterval')"
+		 name="type_time_filter" value="time_filterinterval" ><span class="table_gborders">Интервал :</span>
+	</td>
+	<td>
+		<input type="radio" id="time_filterperiod_flag" onclick="change_filter('time_filterperiod')" 
+		name="type_time_filter" value="time_filterperiod" >
+		<span class="table_gborders">Период :</span>
+	
+	</td>
+	</tr>
+
+	<tr id="time_filterinterval">	
+	<td colspan="2">
+				
+
+			<span class="table_gborders">C :</span><script>DateInput('[% row.field %]_from', true)</script>
+			
+			<span class="table_gborders">По :</span><script>DateInput('[% row.field %]_to', true)</script>
+	</td>
+	</tr>
+	<tr id="time_filterperiod">
+	<td colspan="2" >
+		<select class=simple_borders name="$row.field">            
+		[% FOREACH option = time_filter_rows %]
+		<option value="$option.value"
+		[% IF option.value == row.value %]selected[% END %]
+		>$option.title</option>
+		[% END %]
+
+	</td>
+	</tr>
+	</table>
+	$row.field_from	
+	<script>
+	[% IF row.type_time_filter=='' %]
+		change_filter('time_filterperiod');
+	[%ELSE%]	
+		change_filter('[% row.type_time_filter %]');
+		
+	[% END %]	
+
+		if('$row.type_time_filter'=='time_filterinterval')
+		{
+			 var id='';
+			 
+			 var str_f='$row.from';
+			 var str_t='$row.to';
+			
+			 var from=str_f.split('-');
+			 var to=str_t.split('-');
+
+ 			 var day_f=from[2];
+			var month_f=from[1];
+			var year_f=from[0];
+ 			
+			var day_t=to[2];
+           
+			var month_t=to[1];
+			var year_t=to[0];
+            
+            id='$row.field'+'_from_Year_ID';
+            if(year_f)
+                document.getElementById(id).value=year_f;
+            [% row.field %]_from_Object.checkYear(document.getElementById(id));
+                            
+
+            id='$row.field'+'_from_Month_ID';
+            opt=document.getElementById(id).options;
+            month_f=month_f-1;
+            for(i=0;i<opt.length;i++)
+            {
+                if(opt[i].value==month_f)
+                {
+                    
+                    document.getElementById(id).selectedIndex=i;
+                    [% row.field %]_from_Object.changeMonth(document.getElementById(id));
+                    break;  
+                }
+            }
+
+			id='$row.field'+'_from_Day_ID';
+			opt=document.getElementById(id).options;
+
+			for(i=1;i<=opt.length;i++)
+			{
+				if(i==day_f)
+				{
+					document.getElementById(id).selectedIndex=i-1;
+					[% row.field %]_from_Object.changeDay(document.getElementById(id));
+					break;	
+				}
+			}
+			
+			
+			id='$row.field'+'_to_Year_ID';
+
+            if(year_t)
+                document.getElementById(id).value=year_t;
+        
+            [% row.field %]_to_Object.checkYear(document.getElementById(id));
+
+			id='$row.field'+'_to_Month_ID';
+			opt=document.getElementById(id).options;
+			month_t=month_t-1;
+			for(i=0;i<opt.length;i++)
+			{
+				if(opt[i].value==month_t)
+				{
+					document.getElementById(id).selectedIndex=i;
+					[% row.field %]_to_Object.changeMonth(document.getElementById(id));
+					break;	
+				}
+			}
+            
+            id='$row.field'+'_to_Day_ID';
+             opt=document.getElementById(id).options;
+            for(i=1;i<=opt.length;i++)
+            {
+                if(i==day_t)
+                {
+                   
+                    document.getElementById(id).selectedIndex=i-1;
+                    [% row.field %]_to_Object.changeDay(document.getElementById(id));
+                    break;  
+                }
+            }
+
+            
+
+
+			
+		}
+
+
+	</script>
+
+            </select>
+          [% ELSIF row.type == 'select' %]
+
+            [% IF  row.select_search %]
+                    
+                <input class="simple_borders width100"  type='text' 
+                onblur="if(this.value.length==0){ this.value='поиск ...'}"  
+                onfocus="if(this.value=='поиск ...') this.value=''" 
+                onkeyup="search_in_select_field_tupoi(this,event,'$row.field')" 
+                name='' value='поиск ...' /><br/>
+                
+                <select class="simple_borders width200"  id='$row.field' name="$row.field">
+        
+            [% ELSE %]    
+            
+               <select class="simple_borders width200" name="$row.field" >        
+
+            [% END %]
+            
+       
+          <option value="">&lt;&lt; все &gt;&gt;</option>
+
+          [% FOREACH option = row.titles %]
+            <option value="$option.value"
+
+              [% IF option.value == row.value %]selected [% ELSE %] 
+
+        	[% END %]
+	     
+            >$option.title</option>
+            [% END %]
+
+            </select>
+
+          [% ELSE %]
+            <input class="simple_borders width100" type="text" name="$row.field" value="$row.value">
+          [% END %]
+
+        </td>
+
+  [% END %]
+  [% END %]
+
+	<input type="hidden" name='del_to'  value="$proto.del_to" >	
+
+        <td class=table_gborders align="center">
+        <input type=submit class=simple_borders value="&gt;&gt;">
+        </td>
+<!--<td class="table_gborders"><img class="history" onclick="to_forward()" alt="Вперед" src="/forward.jpg"></td>-->
+
+  </tr>
+
+  </table>
+
+  </form>
+</div>

@@ -1,0 +1,74 @@
+[%INCLUDE  header.html %]
+<center>
+  <div class=center_div_table>
+
+ <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]</strong>       
+    </td>
+  </tr> 
+
+<tr class=table_gborders>
+<td class=table_gborders colspan="4">$firm</td>	
+</tr>
+
+  <tr class=table_gborders>
+     <th class=table_gborders> Дата </th> 
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Валюта </th>
+     <th class=table_gborders> Назначение </th>
+  </tr>         
+<form method="POST">                
+  [% FOREACH row = firm_inputs %]
+
+	[%IF row.mines%]
+
+	 [% class='table_gborders_red' %]
+
+	[%ELSE%]
+		[% class='table_gborders' %]
+	[%END%]
+
+  <tr class="$class">
+
+   <td class=$class>
+        $row.format_date
+   </td>
+   <input type="hidden" name="date_$row.i" value="$row.date">
+
+      <!--  <td class=$class>
+        $row.firm
+        </td> -->
+	<input type="hidden" name="firm_id_$row.i" value="$row.firm_id">
+
+        <td class=$class>
+	<input type="text" class="simple_borders" name='amnt_$row.i' value="$row.amnt" >
+        </td>
+        <td class=$class>
+        $row.currency
+        </td>
+        <td class=$class>
+        <input type="text" class="simple_borders" name='comment_$row.i' value="[% row.comment FILTER html  %]" size="60" >
+        </td>
+   </tr>
+  [% END %]
+<tr class=table_gborders>
+<td class=table_gborders > <strong>Итого :</strong> </td>	<td class=table_gborders colspan="3">$result_amnt ГРН</td>	
+</tr>
+
+
+</table>
+<input type="hidden" name="count" value="$count">
+<input type="hidden" name="do" value="firm_input_file_do">
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?'" 
+name="Назад" value="Назад">
+<input type=submit  class="simple_borders" 
+name="Подтвердить" value="Подтвердить">
+
+</div>  
+</form>
+</center>
+
+[%INCLUDE footer.html %]

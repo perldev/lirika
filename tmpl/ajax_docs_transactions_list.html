@@ -1,0 +1,50 @@
+<table class=table_gborders>
+   <tr>
+<td class=table_gborders colspan="9">
+<strong> [% page_title %] </strong>
+</td>
+</tr> 
+ <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Внешний оператор  </th>
+     <th class=table_gborders> Период </th> 
+     <th class=table_gborders> Дата заведения </th> 
+     <th class=table_gborders> Фирма </th>
+     <th class=table_gborders> Покупатель </th>
+     <th class=table_gborders> Программа </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Назначение </th>
+  </tr>                         
+     [% FOREACH row = rows %]
+<tr id='$row.dt_id' class=table_gborders>
+        <td class=table_gborders>
+        $row.dt_id        
+        </td>
+        <td class=table_gborders>
+        $row.dt_oid
+        </td>
+    <td class=table_gborders>
+        $row.dt_date
+        </td>
+    <td class=table_gborders>
+        $row.dt_ts
+        </td>
+    <td class=table_gborders>
+        $row.dt_fid
+        </td>
+    <td class=table_gborders>
+        $row.dt_ofid
+        </td>
+    <td class=table_gborders>
+        $row.dt_aid
+        </td>
+        
+    <td  onmousedown="sum(this)" onmouseover="sum1(this)"   onmouseup="sum2(this)" class=table_gborders>
+        $row.dt_amnt
+        </td>
+        <td class="table_gborders" title='[% row.dt_comment FILTER html  %]' >
+        <nobr class="comment" title='[% row.dt_comment FILTER html  %]'>[% row.dt_comment FILTER html  %]</nobr>
+    </td>
+</tr>
+  [% END %]
+</table>

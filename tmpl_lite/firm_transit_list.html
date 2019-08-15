@@ -1,0 +1,85 @@
+[%INCLUDE  header.html %]
+
+<center>
+  
+   <div class=center_div_table>
+
+
+ [% INCLUDE proto_filter.html %]
+[% INCLUDE firm_add_transit.html %]     
+   <table class=table_gborders>
+ <tr class=table_gborders>
+    <td class=table_gborders colspan=7>
+        <strong>[% IF trans_list.f_id %]
+	    Выписка по переводам :<a class="table_gborders" href="accounts.cgi?do=edit&amp;id=$trans_list.f_id" >$trans_list.f_name [% IF trans_list.f_id>0 %](#$trans_list.f_id)[% END %]</a>&nbsp; UAH:&nbsp;$trans_list.f_uah,&nbsp;USD:&nbsp;$trans_list.f_usd,&nbsp;EUR:&nbsp;$trans_list.f_eur
+  [% ELSE %] Переводы [%END%]</strong>       
+    </td>               
+  </tr> 
+ <tr class=table_gborders>
+	
+     <th class=table_gborders> Id  </th>
+     <th class=table_gborders> Отправитель  </th>
+     <th class=table_gborders> Получатель </th> 
+     <th class=table_gborders> Оператор </th>   
+     <th class=table_gborders> Сумма </th>
+     <th class=table_gborders> Дата </th>
+     <th class=table_gborders> </th>
+
+  </tr>                         
+
+  	[% FOREACH thing = transes %]
+
+        [% IF thing.color_set==1 %]
+		[% IF thing.color!='0' %]
+			[% class='table_gborders_red' %]
+
+		
+		[% ELSE %]
+	[% class = 'table_gborders' %]
+		[% END %]
+		
+	[% ELSE %]
+		
+		[%  class='table_gborders' %]
+
+	 [% END %]
+	
+	
+	<tr    class=$class >
+	<td  class=$class>
+       $thing.ct_id1$thing.ct_id2 
+
+	</td>
+	<td   class=$class>
+	<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_currency=$thing.currency_f&amp;ct_date=all_time&amp;ct_fid=$thing.f_id1">
+	     Фирма:&nbsp;$thing.f_name1&nbsp;(id#$thing.f_id1)</a>
+	</td>
+	<td class=$class >
+	<a class=$class href="firm_trans.cgi?do=filter&amp;ct_fid=$thing.f_id2&amp;action=filter&amp;ct_date=all_time&amp;ct_currency=$thing.currency_f">Фирма:&nbsp;$thing.f_name2&nbsp;(id # $thing.f_id2)</a>
+	</td>
+	<td  class=$class>
+ 	$thing.o_login
+	</td>
+	<td  class=$class>
+ 	 $thing.amnt $thing.currency
+	</td>
+	<td  class=$class>
+	$thing.date
+	</td>
+	 <td class="$class" id=center_id_[%thing.ct_id1%]_[%thing.ct_id2%]>
+	 <span class="simple_tab" onclick="ajax_action_transit_del('$thing.ct_id1','$thing.ct_id2')" >Удалить</span>
+
+<!--<a class="table_gborders" href="?do=del&amp;ct_id1=$thing.ct_id1&amp;ct_id2=$thing.ct_id2">Удалить</a>--> </td>       
+ 	</tr>
+
+  [% END %]
+    <tr class=table_gborders>
+    <td class=table_gborders colspan=7>
+        [%INCLUDE pages.html%]  
+    </td>               
+  </tr> 
+</table>
+</div>  
+
+</center>
+[%INCLUDE footer.html %]

@@ -1,0 +1,219 @@
+ 	
+  	<tr class="table_gborders">
+        <th colspan="3"  align='left' class="table_gborders">
+        Карточка
+        </th>
+</tr>
+  	<tr class="table_gborders">
+	
+        <td colspan="3" class="table_gborders">
+
+	   <table>
+	    <tbody><tr>
+ <td>         
+            <span class="simple_text">   поиск: </span>
+	   </td>
+           <td>
+            <input class="simple_borders" id="ct_aid[% user_number %]__search" value="" onchange="return accounts_search_event('ct_aid[% user_number %]');" onkeyup="return accounts_search_event('ct_aid[% user_number %]');" size="10" type="text">
+	</td>
+	   <td>		
+           <span class="simple_text"> id:</span>
+	   </td>
+           <td>
+            <input class="simple_borders" name="ct_aid[% user_number %]" value="" id="ct_aid[% user_number %]" onchange="return accounts_id_event('ct_aid[% user_number %]');" onkeyup="return accounts_id_event('ct_aid[% user_number %]');" size="5" type="text">
+	  </td>
+	 
+            
+	<td>
+            <select class="simple_borders" id="ct_aid[% user_number %]__select" onchange="return accounts_select_event('ct_aid[% user_number %]');" onkeyup="return accounts_select_event('ct_aid[% user_number %]');">
+            <option value="">Выберите карточку</option></select>
+	</td>
+</tr>
+</tbody></table>
+
+            <script>
+		accounts_id_event('ct_aid[% user_number %]');
+		document.getElementById("ct_aid[% user_number %]__search").value='';
+            </script>
+
+<!--/only for accounts an creating projects-->  
+	           
+
+        </td>
+  </tr>
+ 
+	<script>
+    function amnt_pressed()
+    {
+    
+        if(!document.getElementById('ct_aid[% user_number %]').value)
+        {
+    	    if(document.getElementById('ct_aid[% user_number %]__select').value)
+		document.getElementById('ct_aid[% user_number %]').value=document.getElementById('ct_aid[% user_number %]__select').value;
+    
+        }
+     
+     
+    
+    }
+    
+	</script>
+  
+ 
+  
+  
+	    
+    
+  
+  	
+  	<tr class="table_gborders">
+
+
+        <th   align='left' class="table_gborders">
+        Сумма
+        </th>
+ 	<th  align='left' class="table_gborders">
+        Назначение
+        </th> <th align='left' class="table_gborders">
+        Валюта
+        </th>
+
+
+       
+  </tr>
+
+     <tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="amnt_pressed()" size="15" id="ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+       <td class="table_gborders">
+      
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+<td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="amnt_pressed()" size="15" id="ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+ 
+     <td class="table_gborders">
+        
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="amnt_pressed()" size="15" id="ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+ 
+     <td class="table_gborders">
+        
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="amnt_pressed()" size="15" id="ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+ 
+     <td class="table_gborders">
+        
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+<tr class="table_gborders">
+	 <td class="table_gborders">
+         <input class="simple_borders" onkeyup="amnt_pressed()" size="15" id="ct_amnt[% user_number %]" name="ct_amnt[% user_number %]" value="" type="text">
+
+        </td>
+ 
+     <td class="table_gborders">
+        
+                  
+
+	
+      <input class="simple_borders" size="60"  name="ct_comment[% user_number %]" value="$comment" type="text">
+           
+
+        </td>
+ <td class="table_gborders">
+	<select class="simple_borders"  name="ct_currency[% user_number %]" >
+        					[% FOREACH thing=currencies %]
+                				<option value='$thing.value'>$thing.name</option>
+        					[% END %]
+			            	</select>
+
+
+        </td>
+
+  </tr>
+
+

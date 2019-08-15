@@ -1,0 +1,51 @@
+<table class="table_gborders_big" align=center>
+<tr class="table_gborders_big">
+<td class="table_gborders_big">
+<strong>Что сегодня:<strong>
+<script >
+function  show_notes(e)
+{
+
+	document.getElementById('comment_none').style.display='block';
+	document.getElementById('comment_none').style.left=e.x+8;
+	document.getElementById('comment_none').style.top=e.y+8;
+
+
+}
+function hide_notes()
+{
+	document.getElementById('your_show_notes').display='none';
+
+}
+function operators_show_note(id)
+{
+
+	if(document.getElementById('comment_'+id).style.display == 'none')
+	{
+		document.getElementById('comment_'+id).style.display='block';
+	}else
+	{
+		document.getElementById('comment_'+id).style.display='none';
+	}
+
+
+}
+
+
+</script>
+<span class="simple_tab"   onclick="operators_show_note('none')">Мои заметки...</span>
+<div   id="comment_none"   class="center_div_table_poup" style="position:absolute;display:none">	
+[% FOREACH row=operators_notes %]
+ <span class="simple_tab_inner" onclick="operators_show_note('$row.id')" ><nobr  class="comment" title='[% row.comment FILTER html  %]'>$row.title</nobr></span> 
+<div class='textarea' style="display:none" id='comment_[% row.id %]'>$row.comment</div>
+[%END%]
+</div>	
+
+</td>
+</tr>	
+<tr class="table_gborders_big" >
+<td class="table_gborders_big" >
+$my_comment
+</td>
+</tr>
+</table>

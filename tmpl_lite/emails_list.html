@@ -1,0 +1,65 @@
+[%INCLUDE  header.html %]
+<center>
+ <div class=center_div_table>
+[% INCLUDE settings_menu.html %]
+
+[%INCLUDE  proto_filter.html %]
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan="5">
+        <strong>[% page_title %]<!--Фирмы--></strong>       
+    </td>
+  </tr> 
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> smtp </th> 
+     <th class='table_gborders'>Email</th>
+     <th class=table_gborders> Пользователь </th>   
+     <th class=table_gborders colspan=2> Действия </th>
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.em_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.em_smtp
+        </td>
+	<td class='table_gborders'>
+	$row.em_mail
+	</td>
+
+        <td class=table_gborders>
+        $row.em_user
+        </td>
+	
+	<td  class=table_gborders>
+	<a  class="table_gborders"
+ 		href="emails.cgi?do=del&amp;id=$row.em_id">Удалить</a>
+        </td>
+	
+	<td  class=table_gborders>
+
+	<a  class="table_gborders"
+ 		href="emails.cgi?do=edit&amp;id=$row.em_id">Редактировать</a>
+        </td>
+
+      
+
+  </tr>
+  [% END %]
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]

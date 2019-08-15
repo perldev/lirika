@@ -1,0 +1,19 @@
+<div   id="comment_dialog_payment"   class="center_div_table_poup" style="position:absolute;right:0px;display:none">
+<strong id="pay_default_alert"></strong>
+Оплата платежних операций : <span id="pay_dialog_title"></span>
+<br/>	
+<input  type="hidden" id="pay_default_sum" value="35">
+<input  type="hidden" id="pay_dialog_id" value="">
+<input  type="hidden" name="pay_dialog_num_usd" id="pay_dialog_num_usd" value="">
+<input  type="hidden" name="pay_dialog_num_eur" id="pay_dialog_num_eur" value="">
+
+<select onchange="on_pay_change()" id="pay_dialog_currency" class="simple_borders">
+<option >USD</option>
+<option >EUR</option>
+</select>
+<br/>
+
+<input class="simple_borders" type="text" id="pay_dialog_amnt" value="">
+<br/>
+<input type='button' onclick='do_payments(this,"dialog_payment")' class='simple_borders' name='Сохранить' value="Сохранить">
+</div>
