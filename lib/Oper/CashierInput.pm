@@ -34,7 +34,7 @@ sub get_right
 	        'type'=>'select',
 	        'filter'=>'=',no_add_edit=>1, 
 	        },
-            {'field'=>"ct_amnt",no_add_edit=>1, 
+            {'field'=>"ct_amnt",
             "title"=>"Ñóììà",
             'filter'=>"eq",
             
