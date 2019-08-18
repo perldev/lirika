@@ -53,7 +53,7 @@ sub get_right
          $proto->{fields}->[1]->{titles}=$self->{accounts2view}; # get_permit_accounts_simple($self->{user_id});
          map{$_POST->{$_}=trim($self->query->param($_))} $self->query->param();
          $_POST->{currencies}=$self->{tpl_vars}->{currencies};
-         return "exch_".self->{"cash"};
+         return "exch_".$self->{"cash"};
 }
 
 sub setup 
