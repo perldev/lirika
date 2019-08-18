@@ -582,38 +582,38 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
             </div>  
         [% ELSIF row.ct_eid %]<!--Exchange-->
         
-		<td class=$class_col  style="background-color:$row.col_color" id='row$row.ct_ex_comis_type[%row.ct_id %]'>
-                     HUI
-		<input name='$row.ct_date' $checked class='simple_borders' id="[% row.ct_ex_comis_type %][% row.ct_id %]"  type='checkbox'
-		 onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
-	
-		</td>
+                <td class=$class_col  style="background-color:$row.col_color" id='row$row.ct_ex_comis_type[%row.ct_id %]'>
+                        
+                <input name='$row.ct_date' $checked class='simple_borders' id="[% row.ct_ex_comis_type %][% row.ct_id %]"  type='checkbox'
+                    onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
+        
+                </td>
 
-		<td class=$class><span 
+                <td class=$class><span 
                 style="cursor:pointer"
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
                 $row.ct_date</span>
-         </td>
-		<td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>
-		<td class=$class>0.00</td>
-		<td class=$class>0</td>
-		<td class=$class> </td>
-		<td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='UAH' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
-		<td class=$class>$row.rate </td> 
-		<td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='USD' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
-		<td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='EUR' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
-		<td class=$class> </td>
-		<td class=$class> </td>
-		<td class=$class> </td> 
-		<td class=$class> </td>
-   		<td class=$class >
-<nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr></td>
+            </td>
+                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>
+                <td class=$class>0.00</td>
+                <td class=$class>0</td>
+                <td class=$class> </td>
+                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='UAH' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
+                <td class=$class>$row.rate </td> 
+                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='USD' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
+                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='EUR' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
+                <td class=$class> </td>
+                <td class=$class> </td>
+                <td class=$class> </td> 
+                <td class=$class> </td>
+                <td class=$class >
+    <nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr></td>
 
-			<td class="$class"  >
+                        <td class="$class"  >
 
 
-	<span style="cursor:pointer"
-			 onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_name(#$row.orig__ct_fid)</span>
+        <span style="cursor:pointer"
+                            onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_name(#$row.orig__ct_fid)</span>
 
 </td>	
 	<div id="form_$row.ct_id$row.ct_ex_comis_type" style="display: none">
