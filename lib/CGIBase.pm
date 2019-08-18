@@ -719,8 +719,8 @@ sub add_exc
             });
             my $percent=0;
             my $sql4cash=q[INSERT  INTO  
-                            cashier_transactions(ct_fid,ct_aid,ct_currency,ct_amnt,ct_comment,ct_oid, ct_tid, ct_comis_percent , ct_status, ct_ts, ct_ts2, ct_date)
-                            VALUES(?,?,?,?,?,?,?,?, 0, "processed", current_timestamp, current_timestamp, NOW()) ];
+                            cashier_transactions(ct_fid,ct_aid,ct_currency,ct_amnt,ct_oid, ct_tid, ct_comment, ct_comis_percent , ct_status, ct_ts, ct_ts2, ct_date)
+                            VALUES(?,?,?,?,?,?,?, '?', 0, 'processed', current_timestamp, current_timestamp, NOW()) ];
             $dbh->do($sql4cash, undef, $param->{"e_fid"},  $aid, $e_currency2, -1*$amnt_from,  $comment, $self->{"user_id"}, $tid3); 
             my $ct_id=$dbh->selectrow_array(q[ SELECT last_insert_id()]);
 
