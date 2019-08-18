@@ -14,8 +14,8 @@ sub get_right
 {
         my $self=shift;
         my ($kassa_id,$kassa_title,$co_id)=$dbh->selectrow_array(q[SELECT co_aid,co_title,co_id
-                                                            FROM cash_offices 
-                                                            WHERE co_name=?],undef,$self->{cash});    
+                                                                   FROM cash_offices 
+                                                                   WHERE co_name=?],undef,$self->{cash});    
 
          return 'denied'    unless($kassa_id);
          $_POST->{"e_fid"} = $kassa_id;
