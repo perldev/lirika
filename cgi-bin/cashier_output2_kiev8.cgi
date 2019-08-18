@@ -1,8 +1,8 @@
-#/usr/bin/perl
+#!/usr/bin/perl
 use CGI::Carp qw(fatalsToBrowser);
-#use lib '../lib';
+use lib '../lib';
 
-#use Oper::CashierOutput2;
+use Oper::CashierOutput2;
 my $r=Oper::CashierOutput2->new();
 $r->{cash}='kiev8';
 $r->run();

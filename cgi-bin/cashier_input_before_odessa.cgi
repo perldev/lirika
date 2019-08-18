@@ -1,7 +1,7 @@
-#/usr/bin/perl
+#!/usr/bin/perl
 use CGI::Carp qw(fatalsToBrowser);
-#use lib '../lib';
-#use Oper::CashierInputBefore;
+use lib '../lib';
+use Oper::CashierInputBefore;
 my $r=Oper::CashierInputBefore->new();
 $r->{cash}='kiev4';
 $r->run();
