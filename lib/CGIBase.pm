@@ -594,7 +594,7 @@ sub add_exc
 
         die " $TRANSLATE{course_no_set}" unless($param->{'rate'});
         require POSIX;
-       die "$TRANSLATE{cur_no_support}\n"	unless($avail_currency->{$param->{e_currency1}});
+        die "$TRANSLATE{cur_no_support}\n"	unless($avail_currency->{$param->{e_currency1}});
         die "$TRANSLATE{cur_no_support}  \n"	unless($avail_currency->{$param->{e_currency2}});
 
         my %types=('auto'=>'auto','cash'=>'cash','cashless'=>'cashless','system'=>'system');
