@@ -740,7 +740,7 @@ sub add_exc
 			`cashier_transactions`.`ct_currency` AS 
 			`ct_currency`,
 			 $percent,
-			(`cashier_transactions`.`ct_amnt`+$percent+-1*$r->{ct_ext_commission}) AS `result_amnt`,
+			(`cashier_transactions`.`ct_amnt`+$percent) AS `result_amnt`,
 			`cashier_transactions`.`ct_comis_percent` AS `ct_comis_percent`,
 			(-(1) * `cashier_transactions`.`ct_ext_commission`) AS `ct_ext_commission`,
 			cast(if(isnull(`cashier_transactions`.`ct_ts2`),`cashier_transactions`.`ct_ts`,
