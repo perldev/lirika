@@ -157,7 +157,7 @@ sub list
          $self->{tpl_vars}->{list}=$ref->{list};
          my $paging=paging(
                                 {
-                                        url=>"exch_".self->{"cash"}.".cgi?do=list'.$url",
+                                        url=>"exch_".$self->{"cash"}.".cgi?do=list'.$url",
                                         count_pages=>$ref->{count_pages},
                                         how=>$how,
                                         page_name=>'page',
