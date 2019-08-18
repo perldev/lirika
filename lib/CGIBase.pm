@@ -595,7 +595,7 @@ sub add_exc
         die " $TRANSLATE{course_no_set}" unless($param->{'rate'});
         require POSIX;
        die "$TRANSLATE{cur_no_support}\n"	unless($avail_currency->{$param->{e_currency1}});
-	   die "$TRANSLATE{cur_no_support}  \n"	unless($avail_currency->{$param->{e_currency2}});
+        die "$TRANSLATE{cur_no_support}  \n"	unless($avail_currency->{$param->{e_currency2}});
 
         my %types=('auto'=>'auto','cash'=>'cash','cashless'=>'cashless','system'=>'system');
 
@@ -664,18 +664,17 @@ sub add_exc
 		del_status=>$param->{del_status}
 	});
 	
-
 	if($param->{e_date})
 	{		
         	my $rate_base=$dbh->do(qq[INSERT INTO 
-		exchange(e_date,e_type,e_rate_base,e_rate,e_tid1,e_tid2) VALUES(?,?,?,?,?,?)],undef,
-        	$param->{e_date},$type,$rate_base, $rate,$tid1,$tid2);
+		exchange(e_date,e_type,e_rate_base,e_rate,e_tid1,e_tid2,e_fid) VALUES(?,?,?,?,?,?,?)],undef,
+        	$param->{e_date},$type,$rate_base, $rate,$tid1,$tid2, $param->{e_fid});
 	}else
 	{
 		my $rate_base=$dbh->do(qq[INSERT INTO 
-		exchange(e_date,e_type,e_rate_base,e_rate,e_tid1,e_tid2) 
-		VALUES(current_timestamp,?,?,?,?,?)],undef,
-        	$type,$rate_base, $rate,$tid1,$tid2);
+		exchange(e_date,e_type,e_rate_base,e_rate,e_tid1,e_tid2, e_fid) 
+		VALUES(current_timestamp,?,?,?,?,?,?)],undef,
+        	$type,$rate_base, $rate,$tid1,$tid2,$param->{e_fid});
 	}
 
 	my $id_=$dbh->selectrow_array('SELECT last_insert_id()');
@@ -703,7 +702,64 @@ sub add_exc
 	16777215 
 	from (`exchange_view` join `firms`) where ((`firms`.`f_id` = -(2)) 
 	and (`exchange_view`.`e_type` <> _latin1'auto')) AND e_id=?  LIMIT 0,1],undef,$id_);
+ 
+ 
+        if($param->{"type"} eq "cash"){
+            #if it's a cash exchange make a cash out at the moment
+            my $tid3 = $self->add_trans(
+               {	
+        	t_name1 => $aid,
+        	t_name2 => $param->{e_fid},
+        	t_currency => $e_currency2,
+        	t_amnt => $amnt_from,
+        	t_comment => $comment,
+		del_status=>$param->{del_status}
+            });
+            my $percent=0;
+            my $sql4cash=qq[INSERT  INTO  
+                            cashier_transactions(ct_fid,ct_aid,ct_currency,ct_amnt,ct_comis_percent,ct_comment,ct_oid, ct_tid, ct_comis_percent ,status, ct_ts, ct_ts2, ct_date) VALUES(?,?,?,?,?,?,?,0,"processed", current_timestamp, current_timestamp, current_date) ];
+            $dbh->do($sql4cash, undef, $param->{"e_fid"},  $aid, $e_currency2, -1*$amnt_from, 0, $comment, $self->{"user_id"}, $tid3); 
+            my $ct_id=$dbh->selectrow_array(q[ SELECT last_insert_id()]);
 
+            
+            $dbh->do(qq[
+			INSERT  $SQL_DELAYED INTO accounts_reports_table(ct_id,ct_aid,ct_comment,ct_oid,
+			o_login,ct_fid,f_name,ct_amnt,ct_currency,comission,
+			result_amnt,ct_comis_percent,ct_ext_commission,
+			ct_date,
+			ct_ex_comis_type,ts,col_ts,col_status,
+			ct_status,col_color)
+			select `cashier_transactions`.`ct_id` AS `ct_id`,
+			`cashier_transactions`.`ct_aid` AS `ct_aid`,
+			`cashier_transactions`.`ct_comment` AS `ct_comment`,
+			`cashier_transactions`.`ct_oid` AS `ct_oid`,
+			`operators`.`o_login` AS `o_login`,
+			`firms`.`f_id` AS `ct_fid`,
+			`firms`.`f_name` AS `f_name`,
+			`cashier_transactions`.`ct_amnt` AS `ct_amnt`,
+			`cashier_transactions`.`ct_currency` AS 
+			`ct_currency`,
+			 $percent,
+			(`cashier_transactions`.`ct_amnt`+$percent+-1*$r->{ct_ext_commission}) AS `result_amnt`,
+			`cashier_transactions`.`ct_comis_percent` AS `ct_comis_percent`,
+			(-(1) * `cashier_transactions`.`ct_ext_commission`) AS `ct_ext_commission`,
+			cast(if(isnull(`cashier_transactions`.`ct_ts2`),`cashier_transactions`.`ct_ts`,
+			`cashier_transactions`.`ct_ts2`) as date) AS `ct_date`,
+			`cashier_transactions`.`ct_ex_comis_type` AS `ct_ex_comis_type`,
+			 if(isnull(`cashier_transactions`.`ct_ts2`),
+			`cashier_transactions`.`ct_ts`,
+			`cashier_transactions`.`ct_ts2`) AS `ts`,
+			'0000-00-00 00:00:00',
+			'no',
+			`cashier_transactions`.`ct_status` AS `ct_status`,
+			16777215 
+			from ((`cashier_transactions` 
+			left join `firms` on((`cashier_transactions`.`ct_fid` = `firms`.`f_id`))) 
+			left join `operators` on((`cashier_transactions`.`ct_oid` = `operators`.`o_id`)))
+			where 	`cashier_transactions`.`ct_status` 
+			IN (_cp1251'processed')  AND ct_id=? LIMIT 1
+			],undef,$ct_id);	
+        }
 
 
 

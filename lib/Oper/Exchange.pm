@@ -42,6 +42,7 @@ $proto={
     };
        $proto->{fields}->[1]->{titles}=$self->{accounts2view}; # get_permit_accounts_simple($self->{user_id});
         map{$_POST->{$_}=trim($self->query->param($_))} $self->query->param();
+        $_POST["e_fid"] = $exchange_id;
         $_POST->{currencies}=$self->{tpl_vars}->{currencies};
         return 'exchange';
 }
@@ -67,55 +68,55 @@ sub setup
 ###done through ajax
 sub back
 {
-	my $self=shift;
-	my $id=$self->query->param('id');
-	
-### fixed
-##such alorithm used in order to avoid races
-	my $mutex=$dbh->do(q[UPDATE exchange SET e_status='deleted' 
-	WHERE e_status='processed' AND
-	  e_type!='auto' AND e_id=?],undef,$id);
-	if($mutex ne '1')
-	{
-		$self->header_type('redirect');
-      		 return $self->header_add(-url=>'exc.cgi?do=list');
-	}
+        my $self=shift;
+        my $id=$self->query->param('id');
+        
+    ### fixed
+    ##such alorithm used in order to avoid races
+        my $mutex=$dbh->do(q[UPDATE exchange SET e_status='deleted' 
+        WHERE e_status='processed' AND
+            e_type!='auto' AND e_id=?],undef,$id);
+        if($mutex ne '1')
+        {
+                $self->header_type('redirect');
+                    return $self->header_add(-url=>'exc.cgi?do=list');
+        }
 
- 	#e_status='deleted'
+        #e_status='deleted'
 
-	my $ref=$dbh->selectrow_hashref(q[SELECT * FROM exchange_view 
-    	WHERE e_status='deleted' AND 
-	      e_type!='auto' AND e_id=?],undef,$id);
+        my $ref=$dbh->selectrow_hashref(q[SELECT * FROM exchange_view 
+        WHERE e_status='deleted' AND 
+                e_type!='auto' AND e_id=?],undef,$id);
 
-			$ref->{e_rate}=pow($ref->{e_rate},-1) if($ref->{e_currency2} eq $ref->{e_currency1});
-			my $ct_eid=$self->add_exc(
-			{
-			
-				type=>$ref->{e_type},
-				rate=>pow($ref->{e_rate},$RATE_FORMS{$ref->{e_currency1}}->{$ref->{e_currency2}}),
-				e_comment=>qq[Откат бмена для  #$ref->{e_id}],
-				e_currency1=>$ref->{e_currency2},
-				e_currency2=>$ref->{e_currency1},
-				e_amnt1=>$ref->{e_amnt2},
-				a_id=>$ref->{a_id},
-			}
-			);
+                        $ref->{e_rate}=pow($ref->{e_rate},-1) if($ref->{e_currency2} eq $ref->{e_currency1});
+                        my $ct_eid=$self->add_exc(
+                        {
+                        
+                                type=>$ref->{e_type},
+                                rate=>pow($ref->{e_rate},$RATE_FORMS{$ref->{e_currency1}}->{$ref->{e_currency2}}),
+                                e_comment=>qq[Откат бмена для  #$ref->{e_id}],
+                                e_currency1=>$ref->{e_currency2},
+                                e_currency2=>$ref->{e_currency1},
+                                e_amnt1=>$ref->{e_amnt2},
+                                a_id=>$ref->{a_id},
+                        }
+                        );
 
-	$dbh->do(q[UPDATE exchange 
-			  SET e_status='deleted' WHERE e_id=?
-			],undef,$ct_eid);
+        $dbh->do(q[UPDATE exchange 
+                            SET e_status='deleted' WHERE e_id=?
+                        ],undef,$ct_eid);
 
-	my($back_1,$back_2)=$dbh->selectrow_array(q[SELECT e_tid1,e_tid2
-	 FROM exchange WHERE e_id=?],undef,$ct_eid);
+        my($back_1,$back_2)=$dbh->selectrow_array(q[SELECT e_tid1,e_tid2
+            FROM exchange WHERE e_id=?],undef,$ct_eid);
 
-	$dbh->do(q[
-		UPDATE 	exchange SET 
-		e_back_tid1=?,e_back_tid2=? 
-		WHERE e_id=?
-	],undef,$back_1,$back_2,$id);
+        $dbh->do(q[
+                UPDATE 	exchange SET 
+                e_back_tid1=?,e_back_tid2=? 
+                WHERE e_id=?
+        ],undef,$back_1,$back_2,$id);
 
- 	$self->header_type('redirect');
-      	 return $self->header_add(-url=>'exc.cgi?do=list');
+        $self->header_type('redirect');
+            return $self->header_add(-url=>'exc.cgi?do=list');
 
 }
 sub list
@@ -264,9 +265,9 @@ sub add
          $_POST->{t_oid}=$self->{user_id};
         $_POST->{user_id}=$self->{user_id};
      
-	    $SIG{__DIE__}=\&handle_errors_add_exc;
-     	$_POST->{a_id}=$self->query->param('a_id_from');
-	
+        $SIG{__DIE__}=\&handle_errors_add_exc;
+        $_POST->{a_id}=$self->query->param('a_id_from');
+
         die "choose variouse currencies please \n" if($_POST->{e_currency1} eq $_POST->{e_currency2});
     
         if($_POST->{comis_in}>0){
@@ -295,19 +296,7 @@ sub add
         
 
 	  
-	    $self->add_exc($_POST);
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt3});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt5});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt7});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt9});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt11});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt13});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt15});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt17});    
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt19}); 
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt21});
-#          $self->add_exc($_POST) if($_POST->{e_amnt1}=$_POST->{e_amnt23});
-     
+        $self->add_exc($_POST);
 
         $self->header_type('redirect');
         return $self->header_add(-url=>'exc.cgi?do=list');
