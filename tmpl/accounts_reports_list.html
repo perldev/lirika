@@ -594,14 +594,14 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
                 $row.ct_date</span>
             </td>
-                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>
                 <td class=$class>0.00</td>
                 <td class=$class>0</td>
                 <td class=$class> </td>
-                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='UAH' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='UAH' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='UAH' %]$row.result_amnt  [% END %] </td>
                 <td class=$class>$row.rate </td> 
-                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='USD' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
-                <td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='EUR' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='USD' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='EUR' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
                 <td class=$class> </td>
                 <td class=$class> </td>
                 <td class=$class> </td> 

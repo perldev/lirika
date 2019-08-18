@@ -1840,7 +1840,7 @@ $self->formating_fields($r,$format,$proto->{formating}) unless($proto->{no_forma
   	
 }
    	$sth->finish();
-	die Dumper \@rows;
+# 	die Dumper \@rows;
 	#if we have 
 	$proc_functions->{after_list}->(\@rows,$r,$prev_row,$proto) if($proc_functions->{after_list});		
 		
