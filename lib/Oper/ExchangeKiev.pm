@@ -13,7 +13,7 @@ my $proto;
 sub get_right
 {
         my $self=shift;
-        ($kassa_id,$kassa_title,$co_id)=$dbh->selectrow_array(q[SELECT co_aid,co_title,co_id
+        my ($kassa_id,$kassa_title,$co_id)=$dbh->selectrow_array(q[SELECT co_aid,co_title,co_id
                                                             FROM cash_offices 
                                                             WHERE co_name=?],undef,$self->{cash});    
 
