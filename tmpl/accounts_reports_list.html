@@ -581,8 +581,9 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
             </span> 
             </div>  
         [% ELSIF row.ct_eid %]<!--Exchange-->
+        
 		<td class=$class_col  style="background-color:$row.col_color" id='row$row.ct_ex_comis_type[%row.ct_id %]'>
-
+                     HUI
 		<input name='$row.ct_date' $checked class='simple_borders' id="[% row.ct_ex_comis_type %][% row.ct_id %]"  type='checkbox'
 		 onclick="change_status_col(this,'$row.ct_ex_comis_type','$row.ct_id')">
 	
