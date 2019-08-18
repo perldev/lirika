@@ -42,7 +42,7 @@ $proto={
     };
        $proto->{fields}->[1]->{titles}=$self->{accounts2view}; # get_permit_accounts_simple($self->{user_id});
         map{$_POST->{$_}=trim($self->query->param($_))} $self->query->param();
-        $_POST["e_fid"] = $exchange_id;
+        $_POST->["e_fid"] = $exchange_id;
         $_POST->{currencies}=$self->{tpl_vars}->{currencies};
         return 'exchange';
 }

@@ -255,7 +255,7 @@ sub add
 
         $self->header_type('redirect');
         
-        return $self->header_add(-url=>'exc.cgi?do=list');
+        return $self->header_add(-url=>"exch_".$self->{"cash"}.".cgi?do=list");
 
 
 }
