@@ -2,9 +2,9 @@
 use CGI::Carp qw(fatalsToBrowser);
 #use lib '../lib';
 
-#use Oper::CashierOutput;
-my $r=Oper::CashierOutput->new();
-$r->{cash}='kiev3';
+#use Oper::CashierOutput2;
+my $r=Oper::CashierOutput2->new();
+$r->{cash}='kiev6';
 $r->run();
 
 exit(0);

@@ -4,7 +4,7 @@ use CGI::Carp qw(fatalsToBrowser);
 
 #use Oper::CashierInput;
 my $d=Oper::CashierInput->new();
-$d->{cash}='kiev';
+$d->{cash}='kiev2';
 $d->run();
 
 exit(0);

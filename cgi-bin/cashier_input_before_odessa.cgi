@@ -3,6 +3,6 @@ use CGI::Carp qw(fatalsToBrowser);
 #use lib '../lib';
 #use Oper::CashierInputBefore;
 my $r=Oper::CashierInputBefore->new();
-$r->{cash}='odessa';
+$r->{cash}='kiev4';
 $r->run();
 exit(0);

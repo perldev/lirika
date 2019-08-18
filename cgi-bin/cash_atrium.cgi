@@ -4,7 +4,7 @@ use lib '../lib';
 
 use Oper::Cash;
 my $r=Oper::Cash->new();
-$r->{cash}='atrium';
+$r->{cash}='kiev3';
 $r->run;
 
 exit(0);

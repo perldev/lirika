@@ -2,10 +2,21 @@
 use CGI::Carp qw(fatalsToBrowser);
 #use lib '../lib';
 
-#use Oper::CashierOutput;
-my $r=Oper::CashierOutput->new();
+#use Oper::ExchangeKiev;
+Oper::ExchangeKiev->new();
 $r->{cash}='kiev4';
-
-$r->run();
-
+$r->run;
 exit(0);
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -4,7 +4,7 @@ use lib '../lib';
 
 use Oper::CashierOutput2;
 my $r=Oper::CashierOutput2->new();
-$r->{cash}='dnepr';
+$r->{cash}='kiev1';
 $r->run;
 
 exit(0);
