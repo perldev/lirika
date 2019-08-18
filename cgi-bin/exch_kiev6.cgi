@@ -1,4 +1,4 @@
-#/usr/bin/perl
+#!/usr/bin/perl
 use CGI::Carp qw(fatalsToBrowser);
 use lib '../lib';
 

@@ -1,8 +1,8 @@
-#/usr/bin/perl
+#!/usr/bin/perl
 use CGI::Carp qw(fatalsToBrowser);
-#use lib '../lib';
+use lib '../lib';
 
-#use Oper::ExchangeKiev;
+use Oper::ExchangeKiev;
 Oper::ExchangeKiev->new();
 $r->{cash}='kiev1';
 $r->run;
