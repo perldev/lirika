@@ -16,8 +16,10 @@ use Rights;
 use Data::Dumper;
 use CGI;
 use Russian;
+use CGI::Carp qw(fatalsToBrowser);
+
 use base 'ListBase';
-$SIG{__DIE__}=\&handle_errors;
+# $SIG{__DIE__}=\&handle_errors;
 our @EXPORT = qw(
 add_trans
 
