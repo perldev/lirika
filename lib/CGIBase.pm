@@ -697,7 +697,7 @@ sub add_exc
 	`exchange_view`.`e_currency2` AS `e_currency2`,
 	`exchange_view`.`e_rate` AS `rate`,
 	`exchange_view`.`e_id` AS `e_id`,
-	'simple' as ct_ex_comis_type,
+	'exchange' as ct_ex_comis_type,
 	`exchange_view`.`e_date` AS `t_ts`,
 	'0000-00-00 00:00:00',
 	`exchange_view`.`e_status` AS `e_status`,
