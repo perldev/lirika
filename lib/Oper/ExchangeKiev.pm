@@ -6,6 +6,8 @@ use SiteDB;
 use Rights qw( get_rights );
 use SiteCommon;
 my $RIGHT='exchange';
+use CGI::Carp qw(fatalsToBrowser);
+
 my $_POST={};
 my $proto;
 sub get_right
