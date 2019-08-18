@@ -581,7 +581,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
             </span> 
             </div>  
 	<!--работа с кассой-->
-   	[% ELSIF row.orig__ct_fid < 0 && row.orig__ct_fid!=-5  %]<!--cash-->
+   	[% ELSIF row.orig__ct_fid < 0 && !row.orig__e_rate  %]<!--cash-->
 
 		<td class=$class_col style="background-color:$row.col_color" id='row$row.ct_ex_comis_type[%row.ct_id %]'>
 
@@ -610,7 +610,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 <nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>		        </td>
 		<td class=$class>$row.f_name(#$row.orig__ct_fid)</td>	
 <!--работа с обменом-->
- 	[% ELSIF row.orig__ct_fid ==-5  %]<!--Exchange-->
+ 	[% ELSIF row.orig__ct_fid < 0 && row.orig__e_rate  %]<!--Exchange-->
 		<td class=$class_col  style="background-color:$row.col_color" id='row$row.ct_ex_comis_type[%row.ct_id %]'>
 
 		<input name='$row.ct_date' $checked class='simple_borders' id="[% row.ct_ex_comis_type %][% row.ct_id %]"  type='checkbox'
