@@ -402,7 +402,7 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
 
 	
 		<td class=$class>Итого на:</td>
-		<td class=$class> </td>
+		<td class=$class> $row.BTC_FORMAT </td>
 		<td class="simple_tab $class" onclick='show_grouped([% loop.index+6 %])' >$row.ct_date</td>
 		<td class=$class></td>
 		<td class=$class></td>
@@ -443,7 +443,7 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
                 $row.ct_date
                 </span> 
         </td>
-		<td class=$class></td>
+		<td class=$class>[% IF row.orig__ct_currency=='BTC'%] $row.ct_amnt  [% END %] </td>
 		<td class=$class>$row.ct_comis_percent</td>
 
 		<td class="$class"  onclick="sum(this)">$row.comission</td>
@@ -477,7 +477,9 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 <!--&&row.ct_amnt<0-->
 
 <!--работа с негривневыми фирмами-->
-	[% ELSIF row.orig__ct_fid >0&&row.orig__ct_currency!='UAH' %]<!--pay into non resident 
+
+
+	[% ELSIF row.orig__ct_fid >0&&row.orig__ct_currency!='UAH'&&row.orig__ct_currency!='BTC' %]<!--pay into non resident 
 	currency
 			--> 
 		
@@ -494,7 +496,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
                 style="cursor:pointer"
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
             $row.ct_date</span> </td>
-		<td class=$class></td>
+		<td class=$class>   </td>
 		<td class=$class>$row.ct_comis_percent</td>
 		<td class="$class"  onclick="sum(this)">$row.comission</td>
 		<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%]</td>
@@ -542,7 +544,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 	[% exch = row.e_currency2 %]
 
 
-	[% IF orig=='UAH' %] $row.ct_amnt [% END %]
+	[% IF orig=='BTC' %] $row.ct_amnt [% END %]
 	 </td>
 	<td class=$class>$row.ct_comis_percent</td>
 	<td class="$class"  onclick="sum(this)">$row.comission</td>
@@ -591,7 +593,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 
         $row.ct_date 
         </td>
-		<td class=$class> </td>
+		<td class=$class> [% IF row.orig__ct_currency=='BTC'%] $row.result_amnt  [% END %] </td>
 		<td class=$class >$row.ct_comis_percent </td>
 		<td class=$class onclick="sum(this)"> $row.comission</td>
 		<td class=$class> $row.ct_ext_commission</td>
@@ -621,7 +623,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
                 $row.ct_date</span>
          </td>
-		<td class="$class"  onclick="sum(this)"> </td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>
 		<td class=$class>0.00</td>
 		<td class=$class>0</td>
 		<td class=$class> </td>
@@ -670,7 +672,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
         
         </th>
         <th style="width:6em" class=table_gborders>Дата </th>
-        <th  class="table_gborders">Б/н приход(ГРН)</th>
+        <th  class="table_gborders">BTC</th>
         <th class="table_gborders">% Комиссии</th>
         <th class="table_gborders">Комиссия</th>
         <th class="table_gborders">Доп.ком.</th>  
