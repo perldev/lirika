@@ -680,7 +680,7 @@ sub add_exc
 	}
 
 	my $id_=$dbh->selectrow_array('SELECT last_insert_id()');
-	$dbh->do(q[
+	$dbh->do(qq[
 	INSERT INTO accounts_reports_table(ct_id,ct_aid,ct_comment,ct_oid,
 	o_login,ct_fid,f_name,ct_amnt,ct_currency,comission,
 	result_amnt,ct_comis_percent,ct_ext_commission,
@@ -702,7 +702,7 @@ sub add_exc
 	'0000-00-00 00:00:00',
 	`exchange_view`.`e_status` AS `e_status`,
 	16777215 
-	from (`exchange_view` join `firms`) where ((`firms`.`f_id` = -(2)) 
+	from (`exchange_view` join `firms`) where ((`firms`.`f_id` = $param->{e_fid} ) 
 	and (`exchange_view`.`e_type` <> _latin1'auto')) AND e_id=?  LIMIT 0,1],undef,$id_);
  
  
