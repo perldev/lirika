@@ -18,8 +18,8 @@ sub get_right
                                                             WHERE co_name=?],undef,$self->{cash});    
 
          return 'denied'    unless($kassa_id);
-         $_POST["e_fid"] = $kassa_id;
-         $_POST["type"] = "cash";
+         $_POST->{"e_fid"} = $kassa_id;
+         $_POST->{"type"} = "cash";
          $proto={
             'page_title'=>'־בלוםû',	
              'extra_where'=>" AND e_fid=".$kassa_id,  #AND ct_status='created'
