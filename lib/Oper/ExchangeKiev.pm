@@ -1,11 +1,10 @@
-package Oper::Exchange;
+package Oper::ExchangeKiev;
 use strict;
 use base 'CGIBase';
 use SiteConfig;
 use SiteDB;
 use Rights qw( get_rights );
 use SiteCommon;
-my $RIGHT='exchange';
 use CGI::Carp qw(fatalsToBrowser);
 
 my $_POST={};
