@@ -45,7 +45,7 @@ sub get_right
             , "titles"=>\@currencies
             , 'filter'=>"="
             },
-            {'field'=>"ct_comment", "title"=>"Назначение", "default"=>'Ввод наличных',filter=>'like'},
+            {'field'=>"ct_comment", "title"=>"Назначение", "default"=>'Ввод наличных',filter=>'like', no_add_edit=>1, },
             {'field'=>"ct_status", "title"=>"Статус проведения"
             , "type"=>"select"
             , "titles"=>[
