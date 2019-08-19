@@ -251,10 +251,10 @@ sub cgiapp_prerun
 # $self->{tabs}->{current}=$r;
    $self->{tabs}={};
    $self->{rights}->{current}=$r;
-         
-  $self->prerun_mode('denied')      unless($rights->{$r});
+   die Dumper $rights;
+   $self->prerun_mode('denied')      unless($rights->{$r});
   
-  return $self->prerun_mode('get') if($self->query->param('do') eq 'get');
+   return $self->prerun_mode('get') if($self->query->param('do') eq 'get');
 
 ##get through all right and setting a name for it
    my $tabs=get_desc_rights();

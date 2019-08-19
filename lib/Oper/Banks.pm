@@ -4,7 +4,7 @@ use base 'CGIBase';
 use SiteConfig;
 use SiteDB;
 use SiteCommon;
-my $RIGHT='class';
+my $RIGHT='banks';
 
 
 my $proto={
