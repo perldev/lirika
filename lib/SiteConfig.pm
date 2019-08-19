@@ -219,6 +219,8 @@ our $DEF_TABS={
        correct=>{"value"=>"correct",script=>'correctings.cgi', "title"=>"Правки",desc=>'Исправление уже совершонных операций'},
         correct_back=>{"value"=>"correct_back", script=>'lost.cgi',"title"=>"Операции з/ч",desc=>'Занесение и удаление б/н операция задним числом'},
        class=>{"value"=>'class', "title"=>"Классы клиентов",desc=>"Работа с основными классами клиентов",script=>'class.cgi'},
+        class=>{"value"=>'banks', "title"=>"Банки",desc=>"Банки",script=>'banks.cgi'},
+
        settings=>{"value"=>'settings', "title"=>"Настройки",desc=>"Работа с общими  параметрами  работы системы",
        script=>'settings.cgi'},
        transit=>{"value"=>'transit', "title"=>"Транзит",desc=>"Работа с  переводами между фирмами",script=>'transit.cgi'},

@@ -30,6 +30,16 @@
 
 
 
+[% IF rights.banks %]
+ [% IF 'banks' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.banks.script"><nobr>$tabs.banks.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.banks.script"><nobr>$tabs.banks.title</nobr></a>
+  [% END %]        
+
+[% END %]
+
+
 [% IF rights.oper %]  
 
 [% IF 'oper' == rights.current %]
