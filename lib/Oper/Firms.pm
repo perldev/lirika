@@ -39,7 +39,7 @@ sub get_right
         $sth->execute();                          
         while(my $r = $sth->fetchrow_hashref){
             push @$banks, {
-            'value'=>$r->{fs_id}, 'title'=>$r->{fs_name}
+            'value'=>$r->{b_id}, 'title'=>$r->{b_name}
             };
         }
         $sth->finish();
