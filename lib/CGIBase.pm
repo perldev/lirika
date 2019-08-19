@@ -251,7 +251,6 @@ sub cgiapp_prerun
 # $self->{tabs}->{current}=$r;
    $self->{tabs}={};
    $self->{rights}->{current}=$r;
-   die Dumper $rights,$r;
    $self->prerun_mode('denied')      unless($rights->{$r});
   
    return $self->prerun_mode('get') if($self->query->param('do') eq 'get');
@@ -267,6 +266,7 @@ sub cgiapp_prerun
         $self->{tabs}->{$_}->{script}=$tabs->{$_}->{script};
 
     }
+   die Dumper $rights,$r;
     
 
 		  
