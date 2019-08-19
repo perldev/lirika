@@ -9,7 +9,7 @@ my $RIGHT='banks';
 
 my $proto={
   'table'=>"banks", 
-  'page_title'=>'Классы клиентов',
+  'page_title'=>'Банки',
   'template_prefix'=>"banks",
   
   'fields'=>[
