@@ -16,20 +16,34 @@ sub get_right
         unless($firm_services){
         $firm_services = [];
         
-        my $sth =$dbh->prepare(qq[SELECT * FROM firm_services
-            WHERE fs_id>0 AND fs_status='active'
-            ORDER BY fs_id
+            my $sth =$dbh->prepare(qq[SELECT * FROM firm_services
+                WHERE fs_id>0 AND fs_status='active'
+                ORDER BY fs_id
+            ]);
+            
+            $sth->execute();                          
+            while(my $r = $sth->fetchrow_hashref){
+                push @$firm_services, {
+                'value'=>$r->{fs_id}, 'title'=>$r->{fs_name}
+                };
+            }
+            $sth->finish();
+        }
+        my $banks = [];
+        
+        my $sth =$dbh->prepare(qq[SELECT * FROM banks
+            WHERE 1
+            ORDER BY b_name
         ]);
         
         $sth->execute();                          
         while(my $r = $sth->fetchrow_hashref){
-            push @$firm_services, {
+            push @$banks, {
             'value'=>$r->{fs_id}, 'title'=>$r->{fs_name}
             };
         }
         $sth->finish();
-        }
-
+        
 
     
  $proto={
@@ -51,7 +65,9 @@ sub get_right
     },
     
     {'field'=>"f_services", "title"=>"Услуги", 
-      'type'=>"set", "titles"=>undef},
+      'type'=>"set", "titles"=>$firm_services},
+    {'field'=>"f_bank", "title"=>"Bank", 
+      'type'=>"select", "titles"=>$banks},
 {'field'=>"f_isres", "type"=>"select", 
       "titles"=>[
         {'value'=>"yes", 'title'=>"да"},
@@ -61,15 +77,16 @@ sub get_right
     },
 #     {'field'=>"f_percent", "title"=>"Процент за приход (ГРН)",
 #     'default'=>0},
-    {'field'=>"f_okpo", 
-      , "title"=>"OKPO"
-    },
+#     {'field'=>"f_okpo", 
+#       , "title"=>"OKPO"
+#     },
+
     {'field'=>"f_uah", "no_add_edit"=>1, "title"=>"Баланс, гривна"},
-#     {'field'=>"f_usd", "no_add_edit"=>1, "title"=>"Бланс, доллар"},
-#     {'field'=>"f_eur", "no_add_edit"=>1, "title"=>"Баланс, евро"},
+    {'field'=>"f_usd", "no_add_edit"=>1, "title"=>"Бланс, доллар"},
+    {'field'=>"f_eur", "no_add_edit"=>1, "title"=>"Баланс, евро"},
   ],
 };
-    $proto->{fields}->[5]->{titles}=$firm_services;
+#     $proto->{fields}->[5]->{titles}=$firm_services;
 
     return 'firm';
 }

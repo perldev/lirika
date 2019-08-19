@@ -13,10 +13,9 @@ my $proto={
   'template_prefix'=>"banks",
   
   'fields'=>[
-   {'field'=>"c_id", "title"=>"ID", "no_add_edit"=>1}, #first field is ID
-   {'field'=>"c_name", "title"=>"Наименование банков"},
-   {'field'=>'c_comments','title'=>"Краткое описание"}	
-#    {'field'=>"c_ts", "no_add_edit"=>1,'filter'=>"time",  "title"=>"Дата введения"},
+   {'field'=>"b_id", "title"=>"ID", "no_add_edit"=>1}, #first field is ID
+   {'field'=>"b_name", "title"=>"Наименование банков"},
+   {'field'=>'b_comments','title'=>"Краткое описание"}	
 
 ]
     
