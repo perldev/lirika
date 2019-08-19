@@ -43,7 +43,7 @@ sub get_right
 {
         my $self=shift;
 
-        return 'class';
+        return 'banks';
 }
 
 sub add
