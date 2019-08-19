@@ -70,6 +70,7 @@
 </td>
 </tr>
   <tr>
+     <th class=table_gborders>Банк </th> 
      <th class=table_gborders>Фирма </th> 
      <th class=table_gborders>Входящий(USD) </th>
      <th class=table_gborders>Сумма заявок </th>
@@ -92,6 +93,10 @@
 
 <tr class="$class" >
    <strong>
+     <td class=$class>
+     	[% IF $row.b_id %] $row.b_name(#$row.b_id) [% END %]
+
+     </td>   
      <td class=$class>
 	<a  class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$row.f_id">
 	$row.f_name(#$row.f_id)</a>

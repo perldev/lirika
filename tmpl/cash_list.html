@@ -48,12 +48,12 @@
 
      <th class=table_gborders>Поступления ГРН </th>
      <th class=table_gborders>Отчисления ГРН </th>
-<!--
+
      <th class=table_gborders>Поступления USD </th>
      <th class=table_gborders>Отчисления USD </th>
 
      <th class=table_gborders>Поступления EUR </th>
-     <th class=table_gborders>Отчисления EUR </th>-->
+     <th class=table_gborders>Отчисления EUR </th>
 
  </tr>                         
    	[% FOREACH thing = rows %]
@@ -83,7 +83,7 @@
 		</td>
 		[% END %]
 	
-<!--		
+	
 
 		[% IF thing.USD>0 %]
 		[%  class='table_gborders' %]
@@ -119,7 +119,7 @@
 		<td  onclick="sum(this)" class=$class >
 			$thing.EUR_FORMAT
 		</td>
-		[% END %]-->
+		[% END %]
 
 
 
@@ -136,7 +136,7 @@
 		<td  onclick="sum(this)" class=$class >
 		$thing.ct_amnt_uah_mines
 		</td>
-	<!--	[%  class='table_gborders' %]
+		[%  class='table_gborders' %]
 		<td  onclick="sum(this)" class=$class>
 		$thing.ct_amnt_usd
 		</td>
@@ -152,7 +152,7 @@
 		 [%  class='table_gborders_red' %]
 		<td  onclick="sum(this)" class=$class >
 		$thing.ct_amnt_eur_mines
-		</td>-->
+		</td>
 		</tr>
 
   	[% END %]
