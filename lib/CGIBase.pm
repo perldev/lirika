@@ -266,7 +266,6 @@ sub cgiapp_prerun
         $self->{tabs}->{$_}->{script}=$tabs->{$_}->{script};
 
     }
-   die Dumper $rights,$r;
     
 
 		  
