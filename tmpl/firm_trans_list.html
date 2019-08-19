@@ -15,7 +15,7 @@
     <td class=table_gborders colspan=9>
         <strong>[% page_title %]</strong>
 	[% IF proto_params.f_id %]
-		( Фирма : $proto_params.f_name $proto_params.f_uah ГРН <!--$proto_params.f_usd USD $proto_params.f_eur EUR--> ) 
+		( Фирма : $proto_params.f_name $proto_params.f_uah ГРН $proto_params.f_usd USD $proto_params.f_eur EUR ) 
 	[% END %]
 
 <!-- Транзакции фирм-->       
@@ -24,13 +24,13 @@
 [% IF proto_params.f_id %]
  <tr>
   <td class=table_gborders colspan=9>
-Баланс на начало периода $proto_params.from_date: $proto_params.beg_uah ГРН <!--$proto_params.beg_usd USD $proto_params.beg_eur EUR -->	
+Баланс на начало периода $proto_params.from_date: $proto_params.beg_uah ГРН $proto_params.beg_usd USD $proto_params.beg_eur EUR 	
 </td>
 	
   </tr> 
 <tr>
   <td class=table_gborders colspan=9>
-Баланс на конец периода $proto_params.to_date:	$proto_params.fin_uah ГРН <!--$proto_params.fin_usd USD $proto_params.fin_eur EUR--> 	
+Баланс на конец периода $proto_params.to_date:	$proto_params.fin_uah ГРН  $proto_params.fin_usd USD $proto_params.fin_eur EUR
 </td>
 	
   </tr> 
