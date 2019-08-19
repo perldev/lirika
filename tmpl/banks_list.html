@@ -1,0 +1,71 @@
+[%INCLUDE  header.html %]
+<center>
+
+
+
+  <div class=center_div_table>
+
+
+  <!--
+  <a  class=table_gborders href="?do=add">Добавить</a>
+  -->
+<input type=button  class="simple_borders" id=myself onclick="window.location.href='?do=add'" 
+name="Добавить" value="Добавить ">
+  <table class=table_gborders>
+
+  <tr class=table_gborders>
+    <td class=table_gborders colspan=20>
+        <strong>[% page_title %]<!--История курсов--></strong>
+    </td>
+  </tr>
+
+  <tr>
+     <th class=table_gborders> id  </th>
+     <th class=table_gborders> Наименование </th>
+    <th class=table_gborders> Описание</th>
+    
+     <th class=table_gborders> Дата введения </th>
+
+     <th class=table_gborders colspan=2> Действия </th>
+
+     <!--
+     <th class=table_gborders colspan=2> Действия </th>
+     -->
+  </tr>                         
+
+
+  [% FOREACH row = rows %]
+  <tr class=table_gborders>
+
+        <td class=table_gborders>
+        $row.b_id        
+        </td>
+
+        <td class=table_gborders>
+        $row.b_name
+        </td>
+       <td class=table_gborders>
+        $row.b_comments
+        </td>
+
+    	<td class=table_gborders>
+        $row.b_ts
+        </td>
+	<td class=table_gborders>
+        <a  class=table_gborders href="?do=edit&amp;id=$row.c_id">редактировать</a>
+        </td>
+	<td class=table_gborders>
+        <a  class=table_gborders href="?do=del&amp;id=$row.c_id">Удалить</a>
+        </td>
+
+
+  </tr>
+  [% END %]
+
+
+</table>
+</div>  
+
+</center>
+
+[%INCLUDE footer.html %]
