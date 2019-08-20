@@ -4,7 +4,7 @@ use base 'CGIBase';
 use SiteConfig;
 use SiteDB;
 use SiteCommon;
-use Data:Dumper;
+use Data::Dumper;
 sub setup
 {
   my $self = shift;
