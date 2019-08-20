@@ -32,8 +32,7 @@ sub get_right
 sub banks{
         my $date = shift;
   
-	my $sqlbank=qq[SELECT b_id, b_name,b_id,sum(f_uah) as b_uah,sum(f_usd) as b_usd,sum(f_eur) as b_eur FROM firms, banks WHERE f_bank=b_id AND  f_status='active' AND f_id>0 AND f_bank is not NULL GROUP BY b_id;
-        ];
+	my $sqlbank=qq[SELECT b_id, b_name,b_id,sum(f_uah) as b_uah,sum(f_usd) as b_usd,sum(f_eur) as b_eur FROM firms, banks WHERE f_bank=b_id AND  f_status='active' AND f_id>0 AND f_bank is not NULL GROUP BY b_id];
 
         my $accounts=$dbh->selectall_hashref(q[SELECT a_id,a_name FROM accounts WHERE a_status='active'],'a_id');
 
@@ -41,8 +40,7 @@ sub banks{
         
         $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'R_UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
         AS 'R_USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'R_EUR' FROM cashier_transactions, firms, banks WHERE 1
-        AND ct_req='yes' AND ct_status!='deleted' AND  f_id=ct_fid AND f_bank=b_id AND ct_fid>0 AND f_bank is not NULL GROUP BY b_id;
-        ];
+        AND ct_req='yes' AND ct_status!='deleted' AND  f_id=ct_fid AND f_bank=b_id AND ct_fid>0 AND f_bank is not NULL GROUP BY b_id];
         my $hash2=$dbh->selectall_hashref($sql,'b_id');
         
         foreach my $key ( keys %{ $hash1 })
