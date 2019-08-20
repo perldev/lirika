@@ -28,6 +28,50 @@ sub get_right
 		return 'du';
 	}
 }
+
+sub banks{
+        my $date = shift;
+        my $sqlbank = qq[SELECT b_id, b_name FROM banks];
+        my $hash=$dbh->selectall_hashref($sqlbank,'b_id');
+    
+        $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
+                AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
+                FROM cashier_transactions, banks, firms  WHERE a ct_date>='$date' 
+                AND ct_req='no'  AND ct_status!='deleted' AND f_id=ct_fid AND f_bank=b_id AND ct_fid>0 GROUP BY b_id;
+        ];
+
+        my $accounts=$dbh->selectall_hashref(q[SELECT a_id,a_name FROM accounts WHERE a_status='active'],'a_id');
+
+        my $hash1=$dbh->selectall_hashref($sql,'b_id');
+        
+        $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'R_UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
+        AS 'R_USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'R_EUR' FROM cashier_transactions WHERE 1
+        AND ct_req='yes' AND ct_status!='deleted' AND  f_id=ct_fid AND f_bank=b_id AND ct_fid>0 GROUP BY b_id;
+        ];
+        my $hash2=$dbh->selectall_hashref($sql,'b_id');
+        
+        foreach my $key ( keys %{ $hash1 })
+        {
+                map{ $hash->{$key}->{$_}=$hash1->{$key}->{$_} if($hash->{$key}) }  keys %{ $hash1->{$key} }  ;
+                        
+        }
+        foreach my $key ( keys %{ $hash2 })
+        {
+                map{ $hash->{$key}->{$_}= $hash1->{$key}->{$_} if($hash->{$key}) } keys %{ $hash2->{$key} }  ;
+                        
+        }
+        my @keys= sort { $hash->{$a}->{f_bank} cmp $hash->{$b}->{f_bank} } keys %$hash;        
+        my $prew=undef;	
+        map {$hash->{$_}->{'R_UAH'}=$hash->{$_}->{'R_USD'}=$hash->{$_}->{'R_USD'}=0 } keys %{ $hash };
+
+        return $hash;
+
+
+
+}
+
+
+
 sub list
 {
 	my $self=shift;
@@ -49,29 +93,27 @@ sub list
 	       ($current_year,$current_mon,$current_day)=split('-',$date);
 		
 	}
-
-
-
-
-my $sql;
+        my $sql;
 
 	unless($resident)
 	{
-		$sql=qq[SELECT f_name,f_id,f_uah,f_usd,f_eur 
+		$sql=qq[SELECT f_name,f_id,f_uah,f_usd,f_eur, f_bank 
 		FROM firms WHERe  f_status='active' AND f_id>0 AND ( (abs(f_usd)>0.001 OR 
 		abs(f_eur)>0.001) OR (abs(f_usd)<0.01 AND 
 		abs(f_eur)<0.001 AND abs(f_uah<0.01)) ) GROUP BY f_id ];
 	}else
 	{
-		$sql=qq[SELECT f_name,f_id,f_uah,f_usd,f_eur FROM firms WHERe  f_status='active' AND f_id>0 AND (abs(f_uah)>0.001  
+		$sql=qq[SELECT f_name,f_id,f_uah,f_usd,f_eur,f_bank FROM firms WHERe  f_status='active' AND f_id>0 AND (abs(f_uah)>0.001  
 		OR (abs(f_usd)<0.01 AND 
 		abs(f_eur)<0.001 AND abs(f_uah<0.01)) )
-
 		GROUP BY f_id ];
 	}
 
 	my $hash=$dbh->selectall_hashref($sql,'f_id');
+	my $sqlbank = qq[SELECT b_id, b_name FROM banks];
+	my $banks=$dbh->selectall_hashref($sqlbank,'b_id');
 	
+
 	
 
 	$sql=qq[SELECT ct_fid,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
@@ -94,20 +136,22 @@ my $sql;
 	{
 		map{ $hash->{$key}->{$_}=$hash1->{$key}->{$_} if($hash->{$key}) }  keys %{ $hash1->{$key} }  ;
 			
-	}	
+	}
 	foreach my $key ( keys %{ $hash2 })
 	{
 		map{ $hash->{$key}->{$_}= $hash1->{$key}->{$_} if($hash->{$key}) } keys %{ $hash2->{$key} }  ;
 			
-	}		
+        }
+        die Dumper $hash;
+        
+	my @keys= sort { $hash->{$a}->{f_bank} cmp $hash->{$b}->{f_bank} } keys %$hash;
+        
 
-	my @keys= sort { $hash->{$a}->{f_name} cmp $hash->{$b}->{f_name} } keys %$hash;
-
-
-    my $now=1*$current_year>=1*$year&&(1*$current_mon>=1*$mon||1*$current_year>=1*$year)
+        
+        my $now=1*$current_year>=1*$year&&(1*$current_mon>=1*$mon||1*$current_year>=1*$year)
 	&&(1*$current_day>=1*$mday||$current_mon*1>1*$mon||1*$current_year>1*$year);
 	
-
+	my $banks = banks($date);
 	my $prew=undef;	
 	map {$hash->{$_}->{'R_UAH'}=$hash->{$_}->{'R_USD'}=$hash->{$_}->{'R_USD'}=0 } keys %{ $hash };
 
@@ -154,8 +198,47 @@ my $sql;
 	#die Dumper \@keys;
 	my $pays_count_u;
 	my $pays_count_e;
+        my $current_bank = undef;
 	foreach(@keys)	
 	{
+	        
+                ###calculating with bank
+                if(!$current_bank or ($current_bank and $current_bank->{b_id} ne $hash->{$_}->{f_bank})){
+                        
+                        $banks->{ $hash->{$_}->{f_bank} }= {
+			   b_name=>$hash->{$_}->{f_bank},
+			   b_id=>$hash->{$_}->{f_bank},
+			   type=>'begin',
+			   
+			   unformat_uah_beg=>$banks->{UAH},
+			   unformat_usd_beg=>$banks->{USD},
+			   unformat_eur_beg=>$banks->{EUR},
+			   UAH_BEG=>format_float($banks->{UAH} ),
+			   USD_BEG=>format_float($banks->{USD} ),
+			   EUR_BEG=>format_float($banks->{EUR} ),
+			
+			   unformat_uah_fin=>$banks->{UAH},
+			   unformat_usd_fin=>$banks->{USD},
+			   unformat_eur_fin=>$banks->{EUR},
+			   UAH_FIN=>format_float($banks->{UAH} ),
+			   USD_FIN=>format_float($banks->{USD} ),
+			   EUR_FIN=>format_float($banks->{EUR} ),
+			   unformat_sum_uah=>0,
+			   unformat_sum_usd=>0,
+			   unformat_sum_eur=>0,
+			   SUM_UAH_REQ=>0,
+			   SUM_USD_REQ=>0,
+			   SUM_EUR_REQ=>0,
+			   unformat_uah_fin=>0,
+                           unformat_usd_fin=>0,
+                           unformat_eur_fin=>0,
+			  };
+                        $current_bank = $banks->{ $hash->{$_}->{f_bank} };
+                        push @res, $current_bank;
+                        
+                }
+                
+	        
 		my $i=find_first_input($ref,$_);
 		my %hash=( 'UAH'=>$hash->{$_}->{f_uah}-$hash->{$_}->{UAH},
 		'USD'=>$hash->{$_}->{f_usd} -$hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
@@ -176,6 +259,8 @@ my $sql;
 			   USD_FIN=>format_float($hash{USD} ),
 			   EUR_FIN=>format_float($hash{EUR} )
 			  };
+			  
+			  
 		push @res,$first;
 		my $req_sums={USD=>0,EUR=>0,UAH=>0};
 		$pays_count_u=0;
@@ -200,7 +285,14 @@ my $sql;
 	
 				   };
 			$req_sums->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);
+			##calculating banks
+# 			$req_sums->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);
+			
+			
 			$hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+			##calculating banks
+# 			$banks{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+                            
 			
 			$pays_count_u+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'USD');
 			$pays_count_e+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'EUR');
@@ -227,21 +319,47 @@ my $sql;
 		$first->{unformat_usd_fin}=$hash{USD};
 		$first->{unformat_eur_fin}=$hash{EUR};
 		
+		
+		###adding to the bank record
+			
+		$bank->{unformat_sum_uah}=$req_sums->{UAH};
+		$bank->{unformat_sum_usd}=$req_sums->{USD};
+		$bank->{unformat_sum_eur}=$req_sums->{EUR};
+		
+		$bank->{SUM_UAH_REQ}=format_float($req_sums->{UAH});
+		$bank->{SUM_USD_REQ}=format_float($req_sums->{USD});
+		$bank->{SUM_EUR_REQ}=format_float($req_sums->{EUR});
+		$bank->{UAH_FIN}=format_float($hash{UAH});
+		$bank->{USD_FIN}=format_float($hash{USD});
+		$bank->{EUR_FIN}=format_float($hash{EUR});
+		$bank->{p_count_e}=$pays_count_e-$payments_eur->{$_}->{count};
+		$bank->{p_count_u}=$pays_count_u-$payments_usd->{$_}->{count};
+	
+		$bank->{is_payments}=$bank->{p_count_e}||$bank->{p_count_u};
+
+		$bank->{unformat_uah_fin}=$hash{UAH};
+		$bank->{unformat_usd_fin}=$hash{USD};
+		$bank->{unformat_eur_fin}=$hash{EUR};
+		
+		
+		
+		
+		
 	}
 	
 
 	my $tmpl;
 	###for working ony with USD,EUR or only UAH
-    my $run_mode=$self->get_current_runmode();
-    ###
-    if($run_mode eq 'list'){
+        my $run_mode=$self->get_current_runmode();
+        ###
+        if($run_mode eq 'list'){
 
-         $run_mode='list';
-    }else{
+            $run_mode='list';
+        }else{
 
-        $run_mode='print';
+            $run_mode='print';
 
-    }
+        }
 
 	unless($resident){
 		$tmpl=$self->load_tmpl("dayfirm_$run_mode.html");
