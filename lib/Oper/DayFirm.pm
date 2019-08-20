@@ -34,7 +34,7 @@ sub banks{
         my $sqlbank = qq[SELECT b_id, b_name FROM banks];
         my $hash=$dbh->selectall_hashref($sqlbank,'b_id');
     
-        $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
+        my $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
                 AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
                 FROM cashier_transactions, banks, firms  WHERE a ct_date>='$date' 
                 AND ct_req='no'  AND ct_status!='deleted' AND f_id=ct_fid AND f_bank=b_id AND ct_fid>0 GROUP BY b_id;
@@ -198,12 +198,12 @@ sub list
 	#die Dumper \@keys;
 	my $pays_count_u;
 	my $pays_count_e;
-        my $current_bank = undef;
+        my $bank = undef;
 	foreach(@keys)	
 	{
 	        
                 ###calculating with bank
-                if(!$current_bank or ($current_bank and $current_bank->{b_id} ne $hash->{$_}->{f_bank})){
+                if(!$bank or ($bank and $bank->{b_id} ne $hash->{$_}->{f_bank})){
                         
                         $banks->{ $hash->{$_}->{f_bank} }= {
 			   b_name=>$hash->{$_}->{f_bank},
@@ -233,8 +233,8 @@ sub list
                            unformat_usd_fin=>0,
                            unformat_eur_fin=>0,
 			  };
-                        $current_bank = $banks->{ $hash->{$_}->{f_bank} };
-                        push @res, $current_bank;
+                        $bank = $banks->{ $hash->{$_}->{f_bank} };
+                        push @res, $bank;
                         
                 }
                 
