@@ -31,9 +31,10 @@ sub get_right
 
 sub banks{
         my $date = shift;
-        my $sqlbank = qq[SELECT b_id, b_name FROM banks];
+  
+	$sql=qq[SELECT b_name,b_id,sum(f_uah) as b_uah,sum(f_usd) as b_usd,sum(f_eur) as b_eur FROM firms, banks WHERE f_bank=b_id  f_status='active' AND f_id>0 	GROUP BY b_id ];
         my $hash=$dbh->selectall_hashref($sqlbank,'b_id');
-    
+        
         my $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
                 AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
                 FROM cashier_transactions, banks, firms  WHERE a ct_date>='$date' 
@@ -63,10 +64,7 @@ sub banks{
         my @keys= sort { $hash->{$a}->{f_bank} cmp $hash->{$b}->{f_bank} } keys %$hash;        
         my $prew=undef;	
         map {$hash->{$_}->{'R_UAH'}=$hash->{$_}->{'R_USD'}=$hash->{$_}->{'R_USD'}=0 } keys %{ $hash };
-
         return $hash;
-
-
 
 }
 
@@ -142,7 +140,7 @@ sub list
 		map{ $hash->{$key}->{$_}= $hash1->{$key}->{$_} if($hash->{$key}) } keys %{ $hash2->{$key} }  ;
 			
         }
-        die Dumper $hash;
+    
         
 	my @keys= sort { $hash->{$a}->{f_bank} cmp $hash->{$b}->{f_bank} } keys %$hash;
         
@@ -199,154 +197,148 @@ sub list
 	my $pays_count_u;
 	my $pays_count_e;
         my $bank = undef;
+        my $req_sums_banks = undef;
+        my %banks_hash;
+
 	foreach(@keys)	
 	{
 	        
                 ###calculating with bank
                 if(!$bank or ($bank and $bank->{b_id} ne $hash->{$_}->{f_bank})){
-                        
-                        $banks->{ $hash->{$_}->{f_bank} }= {
-			   b_name=>$hash->{$_}->{f_bank},
-			   b_id=>$hash->{$_}->{f_bank},
-			   type=>'begin',
-			   
-			   unformat_uah_beg=>$banks->{UAH},
-			   unformat_usd_beg=>$banks->{USD},
-			   unformat_eur_beg=>$banks->{EUR},
-			   UAH_BEG=>format_float($banks->{UAH} ),
-			   USD_BEG=>format_float($banks->{USD} ),
-			   EUR_BEG=>format_float($banks->{EUR} ),
-			
-			   unformat_uah_fin=>$banks->{UAH},
-			   unformat_usd_fin=>$banks->{USD},
-			   unformat_eur_fin=>$banks->{EUR},
-			   UAH_FIN=>format_float($banks->{UAH} ),
-			   USD_FIN=>format_float($banks->{USD} ),
-			   EUR_FIN=>format_float($banks->{EUR} ),
-			   unformat_sum_uah=>0,
-			   unformat_sum_usd=>0,
-			   unformat_sum_eur=>0,
-			   SUM_UAH_REQ=>0,
-			   SUM_USD_REQ=>0,
-			   SUM_EUR_REQ=>0,
-			   unformat_uah_fin=>0,
-                           unformat_usd_fin=>0,
-                           unformat_eur_fin=>0,
-			  };
+                        $req_sums_banks = {USD=>0,EUR=>0,UAH=>0};
+                        my $bank_id = $hash->{$_}->{f_bank};
+
+                        %banks_hash = ( 'UAH'=>$banks->{$bank_id}->{b_uah}-$banks->{$bank_id}->{UAH},
+                                        'USD'=>$banks->{$bank_id}->{b_usd} -$banks->{$bank_id}->{USD},'EUR'=>$banks->{$bank_id}->{b_eur} -$banks->{$bank_id}->{EUR} );	
+                                        
+                        $banks->{ $bank_id }= {
+                            b_name=>$hash->{$_}->{f_bank},
+                            b_id=>$bank_id,
+                            type=>'begin',
+                            unformat_uah_beg=>$banks_hash{UAH},
+                            unformat_usd_beg=>$banks_hash{USD},
+                            unformat_eur_beg=>$banks_hash{EUR},
+                            UAH_BEG=>format_float($banks_hash{UAH} ),
+                            USD_BEG=>format_float($banks_hash{USD} ),
+                            EUR_BEG=>format_float($banks_hash{EUR} ),
+                            unformat_uah_fin=>0,
+                            unformat_usd_fin=>0,
+                            unformat_eur_fin=>0,
+                            UAH_FIN=>undef,
+                            USD_FIN=>undef,
+                            EUR_FIN=>undef,
+                            unformat_sum_uah=>0,
+                            unformat_sum_usd=>0,
+                            unformat_sum_eur=>0,
+                            SUM_UAH_REQ=>0,
+                            SUM_USD_REQ=>0,
+                            SUM_EUR_REQ=>0,
+                            unformat_uah_fin=>0,
+                            unformat_usd_fin=>0,
+                            unformat_eur_fin=>0,
+                            };
                         $bank = $banks->{ $hash->{$_}->{f_bank} };
                         push @res, $bank;
                         
                 }
                 
-	        
-		my $i=find_first_input($ref,$_);
-		my %hash=( 'UAH'=>$hash->{$_}->{f_uah}-$hash->{$_}->{UAH},
-		'USD'=>$hash->{$_}->{f_usd} -$hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
-		my $first={
-			   f_name=>$hash->{$_}->{f_name},
-			   f_id=>$_,
-			   type=>'begin',
-			   unformat_uah_beg=>$hash{UAH},
-			   unformat_usd_beg=>$hash{USD},
-			   unformat_eur_beg=>$hash{EUR},
-			   UAH_BEG=>format_float($hash{UAH} ),
-			   USD_BEG=>format_float($hash{USD} ),
-			   EUR_BEG=>format_float($hash{EUR} ),
-			   unformat_uah_fin=>$hash{UAH},
-			   unformat_usd_fin=>$hash{USD},
-			   unformat_eur_fin=>$hash{EUR},
-			   UAH_FIN=>format_float($hash{UAH} ),
-			   USD_FIN=>format_float($hash{USD} ),
-			   EUR_FIN=>format_float($hash{EUR} )
-			  };
-			  
-			  
-		push @res,$first;
-		my $req_sums={USD=>0,EUR=>0,UAH=>0};
-		$pays_count_u=0;
-		$pays_count_e=0;
-		for(;$i>=0&&$i<$size&&$ref->[$i]->[6]==$_;$i++)
-		{
-		
-			push @res,{ 
-					ct_id=>$ref->[$i]->[5],
-					ct_status=>$ref->[$i]->[3],
-					ct_aid=>$ref->[$i]->[8],
-					a_name=>$accounts->{$ref->[$i]->[8]}->{a_name},
-					type=>'operation',
-					currency=>$ref->[$i]->[1],
-					non_format_amnt=>$ref->[$i]->[0],
-					amnt=>format_float($ref->[$i]->[0]),
-					req=>$ref->[$i]->[2] ne 'yes',
-# 					ct_status=>$MAIN_STATUSES{$ref->[$i]->[3]},
-					ct_comment=>$ref->[$i]->[4],
-					ct_ts=>format_date($ref->[$i]->[7]),
-					ct_col_status=>$ref->[$i]->[9] eq 'yes',	 
-	
-				   };
-			$req_sums->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);
-			##calculating banks
-# 			$req_sums->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);
-			
-			
-			$hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
-			##calculating banks
-# 			$banks{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+                
+                my $i=find_first_input($ref,$_);
+                my %hash=( 'UAH'=>$hash->{$_}->{f_uah}-$hash->{$_}->{UAH},
+                'USD'=>$hash->{$_}->{f_usd} -$hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
+                
+                my $first={
+                            f_name=>$hash->{$_}->{f_name},
+                            f_id=>$_,
+                            type=>'begin',
+                            unformat_uah_beg=>$hash{UAH},
+                            unformat_usd_beg=>$hash{USD},
+                            unformat_eur_beg=>$hash{EUR},
+                            UAH_BEG=>format_float($hash{UAH} ),
+                            USD_BEG=>format_float($hash{USD} ),
+                            EUR_BEG=>format_float($hash{EUR} ),
+                            unformat_uah_fin=>$hash{UAH},
+                            unformat_usd_fin=>$hash{USD},
+                            unformat_eur_fin=>$hash{EUR},
+                            UAH_FIN=>format_float($hash{UAH} ),
+                            USD_FIN=>format_float($hash{USD} ),
+                            EUR_FIN=>format_float($hash{EUR} )
+                            };
                             
-			
-			$pays_count_u+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'USD');
-			$pays_count_e+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'EUR');
-			
-		
-		}
-		
-		$first->{unformat_sum_uah}=$req_sums->{UAH};
-		$first->{unformat_sum_usd}=$req_sums->{USD};
-		$first->{unformat_sum_eur}=$req_sums->{EUR};
-		
-		$first->{SUM_UAH_REQ}=format_float($req_sums->{UAH});
-		$first->{SUM_USD_REQ}=format_float($req_sums->{USD});
-		$first->{SUM_EUR_REQ}=format_float($req_sums->{EUR});
-		$first->{UAH_FIN}=format_float($hash{UAH});
-		$first->{USD_FIN}=format_float($hash{USD});
-		$first->{EUR_FIN}=format_float($hash{EUR});
-		$first->{p_count_e}=$pays_count_e-$payments_eur->{$_}->{count};
-		$first->{p_count_u}=$pays_count_u-$payments_usd->{$_}->{count};
-	
-		$first->{is_payments}=$first->{p_count_e}||$first->{p_count_u};
+                            
+                push @res,$first;
+                my $req_sums={USD=>0,EUR=>0,UAH=>0};
+                $pays_count_u=0;
+                $pays_count_e=0;
+                for(;$i>=0&&$i<$size&&$ref->[$i]->[6]==$_;$i++)
+                {
+                
+                        push @res,{ 
+                                        ct_id=>$ref->[$i]->[5],
+                                        ct_status=>$ref->[$i]->[3],
+                                        ct_aid=>$ref->[$i]->[8],
+                                        a_name=>$accounts->{$ref->[$i]->[8]}->{a_name},
+                                        type=>'operation',
+                                        currency=>$ref->[$i]->[1],
+                                        non_format_amnt=>$ref->[$i]->[0],
+                                        amnt=>format_float($ref->[$i]->[0]),
+                                        req=>$ref->[$i]->[2] ne 'yes',
+                                        ct_comment=>$ref->[$i]->[4],
+                                        ct_ts=>format_date($ref->[$i]->[7]),
+                                        ct_col_status=>$ref->[$i]->[9] eq 'yes',	 
+        
+                                    };
+                        $req_sums->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);
+                        ##calculating banks
+                        $req_sums_banks->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);			
+                        
+                        $hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+                        ##calculating banks
+                        $banks_hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+                        
+                        $pays_count_u+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'USD');
+                        $pays_count_e+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'EUR');
+                        
+                
+                }
+                
+                $first->{unformat_sum_uah}=$req_sums->{UAH};
+                $first->{unformat_sum_usd}=$req_sums->{USD};
+                $first->{unformat_sum_eur}=$req_sums->{EUR};
+                
+                $first->{SUM_UAH_REQ}=format_float($req_sums->{UAH});
+                $first->{SUM_USD_REQ}=format_float($req_sums->{USD});
+                $first->{SUM_EUR_REQ}=format_float($req_sums->{EUR});
+                $first->{UAH_FIN}=format_float($hash{UAH});
+                $first->{USD_FIN}=format_float($hash{USD});
+                $first->{EUR_FIN}=format_float($hash{EUR});
+                $first->{p_count_e}=$pays_count_e-$payments_eur->{$_}->{count};
+                $first->{p_count_u}=$pays_count_u-$payments_usd->{$_}->{count};
+        
+                $first->{is_payments}=$first->{p_count_e}||$first->{p_count_u};
 
-		$first->{unformat_uah_fin}=$hash{UAH};
-		$first->{unformat_usd_fin}=$hash{USD};
-		$first->{unformat_eur_fin}=$hash{EUR};
-		
-		
-		###adding to the bank record
-			
-		$bank->{unformat_sum_uah}=$req_sums->{UAH};
-		$bank->{unformat_sum_usd}=$req_sums->{USD};
-		$bank->{unformat_sum_eur}=$req_sums->{EUR};
-		
-		$bank->{SUM_UAH_REQ}=format_float($req_sums->{UAH});
-		$bank->{SUM_USD_REQ}=format_float($req_sums->{USD});
-		$bank->{SUM_EUR_REQ}=format_float($req_sums->{EUR});
-		$bank->{UAH_FIN}=format_float($hash{UAH});
-		$bank->{USD_FIN}=format_float($hash{USD});
-		$bank->{EUR_FIN}=format_float($hash{EUR});
-		$bank->{p_count_e}=$pays_count_e-$payments_eur->{$_}->{count};
-		$bank->{p_count_u}=$pays_count_u-$payments_usd->{$_}->{count};
-	
-		$bank->{is_payments}=$bank->{p_count_e}||$bank->{p_count_u};
-
-		$bank->{unformat_uah_fin}=$hash{UAH};
-		$bank->{unformat_usd_fin}=$hash{USD};
-		$bank->{unformat_eur_fin}=$hash{EUR};
-		
-		
-		
-		
-		
-	}
-	
+                $first->{unformat_uah_fin}=$hash{UAH};
+                $first->{unformat_usd_fin}=$hash{USD};
+                $first->{unformat_eur_fin}=$hash{EUR};
+                
+                
+                #modify bank record to the bank record
+                        
+                $bank->{unformat_sum_uah}=$req_sums_banks->{UAH};
+                $bank->{unformat_sum_usd}=$req_sums_banks->{USD};
+                $bank->{unformat_sum_eur}=$req_sums_banks->{EUR};
+                $bank->{SUM_UAH_REQ}=format_float($req_sums_banks->{UAH});
+                $bank->{SUM_USD_REQ}=format_float($req_sums_banks->{USD});
+                $bank->{SUM_EUR_REQ}=format_float($req_sums_banks->{EUR});
+                $bank->{UAH_FIN}=format_float($bank{unformat_uah_beg}+$bank_hash{UAH});
+                $bank->{USD_FIN}=format_float($bank{unformat_usd_beg}+$bank_hash{USD});
+                $bank->{EUR_FIN}=format_float($bank{unformat_eur_beg}+$bank_hash{EUR});
+                $bank->{unformat_uah_fin}=$bank{unformat_uah_beg}+$bank_hash{UAH};
+                $bank->{unformat_usd_fin}=$bank{unformat_usd_beg}+$bank_hash{USD};
+                $bank->{unformat_eur_fin}=$bank{unformat_eur_beg}+$bank_hash{EUR};
+                
+        }
+        
 
 	my $tmpl;
 	###for working ony with USD,EUR or only UAH
@@ -361,21 +353,21 @@ sub list
 
         }
 
-	unless($resident){
-		$tmpl=$self->load_tmpl("dayfirm_$run_mode.html");
+        unless($resident){
+                $tmpl=$self->load_tmpl("dayfirm_$run_mode.html");
 
-	}else{
-		$tmpl=$self->load_tmpl("dayfirm_$run_mode"."_uah.html");
-	}
-   	
-	$self->{tpl_vars}->{list}=\@res;
-	$self->{tpl_vars}->{resident}=$resident;
-	
-	$self->restore_date($date);
-	
-	my $output = "";
-	$tmpl->process($self->{tpl_file}, $self->{tpl_vars}, \$output) || die $tmpl->error();
-	return $output;
+        }else{
+                $tmpl=$self->load_tmpl("dayfirm_$run_mode"."_uah.html");
+        }
+        
+        $self->{tpl_vars}->{list}=\@res;
+        $self->{tpl_vars}->{resident}=$resident;
+        
+        $self->restore_date($date);
+        
+        my $output = "";
+        $tmpl->process($self->{tpl_file}, $self->{tpl_vars}, \$output) || die $tmpl->error();
+        return $output;
 
 }
 
