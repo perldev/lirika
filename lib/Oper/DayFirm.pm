@@ -98,12 +98,12 @@ sub list
 		$sql=qq[SELECT f_name,f_id,f_uah,f_usd,f_eur, f_bank 
 		FROM firms WHERe  f_status='active' AND f_id>0 AND ( (abs(f_usd)>0.001 OR 
 		abs(f_eur)>0.001) OR (abs(f_usd)<0.01 AND 
-		abs(f_eur)<0.001 AND abs(f_uah<0.01)) ) GROUP BY f_id ];
+		abs(f_eur)<0.001 AND abs(f_uah<0.01)) )  AND b_id is not NULL GROUP BY f_id ];
 	}else
 	{
 		$sql=qq[SELECT f_name,f_id,f_uah,f_usd,f_eur,f_bank FROM firms WHERe  f_status='active' AND f_id>0 AND (abs(f_uah)>0.001  
 		OR (abs(f_usd)<0.01 AND 
-		abs(f_eur)<0.001 AND abs(f_uah<0.01)) )
+		abs(f_eur)<0.001 AND abs(f_uah<0.01)) )  AND b_id is not NULL
 		GROUP BY f_id ];
 	}
 
@@ -112,7 +112,7 @@ sub list
 	$sql=qq[SELECT ct_fid,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
 	AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
 	FROM cashier_transactions  WHERE ct_date>='$date' 
-	AND ct_req='no'  AND ct_status!='deleted' AND ct_fid>0 GROUP BY ct_fid;
+	AND ct_req='no'  AND ct_status!='deleted' AND ct_fid>0  GROUP BY ct_fid;
 	];
 
 	my $accounts=$dbh->selectall_hashref(q[SELECT a_id,a_name FROM accounts WHERE a_status='active'],'a_id');
@@ -158,7 +158,7 @@ sub list
 		FROM 
 		cashier_transactions
 		WHERE ct_date=?  AND ct_status!='deleted' 
-		AND   ct_fid>0
+		AND   ct_fid>0 AND b_id is not NULL
 		ORDER BY ct_fid,ct_currency,ct_req DESC,ct_ts ASC];	
 	}else
 	{
@@ -168,7 +168,7 @@ sub list
 		WHERE 
 		ct_date=?
 		AND ct_fid>0 AND 
-		ct_req='no' AND ct_status!='deleted'
+		ct_req='no' AND ct_status!='deleted' AND b_id is not NULL
 		ORDER BY ct_fid,ct_currency,ct_ts ASC
 		];
 	}
