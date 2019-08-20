@@ -32,7 +32,7 @@ sub get_right
 sub banks{
         my $date = shift;
   
-	$sql=qq[SELECT b_name,b_id,sum(f_uah) as b_uah,sum(f_usd) as b_usd,sum(f_eur) as b_eur FROM firms, banks WHERE f_bank=b_id  f_status='active' AND f_id>0 	GROUP BY b_id ];
+	$sql=qq[SELECT b_id, b_name,b_id,sum(f_uah) as b_uah,sum(f_usd) as b_usd,sum(f_eur) as b_eur FROM firms, banks WHERE f_bank=b_id  f_status='active' AND f_id>0 	GROUP BY b_id ];
         my $hash=$dbh->selectall_hashref($sqlbank,'b_id');
         
         my $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
@@ -108,12 +108,7 @@ sub list
 	}
 
 	my $hash=$dbh->selectall_hashref($sql,'f_id');
-	my $sqlbank = qq[SELECT b_id, b_name FROM banks];
-	my $banks=$dbh->selectall_hashref($sqlbank,'b_id');
 	
-
-	
-
 	$sql=qq[SELECT ct_fid,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
 	AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
 	FROM cashier_transactions  WHERE ct_date>='$date' 
@@ -208,11 +203,12 @@ sub list
                         $req_sums_banks = {USD=>0,EUR=>0,UAH=>0};
                         my $bank_id = $hash->{$_}->{f_bank};
 
-                        %banks_hash = ( 'UAH'=>$banks->{$bank_id}->{b_uah}-$banks->{$bank_id}->{UAH},
-                                        'USD'=>$banks->{$bank_id}->{b_usd} -$banks->{$bank_id}->{USD},'EUR'=>$banks->{$bank_id}->{b_eur} -$banks->{$bank_id}->{EUR} );	
+                        %banks_hash = ( 'UAH'=>$banks->{$bank_id}->{b_uah} - $banks->{$bank_id}->{UAH},
+                                        'USD'=>$banks->{$bank_id}->{b_usd} - $banks->{$bank_id}->{USD},
+                                        'EUR'=>$banks->{$bank_id}->{b_eur} - $banks->{$bank_id}->{EUR} );	
                                         
                         $banks->{ $bank_id }= {
-                            b_name=>$hash->{$_}->{f_bank},
+                            b_name=>$banks_hash->{$bank_id}->{b_name},
                             b_id=>$bank_id,
                             type=>'begin',
                             unformat_uah_beg=>$banks_hash{UAH},
@@ -323,7 +319,6 @@ sub list
                 
                 
                 #modify bank record to the bank record
-                        
                 $bank->{unformat_sum_uah}=$req_sums_banks->{UAH};
                 $bank->{unformat_sum_usd}=$req_sums_banks->{USD};
                 $bank->{unformat_sum_eur}=$req_sums_banks->{EUR};
