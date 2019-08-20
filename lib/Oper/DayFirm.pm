@@ -37,7 +37,7 @@ sub banks{
         
         my $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
                 AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
-                FROM cashier_transactions, banks, firms  WHERE a ct_date>='$date' 
+                FROM cashier_transactions, banks, firms  WHERE  ct_date>='$date' 
                 AND ct_req='no'  AND ct_status!='deleted' AND f_id=ct_fid AND f_bank=b_id AND ct_fid>0 GROUP BY b_id;
         ];
 
