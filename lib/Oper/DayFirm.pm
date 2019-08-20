@@ -46,7 +46,7 @@ sub banks{
         my $hash1=$dbh->selectall_hashref($sql,'b_id');
         
         $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'R_UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
-        AS 'R_USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'R_EUR' FROM cashier_transactions WHERE 1
+        AS 'R_USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'R_EUR' FROM cashier_transactions, firms, banks WHERE 1
         AND ct_req='yes' AND ct_status!='deleted' AND  f_id=ct_fid AND f_bank=b_id AND ct_fid>0 GROUP BY b_id;
         ];
         my $hash2=$dbh->selectall_hashref($sql,'b_id');
