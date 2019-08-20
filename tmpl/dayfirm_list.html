@@ -99,7 +99,7 @@
      </td>   
      <td class=$class>
 	<a  class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$row.f_id">
-	$row.f_name(#$row.f_id)</a>
+	[% IF $row.f_id %] $row.f_name(#$row.f_id) [% END %]</a>
         </td>
  	[% IF row.unformat_usd_beg < 0%]
 
