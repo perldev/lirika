@@ -3,6 +3,7 @@ package Oper::Rates;
 use strict;
 
 use base 'CGIBase';
+use CGI::Carp qw(fatalsToBrowser);
 
 use SiteConfig;
 use SiteDB;
@@ -161,7 +162,7 @@ sub add
 {
    my $self = shift;
    my $head=$self->query->param('header_rates');
-	
+   die Dumper $head;
 	if($head)
 	{
 		my $proto1={

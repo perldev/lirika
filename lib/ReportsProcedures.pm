@@ -635,7 +635,7 @@ sub get_kcards_balance
 	}
 
 	my @res;
-	my $ref_master=$dbh->selectall_hashref(q[SELECT a_id,a_name,a_uah,a_usd,a_eur FROM 
+	my $ref_master=$dbh->selectall_hashref(q[SELECT a_id,a_name,a_uah,a_usd,a_eur, a_btc FROM 
 	accounts_view WHERE a_id IN (33,34,35,30) AND  1],'a_id');
         my $sum=0;
 	my $sums;
@@ -1058,19 +1058,21 @@ sub percent_payments
 }
 sub get_permanent_cards_cats
 {
-	my ($common_result,$echs,$cat_id,$sum1,$sum2)=@_;
+	my ($common_result,$cat_id,$sum1,$sum2)=@_;
 
-        my $count_param="(a_eur*$echs->{EUR}+a_usd+a_uah*$echs->{UAH})";
 
 	my $r=$dbh->selectall_hashref(qq[SELECT  
-	a_name,a_id,$count_param as amnt,
+	a_name,a_id, 
+	a_usd as amnt_usd,
+        a_eur as amnt_eur, 
+        a_uah as amnt_uah, 
+        a_btc as amnt_btc,
 	DATE_FORMAT(max(t_ts),"\%d.\%m.\%y") as last_ts,ac_title,ac_id 
 	FROM accounts_cats,accounts LEFT JOIN transactions  
 	ON (t_aid1=a_id 
 	OR t_aid2=a_id),classes  
 	WHERE c_name 
 	NOT IN  ($non_usual_class) 
-	AND $count_param>0 
 	AND c_id=a_class 
 	AND a_id>1 AND ac_id=a_acid AND a_status!='deleted' AND ac_id=$cat_id
 	GROUP BY a_id ORDER BY a_name ASC],'a_id');
@@ -1079,17 +1081,19 @@ sub get_permanent_cards_cats
 	
 	my @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
 	my $size__=@keys;
-
+	
+	
 	foreach(@keys)
 	{
-		to_prec(\$r->{$_}->{amnt});
 		$$sum1+=$r->{$_}->{amnt};
-		$r->{$_}->{amnt}=format_float($r->{$_}->{amnt});
-		push @plus_cards,$r->{$_};
+
+		push @{$common_result},$r->{$_};
 	}
 
-	$r=$dbh->selectall_hashref(qq[SELECT  a_name,a_id,$count_param as 
-	amnt,DATE_FORMAT(max(t_ts),"\%d.\%m.\%y") as last_ts,ac_title,ac_id  
+	$r=$dbh->selectall_hashref(qq[SELECT  a_name,a_id,a_usd as amnt_usd,
+        a_eur as amnt_eur, 
+        a_uah as amnt_uah, 
+        a_btc as amnt_btc, DATE_FORMAT(max(t_ts),"\%d.\%m.\%y") as last_ts,ac_title,ac_id  
 	FROM accounts_cats,accounts LEFT JOIN transactions  ON 
 	(t_aid1=a_id OR t_aid2=a_id),classes  
 	WHERE c_name NOT IN  ($non_usual_class) AND $count_param<=0 AND 
@@ -1294,9 +1298,12 @@ sub get_permanent_cards
 		push @common_result,{is_cat_title=>1,cat_name=>$_->{title} };
 		$i=@common_result;
 		$i--;
-		get_permanent_cards_cats(\@common_result,$echs,$_->{value},\$sum1,\$sum2);
-		$common_result[$i]->{sum_plus}=format_float(abs($sum1-$tmp_sum1));
-		$common_result[$i]->{sum_mines}=format_float(abs($sum2-$tmp_sum2));
+		get_permanent_cards_cats(\@common_result, $_->{value},\$sum1,\$sum2);
+		$common_result[$i]->{sum_uah}=format_float($sum1-$tmp_sum1);
+		$common_result[$i]->{sum_usd}=format_float($sum2-$tmp_sum2);
+                $common_result[$i]->{sum_eur}=format_float($sum2-$tmp_sum2);
+		$common_result[$i]->{sum_btc}=format_float($sum2-$tmp_sum2);
+
 
 	}
 	

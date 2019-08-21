@@ -584,8 +584,8 @@ sub balance
 
 	my $output='';
 	my $date=$dbh->selectrow_array(q[SELECT current_timestamp]);
-	$self->{tpl_vars}->{page_title}="Баланс за : $date,Баланс приведенный к USD: $delta";
-	$self->{tpl_vars}->{date}=$date;
+	$self->{tpl_vars}->{page_title}="Баланс за : $date, Баланс приведенный к USD: $delta";
+	$self->{tpl_vars}->{date} = $date;
 	$tmpl->process($self->{tpl_file}, $self->{tpl_vars}, \$output) || 
         $tmpl->error();
 
