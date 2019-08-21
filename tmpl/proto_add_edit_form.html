@@ -23,7 +23,7 @@
 
   [% IF row.no_view &&  row.system %]
 
-       <input type="hidden" id="$row.field" value="[%row.value  FILTER html %]">
+       <input type="hidden" name="$row.field"   id="$row.field" value="[%row.value  FILTER html %]">
 
   [% END %]
   [% IF  row.java_script %]
