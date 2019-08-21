@@ -161,6 +161,7 @@ sub list
 sub add
 {
    my $self = shift;
+   die "here";
    my $head=$self->query->param('header_rates');
 	if($head)
 	{
@@ -199,7 +200,7 @@ sub edit
 			my $proto1={
 			'table'=>"header_rates",  
   			'template_prefix'=>"reports_rate",
-				'need_confirmation'=>1,
+                         'need_confirmation'=>1,
 			'page_title'=>'Добавление заглавных курсов ',
 			'fields'=>[
 			{'field'=>"hr_id", "title"=>"ID", "no_add_edit"=>1}, #first field is ID
