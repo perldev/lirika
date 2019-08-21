@@ -271,7 +271,8 @@ onclick="if(document.getElementById('to_archive').style.display=='none')     {do
 		<font size="+1">( Карточка : <span class='simple_tab_normal'
        onclick="show_account_info(event,'$proto_params.a_id')" >$proto_params.a_name</span> $proto_params.a_uah 
 		<strong>ГРН</strong> $proto_params.a_usd <strong>USD</strong> $proto_params.a_eur 
-		<strong>EUR</strong> ) эквивалент $proto_params.a_usd_eq USD
+		<strong>EUR</strong> $proto_params.a_btc
+		<strong>BTC</strong> ) <!--эквивалент $proto_params.a_usd_eq USD-->
         [% IF proto_params.a_incom_id %]
 
            ,<a class=table_gborders target='blank'   
@@ -290,14 +291,14 @@ href="accounts_reports.cgi?do=document_list_uah&amp;action=filter&amp;ct_date=al
 	<tr>
 	<td class=table_gborders colspan=16>
 	Баланс на начало периода $proto_params.from_date:<font size="+1"> $proto_params.beg_uah <strong>ГРН</strong>
- $proto_params.beg_usd <strong>USD</strong> $proto_params.beg_eur <strong>EUR</strong> </font>	
+ $proto_params.beg_usd <strong>USD</strong> $proto_params.beg_eur <strong>EUR</strong> $proto_params.beg_btc <strong>BTC</strong> </font>	
 	</td>
 		
 	</tr> 
 	<tr>
 	<td class=table_gborders colspan=16>
 	Баланс на конец периода $proto_params.to_date:<font size="+1">	$proto_params.fin_uah <strong>ГРН</strong> 
-$proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</strong> </font>	
+$proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</strong> $proto_params.fin_btc <strong>BTC</strong> </font>	
 	</td>
   </tr> 
 	[% END %]	
