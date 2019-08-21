@@ -25,7 +25,7 @@ sub get_right
 
     return 'denied'    unless($kassa_id);
     my $currencies;
-    if $self->{currencies}{
+    if($self->{currencies}){
         $currencies = $self->{currencies};
     }else{
         $currencies = \@currencies;

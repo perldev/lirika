@@ -22,7 +22,7 @@ sub get_right
                                       WHERE co_name=?],undef,$self->{cash});  
     return 'denied'    unless($kassa_id);
     my $currencies;
-    if $self->{currencies}{
+    if($self->{currencies}){
         $currencies = $self->{currencies};
     }else{
         $currencies = \@currencies;
