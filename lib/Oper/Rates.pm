@@ -162,9 +162,8 @@ sub add
 {
    my $self = shift;
    my $head=$self->query->param('header_rates');
-   die $head;
-	if($head)
-	{
+    if($head)
+    {
                 
 		my $proto1={
 			'table'=>"header_rates",  
