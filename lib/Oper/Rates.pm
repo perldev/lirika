@@ -162,6 +162,7 @@ sub add
 {
    my $self = shift;
    my $head=$self->query->param('header_rates');
+   die Dumper $self->query;
 	if($head)
 	{
                 
