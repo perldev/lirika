@@ -1089,41 +1089,41 @@ sub get_permanent_cards_cats
 
 		push @{$common_result},$r->{$_};
 	}
-
-	$r=$dbh->selectall_hashref(qq[SELECT  a_name,a_id,a_usd as amnt_usd,
-        a_eur as amnt_eur, 
-        a_uah as amnt_uah, 
-        a_btc as amnt_btc, DATE_FORMAT(max(t_ts),"\%d.\%m.\%y") as last_ts,ac_title,ac_id  
-	FROM accounts_cats,accounts LEFT JOIN transactions  ON 
-	(t_aid1=a_id OR t_aid2=a_id),classes  
-	WHERE c_name NOT IN  ($non_usual_class) AND $count_param<=0 AND 
-	c_id=a_class AND a_status!='deleted' AND a_id>1 AND ac_id=a_acid AND ac_id=$cat_id
-	GROUP BY a_id  ORDER BY a_name ASC],'a_id');
-	my @mines_cards;
-	
-	 @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
-	my $size__1=@keys;
-	foreach(@keys)
-	{
-		to_prec(\$r->{$_}->{amnt});
-
-		$$sum2+=$r->{$_}->{amnt};
-
-		$r->{$_}->{amnt}=format_float(-1*$r->{$_}->{amnt});
-		
-		push @mines_cards,$r->{$_};
-
-	}
-
-	
-	my $size;
-	if(@mines_cards>=@plus_cards)
-	{
-		$size=@mines_cards;	
-	}else
-	{
-		$size=@plus_cards;
-	}
+# 
+# 	$r=$dbh->selectall_hashref(qq[SELECT  a_name,a_id,a_usd as amnt_usd,
+#         a_eur as amnt_eur, 
+#         a_uah as amnt_uah, 
+#         a_btc as amnt_btc, DATE_FORMAT(max(t_ts),"\%d.\%m.\%y") as last_ts,ac_title,ac_id  
+# 	FROM accounts_cats,accounts LEFT JOIN transactions  ON 
+# 	(t_aid1=a_id OR t_aid2=a_id),classes  
+# 	WHERE c_name NOT IN  ($non_usual_class) AND 
+# 	c_id=a_class AND a_status!='deleted' AND a_id>1 AND ac_id=a_acid AND ac_id=$cat_id
+# 	GROUP BY a_id  ORDER BY a_name ASC],'a_id');
+# 	my @mines_cards;
+# 	
+# 	 @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
+# 	my $size__1=@keys;
+# 	foreach(@keys)
+# 	{
+# 		to_prec(\$r->{$_}->{amnt});
+# 
+# 		$$sum2+=$r->{$_}->{amnt};
+# 
+# 		$r->{$_}->{amnt}=format_float(-1*$r->{$_}->{amnt});
+# 		
+# 		push @mines_cards,$r->{$_};
+# 
+# 	}
+# 
+# 	
+# 	my $size;
+# 	if(@mines_cards>=@plus_cards)
+# 	{
+# 		$size=@mines_cards;	
+# 	}else
+# 	{
+# 		$size=@plus_cards;
+# 	}
 	for(my $i=0;$i<$size;$i++)
 	{
 		push @{$common_result},{mines_column=>$mines_cards[$i],plus_column=>$plus_cards[$i]}
