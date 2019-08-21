@@ -161,8 +161,8 @@ sub list
 sub add
 {
    my $self = shift;
-   die "here";
    my $head=$self->query->param('header_rates');
+   
 	if($head)
 	{
                 
