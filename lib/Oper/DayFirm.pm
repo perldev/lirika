@@ -195,11 +195,11 @@ sub list
 
 	foreach(@keys)	
 	{
+                my $bank_id = $hash->{$_}->{f_bank};
 	        
                 ###calculating with bank
-                if(!$bank or ($bank and $bank->{b_id} ne $hash->{$_}->{f_bank})){
+                if(!$bank or ($bank and $bank->{b_id} ne $bank_id)){
                         $req_sums_banks = {USD=>0,EUR=>0,UAH=>0};
-                        my $bank_id = $hash->{$_}->{f_bank};
 
                         %banks_hash = ( 'UAH'=>$banks->{$bank_id}->{b_uah} - $banks->{$bank_id}->{UAH},
                                         'USD'=>$banks->{$bank_id}->{b_usd} - $banks->{$bank_id}->{USD},
