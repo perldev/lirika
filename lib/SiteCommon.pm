@@ -979,6 +979,7 @@ sub sum_credit
 		$proto->{sums}->{ $row->{ct_date} }->{'UAH'}=$proto->{orig__beg_uah};
 		$proto->{sums}->{ $row->{ct_date} }->{'USD'}=$proto->{orig__beg_usd};
 		$proto->{sums}->{ $row->{ct_date} }->{'EUR'}=$proto->{orig__beg_eur};
+		$proto->{sums}->{ $row->{ct_date} }->{'BTC'}=$proto->{orig__beg_btc};
 
 		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 
@@ -1009,10 +1010,14 @@ sub sum_credit
 		push @$array,{ct_ex_comis_type=>'concl',ct_date=>format_date($row->{ct_date}),
  			      	UAH=>$proto->{sums}->{ $row->{ct_date} }->{'UAH'},
  			      	USD=>$proto->{sums}->{ $row->{ct_date} }->{'USD'},
-				    EUR=>$proto->{sums}->{ $row->{ct_date} }->{'EUR'},
+                                EUR=>$proto->{sums}->{ $row->{ct_date} }->{'EUR'},
+                                BTC=>$proto->{sums}->{ $row->{ct_date} }->{'BTC'},
+				    
 			        UAH_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'UAH'}),
 			        USD_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'USD'}),
 			        EUR_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'EUR'}),
+                                BTC_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'BTC'}),
+
 			        REPORT_UAH=>$proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{ $row->{ct_date} }->{rr_rate},
 			concl_color=>($proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{$row->{ct_date} }->{rr_rate} +
 				$proto->{sums}->{ $row->{ct_date} }->{'USD'})>=-0.001
@@ -1027,6 +1032,8 @@ sub sum_credit
 		$proto->{sums}->{ $row->{ct_date} }->{UAH}=$proto->{sums}->{ $prev_row }->{UAH};
 		$proto->{sums}->{ $row->{ct_date} }->{USD}=$proto->{sums}->{ $prev_row }->{USD};
 		$proto->{sums}->{ $row->{ct_date} }->{EUR}=$proto->{sums}->{ $prev_row }->{EUR};
+                $proto->{sums}->{ $row->{ct_date} }->{BTC}=$proto->{sums}->{ $prev_row }->{BTC};
+
 $proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 	
 		
@@ -1139,6 +1146,7 @@ sub last_record
 	$proto->{beg_uah}=$proto->{beg_uah};
   	$proto->{beg_usd}=$proto->{beg_usd};
   	$proto->{beg_eur}=$proto->{beg_eur};	
+  	$proto->{beg_btc}=$proto->{beg_btc};	
 
 	my $a_info=$dbh->selectrow_hashref(q[SELECT * FROM accounts WHERE a_id=?],undef,$proto->{'ct_aid'});
 
@@ -1148,17 +1156,22 @@ sub last_record
 		$proto->{a_uah}=format_float($a_info->{a_uah});
    		$proto->{a_usd}=format_float($a_info->{a_usd});
  		$proto->{a_eur}=format_float($a_info->{a_eur});
+ 		$proto->{a_btc}=format_float($a_info->{a_btc});
 		
 		$proto->{non_a_uah}=$a_info->{a_uah};
    		$proto->{non_a_usd}=$a_info->{a_usd};
  		$proto->{non_a_eur}=$a_info->{a_eur};
-		$proto->{control_sum}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur};
+                $proto->{non_a_btc}=$a_info->{a_btc};
+                ##???!!
+		$proto->{control_sum}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur} + $a_info->{a_btc};
 		
-		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur};
-		$proto->{control_sum_exist_fin}=$proto->{orig__beg_uah}+$proto->{orig__beg_usd}+$proto->{orig__beg_eur};
+		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur}+$a_info->{a_btc};
+		$proto->{control_sum_exist_fin}=$proto->{orig__beg_uah}+$proto->{orig__beg_usd}+$proto->{orig__beg_eur}+$proto->{orig__beg_btc};
 		$proto->{fin_uah}=format_float($proto->{orig__beg_uah});
   		$proto->{fin_usd}=format_float($proto->{orig__beg_usd});
   		$proto->{fin_eur}=format_float($proto->{orig__beg_eur});		
+  		$proto->{fin_btc}=format_float($proto->{orig__beg_btc});		
+  		
 	
 	}else
 	{
@@ -1167,10 +1180,14 @@ sub last_record
   			      	UAH=>	$proto->{sums}->{ $prew }->{'UAH'},
   			      	USD=>	$proto->{sums}->{ $prew }->{'USD'},
  				EUR=>	$proto->{sums}->{ $prew }->{'EUR'},
-                prev_date=>format_date($prew),
+                                EUR=>	$proto->{sums}->{ $prew }->{'BTC'},
+
+                                prev_date=>format_date($prew),
  				UAH_FORMAT=>format_float($proto->{sums}->{ $prew }->{'UAH'}),
  				USD_FORMAT=>format_float($proto->{sums}->{ $prew }->{'USD'}),
  				EUR_FORMAT=>format_float($proto->{sums}->{ $prew }->{'EUR'}),
+                                BTC_FORMAT=>format_float($proto->{sums}->{ $prew }->{'BTC'}),
+
  				concl_color=>($proto->{sums}->{ $prew }->{'USD'}+$proto->{sums}->{ $prew }->{'UAH'}/$proto->{reports_rate}->{$prew}->{rr_rate} )>=-0.001
   			     };	
 		@$rows=reverse(@$rows); 
@@ -1178,19 +1195,23 @@ sub last_record
 		$proto->{a_uah}=format_float($a_info->{a_uah});
    		$proto->{a_usd}=format_float($a_info->{a_usd});
  		$proto->{a_eur}=format_float($a_info->{a_eur});
+ 		$proto->{a_btc}=format_float($a_info->{a_btc});
 		
 		$proto->{non_a_uah}=$a_info->{a_uah};
    		$proto->{non_a_usd}=$a_info->{a_usd};
  		$proto->{non_a_eur}=$a_info->{a_eur};
+ 		$proto->{non_a_btc}=$a_info->{a_btc};
 
-		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur};
-		$proto->{control_sum_exist_fin}=$proto->{sums}->{ $prew }->{'UAH'}+$proto->{sums}->{ $prew }->{'USD'}+$proto->{sums}->{ $prew }->{'EUR'};
+		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur}+ $a_info->{a_btc} ;
+		$proto->{control_sum_exist_fin}=$proto->{sums}->{ $prew }->{'UAH'}+$proto->{sums}->{ $prew }->{'USD'}+$proto->{sums}->{ $prew }->{'EUR'}+$proto->{sums}->{ $prew }->{'BTC'};
 
 
 
 		$proto->{fin_uah}=format_float($proto->{sums}->{ $prew }->{'UAH'});
   		$proto->{fin_usd}=format_float($proto->{sums}->{ $prew }->{'USD'});
   		$proto->{fin_eur}=format_float($proto->{sums}->{ $prew }->{'EUR'});
+                $proto->{fin_btc}=format_float($proto->{sums}->{ $prew }->{'BTC'});
+
 
 	}
 
@@ -1296,16 +1317,6 @@ sub sum_
 {
 	my ($arr,$row,$prev_row,$proto,$compare)=@_;
 		
-#	my $ts_sec=$dbh->selectrow_array(qq[
-#	SELECT TIME_TO_SEC('$row->{ts}')+TO_DAYS('$row->{ts}')*864000
-#	]);
-	
-	#calculate from date
-	
-	#3if($ts_sec<$compare)
-	#{
-	#	return
-	#}
 	unless($prev_row)
 	{
 		##if the first row begin our calculation
@@ -1314,6 +1325,8 @@ sub sum_
 		$proto->{sums}->{ $row->{ct_date} }->{'UAH'}=0;
 		$proto->{sums}->{ $row->{ct_date} }->{'USD'}=0;
 		$proto->{sums}->{ $row->{ct_date} }->{'EUR'}=0;
+                $proto->{sums}->{ $row->{ct_date} }->{'BTC'}=0;
+
 		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 		
 	}
@@ -1329,6 +1342,7 @@ sub sum_
 		$proto->{sums}->{ $row->{ct_date} }->{UAH}=$proto->{sums}->{ $prev_row }->{UAH};
 		$proto->{sums}->{ $row->{ct_date} }->{USD}=$proto->{sums}->{ $prev_row }->{USD};
 		$proto->{sums}->{ $row->{ct_date} }->{EUR}=$proto->{sums}->{ $prev_row }->{EUR};
+		$proto->{sums}->{ $row->{ct_date} }->{BTC}=$proto->{sums}->{ $prev_row }->{BTC};
 
 		push 	@$arr,$proto->{sums}->{ $prev_row };
 
@@ -1506,7 +1520,7 @@ sub generate_set_of_dates_array{
     return  \@res;
 }
 
-
+### add color for btc
 sub sum
 {
 	##$prev_row - in our case its date
@@ -1575,7 +1589,7 @@ sub sum
 				    BTC_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'BTC'}),
 				    USD_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'USD'}),
 				    EUR_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'EUR'}),
-                    DEBT_FORMAT=>$proto->{docs}->{ $prev_row }->{all},
+                                    DEBT_FORMAT=>$proto->{docs}->{ $prev_row }->{all},
 				    REPORT_UAH=>$proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{ 
 				    $row->{ct_date} }->{rr_rate},
 				    concl_color=>($proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{ 

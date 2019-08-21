@@ -48,20 +48,33 @@ $EXCEL_EXPORT_PATH
 
 ##config of setting of rate of various currencies
     our @RATE_FORMS=(
+    	{from=>'BTC',to=>'UAH',rate_form=>1},
+    	{from=>'BTC',to=>'USD',rate_form=>1},
+    	{from=>'BTC',to=>'EUR',rate_form=>1},
+    	
     	{from=>'USD',to=>'UAH',rate_form=>1},
     	{from=>'USD',to=>'EUR',rate_form=>-1},
+    	{from=>'USD',to=>'BTC',rate_form=>-1},
+    	
     	{from=>'UAH',to=>'USD',rate_form=>-1},			
     	{from=>'UAH',to=>'EUR',rate_form=>-1},
+    	{from=>'UAH',to=>'BTC',rate_form=>-1},
+    	
     	{from=>'EUR',to=>'USD',rate_form=>1},			
     	{from=>'EUR',to=>'UAH',rate_form=>1},
+    	{from=>'EUR',to=>'BTC',rate_form=>-1},
+    	
 	{from=>'EUR',to=>'EUR',rate_form=>1},
+	{from=>'BTC',to=>'BTC',rate_form=>1},
 	{from=>'UAH',to=>'UAH',rate_form=>1},
 	{from=>'USD',to=>'USD',rate_form=>1},
     ); 	
     our %RATE_FORMS=(
- 	USD=>{USD=>1,UAH=>-1,EUR=>-1},
-	UAH=>{USD=>-1,UAH=>1,EUR=>-1},
- 	EUR=>{USD=>1,UAH=>1,EUR=>1},
+ 	USD=>{USD=>1,UAH=>-1,EUR=>-1, BTC=>-1},
+	UAH=>{USD=>-1,UAH=>1,EUR=>-1, BTC=>-1},
+ 	EUR=>{USD=>1,UAH=>1,EUR=>1, BTC=>-1},
+        BTC=>{USD=>1,UAH=>1,EUR=>1,BTC=>1},
+
    ); 
 our $working_path='/home/fsb/new_fsb/www/';
 

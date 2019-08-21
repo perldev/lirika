@@ -460,12 +460,12 @@ sub handle_errors{
         my $tmpl = Template->new(
 	    {
 	    INCLUDE_PATH => $DIR,
-                INTERPOLATE  => 1,               # expand "$var" in plain text
-                POST_CHOMP   => 1,               # cleanup whitespace 
-                EVAL_PERL    => 1,
-        CACHE_SIZE => 256,
-        COMPILE_EXT => '.ttc',  
-        COMPILE_DIR=>$COMPILE_DIR 
+            INTERPOLATE  => 1,               # expand "$var" in plain text
+            POST_CHOMP   => 1,               # cleanup whitespace 
+            EVAL_PERL    => 1,
+            CACHE_SIZE => 256,
+            COMPILE_EXT => '.ttc',  
+            COMPILE_DIR=>$COMPILE_DIR 
 	    }
         );
 

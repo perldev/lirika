@@ -1203,8 +1203,9 @@ sub list
         $proto->{a_incom_uah}=format_float($income->{a_uah});
 
         $proto->{a_uah}=format_float($proto->{a_uah});
-	    $proto->{a_usd}=format_float($proto->{a_usd}); 
-		$proto->{a_eur}=format_float($proto->{a_eur}); 
+        $proto->{a_usd}=format_float($proto->{a_usd}); 
+        $proto->{a_eur}=format_float($proto->{a_eur}); 
+        $proto->{a_btc}=format_float($proto->{a_btc});
 		
         $proto->{a_name}=$ref->{a_name};
 
@@ -1232,17 +1233,22 @@ sub list
   		$proto->{beg_usd}=$ref->{a_usd}-$sums->{USD};#$ref->{a_usd}-$from->{USD};
 
   		$proto->{beg_eur}=$ref->{a_eur}-$sums->{EUR};
+  		
+  		$proto->{beg_btc}=$ref->{a_btc}-$sums->{BTC};
 
 
 		
 		$proto->{orig__beg_uah}=$proto->{beg_uah};
   		$proto->{orig__beg_usd}=$proto->{beg_usd};
   		$proto->{orig__beg_eur}=$proto->{beg_eur};
+  		$proto->{orig__beg_btc}=$proto->{beg_btc};
 	
 		$proto->{beg_uah}=format_float($proto->{beg_uah});
   		$proto->{beg_usd}=format_float($proto->{beg_usd});
   		$proto->{beg_eur}=format_float($proto->{beg_eur});
+  		$proto->{beg_btc}=format_float($proto->{beg_btc});
 
+  		
 		$proto->{from_date}=format_date($filter_where[0]);
  		$proto->{to_date}=format_date($filter_where[1]);
  		$proto->{reports_rate}=$dbh->selectall_hashref(qq[SELECT 
