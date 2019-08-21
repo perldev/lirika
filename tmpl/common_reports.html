@@ -15,8 +15,20 @@
 
 		</td>
 		</tr>
-
+                <!--<TR>
+			<th class=table_gborders COLSPAN=3  HEIGHT=16>Заёмные средства</Th>
+			<Th class=table_gborders COLSPAN=3 ALIGN=CENTER>Собственные средства</Th>
+		</TR>-->
 		<TR>
+			<Th class=table_gborders HEIGHT=16 ALIGN=CENTER><I>Наименование</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>Дата</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>UAH</I></Th>
+			<Th class=table_gborders  ALIGN=CENTER><I>USD</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>EUR</I></Th>
+			<Th class=table_gborders ALIGN=CENTER><I>BTC</I></Th>
+		</TR>
+		-->
+		<!--<TR>
 			<th class=table_gborders COLSPAN=3  HEIGHT=16>Заёмные средства</Th>
 			<Th class=table_gborders COLSPAN=3 ALIGN=CENTER>Собственные средства</Th>
 		</TR>
@@ -28,7 +40,7 @@
 			<Th class=table_gborders ALIGN=CENTER><I>Дата</I></Th>
 			<Th class=table_gborders ALIGN=CENTER><I>Сумма</I></Th>
 		</TR>
-		
+		-->
 		
 		
 		
@@ -37,9 +49,7 @@
 
 		</tr>
 		<tr>
-		<td colspan=3 class="table_gborders">Мы должны :</td>
-		<td colspan=3 class="table_gborders">Нам должны :</td>
-
+                    <td colspan=6 class="table_gborders">Мы должны :</td>
 		</tr>
 	
 		[% FOREACH  rows=permanent_cards%]
@@ -54,31 +64,33 @@
 		</TR>
 		<TR>
 			
-			<Th colspan="1" class=table_gborders ALIGN=LEFT>
+			<Th colspan="2" class=table_gborders ALIGN=LEFT>
 			<strong> Всего : </strong>
 			</Th>
-			<Th colspan="2" class=table_gborders ALIGN=LEFT>
-			<strong> $rows.sum_mines </strong>
+			<Th  class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_uah </strong>
 			</Th>
-			<Th colspan="1" class=table_gborders ALIGN=LEFT>
-			<strong> Всего : </strong>
+			<Th  class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_usd </strong>
 			</Th>
-			<Th colspan="2" class=table_gborders ALIGN=LEFT>
-			<strong> $rows.sum_plus </strong>
+			<Th  class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_eur </strong>
 			</Th>
+			<Th  class=table_gborders ALIGN=LEFT>
+			<strong> $rows.sum_btc </strong>
+			</Th>
+			
 			
 		</TR>
 		[% ELSE %]
 		<TR>
 			
-			<TD class=table_gborders ALIGN=LEFT>
-			<a class="table_gborders" href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&ct_aid=$rows.plus_column.a_id">$rows.plus_column.a_name</a> 
-			</TD>
-			<TD class=table_gborders align=right>$rows.plus_column.last_ts</TD>
-			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.plus_column.amnt</TD>
-			<TD  ALIGN=LEFT class=table_gborders><a class="table_gborders" href="accounts_reports.cgi?do=list&amp;action=filter&amp;ct_date=all_time&ct_aid=$rows.mines_column.a_id">$rows.mines_column.a_name</a></TD>
-			<TD ALIGN=RIGHT class=table_gborders>$rows.mines_column.last_ts</TD>
-			<TD ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.mines_column.amnt </TD>
+			<TD class=table_gborders ALIGN=LEFT><a class="table_gborders" >$rows.a_name</a></TD>
+			<TD class=table_gborders align=right>$rows.last_ts</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.a_uah</TD>
+                        <TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.a_usd</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.a_eur</TD>
+			<TD  ALIGN=RIGHT  class=table_gborders  onclick="sum(this)">$rows.a_btc</TD>
 		</TR>
 		[% END %]
 	
@@ -90,18 +102,17 @@
 
 		[% FOREACH rows=non_identifier %]
 		<TR>
-			<TD   class=table_gborders HEIGHT=16 ALIGN=LEFT >
-<a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.left_column.f_id">
- $rows.left_column.f_name </a></TD>
-			<TD  class=table_gborders ALIGN=LEFT ></TD>
-			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.left_column.amnt </TD>
-			<TD  class=table_gborders ALIGN=LEFT ><a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.right_column.f_id">$rows.right_column.f_name </a></TD>
-			<TD   class=table_gborders ALIGN=LEFT ><BR></TD>
-			<TD  class=table_gborders ALIGN=RIGHT  onclick="sum(this)">$rows.right_column.amnt</TD>
+                        <TD   class=table_gborders HEIGHT=16 ALIGN=LEFT >
+                        <a class="table_gborders" href="#"  colspan="2">$rows.f_name </a></TD>
+			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_uah </TD>
+                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_usd </TD>
+                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_eur </TD>
+                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_btc </TD>
+
 		</TR>
-		[%END%]
+		[% END %]
 		
-		
+		<!--
 		<TR>
 			<TH  HEIGHT=16 ALIGN=LEFT colspan=6 class=table_gborders>Процентные выплаты</TD>
 			
@@ -115,7 +126,7 @@
 			<TD  class=table_gborders ALIGN=LEFT>$rows.right_column.ts</TD>
 			<TD  class=table_gborders ALIGN=LEFT  onclick="sum(this)">$rows.right_column.credit_sum</TD>
 		</TR>
-		[% END %]
+		[% END %]-->
 	
 		<TR>
 			<Th  colspan=6 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;(остатки на счетах фирм и кассы,общая сумма приведена к доллару)</Th>
@@ -125,19 +136,20 @@
 
 		[% FOREACH rows=firm_balances %]		
 		<TR>
-	<TD  class=table_gborders  ALIGN=LEFT><a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.left_column.f_id">$rows.left_column.f_name</a></TD>
-			<TD   class=table_gborders>$rows.left_column.last_ts</TD>
-			<TD    onclick="sum(this)" ALIGN=RIGHT  class=table_gborders>$rows.left_column.amnt</TD>
-			
-			
-			<TD  class=table_gborders  ALIGN=LEFT><a class="table_gborders" href="firm_trans.cgi?action=filter&amp;ct_date=all_time&amp;ct_fid=$rows.right_column.f_id">$rows.right_column.f_name</a></TD>
-			<TD   class=table_gborders>$rows.right_column.last_ts</TD>
-			<TD  ALIGN=RIGHT   onclick="sum(this)" class=table_gborders>$rows.right_column.amnt</TD>
+                    <TR>
+                        <TD   class=table_gborders HEIGHT=16 ALIGN=LEFT >
+                         <a class="table_gborders" href="#"  colspan="2">$rows.f_name </a></TD>
+			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_uah </TD>
+                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_usd </TD>
+                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_eur </TD>
+                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_btc </TD>
+
+		</TR>
+		
+		
 		</TR>
 		[% END %]
-	
-
-
+		
 		<TR>
 			<th class=table_gborders rowspan=3 colspan=3>
 			
@@ -160,11 +172,17 @@
 
 <!--master cards-->	</th>
 		
-	<TH ALIGN=RIGHT class=table_gborders colspan=2>Средств в работе:&nbsp;
+	<TH ALIGN=RIGHT class=table_gborders >Средств в работе:&nbsp;
 			(общая сумма остатков на карточках,фирмах,<br>кассе,нерасчитанных приведненная к долларам)		
 
 	</Th>
-		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money</Td>
+                <Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_uah</Td>
+
+		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_usd</Td>
+		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_eur</Td>
+		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_btc</Td>
+
+		
 	</TR>
 		
 
