@@ -4,7 +4,7 @@ use strict;
 
 use base 'CGIBase';
 use CGI::Carp qw(fatalsToBrowser);
-use Data:Dumper;
+use Data::Dumper;
 use SiteConfig;
 use SiteDB;
 use SiteCommon;
