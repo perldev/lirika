@@ -83,6 +83,7 @@ our @EXPORT = qw(
 	    $VAL_PAYMENTS
 	    andrey_float_format  
 	    $FIRMS_CONV
+	    @currencies_withbtc
 	    %MAIN_STATUSES
 	    $RESIDENT_CURRENCY
 	    $DOCUMENTS
@@ -184,9 +185,9 @@ our $FIRMS_TRANSACTIONS=-13;
 our $RESIDENT_CURRENCY='UAH';
 our $FIRMS_CONV=-2;
 our $now_hash = now();
-our $avail_currency={UAH=>'a_uah', USD=>'a_usd',EUR=>'a_eur', "BTC"=>"a_btc"};
-our $avail_currency_firms={UAH=>'f_uah',USD=>'f_usd', EUR=>'f_eur', "BTC"=>'f_btc'};
-our $conv_currency={UAH=>'ÃÐÍ',USD=>'USD',EUR=>'EUR', "BTC"=>"BTC"};
+our $avail_currency={UAH=>'a_uah', USD=>'a_usd',EUR=>'a_eur', BTC=>"a_btc"};
+our $avail_currency_firms={UAH=>'f_uah',USD=>'f_usd', EUR=>'f_eur', BTC=>'f_btc'};
+our $conv_currency={UAH=>'ÃÐÍ',USD=>'USD',EUR=>'EUR', BTC=>"BTC"};
 our $chat_last_mesgs=' 2 hour ';
 our $DEFAULT_DOCUMENT_PERCENT=2.5;
 our $SQL_DELAYED='  ';
@@ -269,6 +270,17 @@ our @currencies=(
         {'value'=>"UAH", 'title'=>"ÃÐÍ"},
          {'value'=>"USD", 'title'=>"USD"},
          {'value'=>"EUR", 'title'=>"EUR"},
+);
+
+our @currencies_withbtc= (
+        {'value'=>"", 'title'=>"Âûáðàòü âàëþòó"},
+        {'value'=>"UAH", 'title'=>"ÃÐÍ"},
+         {'value'=>"USD", 'title'=>"USD"},
+         {'value'=>"EUR", 'title'=>"EUR"},
+         {'value'=>"BTC", 'title'=>"BTC"},
+
+
+
 );
 #for calculating accounts_reports
 ##and using in the reports

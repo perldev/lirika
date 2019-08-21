@@ -31,11 +31,11 @@ $proto={
     
                     #{'field'=>"t_amnt", "title"=>"Сумма", 'filter'=>"="},
                     {'field'=>"e_currency1", "title"=>"Из валюты", "type"=>"select"
-                    , "titles"=>\@currencies
+                    , "titles"=>\@currencies_withbtc
                     , 'filter'=>"="
                     },
                     {'field'=>"e_currency2", "title"=>"В валюту", "type"=>"select"
-                    , "titles"=>\@currencies
+                    , "titles"=>\@currencies_withbtc
                     , 'filter'=>"="
                     }
     ]
