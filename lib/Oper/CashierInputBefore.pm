@@ -19,7 +19,13 @@ sub get_right
 
     return 'denied'    unless($kassa_id);
 
-
+    my $currencies;
+    if $self->{currencies}{
+        $currencies = $self->{currencies};
+    }else{
+        $currencies = \@currencies;
+    
+    }
 
     $proto={
         'table'=>"cashier_transactions", 
@@ -208,7 +214,7 @@ sub get_right
             },
             {'field'=>"ct_currency", "title"=>"Валюта"
             , "type"=>"select"
-            , "titles"=>\@currencies
+            , "titles"=>$currencies
             , 'filter'=>"=",
 	        'req_currency'=>1,
             },

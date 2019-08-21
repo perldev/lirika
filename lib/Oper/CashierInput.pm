@@ -15,7 +15,15 @@ sub get_right
                                       FROM cash_offices 
                                       WHERE co_name=?],undef,$self->{cash});    
     return 'denied'    unless($kassa_id);
-
+    my $currencies;
+    if $self->{currencies}{
+        $currencies = $self->{currencies};
+    }else{
+        $currencies = \@currencies;
+    
+    }
+    
+    
     $proto={
         'table'=>"cashier_transactions", 
         'page_title'=>"Подтверждение ввода наличных $kassa_title",
@@ -42,7 +50,7 @@ sub get_right
             },
             {'field'=>"ct_currency",no_add_edit=>1, "title"=>"Валюта"
             , "type"=>"select"
-            , "titles"=>\@currencies
+            , "titles"=>$currencies
             , 'filter'=>"="
             },
             {'field'=>"ct_comment", "title"=>"Назначение", "default"=>'Ввод наличных',filter=>'like', no_add_edit=>1, },

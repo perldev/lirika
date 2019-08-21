@@ -24,7 +24,13 @@ sub get_right
                                                             WHERE co_name=?],undef,$self->{cash});    
 
     return 'denied'    unless($kassa_id);
-
+    my $currencies;
+    if $self->{currencies}{
+        $currencies = $self->{currencies};
+    }else{
+        $currencies = \@currencies;
+    
+    }
     my $opers=get_operators();
     use Data::Dumper;
     shift @{$opers};
@@ -54,7 +60,7 @@ sub get_right
             {'field'=>'ct_req',no_add_edit=>1,edit_expr=>"'no'",'no_view'=>1},
             {'field'=>"ct_currency", "title"=>"Âàëşòà", "no_add_edit"=>1
             , "type"=>"select"
-            , "titles"=>\@currencies
+            , "titles"=>$currencies
             , 'filter'=>"="
             },
             {'field'=>"ct_comment", "title"=>"Íàçíà÷åíèå", "no_add_edit"=>1,filter=>'like'},

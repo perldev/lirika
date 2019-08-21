@@ -201,6 +201,19 @@ our $DEF_TABS={
        cash_out2_kiev8=>{"value"=>"cash_out2_kiev8",script=>'cashier_output2_kiev8.cgi' , "title"=>"Расход кассы киев 8",desc=>"Непосредственный ввывод наличных"},
        cash_in_kiev8=>{"value"=>"cash_in_kiev8", script=>'cashier_input_kiev8.cgi',"title"=>"Приход кассы киев 8",desc=>"Ввод наличных в систему на карточки"},
        cash_kiev8=>{"value"=>"cash_kiev8", script=>'cash_kiev8.cgi',"title"=>"Касса Киев 8",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+       
+       
+       
+       cash_in_before_btc=>{"value"=>"cash_in_before_btc", "title"=>"Заявки на приход кассы киев BTC",desc=>'Непосредственный ввод BTC',script=>'cashier_input_before_btc.cgi'},
+       cash_out_btc=>{"value"=>"cash_out_btc",script=>'cashier_output_btc.cgi' ,"title"=>"Заявки на расход кассы киев BTC",desc=>"Работа с заявками на  вывод BTC "},
+       cash_out2_btc=>{"value"=>"cash_out2_btc",script=>'cashier_output2_btc.cgi' , "title"=>"Расход кассы киев BTC",desc=>"Непосредственный ввывод BTC"},
+       cash_in_btc=>{"value"=>"cash_in_btc", script=>'cashier_input_btc.cgi',"title"=>"Приход кассы киев BTC",desc=>"Ввод BTC в систему на карточки"},
+       cash_btc=>{"value"=>"cash_btc", script=>'cash_btc.cgi',"title"=>"Касса BTC",desc=>'Сводная таблица BTC приходы и расходы  по дням Киев '},
+       exch_btc=>{"value"=>"exch_btc",script=>'exch_btc.cgi', "title"=>"Обмен BTC",desc=>'Обмен валют для  BTC'},
+
+#  
+       
+       
 #  
 #     
 

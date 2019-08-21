@@ -21,6 +21,13 @@ sub get_right
                                       FROM cash_offices 
                                       WHERE co_name=?],undef,$self->{cash});  
     return 'denied'    unless($kassa_id);
+    my $currencies;
+    if $self->{currencies}{
+        $currencies = $self->{currencies};
+    }else{
+        $currencies = \@currencies;
+    
+    }
 
     
      $proto={
@@ -384,7 +391,7 @@ sub get_right
             {
             'field'=>"ct_currency", "title"=>"Валюта"
             , "type"=>"select"
-            , "titles"=>\@currencies
+            , "titles"=>$currencies
             , 'filter'=>"=",
 	        'req_currency'=>1,
             },

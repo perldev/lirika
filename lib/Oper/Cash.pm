@@ -89,9 +89,13 @@ sub cash_last_record
   			      	UAH=>	$proto->{sums}->{ $prew }->{'UAH'},
   			      	USD=>	$proto->{sums}->{ $prew }->{'USD'},
  				EUR=>	$proto->{sums}->{ $prew }->{'EUR'},
+                                BTC=>	$proto->{sums}->{ $prew }->{'BTC'},
+
  				UAH_FORMAT=>format_float($proto->{sums}->{ $prew }->{'UAH'}),
  				USD_FORMAT=>format_float($proto->{sums}->{ $prew }->{'USD'}),
  				EUR_FORMAT=>format_float($proto->{sums}->{ $prew }->{'EUR'}),
+                                BTC_FORMAT=>format_float($proto->{sums}->{ $prew }->{'BTC'}),
+
   			     };	
 	@$rows=reverse(@$rows); 
 
@@ -113,7 +117,9 @@ sub cash_sum
 		$proto->{sums}->{ $date }->{'UAH'}=$proto->{orig__beg_uah};
 		$proto->{sums}->{ $date }->{'USD'}=$proto->{orig__beg_usd};
 		$proto->{sums}->{ $date }->{'EUR'}=$proto->{orig__beg_eur};
+		$proto->{sums}->{ $date }->{'BTC'}=$proto->{orig__beg_btc};
 
+		
 		$proto->{reports_rate}->{ $date }={rr_rate=>5.05} unless( $proto->{reports_rate}->{$date });
 
 		push @$array,{
@@ -121,9 +127,13 @@ sub cash_sum
 				UAH=>$proto->{sums}->{ $date }->{'UAH'},
  			      	USD=>$proto->{sums}->{ $date }->{'USD'},
 				EUR=>$proto->{sums}->{ $date }->{'EUR'},
+                                BTC=>$proto->{sums}->{ $date }->{'BTC'},
+
 				UAH_FORMAT=>format_float($proto->{sums}->{ $date }->{'UAH'}),
 				USD_FORMAT=>format_float($proto->{sums}->{ $date }->{'USD'}),
 				EUR_FORMAT=>format_float($proto->{sums}->{ $date }->{'EUR'}),
+                                EUR_FORMAT=>format_float($proto->{sums}->{ $date }->{'BTC'}),
+
  				
  			     };
 		
@@ -151,8 +161,11 @@ sub cash_sum
  			      	UAH=>$proto->{sums}->{ $prev_row }->{UAH},
  			      	USD=>$proto->{sums}->{ $prev_row }->{USD},
 				EUR=>$proto->{sums}->{ $prev_row }->{EUR},
+                                BTC=>$proto->{sums}->{ $prev_row }->{BTC},
+
 				UAH_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'UAH'}),
 				USD_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'USD'}),
+                                BTC_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'BTC'}),
 				EUR_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'EUR'}),
  			     };	
 	
