@@ -1124,10 +1124,10 @@ sub get_permanent_cards_cats
 # 	{
 # 		$size=@plus_cards;
 # 	}
-	for(my $i=0;$i<$size;$i++)
-	{
-		push @{$common_result},{mines_column=>$mines_cards[$i],plus_column=>$plus_cards[$i]}
-	}	
+# 	for(my $i=0;$i<;$i++)
+# 	{
+# 		push @{$common_result},{mines_column=>$mines_cards[$i],plus_column=>$plus_cards[$i]}
+# 	}	
  	
 	
 
