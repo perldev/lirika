@@ -162,9 +162,9 @@ sub add
 {
    my $self = shift;
    my $head=$self->query->param('header_rates');
-   die Dumper $head;
 	if($head)
 	{
+                
 		my $proto1={
 			'table'=>"header_rates",  
 			'need_confirmation'=>1,
@@ -185,9 +185,9 @@ sub add
 			};
    		
 		return $self->proto_add_edit('add', $proto1);
-	}
-
-   return $self->proto_add_edit('add', $proto);
+	}else{
+            return $self->proto_add_edit('add', $proto);
+        }
 }
 
 sub edit
