@@ -241,8 +241,8 @@ sub proto_add_edit_trigger{
 	{
 		my ($currency1,$currency2,$rate)=($self->query->param('r_currency1'),$self->query->param('r_currency2'),$self->query->param('r_rate'));
 		$row->{expr} = pow($rate, $RATE_FORMS{$currency1}->{$currency2});
-                die Dumper ($currency1,$currency2,$rate);
 		$self->query->param('r_rate',$row->{expr});
+		die $row->{expr};
 	}
    }
 
@@ -271,11 +271,13 @@ sub proto_add_edit_trigger{
 				my $rate=$self->query->param('rr_rate');
 				$params->{sql}=qq[UPDATE reports_rate SET rr_rate=$rate WHERE rr_id=].$params->{p}->{my_id};
 			}
+                        
 			$dbh->do($params->{sql});
 
 	    }	
 	    else
 	    {
+	        
     		$dbh->do($params->{sql});
 		
 
