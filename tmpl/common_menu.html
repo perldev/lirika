@@ -802,6 +802,68 @@
  [% END %]
  
  
+<!--  <BTC> -->
+ 
+ 
+[% IF rights.exch_btc %] 
+[% IF 'exch_btc' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.exch_btc.script"><nobr>$tabs.exch_btc.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.exch_btc.script"><nobr>$tabs.exch_btc.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_in_before_btc %] 
+[% IF 'cash_in_before_btc' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_before_btc.script"><nobr>$tabs.cash_in_before_btc.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_before_btc.script"><nobr>$tabs.cash_in_before_btc.title</nobr></a>
+  [% END %]
+ 
+
+[% END %]
+
+
+[% IF rights.cash_in_btc %] 
+[% IF 'cash_in_btc' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_btc.script"><nobr>$tabs.cash_in_btc.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_btc.script"><nobr>$tabs.cash_in_btc.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+[% IF rights.cash_out_btc %] 
+[% IF 'cash_out_btc' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out_btc.script"><nobr>$tabs.cash_out_btc.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out_btc.script"><nobr>$tabs.cash_out_btc.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+[% IF rights.cash_out2_btc %]
+[% IF 'cash_out2_btc' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_out2_btc.script"><nobr>$tabs.cash_out2_btc.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_out2_btc.script"><nobr>$tabs.cash_out2_btc.title</nobr></a>
+  [% END %]
+ 
+[% END %]
+
+
+[% IF rights.cash_btc %] 
+[% IF 'cash_btc' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_btc.script"><nobr>$tabs.cash_btc.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_btc.script"><nobr>$tabs.cash_btc.title</nobr></a>
+  [% END %]
+ [% END %]
+ 
+ 
  
  
 <!-- kiev -->
