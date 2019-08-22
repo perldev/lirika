@@ -227,9 +227,9 @@ sub list
                             SUM_UAH_REQ=>0,
                             SUM_USD_REQ=>0,
                             SUM_EUR_REQ=>0,
-                            unformat_uah_fin=>0,
-                            unformat_usd_fin=>0,
-                            unformat_eur_fin=>0,
+                            unformat_uah_fin=>$banks_hash{UAH},
+                            unformat_usd_fin=>$banks_hash{USD},
+                            unformat_eur_fin=>$banks_hash{EUR},
                             };
                         $bank = $banks->{ $bank_id };
                         push @res, $bank;
@@ -287,8 +287,6 @@ sub list
                         $req_sums_banks->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);			
                         
                         $hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
-                        ##calculating banks
-                        $banks_hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
                         
                         $pays_count_u+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'USD');
                         $pays_count_e+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'EUR');
@@ -320,15 +318,20 @@ sub list
                 $bank->{unformat_sum_uah}=$req_sums_banks->{UAH};
                 $bank->{unformat_sum_usd}=$req_sums_banks->{USD};
                 $bank->{unformat_sum_eur}=$req_sums_banks->{EUR};
+                
                 $bank->{SUM_UAH_REQ}=format_float($req_sums_banks->{UAH});
                 $bank->{SUM_USD_REQ}=format_float($req_sums_banks->{USD});
                 $bank->{SUM_EUR_REQ}=format_float($req_sums_banks->{EUR});
-                $bank->{UAH_FIN}=format_float($bank->{unformat_uah_beg}+$banks_hash{UAH});
-                $bank->{USD_FIN}=format_float($bank->{unformat_usd_beg}+$banks_hash{USD});
-                $bank->{EUR_FIN}=format_float($bank->{unformat_eur_beg}+$banks_hash{EUR});
-                $bank->{unformat_uah_fin}=$bank->{unformat_uah_beg}+$banks_hash{UAH};
-                $bank->{unformat_usd_fin}=$bank->{unformat_usd_beg}+$banks_hash{USD};
-                $bank->{unformat_eur_fin}=$bank->{unformat_eur_beg}+$banks_hash{EUR};
+                
+                $bank->{unformat_uah_fin}+=$hash{UAH};
+                $bank->{unformat_usd_fin}+=$hash{USD};
+                $bank->{unformat_eur_fin}+=$hash{EUR};
+                
+                
+                $bank->{UAH_FIN}=format_float($bank->{unformat_uah_fin});
+                $bank->{USD_FIN}=format_float($bank->{unformat_usd_fin});
+                $bank->{EUR_FIN}=format_float($bank->{unformat_eur_fin});
+                
                 
         }
         
