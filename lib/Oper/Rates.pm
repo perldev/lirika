@@ -88,7 +88,7 @@ sub main{
             
                 my ($buy, $sell) = ('', '');
                 
-                $r = $dbh->selectrow_hashref(
+                my $r = $dbh->selectrow_hashref(
                     "SELECT * FROM rates WHERE r_currency1='$BASE_CURRENCY' AND r_currency2='?' AND r_type='cash' ORDER BY r_id DESC LIMIT 1"
                     , undef, $cur1
                 );
@@ -108,7 +108,7 @@ sub main{
             
                 my ($buy, $sell) = ('', '');
                 
-                $r = $dbh->selectrow_hashref(
+                my $r = $dbh->selectrow_hashref(
                     "SELECT * FROM rates WHERE r_currency1='$BASE_CURRENCY' AND r_currency2='?' AND r_type='cashless' ORDER BY r_id DESC LIMIT 1"
                     , undef, $cur1
                 );
