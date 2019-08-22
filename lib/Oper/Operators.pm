@@ -55,7 +55,7 @@ sub get_right
 };
 
    $proto->{fields}->[5]->{"titles"}=get_desc_rights_array();
-   $proto->{fields}->[7]->{"titles"}=get_accounts_simple();
+   $proto->{fields}->[7]->{"titles"}=get_accounts_simple_with_block();
    $proto->{fields}->[9]->{"titles"}=get_accounts_simple_with_block();
    #die(Dumper($proto->{fields}));
 
