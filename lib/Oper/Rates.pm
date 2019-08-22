@@ -249,9 +249,8 @@ sub proto_add_edit_trigger{
 	{
 		my ($currency1,$currency2,$rate)=($self->query->param('r_currency1'),$self->query->param('r_currency2'),$self->query->param('r_rate'));
 		
-		die $rate, $RATE_FORMS{$currency1}->{$currency2}, $rate**$RATE_FORMS{$currency1}->{$currency2};
-		$row->{expr} = lowpow($rate, $RATE_FORMS{$currency1}->{$currency2});
-		
+		$row->{expr} = $rate**$RATE_FORMS{$currency1}->{$currency2};
+                die $row->{expr};
 		$self->query->param('r_rate',$row->{expr});
 	}
    }
