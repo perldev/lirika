@@ -99,7 +99,7 @@ sub main{
                 );
                 
                 $buy = $r->{r_rate} if($r);
-                push @cash_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($buy, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                push @cash_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
                 
         }
         
@@ -119,7 +119,7 @@ sub main{
                 );
                 
                 $buy = $r->{r_rate} if($r);
-                push @cashless_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($buy, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                push @cashless_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
                 
         }
         
