@@ -240,6 +240,7 @@ sub list
                 
                 my %hash=( 'UAH'=>$hash->{$_}->{f_uah}-$hash->{$_}->{UAH},
                 'USD'=>$hash->{$_}->{f_usd} - $hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
+                my %sum_hash=( 'UAH'=>0, 'USD'=>0,'EUR'=>0 );	
                 
                 my $first={
                             f_name=>$hash->{$_}->{f_name},
@@ -290,6 +291,8 @@ sub list
                         $req_sums_banks->{$ref->[$i]->[1]}+=$ref->[$i]->[0] if($ref->[$i]->[0]<0);			
                         
                         $hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+                        $sum_hash{$ref->[$i]->[1]}+=$ref->[$i]->[0];
+
                         
                         $pays_count_u+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'USD');
                         $pays_count_e+=($ref->[$i]->[0]<0&&$ref->[$i]->[2] ne 'yes'&&$ref->[$i]->[3] ne 'transit'&&$ref->[$i]->[1] eq 'EUR');
@@ -326,15 +329,15 @@ sub list
                 $bank->{SUM_USD_REQ}=format_float($req_sums_banks->{USD});
                 $bank->{SUM_EUR_REQ}=format_float($req_sums_banks->{EUR});
                 
-                $bank->{unformat_uah_fin}+=$hash{UAH};
-                $bank->{unformat_usd_fin}+=$hash{USD};
-                $bank->{unformat_eur_fin}+=$hash{EUR};
+                $bank->{unformat_uah_fin}+=$sum_hash{UAH};
+                $bank->{unformat_usd_fin}+=$sum_hash{USD};
+                $bank->{unformat_eur_fin}+=$sum_hash{EUR};
                 
                 
                 $bank->{UAH_FIN}=format_float($bank->{unformat_uah_fin});
                 $bank->{USD_FIN}=format_float($bank->{unformat_usd_fin});
                 $bank->{EUR_FIN}=format_float($bank->{unformat_eur_fin});
-                die Dumper $bank, \%hash, $hash;
+#                 die Dumper $bank, \%hash, $hash;
                 
         }
         
