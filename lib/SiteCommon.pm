@@ -2451,7 +2451,7 @@ sub get_permit_accounts_simple
       $str=qq[ AND oaav_oid=$oid];
   }
 
-   my $sql = qq[SELECT a_name,a_id,a_uah,a_usd,a_eur FROM accounts_view
+   my $sql = qq[SELECT a_name,a_id,a_uah,a_usd,a_eur ,a_btc FROM accounts_view
     WHERE a_status='active' $str  ORDER BY lcase(a_name) 
    ];
    my $sth =$dbh->prepare($sql);
@@ -2459,7 +2459,7 @@ sub get_permit_accounts_simple
 
    while(my $r = $sth->fetchrow_hashref)
    {
-     $r->{title} ="$r->{a_name}(#$r->{a_id}) ";
+     $r->{title} ="$r->{a_name}(#$r->{a_id}) $r->{a_uah} UAH,$r->{a_usd} USD, $r->{a_eur} EUR, $r->{a_btc} BTC ";
      $r->{value} =$r->{a_id};	
      push @rows, $r;
    }
@@ -2480,7 +2480,7 @@ sub get_accounts_simple
    {
     $str=" AND a_acid=$ac_id";
    }
-   my $sql = qq[SELECT a_name,a_id,a_uah,a_usd,a_eur FROM accounts  WHERE a_status='active' $str and a_id>0 ORDER BY lcase(a_name)
+   my $sql = qq[SELECT a_name,a_id,a_uah,a_usd,a_eur, a_btc FROM accounts  WHERE a_status='active' $str and a_id>0 ORDER BY lcase(a_name)
    ];
    my $sth =$dbh->prepare($sql);
    $sth->execute();                          
@@ -2509,7 +2509,7 @@ sub get_accounts_simple_with_block
    {
     $str=" AND a_acid=$ac_id";
    }
-   my $sql = qq[SELECT a_name,a_status,a_id,a_uah,a_usd,a_eur FROM accounts  WHERE a_status!='deleted' $str ORDER BY lcase(a_name)
+   my $sql = qq[SELECT a_name,a_status,a_id,a_uah,a_usd,a_eur, a_btc  FROM accounts  WHERE a_status!='deleted' $str ORDER BY lcase(a_name)
    ];
    my $sth =$dbh->prepare($sql);
    $sth->execute();                          
@@ -2549,7 +2549,7 @@ sub get_operators
 sub get_accounts
 {
    my @rows=();
-   my $sql = qq[SELECT a_name,a_id,c_name as  a_class,a_uah,a_usd,a_eur,c_id FROM accounts,classes
+   my $sql = qq[SELECT a_name,a_id,c_name as  a_class,a_uah,a_usd,a_eur,a_btc, c_id FROM accounts,classes
      WHERE a_status='active' AND c_id=a_class AND 1
      ORDER BY lcase(a_name)
    ];
@@ -2557,7 +2557,7 @@ sub get_accounts
    $sth->execute();                          
    while(my $r = $sth->fetchrow_hashref)
    {
-     $r->{title} = "$r->{a_name} (id#$r->{a_id}) [$r->{a_class}] $r->{a_uah} UAH "; #, $r->{a_usd} USD, $r->{a_eur} EUR";
+     $r->{title} = "$r->{a_name} (id#$r->{a_id}) [$r->{a_class}] $r->{a_uah} UAH   $r->{a_usd} USD, $r->{a_eur} EUR $r->{a_btc} BTC";
      push @rows, $r;
    }
    $sth->finish();

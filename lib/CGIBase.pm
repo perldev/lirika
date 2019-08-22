@@ -28,9 +28,9 @@ sub handle_errors
 {
        return if $^S; # for eval die
         my $msg=join ',', @_;
-	    my @arr=split(':',$msg);
-	    $msg=$arr[1];
-	    $msg=~s/at(.*)//;
+        my @arr=split(':',$msg);
+        $msg=$arr[1];
+        $msg=~s/at(.*)//;
 	
         my $tmpl = Template->new(
 	    {
@@ -144,7 +144,7 @@ sub cgiapp_init {
 
 sub cgiapp_postrun
 {	
-	my $self=shift;
+    my $self=shift;
     CGI::_reset_globals(); 
     database_disconnect(); 
     $self->query->param($_,'') foreach($self->query->param());
@@ -2579,10 +2579,10 @@ sub add_common_
 
  	my $tmpl=$self->load_tmpl('firm_common_input2.html');
 
-    my $output='';
+        my $output='';
    	$self->{tpl_vars}->{timer}=$TIMER->stop;
 	
-    my_log($self,$self->{tpl_vars}->{timer});
+        my_log($self,$self->{tpl_vars}->{timer});
 	$tmpl->process($self->{tpl_file}, $self->{tpl_vars}, \$output) || die $tmpl->error();
         return $output;	
 
@@ -2624,14 +2624,14 @@ sub add_common_confirm_
     die "$TRANSLATE{client_no_set} \n " unless($dbh->selectrow_array('SELECT a_id FROM accounts WHERE a_id=?',undef,$ct_aid));
 	if($exchange_yes)
 	{
-			$ct_comis_percent_exchange=~s/[,]/\./g;
-			$ct_comis_percent=~s/[,]/\./g;
+            $ct_comis_percent_exchange=~s/[,]/\./g;
+            $ct_comis_percent=~s/[,]/\./g;
             $source_currency=$self->query->param('currency');
 
-			die " $TRANSLATE{cur_no_support} \n" unless($avail_currency->{$source_currency});
+            die " $TRANSLATE{cur_no_support} \n" unless($avail_currency->{$source_currency});
             $light_rate=$self->query->param('rate');
             die " $TRANSLATE{course_no_set} \n"  unless($light_rate);
-			die " $TRANSLATE{input_proc}\n" if($ct_comis_percent_exchange!~/0|0\.0/&&!$ct_comis_percent_exchange*1&&!$ct_comis_percent*1);
+            die " $TRANSLATE{input_proc}\n" if($ct_comis_percent_exchange!~/0|0\.0/&&!$ct_comis_percent_exchange*1&&!$ct_comis_percent*1);
 
             die "$TRANSLATE{comis_lage_standart}\n" if(abs($ct_comis_percent_exchange)>2*$ETALON_VALUE_COMIS||abs($ct_comis_percent)>2*$ETALON_VALUE_COMIS);
             

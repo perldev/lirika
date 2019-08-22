@@ -50,10 +50,10 @@ sub non_list
    $self->get_cash_conclusions($proto);	
    
    $proto->{orig__beg_uah}=0;
-
    $proto->{orig__beg_usd}=0;
-
    $proto->{orig__beg_eur}=0;
+   $proto->{orig__beg_btc}=0;
+
    $proto->{non_list}=1;
 
    $proto->{sums}=\%hash;
@@ -149,6 +149,7 @@ sub cash_sum
 		$proto->{sums}->{ $date }->{UAH}=$proto->{sums}->{ $prev_row }->{UAH};
 		$proto->{sums}->{ $date }->{USD}=$proto->{sums}->{ $prev_row }->{USD};
 		$proto->{sums}->{ $date  }->{EUR}=$proto->{sums}->{ $prev_row }->{EUR};
+		$proto->{sums}->{ $date  }->{BTC}=$proto->{sums}->{ $prev_row }->{BTC};
 		
 
 		

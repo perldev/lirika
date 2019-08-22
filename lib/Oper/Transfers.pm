@@ -39,7 +39,7 @@ sub get_right{
 	            {'field'=>'ts',title=>'Дата',category=>'date'},
 	            {'field'=>"ct_currency", "title"=>"Валюта"
 	            , "type"=>"select"
-	            , "titles"=>\@currencies
+	            , "titles"=>\@currencies_withbtc
 	            ,'filter'=>"="
 	            },
 	            {
@@ -52,11 +52,11 @@ sub get_right{
 	            ],
 	            
             };  
-                $proto->{fields}->[2]->{titles}=get_accounts_simple();
-                $proto->{fields}->[3]->{titles}=get_accounts_simple();
+            $proto->{fields}->[2]->{titles}=$self->{accounts2view};
+            $proto->{fields}->[3]->{titles}=$self->{accounts2view};
 
 
-                return 'transfers';
+            return 'transfers';
 }
 sub setup 
 {
