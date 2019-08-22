@@ -17,7 +17,8 @@ our @EXPORT = qw(
         add2list
         set2hash
         get_rates
-	     get_exchanges
+        to_prec4
+        get_exchanges
         $session_upgrade
         &get_accounts
 	    &get_translit
