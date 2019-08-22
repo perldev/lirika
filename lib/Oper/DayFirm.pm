@@ -130,7 +130,7 @@ sub list
 	}
 	foreach my $key ( keys %{ $hash2 })
 	{
-		map{ $hash->{$key}->{$_}= $hash1->{$key}->{$_} if($hash->{$key}) } keys %{ $hash2->{$key} }  ;
+		map{ $hash->{$key}->{$_} = $hash1->{$key}->{$_} if($hash->{$key}) } keys %{ $hash2->{$key} }  ;
 			
         }
     
@@ -239,7 +239,7 @@ sub list
                 
                 my $i=find_first_input($ref,$_);
                 my %hash=( 'UAH'=>$hash->{$_}->{f_uah}-$hash->{$_}->{UAH},
-                'USD'=>$hash->{$_}->{f_usd} -$hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
+                'USD'=>$hash->{$_}->{f_usd} - $hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
                 
                 my $first={
                             f_name=>$hash->{$_}->{f_name},
@@ -331,7 +331,7 @@ sub list
                 $bank->{UAH_FIN}=format_float($bank->{unformat_uah_fin});
                 $bank->{USD_FIN}=format_float($bank->{unformat_usd_fin});
                 $bank->{EUR_FIN}=format_float($bank->{unformat_eur_fin});
-                die Dumper $bank, \%hash if($bank->{b_id}!= 25);
+                die Dumper $bank, \%hash, $hash if($bank->{b_id}!= 25);
 
                 
         }
