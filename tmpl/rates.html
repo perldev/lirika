@@ -27,25 +27,26 @@ name="История" value="История ">
   </tr>
 
   <tr>
-     <th class=table_gborders> Из\В </th>
+     <th class=table_gborders> валюта </th>
 
-     [% FOREACH row = cash_rates %]
-     <th class=table_gborders> $row.cur </th>
-     [% END %]     
+<!--     [% FOREACH row = cash_rates %]-->
+<!--      <th class=table_gborders> $row.cur </th> -->
+<!--      [% END %]      -->
+    <th class=table_gborders> покупка </th>
+    <th class=table_gborders> продажа </th>
   </tr>
 
   [% FOREACH row = cash_rates %]
   <tr class=table_gborders>
+    
     <th class=table_gborders align="right"> 1 $row.cur = </th>
 
-    [% FOREACH row2 = row.rows %]
-    <td class=table_gborders align="right">
-      [% IF row2.val %]
-      $row2.val <!--$row2.cur-->
-      [% END %]
-    </td>
-    [% END %]
-
+        <td class=table_gborders align="right">
+          $row.buy
+        </td>
+        <td class=table_gborders align="right">
+          $row.sell
+        </td>
   </tr>
   [% END %]
 
@@ -56,38 +57,39 @@ name="История" value="История ">
 <td>&nbsp;&nbsp;&nbsp;</td>
 
 <td>
+    <table class=table_gborders>
 
-  <table class=table_gborders>
+    <tr class=table_gborders>
+        <td class=table_gborders colspan=20>
+            <strong>Наличные курсы</strong>
+        </td>
+    </tr>
 
-  <tr class=table_gborders>
-    <td class=table_gborders colspan=20>
-        <strong>Безналичные курсы</strong>
-    </td>
-  </tr>
+    <tr>
+        <th class=table_gborders> валюта </th>
 
-  <tr>
-     <th class=table_gborders> Из\В </th>
+    <!--     [% FOREACH row = cash_rates %]-->
+    <!--      <th class=table_gborders> $row.cur </th> -->
+    <!--      [% END %]      -->
+        <th class=table_gborders> покупка </th>
+        <th class=table_gborders> продажа </th>
+    </tr>
 
-     [% FOREACH row = cashless_rates %]
-     <th class=table_gborders>$row.cur</th>
-     [% END %]     
-  </tr>
+    [% FOREACH row = cashless_rates %]
+    <tr class=table_gborders>
+        
+        <th class=table_gborders align="right"> 1 $row.cur = </th>
 
-  [% FOREACH row = cashless_rates %]
-  <tr class=table_gborders>
-    <th class=table_gborders align="right"> 1 $row.cur = </th>
-
-    [% FOREACH row2 = row.rows %]
-    <td class=table_gborders align="right">
-      [% IF row2.val %]
-      $row2.val $row2.cur
-      [% END %]
-    </td>
+            <td class=table_gborders align="right">
+            $row.buy
+            </td>
+            <td class=table_gborders align="right">
+            $row.sell
+            </td>
+    </tr>
     [% END %]
 
-  </tr>
-  [% END %]
-  </table>
+    </table>
 </td>
 </tr>
 </table>

@@ -74,47 +74,55 @@ sub setup
 
 
 sub main{
-   my $self = shift;
+        my $self = shift;
 
-   my $page=$self->query->param('page');
-   my $how=$self->query->param('how');
-   
-   my @cash_rates = ();
-   my @cashless_rates = ();
-
-   foreach my $cur1_row(@currencies){
-     my $cur1 = $cur1_row->{'value'};
-     my @cash_rows = ();
-     my @cashless_rows = ();
-
-     foreach my $cur2_row(@currencies){
-            my $cur2 = $cur2_row->{'value'};
-            my ($r, $val);
-
-            $val = '';
-            $r = $dbh->selectrow_hashref(
-              "SELECT * FROM rates WHERE r_currency1=? AND r_currency2=? AND r_type='cash' ORDER BY r_id DESC LIMIT 1"
-              , undef, $cur1, $cur2
-            );
-
-            $val = $r->{r_rate} if($r);
-
-            push @cash_rows, {cur=>$cur2, val=>to_prec6(pow($val,$RATE_FORMS{$cur1}->{$cur2}))};
-
-            $val = '';
-            $r = $dbh->selectrow_hashref(
-              "SELECT * FROM rates WHERE r_currency1=? AND r_currency2=? AND r_type='cashless' ORDER BY r_id DESC LIMIT 1"
-              , undef, $cur1, $cur2
-            );
-            $val = $r->{r_rate} if($r);
-            push @cashless_rows, {cur=>$cur2,  val=>to_prec6(pow($val,$RATE_FORMS{$cur1}->{$cur2}))};
-     }
-
-     push @cash_rates, {cur=>$cur1, rows=>\@cash_rows};
-     push @cashless_rates, {cur=>$cur1, rows=>\@cashless_rows};
-   }
- 	
-	
+        my $page=$self->query->param('page');
+        my $how=$self->query->param('how');
+        
+        my @cash_rates = ();
+        my @cashless_rates = ();
+        my $BASE_CURRENCY = "UAH";
+        
+        foreach my $cur1_row(@currencies_withbtc){
+                my $cur1 = $cur1_row->{'value'};
+            
+                my ($buy, $sell) = ('', '');
+                
+                $r = $dbh->selectrow_hashref(
+                    "SELECT * FROM rates WHERE r_currency1='$BASE_CURRENCY' AND r_currency2='?' AND r_type='cash' ORDER BY r_id DESC LIMIT 1"
+                    , undef, $cur1
+                );
+                $buy = $r->{r_rate} if($r);
+                $r = $dbh->selectrow_hashref(
+                    "SELECT * FROM rates WHERE r_currency1='?' AND r_currency2='$BASE_CURRENCY' AND r_type='cash' ORDER BY r_id DESC LIMIT 1"
+                    , undef, $cur1
+                );
+                
+                $buy = $r->{r_rate} if($r);
+                push @cash_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($buy, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                
+        }
+        
+        foreach my $cur1_row(@currencies_withbtc){
+                my $cur1 = $cur1_row->{'value'};
+            
+                my ($buy, $sell) = ('', '');
+                
+                $r = $dbh->selectrow_hashref(
+                    "SELECT * FROM rates WHERE r_currency1='$BASE_CURRENCY' AND r_currency2='?' AND r_type='cashless' ORDER BY r_id DESC LIMIT 1"
+                    , undef, $cur1
+                );
+                $buy = $r->{r_rate} if($r);
+                $r = $dbh->selectrow_hashref(
+                    "SELECT * FROM rates WHERE r_currency1='?' AND r_currency2='$BASE_CURRENCY' AND r_type='cashless' ORDER BY r_id DESC LIMIT 1"
+                    , undef, $cur1
+                );
+                
+                $buy = $r->{r_rate} if($r);
+                push @cashless_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($buy, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                
+        }
+        
 	$page=s/["' ]//g;
 	$page=0 unless($page);
 	my $r = $dbh->selectall_arrayref(
@@ -165,27 +173,27 @@ sub add
     if($head)
     {
                 
-		my $proto1={
-			'table'=>"header_rates",  
-			'need_confirmation'=>1,
-  			'template_prefix'=>"reports_rate",
+                my $proto1={
+                        'table'=>"header_rates",  
+                        'need_confirmation'=>1,
+                        'template_prefix'=>"reports_rate",
 
-			'page_title'=>'Добавление заглавных курсов',
-			'fields'=>[
-				{'field'=>"header_rates",'system'=>1,no_view=>1,'value'=>'1','no_base'=>'1'},
-				
-				{'field'=>"hr_id", "title"=>"ID", "no_add_edit"=>1}, #first field is ID
- 				{'field'=>"hr_date", "title"=>"Дата",'filter'=>"time",'category'=>"date",},
-				{field=>'hr_domi',title=>'Мб покупка'},
-				{'field'=>"hr_rate_mb", "title"=>"МБ" },
-				{'field'=>"hr_rate_street","title"=>"Улица", },
-				{'field'=>"hr_rate_cross","title"=>"EUR/USD", },
+                        'page_title'=>'Добавление заглавных курсов',
+                        'fields'=>[
+                                {'field'=>"header_rates",'system'=>1,no_view=>1,'value'=>'1','no_base'=>'1'},
+                                
+                                {'field'=>"hr_id", "title"=>"ID", "no_add_edit"=>1}, #first field is ID
+                                {'field'=>"hr_date", "title"=>"Дата",'filter'=>"time",'category'=>"date",},
+                                {field=>'hr_domi',title=>'Мб покупка'},
+                                {'field'=>"hr_rate_mb", "title"=>"МБ" },
+                                {'field'=>"hr_rate_street","title"=>"Улица", },
+                                {'field'=>"hr_rate_cross","title"=>"EUR/USD", },
                 {'field'=>"hr_rate_cross_street","title"=>"EUR/USD(улица)", },
-			],
-			};
-   		
-		return $self->proto_add_edit('add', $proto1);
-	}else{
+                        ],
+                        };
+                
+                return $self->proto_add_edit('add', $proto1);
+        }else{
             return $self->proto_add_edit('add', $proto);
         }
 }
