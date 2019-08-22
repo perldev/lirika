@@ -331,7 +331,7 @@ sub list
                 $bank->{UAH_FIN}=format_float($bank->{unformat_uah_fin});
                 $bank->{USD_FIN}=format_float($bank->{unformat_usd_fin});
                 $bank->{EUR_FIN}=format_float($bank->{unformat_eur_fin});
-                die Dumper $bank, $hash if($bank->{b_id}!= 25);
+                die Dumper $bank, \%hash if($bank->{b_id}!= 25);
 
                 
         }
