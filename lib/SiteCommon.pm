@@ -666,6 +666,18 @@ sub to_prec6
 			return ceil($amnt*1000000)/1000000;
 		} 
 }
+sub to_prec4
+{
+        	my $amnt=shift;
+	        if(ref($amnt))
+		 {
+			$$amnt=ceil($$amnt*10000)/10000;
+			return $$amnt;
+		}else
+		{
+			return ceil($amnt*10000)/10000;
+		} 
+}
 
 
 sub get_client_oper_info
