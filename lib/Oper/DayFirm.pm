@@ -38,7 +38,8 @@ sub banks{
         my $sql=qq[SELECT b_id,sum(IF(ct_currency='UAH',ct_amnt,0)) AS 'UAH',sum(IF(ct_currency='USD',ct_amnt,0)) 
                 AS 'USD',sum(IF(ct_currency='EUR',ct_amnt,0)) as 'EUR',ct_aid 
                 FROM cashier_transactions, banks, firms  WHERE  ct_date>='$date' 
-                AND ct_req='no'  AND ct_status!='deleted' AND f_id=ct_fid AND f_bank=b_id AND ct_fid>0 AND f_bank is not NULL GROUP BY b_id];
+                AND ct_req='no'  AND ct_status!='deleted' AND f_id=ct_fid AND f_bank=b_id 
+                AND ct_fid>0 AND f_bank is not NULL GROUP BY b_id];
 
 
         my $hash1=$dbh->selectall_hashref($sql,'b_id');
@@ -237,7 +238,6 @@ sub list
                 }
                 
                 
-                my $i=find_first_input($ref,$_);
                 my %hash=( 'UAH'=>$hash->{$_}->{f_uah}-$hash->{$_}->{UAH},
                 'USD'=>$hash->{$_}->{f_usd} - $hash->{$_}->{USD},'EUR'=>$hash->{$_}->{f_eur} -$hash->{$_}->{EUR} );	
                 
@@ -264,6 +264,9 @@ sub list
                 my $req_sums={USD=>0,EUR=>0,UAH=>0};
                 $pays_count_u=0;
                 $pays_count_e=0;
+                my $i=find_first_input($ref,$_);
+#                 die Dumper $bank, \%hash, $hash if($bank->{b_id}!= 25);
+
                 for(;$i>=0&&$i<$size&&$ref->[$i]->[6]==$_;$i++)
                 {
                 
@@ -331,8 +334,7 @@ sub list
                 $bank->{UAH_FIN}=format_float($bank->{unformat_uah_fin});
                 $bank->{USD_FIN}=format_float($bank->{unformat_usd_fin});
                 $bank->{EUR_FIN}=format_float($bank->{unformat_eur_fin});
-#                 die Dumper $bank, \%hash, $hash if($bank->{b_id}!= 25);
-
+                die Dumper $bank, \%hash, $hash;
                 
         }
         
