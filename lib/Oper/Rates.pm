@@ -27,13 +27,13 @@ sub get_right
             
             {'field'=>"r_currency1", "title"=>"Сколько нужно заплатить за 1 ед. "
             , "type"=>"select"
-            , "titles"=>\@currencies
+            , "titles"=>\@currencies_withbtc
             , 'filter'=>"="
             },
         
             {'field'=>"r_currency2", "title"=>"Единиц данной валюты "
             , "type"=>"select"
-            , "titles"=>\@currencies
+            , "titles"=>\@currencies_withbtc
             , 'filter'=>"="
             },
         
@@ -99,7 +99,7 @@ sub main{
                 );
                 
                 $sell = $r->{r_rate} if($r);
-                push @cash_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                push @cash_rates, {cur=>$cur1, buy=>to_prec4(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec4(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
                 
         }
         
@@ -119,7 +119,7 @@ sub main{
                 );
                 
                 $sell = $r->{r_rate} if($r);
-                push @cashless_rates, {cur=>$cur1, buy=>to_prec6(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec6(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                push @cashless_rates, {cur=>$cur1, buy=>to_prec4(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec4(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
                 
         }
         
