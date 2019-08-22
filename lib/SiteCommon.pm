@@ -21,93 +21,94 @@ our @EXPORT = qw(
         get_exchanges
         $session_upgrade
         &get_accounts
-	    &get_translit
+        &get_translit
+        lowpow
         now
-	    get_desc_rights_array
-	    &get_client_classes
-	    &get_classes
-	    &get_cash_trans_sum
-	    &get_firm_name
-	    &get_info_of_trans
-	    &handle_errors_add_trans
-	    &get_firm_information
-	    &get_account_name
-	    &get_cache_connection
-	    &get_accounts_simple
-	    &get_accounts_simple_with_block
-	    &get_service_name
-	    &send_mail
-	    normal_prec
+            get_desc_rights_array
+            &get_client_classes
+            &get_classes
+            &get_cash_trans_sum
+            &get_firm_name
+            &get_info_of_trans
+            &handle_errors_add_trans
+            &get_firm_information
+            &get_account_name
+            &get_cache_connection
+            &get_accounts_simple
+            &get_accounts_simple_with_block
+            &get_service_name
+            &send_mail
+            normal_prec
         &calculate_sum
-	    &calculate_sum_without
-	    &sum_credit
-	    &last_record_credit
-	    &to_prec
-	    &get_desc_rights
-	    &set_desc_rights
-	    &get_operators
-	    &get_services_percents_client
-	    &get_services
-	    &get_services_percents
-	    &get_client_services_percents
-	    &format_float_inner
-	    &get_firms
+            &calculate_sum_without
+            &sum_credit
+            &last_record_credit
+            &to_prec
+            &get_desc_rights
+            &set_desc_rights
+            &get_operators
+            &get_services_percents_client
+            &get_services
+            &get_services_percents
+            &get_client_services_percents
+            &format_float_inner
+            &get_firms
         &get_cash_services
         @time_filter_rows
         &time_filter
         $chat_last_mesgs
         @currencies
-	    &get_whole_exchanges
-	    &get_transit_list
-	    &get_trans_list
-	    &get_firm
+            &get_whole_exchanges
+            &get_transit_list
+            &get_trans_list
+            &get_firm
         &get_firm_services_percents
-	    &format_date
-	    &format_datetime
-	    &format_float
-	    &pow
+            &format_date
+            &format_datetime
+            &format_float
+            &pow
         &generate_set_of_dates_array
-	    &to_prec6    
-	    $predkassa_id
-	    $default_kassa_id
-	    $svoj_id
-	    $firms_id
-	    $exchange_id
-	    $credit_id
-	    $conv_currency
-	    $now_hash
-	    $FIRMS_TRANSACTIONS
-	    $avail_currency_firms
-	    &format_string_inner_sql
-	    get_client_oper_info
-	    &calculate_sum_with
-	    $VAL_PAYMENTS
-	    andrey_float_format  
-	    $FIRMS_CONV
-	    @currencies_withbtc
-	    %MAIN_STATUSES
-	    $RESIDENT_CURRENCY
-	    $DOCUMENTS
-	    $SQL_DELAYED
-	    $FIFO
-	    $FIFO_O
-	    $FIFO_F
-	    $LOCAL_FLAG
+            &to_prec6    
+            $predkassa_id
+            $default_kassa_id
+            $svoj_id
+            $firms_id
+            $exchange_id
+            $credit_id
+            $conv_currency
+            $now_hash
+            $FIRMS_TRANSACTIONS
+            $avail_currency_firms
+            &format_string_inner_sql
+            get_client_oper_info
+            &calculate_sum_with
+            $VAL_PAYMENTS
+            andrey_float_format  
+            $FIRMS_CONV
+            @currencies_withbtc
+            %MAIN_STATUSES
+            $RESIDENT_CURRENCY
+            $DOCUMENTS
+            $SQL_DELAYED
+            $FIFO
+            $FIFO_O
+            $FIFO_F
+            $LOCAL_FLAG
     get_static_plugins
-	    &get_special_services
-	    $DELTA
-	    $DELTA_W
-	    &error_process
-	    &last_record
-	    &sum
-	    $CORRECT
-	    &sum_
-	    &get_cash_conclusions
-	    &get_exchanges_cash
-	    &get_cats	
-	    &get_cats_simple
-	    &my_decode
-	    &get_real_aid
+            &get_special_services
+            $DELTA
+            $DELTA_W
+            &error_process
+            &last_record
+            &sum
+            $CORRECT
+            &sum_
+            &get_cash_conclusions
+            &get_exchanges_cash
+            &get_cats	
+            &get_cats_simple
+            &my_decode
+            &get_real_aid
         %months
         format_datetime_month_year 
         get_transaction_info
@@ -145,8 +146,8 @@ our @EXPORT = qw(
         myformat_float
         $STATIC_CLASS
         $NEEDED_CAT
-	$MAIL_SERVICE
-	get_permit_accounts_simple
+        $MAIL_SERVICE
+        get_permit_accounts_simple
 );
 our $SERVER_DATA_PATH='/usr/local/www/';
 our $session_upgrade=5;
@@ -1961,6 +1962,13 @@ sub format_float
 	} 
 	return $mines.$res;
 	
+}
+sub lowpow
+{
+   	
+   my ($num,$pow)=@_;
+
+   return $num**pow;
 }
 sub pow
 {
