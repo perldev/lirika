@@ -100,13 +100,15 @@ sub main{
                 );
                 
                 $sell = $r->{r_rate} if($r);
-                push @cash_rates, {cur=>$cur1, buy=>to_prec4(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec4(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                push @cash_rates, {cur=>$cur1,
+                                   buy=>to_prec4(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), 
+                                   sell=>to_prec4(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
                 
         }
         
         foreach my $cur1_row(@currencies_withbtc){
                 my $cur1 = $cur1_row->{'value'};
-                next if($cur1 == $BASE_CURRENCY);
+#                 next if($cur1 == $BASE_CURRENCY);
             
                 my ($buy, $sell) = ('', '');
                 
@@ -121,7 +123,9 @@ sub main{
                 );
                 
                 $sell = $r->{r_rate} if($r);
-                push @cashless_rates, {cur=>$cur1, buy=>to_prec4(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})), sell=>to_prec4(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
+                push @cashless_rates, {cur=>$cur1, 
+                                       buy=>to_prec4(pow($buy, $RATE_FORMS{$BASE_CURRENCY}->{$cur1})),
+                                       sell=>to_prec4(pow($sell, $RATE_FORMS{$cur1}->{$BASE_CURRENCY})) };
                 
         }
         
