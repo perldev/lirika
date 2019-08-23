@@ -157,7 +157,6 @@ sub main{
 
    my $tmpl=$self->load_tmpl('rates.html');
   $self->{tpl_vars}->{pages}=$paging->{pages};	
-  die Dumper \@cash_rates, \@cashless_rates;
    $self->{tpl_vars}->{cash_rates} = \@cash_rates;
    $self->{tpl_vars}->{cashless_rates} = \@cashless_rates;
    $self->{tpl_vars}->{reports_rates}=\@reports_rates;
