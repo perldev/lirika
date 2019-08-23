@@ -86,7 +86,7 @@ sub main{
         
         foreach my $cur1_row(@currencies_withbtc){
                 my $cur1 = $cur1_row->{'value'};
-#                 next if($cur1 == $BASE_CURRENCY);
+                next if($cur1 eq $BASE_CURRENCY);
                                
                 my ($buy, $sell) = ('', '');
                 
@@ -109,7 +109,7 @@ sub main{
         
         foreach my $cur1_row(@currencies_withbtc){
                 my $cur1 = $cur1_row->{'value'};
-#                 next if($cur1 == $BASE_CURRENCY);
+                next if($cur1 eq $BASE_CURRENCY);
             
                 my ($buy, $sell) = ('', '');
                 
