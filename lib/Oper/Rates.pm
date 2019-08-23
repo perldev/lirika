@@ -85,7 +85,8 @@ sub main{
         
         foreach my $cur1_row(@currencies_withbtc){
                 my $cur1 = $cur1_row->{'value'};
-                continue if $cur1 == $BASE_CURRENCY;
+                next if($cur1 == $BASE_CURRENCY);
+                               
                 my ($buy, $sell) = ('', '');
                 
                 my $r = $dbh->selectrow_hashref(
@@ -105,6 +106,7 @@ sub main{
         
         foreach my $cur1_row(@currencies_withbtc){
                 my $cur1 = $cur1_row->{'value'};
+                next if($cur1 == $BASE_CURRENCY);
             
                 my ($buy, $sell) = ('', '');
                 
