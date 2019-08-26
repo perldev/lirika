@@ -7,10 +7,11 @@ use SiteCommon;
 my $RIGHT='cash_in';
 my $proto;
 my $kassa_id;
+my $ex;
 sub get_right
 {
     my $self=shift;
-    my $kassa_title;
+    my $kassa_title;;
     ($kassa_id,$kassa_title, $ex)=$dbh->selectrow_array(q[SELECT co_aid,co_title, co_script_ex
                                       FROM cash_offices 
                                       WHERE co_name=?],undef,$self->{cash});    

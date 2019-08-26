@@ -12,6 +12,7 @@ use CGI::Carp qw(fatalsToBrowser);
 my $proto;
 my $kassa_id=undef;
 my $co_id=undef;
+my $ex;
 sub get_right
 {       
     my $self=shift;
