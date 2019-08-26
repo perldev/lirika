@@ -42,6 +42,7 @@ $proto={
     };
     $proto->{fields}->[1]->{titles}=$self->{accounts2view}; # get_permit_accounts_simple($self->{user_id});
     map{$_POST->{$_}=trim($self->query->param($_))} $self->query->param();
+
     $_POST->{"e_fid"} = $exchange_id;
     $_POST->{currencies}=$self->{tpl_vars}->{currencies};
     return 'exchange';
@@ -137,46 +138,46 @@ sub list
       
         
 
-########From oleg
-   my $filter_where='';
+        ########From oleg
+        my $filter_where='';
 
-   foreach my $row( @{$proto->{fields}} ){
-     if($row->{type} eq 'select'){
-      my %select=();
-      foreach my $option( @{$row->{titles}} ){
-       $select{ $option->{value} } = $option->{title};
-      }
+        foreach my $row( @{$proto->{fields}} ){
+            if($row->{type} eq 'select'){
+            my %select=();
+            foreach my $option( @{$row->{titles}} ){
+            $select{ $option->{value} } = $option->{title};
+            }
 
-      $row->{ "titles_hash" } = \%select;     
-     }
+            $row->{ "titles_hash" } = \%select;     
+            }
 
-        if(defined $row->{filter}){
-                my $filter_val = "".$filter_params->{ $row->{field} };
-                my $filter_val_empty = length($filter_val)==0;
+                if(defined $row->{filter}){
+                        my $filter_val = "".$filter_params->{ $row->{field} };
+                        my $filter_val_empty = length($filter_val)==0;
 
-       if($row->{filter} eq 'time' && $filter_val_empty){
-         $filter_val = "today";
-         $filter_val_empty = 0;         
-       }
+            if($row->{filter} eq 'time' && $filter_val_empty){
+                $filter_val = "today";
+                $filter_val_empty = 0;         
+            }
 
-       #die "$row->{filter} - '$filter_val' - $filter_val_empty";
+            #die "$row->{filter} - '$filter_val' - $filter_val_empty";
 
-       if(!$filter_val_empty){
-         $row->{value}=$filter_val;
+            if(!$filter_val_empty){
+                $row->{value}=$filter_val;
 
-         if($row->{filter} eq 'time'){
-           my $res = time_filter($filter_val);
-           $filter_where .= " AND '$res->{start}'<=$row->{field} AND '$res->{end}'>=$row->{field}";
-         }elsif($row->{filter} eq 'like'){
-           $filter_where .= " AND lcase($row->{field}) like lcase(".sql_val($filter_val.'%').")";
-           
-         }else{
-           $filter_where .= " AND $row->{field} = ".sql_val($filter_val);
-           
-         }
-       }
-     }
-   }
+                if($row->{filter} eq 'time'){
+                my $res = time_filter($filter_val);
+                $filter_where .= " AND '$res->{start}'<=$row->{field} AND '$res->{end}'>=$row->{field}";
+                }elsif($row->{filter} eq 'like'){
+                $filter_where .= " AND lcase($row->{field}) like lcase(".sql_val($filter_val.'%').")";
+                
+                }else{
+                $filter_where .= " AND $row->{field} = ".sql_val($filter_val);
+                
+                }
+            }
+            }
+        }
                 
      
      
@@ -199,8 +200,6 @@ sub list
         $self->{tpl_vars}->{rate_cash}=$rate_cash;
         $self->{tpl_vars}->{rate_cash_less}=$rate_cash_less;
 ##
-
-
          $self->{tpl_vars}->{list}=$ref->{list};
          my $paging=paging(
                                 {

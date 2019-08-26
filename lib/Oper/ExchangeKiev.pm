@@ -19,6 +19,8 @@ sub get_right
          return 'denied'    unless($kassa_id);
          $_POST->{"e_fid"} = $kassa_id;
          $_POST->{"type"} = "cash";
+         $_POST->{"incash_office"} = "yes";
+
          $proto={
             'page_title'=>'־בלוםû',	
              'extra_where'=>" AND e_fid=".$kassa_id,  #AND ct_status='created'

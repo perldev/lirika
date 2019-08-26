@@ -705,7 +705,7 @@ sub add_exc
 	and (`exchange_view`.`e_type` <> _latin1'auto')) AND e_id=?  LIMIT 0,1],undef,$id_);
  
  
-        if($param->{"type"} eq "cash"){
+        if($param->{"incash_office"}){
             #if it's a cash exchange make a cash out at the moment
             my $tid3 = $self->add_trans(
                {	
