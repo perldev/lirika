@@ -10,7 +10,7 @@ sub get_right
 {
     my $self=shift;
     my $kassa_title;
-    ($kassa_id,$kassa_title)=$dbh->selectrow_array(q[SELECT co_aid,co_title
+    ($kassa_id,$kassa_title, $ex)=$dbh->selectrow_array(q[SELECT co_aid,co_title, co_script_ex
                                       FROM cash_offices 
                                       WHERE co_name=?],undef,$self->{cash});    
     return 'denied'    unless($kassa_id);
@@ -67,6 +67,7 @@ sub get_right
         };  
         $proto->{fields}->[4]->{'titles'}=&get_accounts_simple();
         $proto->{cash}=$kassa_id;
+        $proto->{ex} = $ex;
         $proto->{cash_title}=$kassa_title;
 
         return 'cash_in_one_'.$self->{cash};
@@ -120,7 +121,7 @@ sub back{
     my $self=shift;
     my $id=$self->query->param('ct_id');
     $self->header_type('redirect');
-    my $cash=$self->{cash};
+    my $cash=$proto->{ex};
     return $self->header_add(-url=>qq[cashier_output_$cash.cgi?do=back&ct_id=$id]);
     
     
@@ -139,7 +140,8 @@ sub proto_add_edit_trigger{
     my $amnt=$self->query->param('ct_amnt');
     my $currency=$self->query->param('ct_currency');
     my $id=$self->query->param('id');
-    
+    my $cash=$proto->{ex};
+
     if($id){
         
         my $res=$dbh->do(q[UPDATE cashier_transactions 
@@ -150,7 +152,7 @@ sub proto_add_edit_trigger{
         if($res ne '1'){
         
             $self->header_type('redirect');
-            return $self->header_add(-url=>qq[cashier_output_$self->{cash}.cgi?do=list]);
+            return $self->header_add(-url=>qq[cashier_output_$cash.cgi?do=list]);
         }
 
     }

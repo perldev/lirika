@@ -19,7 +19,7 @@ sub get_right
 
      my ($kassa_title);
      $co_id=undef;
-    ($kassa_id,$kassa_title,$co_id)=$dbh->selectrow_array(q[SELECT co_aid,co_title,co_id
+    ($kassa_id,$kassa_title,$co_id, $ex)=$dbh->selectrow_array(q[SELECT co_aid,co_title,co_id, co_script_ex
                                                             FROM cash_offices 
                                                             WHERE co_name=?],undef,$self->{cash});    
 
@@ -102,6 +102,7 @@ sub get_right
         "output_formats"=>['ct_amnt','ct_ts2','ct_ts']
         };  
         $proto->{cash}=$kassa_id;
+        $proto->{ex} = $ex;
         $proto->{cash_title}=$kassa_title;
 	    $proto->{cash_rows}=get_avail_cash_offices($self);
 	     
@@ -153,7 +154,7 @@ sub back{
     my $self=shift;
     my $id=$self->query->param('ct_id');
     $self->header_type('redirect');
-    my $cash=$self->{cash};
+    my $cash=$proto->{ex};
     return $self->header_add(-url=>qq[cashier_input_before_$cash.cgi?do=back&ct_id=$id]);
 
 }
