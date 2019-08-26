@@ -754,7 +754,7 @@ sub get_right
     'table'=>"accounts_reports_table",  
     'template_prefix'=>"accounts_reports",
     'page_title'=>"Выписка по клиентам",
-    'sort'=>'ts ASC ',
+    'sort'=>'id ASC ',
     'dates_comment'=>undef,
     'fields'=>[
         {'field'=>"ct_id", "title"=>"ID", "no_add_edit"=>1}, #first field is ID
