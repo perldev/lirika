@@ -68,7 +68,7 @@ sub get_right
       'type'=>"set", "titles"=>$firm_services},
     {'field'=>"f_bank", "title"=>"Bank", 
       'type'=>"select", "titles"=>$banks},
-{'field'=>"f_isres", "type"=>"select", 
+    {'field'=>"f_isres", "type"=>"select", 
       "titles"=>[
         {'value'=>"yes", 'title'=>"да"},
         {'value'=>"no", 'title'=>"нет"},

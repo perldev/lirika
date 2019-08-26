@@ -591,7 +591,7 @@ sub login_do
 sub add_exc
 {
         my ($self,$param)=@_;
-	
+	$param->{e_fid} = $exchange_id unless($param->{e_fid});
 
         die " $TRANSLATE{course_no_set}" unless($param->{'rate'});
         require POSIX;
@@ -2445,11 +2445,11 @@ sub calculate_exchange
 {
 	my ($self,$amnt,$rate,$from,$to)=@_;
 
-	$rate=pow($rate,$RATE_FORMS{$from}->{$to});
+	$rate=$rate**$RATE_FORMS{$from}->{$to};
 
 	my $res=$rate*$amnt;
 
-	return (POSIX::ceil($res*100)/100,$rate);
+	return (POSIX::ceil($res*100000)/100000,$rate);
 	
 
 }
