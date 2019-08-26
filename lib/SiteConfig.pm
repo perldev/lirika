@@ -148,7 +148,7 @@ our $DEF_TABS={
        cash_in_before_kiev1=>{"value"=>"cash_in_before_kiev1",script=>'cashier_input_before_dnepr.cgi', "title"=>"Заявки на приход кассы опт",desc=>'Непосредственный ввод наличных в кассу'},
        cash_out_kiev1=>{"value"=>"cash_out_kiev1",script=>'cashier_output_dnepr.cgi' ,"title"=>"Заявки на расход опт",desc=>"Работа с заявками на  вывод наличных "},
        cash_out2_kiev1=>{"value"=>"cash_out2_kiev1",script=>'cashier_output2_dnepr.cgi', "title"=>"Расход опт",desc=>"Непосредственный ввывод наличных"},
-       cash_in_kiev1=>{"value"=>"cash_out2_kiev1",script=>'cashier_input_dnepr.cgi', "title"=>"Приход кассы опт",desc=>"Ввод наличных в систему на карточки"},
+       cash_in_kiev1=>{"value"=>"cash_in_kiev1",script=>'cashier_input_dnepr.cgi', "title"=>"Приход кассы опт",desc=>"Ввод наличных в систему на карточки"},
        cash_kiev1=>{"value"=>"cash_kiev1", script=>'cash.cgi',"title"=>"Касса опт",desc=>'Сводная таблица кассы приходы и расходы  по дня '},
 
        
