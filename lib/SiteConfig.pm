@@ -70,7 +70,7 @@ $EXCEL_EXPORT_PATH
 	{from=>'USD',to=>'USD',rate_form=>1},
     ); 	
     our %RATE_FORMS=(
- 	USD=>{USD=>1,UAH=>-1,EUR=>-1, BTC=>-1},
+ 	USD=>{USD=>1,UAH=>1,EUR=>-1, BTC=>-1},
 	UAH=>{USD=>-1,UAH=>1,EUR=>-1, BTC=>-1},
  	EUR=>{USD=>1,UAH=>1,EUR=>1, BTC=>-1},
         BTC=>{USD=>1,UAH=>1,EUR=>1,BTC=>1},
