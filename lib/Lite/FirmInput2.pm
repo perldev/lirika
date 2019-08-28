@@ -351,6 +351,8 @@ sub proto_add_edit_trigger{
 	           		t_comment => "Комиссия $per\% за услугу $rfs->{fs_name}
 	         		(id#$rfs->{fs_id}) при вводе безнала через фирму $rf->{f_name}(id#$fid), $comment",
 	       });
+             $dbh->do(q[UPDATE cashier_transactions SET ct_tid2_comis=? WHERE ct_id=?],undef,$tid_comis,$id);
+
         }
 											
 
@@ -434,7 +436,7 @@ sub proto_add_edit_trigger{
 	result_amnt,ct_comis_percent,ct_ext_commission,
 	ct_date,e_currency2,rate,ct_eid,ct_ex_comis_type,ts,col_ts,ct_status,col_color)
 	SELECT `cashier_transactions`.`ct_id` AS `ct_id`,`cashier_transactions`.`ct_aid` 
-	AS `ct_aid`,
+	AS `ct_aid`,ct_comis_percent
 	concat(if(of_name IS NOT NULL,of_name,''),' ',`cashier_transactions`.`ct_comment`) AS `ct_comment`,
 	`cashier_transactions`.`ct_oid` AS `ct_oid`,
 	`operators`.`o_login` AS `o_login`,
@@ -451,7 +453,7 @@ sub proto_add_edit_trigger{
 	((`cashier_transactions`.`ct_amnt` * `cashier_transactions`.`ct_comis_percent`) / 100))) AS `comission`,
 	if((`cashier_transactions`.`ct_eid` is not null),`exchange_view`.`e_amnt2`,
 	(`cashier_transactions`.`ct_amnt` - ((`cashier_transactions`.`ct_comis_percent` * `cashier_transactions`.`ct_amnt`) / 100))) AS `result_amnt`,
-	`cashier_transactions`.`ct_comis_percent` AS `ct_comis_percent`,
+	`cashier_transactions`.`ct_comis_percent` AS ``,
 	`cashier_transactions`.`ct_ext_commission` AS `ct_ext_commission`,cast(if(isnull(`cashier_transactions`.`ct_ts2`),
 	`cashier_transactions`.`ct_ts`,`cashier_transactions`.`ct_ts2`) as date) AS `ct_date`,
 	`exchange_view`.`e_currency2` AS `e_currency2`,
@@ -593,14 +595,13 @@ sub add_common_do
 				ct_aid=?,
 				ct_oid2=?,
 				ct_tid2=?,
-				ct_tid2_comis=?,
 				ct_comis_percent=?,
 				ct_req='no',
 				ct_ts2=?
 				WHERE 
 				 ct_status='processing' AND ct_id=?
 		",undef,$ct_fsid,$ct_aid,$self->{user_id},$params->{proto}->{fields}->[0]->{expr},
-		0 ,$per,$ct_ts2,$_);
+		$per,$ct_ts2,$_);
 		
 		$dbh->do(qq[INSERT $SQL_DELAYED INTO accounts_reports_table(ct_id,ct_aid,ct_comment,ct_oid,
 		o_login,ct_fid,f_name,ct_amnt,ct_currency,comission,
@@ -616,8 +617,8 @@ sub add_common_do
 		`cashier_transactions`.`ct_amnt` AS `ct_amnt`,
 		`cashier_transactions`.`ct_currency` AS `ct_currency`,0,
 		`cashier_transactions`.`ct_amnt`  AS `result_amnt`,
-		0 AS `ct_comis_percent`,
-		 0  AS `ct_ext_commission`,cast(if(isnull(`cashier_transactions`.`ct_ts2`),
+		 `ct_comis_percent`,
+                 `ct_ext_commission`,cast(if(isnull(`cashier_transactions`.`ct_ts2`),
 		`cashier_transactions`.`ct_ts`,`cashier_transactions`.`ct_ts2`) as date) AS `ct_date`,
 		`exchange_view`.`e_currency2` AS `e_currency2`,
 		`exchange_view`.`e_rate` AS `rate`,
