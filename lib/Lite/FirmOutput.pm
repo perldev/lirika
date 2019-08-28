@@ -603,7 +603,7 @@ sub proto_add_edit_trigger{
 	  if((`cashier_transactions`.`ct_eid` is not null),`exchange_view`.`e_amnt2`,
 	(`cashier_transactions`.`ct_amnt` - ct_ext_commission + ((`cashier_transactions`.`ct_comis_percent` * `cashier_transactions`.`ct_amnt`) / 100))) AS `result_amnt`,
 	 `ct_comis_percent`,
-	 `ct_ext_commission`,
+	 -1*`ct_ext_commission`,
 	cast(if(isnull(`cashier_transactions`.`ct_ts2`),
 	`cashier_transactions`.`ct_ts`,`cashier_transactions`.`ct_ts2`) as date) AS `ct_date`,
 	`exchange_view`.`e_currency1` AS `e_currency2`,
