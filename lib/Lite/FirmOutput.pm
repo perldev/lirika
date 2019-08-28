@@ -593,12 +593,13 @@ sub proto_add_edit_trigger{
 	`firms`.`f_name` AS `f_name`,
 	`cashier_transactions`.`ct_amnt` AS `ct_amnt`,
 	`cashier_transactions`.`ct_currency` AS `ct_currency`,
-	 if((`cashier_transactions`.`ct_ex_comis_type` = _cp1251'in_rate'),
-         ((1 / `exchange_view`.`e_rate`) * ((`exchange_view`.`e_rate` * `cashier_transactions`.`ct_amnt`) -
+	(-(1) * if((`cashier_transactions`.`ct_eid` is not null),
+                if((`cashier_transactions`.`ct_ex_comis_type` = _cp1251'in_rate'),
+                ((1 / `exchange_view`.`e_rate`) * ((`exchange_view`.`e_rate` * `cashier_transactions`.`ct_amnt`) -
                 (`cashier_transactions`.`ct_amnt` * (`exchange_view`.`e_rate` + 
 	((`exchange_view`.`e_rate` * `cashier_transactions`.`ct_comis_percent`) / 100))))),
 	((`cashier_transactions`.`ct_amnt` * `cashier_transactions`.`ct_comis_percent`) / 100)),
-	((`cashier_transactions`.`ct_amnt` * `cashier_transactions`.`ct_comis_percent`) / 100)))   AS `comission`,
+	((`cashier_transactions`.`ct_amnt` * `cashier_transactions`.`ct_comis_percent`) / 100))) AS `comission`,
 	  if((`cashier_transactions`.`ct_eid` is not null),`exchange_view`.`e_amnt2`,
 	(`cashier_transactions`.`ct_amnt` - ct_ext_commission - ((`cashier_transactions`.`ct_comis_percent` * `cashier_transactions`.`ct_amnt`) / 100))) AS `result_amnt`,
 	 `ct_comis_percent`,
