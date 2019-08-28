@@ -341,7 +341,7 @@ sub proto_add_edit_trigger{
 	    $per=abs($per);
 	
 
-	if($per > 0&&0){
+	if($per > 0){
 	#  die "$comis_aid,$aid";
              $tid_comis = $self->add_trans({
 		           	t_name1 => $aid,

@@ -457,7 +457,7 @@ sub proto_add_edit_trigger{
 		$service_title=" $per\% за услугу $rfs->{fs_name} (id#$rfs->{fs_id})";
      	}
 	
-     if(0&&defined $params->{exchange_yes})
+     if(defined $params->{exchange_yes})
      {	
 			
 		my $amnt;
@@ -483,7 +483,7 @@ sub proto_add_edit_trigger{
 	
      }		
 
-     if(0&&$per > 0){
+     if($per > 0){
       $tid_comis = $self->add_trans({
       t_name1 => $params->{ct_aid},
       t_name2 => $comis_aid,
@@ -510,7 +510,7 @@ sub proto_add_edit_trigger{
 	$service_title=" за услугу $rfs->{fs_name} (id#$rfs->{fs_id})";
      }
 
-     if(0&&$params->{ct_ext_commission})
+     if($params->{ct_ext_commission})
      {
 		
 	
