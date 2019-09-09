@@ -112,25 +112,11 @@
 		</TR>
 		[% END %]
 		
-		<!--
-		<TR>
-			<TH  HEIGHT=16 ALIGN=LEFT colspan=6 class=table_gborders>Процентные выплаты</TD>
-			
-		</TR>
-		[% FOREACH rows=pay_credits %]
-		<TR>
-			<TD  class=table_gborders ALIGN=LEFT>$rows.left_column.a_name1</TD>
-			<TD  class=table_gborders ALIGN=LEFT>$rows.left_column.ts</TD>
-			<TD  class=table_gborders  ALIGN=LEFT  onclick="sum(this)">$rows.left_column.credit_sum</TD>
-			<TD  class=table_gborders  ALIGN=LEFT>$rows.right_column.a_name1</TD>
-			<TD  class=table_gborders ALIGN=LEFT>$rows.right_column.ts</TD>
-			<TD  class=table_gborders ALIGN=LEFT  onclick="sum(this)">$rows.right_column.credit_sum</TD>
-		</TR>
-		[% END %]-->
+		
 	
 		<TR>
-			<Th  colspan=6 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;(остатки на счетах фирм и кассы,общая сумма приведена к доллару)</Th>
-</tr>
+			<Th  colspan=6 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;(остатки на счетах фирм и кассы,общая сумма)</Th>
+                    </tr>
 		
 		</TR>
 
@@ -157,15 +143,14 @@
 	
 			<table class=table_gborders width=100%>		
 			
-	[% FOREACH rows=master_cards %]
+                [% FOREACH rows=master_cards %]
 			
 			<TR >
-			<th class=table_gborders align=left >$rows.a_name</th>
-			<td class=table_gborders  onclick="sum(this)">$rows.sum</td>
-
+                            <th class=table_gborders align=left >$rows.a_name</th>
+                            <td class=table_gborders  onclick="sum(this)">$rows.sum</td>
 			</tr>
 			
-	[% END %]
+                [% END %]
 	
 	
 	</table>
