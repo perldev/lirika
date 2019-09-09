@@ -948,10 +948,10 @@ sub get_firms_balances
 	{
             foreach my $c (@CURRENCIES){
                     my $key = "amnt_".$c;
-                    $sum_cash->{$key} += $r->{$_}->{$key};
-                    $r->{$_}->{$key} = format_float( to_prec(\$r->{$_}->{$key}) );
+                    $sum_cash->{$key} += $kassa->{$_}->{$key};
+                    $kassa->{$_}->{$key} = format_float( to_prec(\$kassa->{$_}->{$key}) );
             }
-            push @firms, $r->{$_};
+            push @firms, $kassa->{$_};
         }
         
 	push @firms,$sum;	
