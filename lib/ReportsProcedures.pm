@@ -1084,7 +1084,7 @@ sub get_permanent_cards_cats
 	my @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
 	my $size__=@keys;
 	
-	die Dumper $r;
+	
 	foreach(@keys)
 	{
                 foreach my $c (@CURRENCIES){
