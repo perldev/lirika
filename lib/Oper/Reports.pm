@@ -545,11 +545,14 @@ sub balance
 	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;	
 	$self->{tpl_vars}->{non_identifier}=$non_identifier;
 	$self->{tpl_vars}->{firm_balances}=$firm_balances;
- 	$self->{tpl_vars}->{work_money}=to_prec($firm_balances->[0]->{right_column}->{amnt});
+# 	$self->{tpl_vars}->{work_money}=to_prec($firm_balances->[0]->{right_column}->{amnt});
 	
 # 	$self->{tpl_vars}->{whole_sum_with_commons}=to_prec($self->{tpl_vars}->{work_money}+0*$master_cards->[0]->{sum});
-	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
-#	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
+#	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
+# 	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
+        for my $c (@CURRENCIES){
+            $self->{tpl_vars}->{"delta_".$c}= $firm_balances->[0]->{"amnt_"+$c} + $firm_balances->[1]->{"amnt_"+$c} - $permanent_cards->[0]->{"amnt_"+$c} - $non_identifier->[0]->{"amnt_"+$c};
+ 	}
 	
 	my $delta=$self->{tpl_vars}->{delta};
 	$self->{tpl_vars}->{delta}=format_float($delta);

@@ -27,7 +27,7 @@
 			<Th class=table_gborders ALIGN=CENTER><I>EUR</I></Th>
 			<Th class=table_gborders ALIGN=CENTER><I>BTC</I></Th>
 		</TR>
-		-->
+		
 		<!--<TR>
 			<th class=table_gborders COLSPAN=3  HEIGHT=16>Заёмные средства</Th>
 			<Th class=table_gborders COLSPAN=3 ALIGN=CENTER>Собственные средства</Th>
@@ -116,66 +116,41 @@
 		
 	
 		<TR>
-			<Th  colspan=6 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;(остатки на счетах фирм и кассы,общая сумма)</Th>
-                    </tr>
+                    <Th  colspan=6 HEIGHT=16 ALIGN=LEFT BGCOLOR="#C0C0C0">Итоговые суммы&nbsp;(остатки на счетах фирм и кассы,общая сумма)</Th>
+                    
 		
 		</TR>
 
 		[% FOREACH rows=firm_balances %]		
-		<TR>
-                    <TR>
-                        <TD   class=table_gborders HEIGHT=16 ALIGN=LEFT >
-                         <a class="table_gborders" href="#"  colspan="2">$rows.f_name </a></TD>
-                        <td class=table_gborders HEIGHT=16 ALIGN=LEFT> $rows.last_ts </TD>
+                <TR>
+                    <TD   class=table_gborders HEIGHT=16 ALIGN=LEFT >
+                        <a class="table_gborders" href="#"  colspan="2">$rows.f_name </a></TD>
+                    <td class=table_gborders HEIGHT=16 ALIGN=LEFT> $rows.last_ts </TD>
 
-			<TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_uah </TD>
-                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_usd </TD>
-                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_eur </TD>
-                        <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_btc </TD>
-
-		</TR>
-		
-		
+                    <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_uah </TD>
+                    <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_usd </TD>
+                    <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_eur </TD>
+                    <TD   class=table_gborders ALIGN=RIGHT  onclick="sum(this)"> $rows.amnt_btc </TD>
 		</TR>
 		[% END %]
 		
-		<TR>
-			<th class=table_gborders rowspan=3 colspan=3>
-			
-<!--Master cards-->
 	
-			<table class=table_gborders width=100%>		
-			
-                [% FOREACH rows=master_cards %]
-			
-			<TR >
-                            <th class=table_gborders align=left >$rows.a_name</th>
-                            <td class=table_gborders  onclick="sum(this)">$rows.sum</td>
-			</tr>
-			
-                [% END %]
-	
-	
-	</table>
-
-<!--master cards-->	</th>
-		
-	<TH ALIGN=RIGHT class=table_gborders >Средств в работе:&nbsp;
-			(общая сумма остатков на карточках,фирмах,<br>кассе,нерасчитанных приведненная к долларам)		
-
+	<tr>	
+	<TH ALIGN=RIGHT class=table_gborders colspan="6" >Дельта:&nbsp;
 	</Th>
-                <Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_uah</Td>
-
-		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_usd</Td>
-		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_eur</Td>
-		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$work_money_btc</Td>
-
+	</tr>
+	<tr>
+        <th colspan="2">(общая сумма остатков на фирмах,<br>кассе, - нерасчитанные - остатки на картах)</td>
+                <Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$delta_uah</Td>
+		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$delta_usd</Td>
+		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$delta_eur</Td>
+		<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$delta_btc</Td>
 		
 	</TR>
 		
 
-	<TR>
-	<TH ALIGN=RIGHT colspan=2 class=table_gborders >Средств в работе с учётом общих затрат:
+	
+	<!--<TR><TH ALIGN=RIGHT colspan=2 class=table_gborders >Средств в работе с учётом общих затрат:
 			("Средств в работе" )
 </TH>
 			<Td ALIGN=RIGHT class=table_gborders  onclick="sum(this)">$whole_sum_with_commons</Td>
@@ -229,7 +204,7 @@
 				<td class=table_gborders align=right colspan=2>ИТОГО:</td>
 				<td class=table_gborders  onclick="sum(this)">$row.concl</td>
 			</tr>
-		[% END %]
+		[% END %]-->
 
 
 		
