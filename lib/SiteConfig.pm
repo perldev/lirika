@@ -44,6 +44,7 @@ $INTERFACE
 $PLUGIN_TMPL
 $EXT_IP
 $EXCEL_EXPORT_PATH
+@CURRENCIES
 );
 
 ##config of setting of rate of various currencies
@@ -76,6 +77,9 @@ $EXCEL_EXPORT_PATH
         BTC=>{USD=>1,UAH=>1,EUR=>1,BTC=>1},
 
    ); 
+   
+our @CURRENCIES = ("usd","uah","eur","btc");
+   
 our $working_path='/home/fsb/new_fsb/www/';
 
 

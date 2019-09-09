@@ -14,10 +14,10 @@ our @EXPORT = qw(
        calculate_sum
        get_common_sums
        get_last_sum_exc
-	    get_last_sum_exc_without
+       get_last_sum_exc_without
        get_static_cards
        percent_payments
-	    exclude_system_exchange
+       exclude_system_exchange
        get_permanent_cards
        get_non_identifier
 
@@ -1084,10 +1084,12 @@ sub get_permanent_cards_cats
 	my @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
 	my $size__=@keys;
 	
-	
+	die Dumper $r;
 	foreach(@keys)
 	{
-		$$sum1+=$r->{$_}->{amnt};
+                foreach my $r(@CURRENCIES){
+                    $$sum1->{$c}+=$r->{$_}->{"amnt_".$c};
+                }
 
 		push @{$common_result},$r->{$_};
 	}
@@ -1290,21 +1292,25 @@ sub get_permanent_cards
 ##get static cards
 	my $res=get_cats_simple(undef,[$SYSTEM_ACCOUNTS]);
 	my @common_result;
-	my ($sum1,$sum2);
-	my ($tmp_sum1,$tmp_sum2);
+	my %sum1=();
+	my %tmp_sum1 = ();
 	my $i=0;
 	foreach(@$res)
 	{
-		$tmp_sum1=$sum1;
-		$tmp_sum2=$sum2;
+		%tmp_sum1=%sum1;
 		push @common_result,{is_cat_title=>1,cat_name=>$_->{title} };
 		$i=@common_result;
 		$i--;
-		get_permanent_cards_cats(\@common_result, $_->{value},\$sum1,\$sum2);
-		$common_result[$i]->{sum_uah}=format_float($sum1-$tmp_sum1);
-		$common_result[$i]->{sum_usd}=format_float($sum2-$tmp_sum2);
-                $common_result[$i]->{sum_eur}=format_float($sum2-$tmp_sum2);
-		$common_result[$i]->{sum_btc}=format_float($sum2-$tmp_sum2);
+		get_permanent_cards_cats(\@common_result, $_->{value},\$sum1);
+		
+		
+		foreach my $c (@CURRENCIES){
+                    $common_result[$i]->{"sum_".$c}=format_float($sum1{$c}-$tmp_sum1{$c});
+		
+		}
+# 		$common_result[$i]->{sum_usd}=format_float($sum2-$tmp_sum2);
+#                 $common_result[$i]->{sum_eur}=format_float($sum2-$tmp_sum2);
+# 		$common_result[$i]->{sum_btc}=format_float($sum2-$tmp_sum2);
 
 
 	}
