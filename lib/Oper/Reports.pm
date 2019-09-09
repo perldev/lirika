@@ -558,7 +558,7 @@ sub balance
 	
 	$self->{tpl_vars}->{whole_sum_with_commons}=to_prec($self->{tpl_vars}->{work_money}+0*$master_cards->[0]->{sum});
 	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
-	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
+#	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
 	
 	my $delta=$self->{tpl_vars}->{delta};
 	$self->{tpl_vars}->{delta}=format_float($delta);
