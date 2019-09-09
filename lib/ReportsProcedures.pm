@@ -1301,7 +1301,7 @@ sub get_permanent_cards
 		push @common_result,{is_cat_title=>1,cat_name=>$_->{title} };
 		$i=@common_result;
 		$i--;
-		get_permanent_cards_cats(\@common_result, $_->{value},\$sum1);
+		get_permanent_cards_cats(\@common_result, $_->{value},\%sum1);
 		
 		
 		foreach my $c (@CURRENCIES){
@@ -1315,8 +1315,7 @@ sub get_permanent_cards
 
 	}
 	
-	unshift @common_result,{strong=>1,plus_column=>{a_name=>'Всего',amnt=>-1*$sum1},
-				mines_column=>{a_name=>'Всего',amnt=>-1*$sum2}};
+ 	unshift @common_result,{strong=>1};
      
 	return \@common_result;		
 }
