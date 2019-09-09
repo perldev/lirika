@@ -1083,56 +1083,15 @@ sub get_permanent_cards_cats
 	
 	my @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
 	my $size__=@keys;
-	
-	
 	foreach my $a (@keys)
 	{
                 foreach my $c (@CURRENCIES){
                     $sum1->{$c}+=$r->{$a}->{"amnt_".$c};
                 }
 
-		push @{$common_result}, $r->{$_};
+		push @{$common_result}, $r->{$a};
 	}
-# 
-# 	$r=$dbh->selectall_hashref(qq[SELECT  a_name,a_id,a_usd as amnt_usd,
-#         a_eur as amnt_eur, 
-#         a_uah as amnt_uah, 
-#         a_btc as amnt_btc, DATE_FORMAT(max(t_ts),"\%d.\%m.\%y") as last_ts,ac_title,ac_id  
-# 	FROM accounts_cats,accounts LEFT JOIN transactions  ON 
-# 	(t_aid1=a_id OR t_aid2=a_id),classes  
-# 	WHERE c_name NOT IN  ($non_usual_class) AND 
-# 	c_id=a_class AND a_status!='deleted' AND a_id>1 AND ac_id=a_acid AND ac_id=$cat_id
-# 	GROUP BY a_id  ORDER BY a_name ASC],'a_id');
-# 	my @mines_cards;
-# 	
-# 	 @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
-# 	my $size__1=@keys;
-# 	foreach(@keys)
-# 	{
-# 		to_prec(\$r->{$_}->{amnt});
-# 
-# 		$$sum2+=$r->{$_}->{amnt};
-# 
-# 		$r->{$_}->{amnt}=format_float(-1*$r->{$_}->{amnt});
-# 		
-# 		push @mines_cards,$r->{$_};
-# 
-# 	}
-# 
-# 	
-# 	my $size;
-# 	if(@mines_cards>=@plus_cards)
-# 	{
-# 		$size=@mines_cards;	
-# 	}else
-# 	{
-# 		$size=@plus_cards;
-# 	}
-# 	for(my $i=0;$i<;$i++)
-# 	{
-# 		push @{$common_result},{mines_column=>$mines_cards[$i],plus_column=>$plus_cards[$i]}
-# 	}	
- 	
+
 	
 
 
@@ -1302,16 +1261,11 @@ sub get_permanent_cards
 		$i=@common_result;
 		$i--;
 		get_permanent_cards_cats(\@common_result, $_->{value},\%sum1);
-		
-		
+	        	
 		foreach my $c (@CURRENCIES){
                     $common_result[$i]->{"sum_".$c}=format_float($sum1{$c}-$tmp_sum1{$c});
 		
 		}
-# 		$common_result[$i]->{sum_usd}=format_float($sum2-$tmp_sum2);
-#                 $common_result[$i]->{sum_eur}=format_float($sum2-$tmp_sum2);
-# 		$common_result[$i]->{sum_btc}=format_float($sum2-$tmp_sum2);
-
 
 	}
 	
