@@ -848,9 +848,7 @@ sub get_non_identifier
 
  
 
-        my $count_param="CASE   `from`.ct_currency WHEN 'EUR' 
-        THEN `from`.ct_amnt*$echs->{EUR} WHEN 'USD' THEN `from`.ct_amnt WHEN 'UAH' THEN             `from`.ct_amnt*$echs->{UAH} END ";
-	my ($date1,$date2);
+       my ($date1,$date2);
 	if(defined($date[0]))
 	{
 		$date1="ct_ts>'$date[0]'";
