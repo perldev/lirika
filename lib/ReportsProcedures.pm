@@ -874,7 +874,7 @@ sub get_non_identifier
                                         FROM 
                                         cashier_transactions as `from`,firms 
                                         WHERE 
-                                        $date1 AND $date2 AND f_id=ct_fid AND ct_fid>0 AND ct_status='created'  AND  1 GROUP BY f_id 
+                                        $date1 AND $date2 AND f_id=ct_fid AND ct_fid>0 AND ct_req='no' AND ct_status='created'  AND  1 GROUP BY f_id 
                                         ORDER BY f_name ASC],'f_id');
 	
 	my @non_ident;
@@ -907,71 +907,57 @@ sub get_firms_balances
 	my $echs=get_exchanges();
 ##get static cards
         my $count_param="(f_eur*$echs->{EUR}+f_usd+f_uah*$echs->{UAH})";
-	my $str=qq[
-		SELECT f_id,f_name,$count_param as amnt,
-		DATE_FORMAT(max(ct_ts),"\%d.\%m.\%y")	 as last_ts 
-		FROM firms 
-		LEFT JOIN cashier_transactions 
-		ON ct_fid=f_id WHERE f_id>0  GROUP BY f_id 
+        my $str=qq[
+                SELECT f_id,f_name,
+                       f_uah as amnt_usd, 
+                       f_eur as amnt_eur,
+                       f_usd as amnt_usd
+                       DATE_FORMAT(max(ct_ts),"\%d.\%m.\%y") as last_ts 
+                FROM firms 
+                LEFT JOIN cashier_transactions 
+                ON ct_fid=f_id WHERE f_id>0  GROUP BY f_id 
 	];
 	my $r=$dbh->selectall_hashref($str,'f_id');
-	my @firms1;
-	my $sum;
+	my @firms;
+	my $sum = {f_name=>'Cashless', strong=>1};
+        my $sum_cash = {f_name=>'Cash', strong=>1};
+
+	foreach my $c (@CURRENCIES){
+            $sum->{"amnt_".$c} = 0;
+            $sum_cash->{"amnt_".$c} = 0;
+	
+	}
+	
 	foreach(keys %$r)
 	{
-		$sum+=$r->{$_}->{amnt};
-		$r->{$_}->{amnt}=format_float( to_prec(\$r->{$_}->{amnt}) );
-		push @firms1,$r->{$_};
-	}
-	
-	my $size=@firms1;
-	my @firms2=splice(@firms1,int($size/2));
-	if($size%2)
+                foreach my $c (@CURRENCIES){
+                    my $key = "amnt_".$c;
+                    $sum->{$key} += $r->{$_}->{$key};
+                    $r->{$_}->{$key} = format_float( to_prec(\$r->{$_}->{$key}) );
+                }
+                push @firms, $r->{$_};
+        }
+        ##getting the balances of our kassa
+        my $kassa = $dbh->selectall_hashref(q[SELECT a_id,co_title as f_name, 
+                                                   a_uah as amnt_uah,
+                                                   a_usd as amnt_usd ,
+                                                   a_eur as amnt_eur,
+                                                   a_btc as amnt_btc
+                                            FROM accounts,cash_offices 
+                                            WHERE a_id=co_aid], "a_id");
+                                            
+        foreach(keys %$r)
 	{
-		$size=$size/2+1;	
-	}else
-	{
-		$size=$size/2;	
-	}
-	
- 	
-	my @firms;
-
-	##getting the balances of our kassa
-	
-	
-
-
-	my $kassa=$dbh->selectrow_hashref(q[SELECT sum(a_uah) as a_uah,
-                                               sum(a_usd) as a_usd ,
-                                               sum(a_eur) as a_eur 
-                                               FROM accounts,cash_offices 
-                                               WHERE a_id=co_aid]);
-
-
-	push @firms,{left_column=>{f_name=>'Касса'},
-	right_column=>{last_ts=>'Всего',amnt=>format_float(-1*$kassa->{a_uah})}};
-	push @firms,{left_column=>{f_name=>'Всего'},
-	right_column=>{last_ts=>'USD',amnt=>format_float(-1*$kassa->{a_usd})}};
-	push @firms,{left_column=>{f_name=>'Всего'},
-	right_column=>{last_ts=>'EUR',amnt=>format_float(-1*$kassa->{a_eur})}};	
-	#converting to the usd))
-	my $echs_c= get_exchanges_cash();
-	$sum+=(-1*$kassa->{a_uah}*$echs_c->{UAH}+
-	       -1*$kassa->{a_eur}*$echs_c->{EUR}+
-	       -1*$kassa->{a_usd}
-		
-	     );
-	
-	 @firms2 = sort { $a->{f_name} cmp $b->{f_name} } @firms2;
-	 @firms1 = sort { $a->{f_name} cmp $b->{f_name} } @firms1;
-
-	for(my $i=0;$i<$size;$i++)
-	{
- 		push @firms,{left_column=>$firms2[$i],right_column=>$firms1[$i]}
-	}
-	unshift @firms,{strong=>1,left_column=>{f_name=>'Всего'},
-			right_column=>{amnt=>$sum}};	
+            foreach my $c (@CURRENCIES){
+                    my $key = "amnt_".$c;
+                    $sum_cash->{$key} += $r->{$_}->{$key};
+                    $r->{$_}->{$key} = format_float( to_prec(\$r->{$_}->{$key}) );
+            }
+            push @firms, $r->{$_};
+        }
+        
+	push @firms,$sum;	
+	push @firms,$sum_cash;	
 	
 
  	return \@firms;		
