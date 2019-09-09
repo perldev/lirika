@@ -6,10 +6,11 @@ use SiteDB;
 use SiteCommon;
 use GD; 
 use CGI::Carp qw(fatalsToBrowser);
-
+use Data::Dumper;
 use POSIX;
 use ReportsProcedures;
 use Storable qw( &nfreeze &thaw );
+
 
 my $Y_WIDTH_GRID=52;
 my $MONTH_COUNT=12;
