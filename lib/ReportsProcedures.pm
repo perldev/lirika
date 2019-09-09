@@ -1267,7 +1267,7 @@ sub get_permanent_cards
 		}
 
 	}
- 	my $all = {strong=>1};
+ 	my $all = {strong=>1, is_cat_title=>1};
  	foreach my $c (@CURRENCIES){
                      $all->{"sum_".$c}=format_float($sum1{$c});
          }
