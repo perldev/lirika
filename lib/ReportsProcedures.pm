@@ -1267,11 +1267,11 @@ sub get_permanent_cards
 		}
 
 	}
-# 	my $all = {strong=>1};
-# 	foreach my $c (@CURRENCIES){
-#                     $all->{"sum_".$c}=format_float($sum1{$c});
-#         }
-#  	unshift @common_result, $all;
+ 	my $all = {strong=>1};
+ 	foreach my $c (@CURRENCIES){
+                     $all->{"sum_".$c}=format_float($sum1{$c});
+         }
+  	push @common_result, $all;
      
 	return \@common_result;		
 }
