@@ -553,7 +553,7 @@ sub balance
 	($permanent_cards->[0]->{plus_column}->{amnt}+$permanent_cards->[0]->{mines_column}->{amnt})-
 	$non_identifier->[0]->{right_column}->{amnt}+$firm_balances->[0]->{right_column}->{amnt});
 	
-	$self->{tpl_vars}->{whole_sum_with_commons}=to_prec($self->{tpl_vars}->{work_money}+0*$master_cards->[0]->{sum});
+# 	$self->{tpl_vars}->{whole_sum_with_commons}=to_prec($self->{tpl_vars}->{work_money}+0*$master_cards->[0]->{sum});
 	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
 #	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
 	
