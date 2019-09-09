@@ -1060,7 +1060,7 @@ sub percent_payments
 }
 sub get_permanent_cards_cats
 {
-	my ($common_result,$cat_id,$sum1,$sum2)=@_;
+	my ($common_result,$cat_id,$sum1)=@_;
 
 
 	my $r=$dbh->selectall_hashref(qq[SELECT  
@@ -1085,13 +1085,13 @@ sub get_permanent_cards_cats
 	my $size__=@keys;
 	
 	
-	foreach(@keys)
+	foreach my $a (@keys)
 	{
                 foreach my $c (@CURRENCIES){
-                    $$sum1->{$c}+=$r->{$_}->{"amnt_".$c};
+                    $sum1->{$c}+=$r->{$a}->{"amnt_".$c};
                 }
 
-		push @{$common_result},$r->{$_};
+		push @{$common_result}, $r->{$_};
 	}
 # 
 # 	$r=$dbh->selectall_hashref(qq[SELECT  a_name,a_id,a_usd as amnt_usd,
