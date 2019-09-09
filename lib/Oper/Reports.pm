@@ -546,11 +546,9 @@ sub balance
 	my $firm_balances=&get_firms_balances();
 	my $master_cards=&get_kcards_balance(@last_ts);
 
-	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;
-	die Dumper $permanent_cards;
-	
+	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;	
 	$self->{tpl_vars}->{non_identifier}=$non_identifier;
-#	$self->{tpl_vars}->{pay_credits}=$pay_credits;
+	
 	$self->{tpl_vars}->{firm_balances}=$firm_balances;
 	$self->{tpl_vars}->{master_cards}=$master_cards;
  	$self->{tpl_vars}->{work_money}=to_prec(
