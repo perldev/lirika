@@ -904,14 +904,12 @@ sub get_non_identifier
 sub get_firms_balances
 {
 	
-	my $echs=get_exchanges();
-##get static cards
-        my $count_param="(f_eur*$echs->{EUR}+f_usd+f_uah*$echs->{UAH})";
+        ##get static cards
         my $str=qq[
                 SELECT f_id,f_name,
                        f_uah as amnt_usd, 
                        f_eur as amnt_eur,
-                       f_usd as amnt_usd
+                       f_usd as amnt_usd,
                        DATE_FORMAT(max(ct_ts),"\%d.\%m.\%y") as last_ts 
                 FROM firms 
                 LEFT JOIN cashier_transactions 
