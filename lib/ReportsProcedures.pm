@@ -1087,7 +1087,7 @@ sub get_permanent_cards_cats
 	die Dumper $r;
 	foreach(@keys)
 	{
-                foreach my $ñ (@CURRENCIES){
+                foreach my $c (@CURRENCIES){
                     $$sum1->{$c}+=$r->{$_}->{"amnt_".$c};
                 }
 
