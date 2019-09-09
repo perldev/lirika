@@ -544,7 +544,6 @@ sub balance
 	my $non_identifier=&get_non_identifier();
 # 	my $pay_credits=&percent_payments();
 	my $firm_balances=&get_firms_balances();
-	my $master_cards=&get_kcards_balance(@last_ts);
 
 	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;	
 	$self->{tpl_vars}->{non_identifier}=$non_identifier;

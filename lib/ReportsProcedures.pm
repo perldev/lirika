@@ -844,7 +844,6 @@ sub get_non_identifier_without
 sub get_non_identifier
 {
 	my @date=@_;
-	my $echs=get_exchanges();
 ##get static cards
 
  
@@ -869,47 +868,37 @@ sub get_non_identifier
 	}		
 	
 
-	my $r=$dbh->selectall_hashref(qq[SELECT f_name,f_id,sum($count_param) as amnt 
-	FROM 
-	cashier_transactions as `from`,firms 
-	WHERE 
-	$date1 AND $date2 AND f_id=ct_fid AND ct_req='no' AND ct_fid>0 AND ct_status='created'  AND  1 GROUP BY f_id 
-	ORDER BY f_name ASC],'f_id');
+	my $r=$dbh->selectall_hashref(qq[SELECT f_name,f_id,
+                                         sum(if(ct_currency='UAH', ct_amnt, 0))  AS  amnt_uah,
+                                         sum(if(ct_currency='BTC', ct_amnt, 0))  AS amnt_btc, 
+                                         sum(if(ct_currency='USD', ct_amnt, 0))  AS amnt_usd,
+                                         sum(if(ct_currency='EUR', ct_amnt, 0))  AS amnt_eur
+                                        FROM 
+                                        cashier_transactions as `from`,firms 
+                                        WHERE 
+                                        $date1 AND $date2 AND f_id=ct_fid AND ct_req='no' AND ct_fid>0 AND ct_status='created'  AND  1 GROUP BY f_id 
+                                        ORDER BY f_name ASC],'f_id');
 	
 
-	my @non_ident1;
-	my $sum;
+	my @non_ident;
+	my $sum = {f_name=>'', strong=>1};
+	foreach my $c (@CURRENCIES){
+            $sum->{"amnt_".$c} = 0;
 	
+	}
 	foreach(sort keys %$r)
 	{
-		$sum+=$r->{$_}->{amnt};
-		$r->{$_}->{amnt}=format_float( to_prec(\$r->{$_}->{amnt}) );
-		push @non_ident1,$r->{$_};
+            	foreach my $c (@CURRENCIES){
+                    my $key = "amnt_".$c;
+                    $sum->{$key}+=$r->{$_}->{$key};
+                    $r->{$_}->{$key}=format_float( to_prec(\$r->{$_}->{$key}) );
+		}
+		
+		push @non_ident,$r->{$_};
 	}
 	
-	my $size=@non_ident1;
-
-	my @non_ident2=splice(@non_ident1,int($size/2));
-	if($size%2)
-	{
-		$size=$size/2+1;	
-	}else
-	{
-		$size=$size/2;	
-	}
-	my @non_ident;
-
-	@non_ident1 = sort { $a->{f_name} cmp $b->{f_name} } @non_ident1;
-	@non_ident2 = sort { $a->{f_name} cmp $b->{f_name} } @non_ident2;
-
 	
-
-	for(my $i=0;$i<$size;$i++)
-	{
- 		push @non_ident,{left_column=>$non_ident2[$i],right_column=>$non_ident1[$i]}
-	}	
-
-	unshift @non_ident,{strong=>1,left_column=>{f_name=>'всего'},right_column=>{amnt=>$sum}};
+	push @non_ident, $sum;
 
  	return \@non_ident;		
 
@@ -1263,13 +1252,16 @@ sub get_permanent_cards
 		get_permanent_cards_cats(\@common_result, $_->{value},\%sum1);
 		foreach my $c (@CURRENCIES){
                     $common_result[$i]->{"sum_".$c}=format_float($sum1{$c}-$tmp_sum1{$c});
+                    $common_result[$i]->{"raw_sum_".$c}=$sum1{$c}-$tmp_sum1{$c};
 		
 		}
 
 	}
  	my $all = {strong=>1, is_cat_title=>1};
  	foreach my $c (@CURRENCIES){
-                     $all->{"sum_".$c}=format_float($sum1{$c});
+                $all->{"sum_".$c}=format_float($sum1{$c});
+                $all->{"raw_sum_".$c}=$sum1{$c};
+
          }
   	push @common_result, $all;
      
