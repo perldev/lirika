@@ -944,7 +944,7 @@ sub get_firms_balances
                                             FROM accounts,cash_offices 
                                             WHERE a_id=co_aid], "a_id");
                                             
-        foreach(keys %$r)
+        foreach(keys %$kassa)
 	{
             foreach my $c (@CURRENCIES){
                     my $key = "amnt_".$c;
