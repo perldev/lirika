@@ -547,7 +547,6 @@ sub balance
 
 	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;	
 	$self->{tpl_vars}->{non_identifier}=$non_identifier;
-	die Dumper $non_identifier;
 	$self->{tpl_vars}->{firm_balances}=$firm_balances;
  	$self->{tpl_vars}->{work_money}=to_prec(
 	($permanent_cards->[0]->{plus_column}->{amnt}+$permanent_cards->[0]->{mines_column}->{amnt})-

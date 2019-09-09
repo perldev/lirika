@@ -877,7 +877,6 @@ sub get_non_identifier
                                         $date1 AND $date2 AND f_id=ct_fid AND ct_fid>0 AND ct_status='created'  AND  1 GROUP BY f_id 
                                         ORDER BY f_name ASC],'f_id');
 	
-        die Dumper $r;
 	my @non_ident;
 	my $sum = {f_name=>'', strong=>1};
 	foreach my $c (@CURRENCIES){
