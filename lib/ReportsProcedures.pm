@@ -895,7 +895,7 @@ sub get_non_identifier
 	}
 	
 	
-	push @non_ident, $sum;
+	unshift @non_ident, $sum;
 
  	return \@non_ident;		
 
@@ -954,8 +954,8 @@ sub get_firms_balances
             push @firms, $kassa->{$_};
         }
         
-	push @firms,$sum;	
-	push @firms,$sum_cash;	
+	unshift @firms,$sum;	
+	unshift @firms,$sum_cash;	
 	
 
  	return \@firms;		
@@ -1052,7 +1052,6 @@ sub get_permanent_cards_cats
 	my @plus_cards;
 	
 	my @keys = sort { $r->{$a}->{a_name} cmp $r->{$b}->{a_name} } keys %$r;
-	my $size__=@keys;
 	foreach my $a (@keys)
 	{
                 foreach my $c (@CURRENCIES){
@@ -1244,7 +1243,7 @@ sub get_permanent_cards
                 $all->{"raw_sum_".$c}=$sum1{$c};
 
          }
-  	push @common_result, $all;
+  	unshift @common_result, $all;
      
 	return \@common_result;		
 }

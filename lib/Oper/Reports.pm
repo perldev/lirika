@@ -539,18 +539,13 @@ sub balance
 	my $self=shift;
   	my $tmpl=$self->load_tmpl('common_reports.html');
 	my @last_ts=$dbh->selectrow_array(q[SELECT cr_ts FROM reports  WHERE cr_status='created' ORDER BY cr_id ASC LIMIT 1]);
-	#my $static_cards=&get_static_cards(@last_ts);
  	my $permanent_cards=&get_permanent_cards();
 	my $non_identifier=&get_non_identifier();
-# 	my $pay_credits=&percent_payments();
 	my $firm_balances=&get_firms_balances();
-
 	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;	
 	$self->{tpl_vars}->{non_identifier}=$non_identifier;
 	$self->{tpl_vars}->{firm_balances}=$firm_balances;
- 	$self->{tpl_vars}->{work_money}=to_prec(
-	($permanent_cards->[0]->{plus_column}->{amnt}+$permanent_cards->[0]->{mines_column}->{amnt})-
-	$non_identifier->[0]->{right_column}->{amnt}+$firm_balances->[0]->{right_column}->{amnt});
+ 	$self->{tpl_vars}->{work_money}=to_prec($firm_balances->[0]->{right_column}->{amnt});
 	
 # 	$self->{tpl_vars}->{whole_sum_with_commons}=to_prec($self->{tpl_vars}->{work_money}+0*$master_cards->[0]->{sum});
 	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
