@@ -551,7 +551,7 @@ sub balance
 #	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
 # 	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
         for my $c (@CURRENCIES){
-            $self->{tpl_vars}->{"delta_".$c}= $firm_balances->[0]->{"amnt_"+$c} + $firm_balances->[1]->{"amnt_"+$c} - $permanent_cards->[0]->{"amnt_"+$c} - $non_identifier->[0]->{"amnt_"+$c};
+            $self->{tpl_vars}->{"delta_".$c}= $firm_balances->[0]->{"amnt_".$c} + $firm_balances->[1]->{"amnt_".$c} - $permanent_cards->[0]->{"raw_sum_".$c} - $non_identifier->[0]->{"amnt_".$c};
  	}
 	
 	my $delta=$self->{tpl_vars}->{delta};
