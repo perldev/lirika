@@ -1261,15 +1261,17 @@ sub get_permanent_cards
 		$i=@common_result;
 		$i--;
 		get_permanent_cards_cats(\@common_result, $_->{value},\%sum1);
-	        	
 		foreach my $c (@CURRENCIES){
                     $common_result[$i]->{"sum_".$c}=format_float($sum1{$c}-$tmp_sum1{$c});
 		
 		}
 
 	}
-	
- 	unshift @common_result,{strong=>1};
+	my $all = {strong=>1};
+	foreach my $c (@CURRENCIES){
+                    $all->{"sum_".$c}=format_float($sum1{$c});
+        }
+ 	unshift @common_result, $all;
      
 	return \@common_result;		
 }
