@@ -5,6 +5,8 @@ use SiteConfig;
 use SiteDB;
 use SiteCommon;
 use GD; 
+use CGI::Carp qw(fatalsToBrowser);
+
 use POSIX;
 use ReportsProcedures;
 use Storable qw( &nfreeze &thaw );
@@ -393,7 +395,7 @@ sub get_accounts_income{
                                         GROUP BY DAYOFMONTH(t_ts) ORDER BY DAYOFMONTH(t_ts) ASC
                                         ],'d');
    
-    my $sum_u2=$dbh->selectall_hashref(qq[SELECT DAYOFMONTH(t_ts) as d ,sum(t_amnt) as m
+    my $sum_u2 = $dbh->selectall_hashref(qq[SELECT DAYOFMONTH(t_ts) as d ,sum(t_amnt) as m
                                         FROM transactions WHERE t_currency='UAH' 
                                         AND t_aid2=$aid  AND t_aid1 IN ($non_aid)
                                         AND t_aid1 NOT IN ($firms_id,$exchange_id) AND t_aid1 NOT IN 
@@ -403,7 +405,7 @@ sub get_accounts_income{
                                         GROUP BY DAYOFMONTH(t_ts) ORDER BY DAYOFMONTH(t_ts) ASC
                                         ],'d');
 
-    my $sum_e2=$dbh->selectall_hashref(qq[SELECT DAYOFMONTH(t_ts) as d,sum(t_amnt) as m
+    my $sum_e2 = $dbh->selectall_hashref(qq[SELECT DAYOFMONTH(t_ts) as d,sum(t_amnt) as m
                                         FROM transactions WHERE t_currency='USD' 
                                         AND t_aid2=$aid AND t_aid1 IN ($non_aid)
                                         AND t_aid1 NOT IN ($firms_id,$exchange_id) AND t_aid1 NOT IN 
@@ -544,6 +546,8 @@ sub balance
 	my $master_cards=&get_kcards_balance(@last_ts);
 
 	$self->{tpl_vars}->{permanent_cards}=$permanent_cards;
+	die Dumper $permanent_cards;
+	
 	$self->{tpl_vars}->{non_identifier}=$non_identifier;
 #	$self->{tpl_vars}->{pay_credits}=$pay_credits;
 	$self->{tpl_vars}->{firm_balances}=$firm_balances;
@@ -554,7 +558,7 @@ sub balance
 	
 	$self->{tpl_vars}->{whole_sum_with_commons}=to_prec($self->{tpl_vars}->{work_money}+0*$master_cards->[0]->{sum});
 	$self->{tpl_vars}->{last_sum_exc}=get_last_sum_exc_balance();
-	$self->{tpl_vars}->{delta}=to_prec($self->{tpl_vars}->{whole_sum_with_commons}-$self->{tpl_vars}->{last_sum_exc});
+	$self->{tpl_vars}->{delta}= $firm_balances + $cash - $non_identifier - $permanent_cards;
 	
 	my $delta=$self->{tpl_vars}->{delta};
 	$self->{tpl_vars}->{delta}=format_float($delta);
@@ -563,7 +567,6 @@ sub balance
 	
 
 
-	my %hash=(33=>$delta*0.25,34=>$delta*0.25,35=>$delta*0.5);
 	
 	my $page=$self->query->param('page');	
 	

@@ -6,6 +6,8 @@ use Data::Dumper;
 use base "Exporter";
 use SiteCommon;
 use Storable qw( &nfreeze &thaw );
+use CGI::Carp qw(fatalsToBrowser);
+
 our @EXPORT = qw(
        get_last_sum_exc
         
