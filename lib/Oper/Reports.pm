@@ -559,8 +559,8 @@ sub balance
 	
 	my $delta=$self->{tpl_vars}->{delta};
 	$self->{tpl_vars}->{delta}=format_float($delta);
-	my $conclusion_sums=get_concl_kcards($master_cards,$delta);
-	$self->{tpl_vars}->{conclusions_sum}=$conclusion_sums;
+# 	my $conclusion_sums=get_concl_kcards($master_cards,$delta);
+	$self->{tpl_vars}->{conclusions_sum}=0;
 	
 
 
@@ -568,11 +568,11 @@ sub balance
 	my $page=$self->query->param('page');	
 	
 	$self->{tpl_vars}->{firms_balances}=format_float($firm_balances->[0]->{right_column}->{amnt});
-	$self->{tpl_vars}->{non_ident}=format_float($non_identifier->[0]->{right_column}->{amnt});
-	$self->{tpl_vars}->{cards}=format_float
-	(
-		$permanent_cards->[0]->{mines_column}->{amnt}+$permanent_cards->[0]->{plus_column}->{amnt}
-	);
+# 	$self->{tpl_vars}->{non_ident}=format_float($non_identifier->[0]->{right_column}->{amnt});
+# 	$self->{tpl_vars}->{cards}=format_float
+# 	(
+# 		$permanent_cards->[0]->{mines_column}->{amnt}+$permanent_cards->[0]->{plus_column}->{amnt}
+# 	);
 
 
 	##pages and others reports
