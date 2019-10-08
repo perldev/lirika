@@ -14,6 +14,7 @@ sub get_right
  
 $proto={
     'page_title'=>'־בלוםû',	
+    'extra_where'=>" AND e_type='cashless' ",  #AND ct_status='created'
     fields=>
     [
 		    

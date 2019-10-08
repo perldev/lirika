@@ -23,8 +23,7 @@ sub get_right
 
          $proto={
             'page_title'=>'־בלוםû',	
-             'extra_where'=>" AND e_fid=".$kassa_id,  #AND ct_status='created'
-
+             'extra_where'=>" AND e_type='cash' AND e_fid=".$kassa_id,  #AND ct_status='created'
               fields=>
               [
                             
