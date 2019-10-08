@@ -58,16 +58,18 @@ name="Добавить транзакцию" value="Добавить обмен">[% END %]
         </td>
         </tr>   
         <tr>
-       
+       [% IF incash_office %]
          <td align=absmiddle class=table_gborders>
         Наличный:&nbsp;<input  id=type1 onclick="change_type('nal')" checked='checked' type=radio name=type value=cash>
         </td>
        
-        
+       [% ELSE %] 
 
         <td align=absmiddle class=table_gborders>
         Безналичный:&nbsp;<input type=radio id=type2  onclick="change_type('beznal')" name=type value=cashless>
         </td>
+        
+        [% END %]
 
         </tr>        
 
