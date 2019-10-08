@@ -195,7 +195,12 @@ sub exc_list
         SELECT 
         SQL_CALC_FOUND_ROWS 
         *
-        FROM exchange_view   WHERE   $ref->{'filter'}  AND e_type not in ('auto','system')   AND e_status!='deleted' ORDER BY e_date DESC LIMIT].qq[ $ref->{'page'},$ref->{'how'}]);
+        FROM exchange_view   WHERE   $ref->{'filter'}  AND e_type not in ('auto','system', 'cashless')    AND e_status!='deleted' ORDER BY e_date DESC LIMIT].qq[ $ref->{'page'},$ref->{'how'}]);
+        die qq[
+        SELECT 
+        SQL_CALC_FOUND_ROWS 
+        *
+        FROM exchange_view   WHERE   $ref->{'filter'}  AND e_type not in ('auto','system', 'cashless')    AND e_status!='deleted' ORDER BY e_date DESC LIMIT].qq[ $ref->{'page'},$ref->{'how'}];
          
 
         my %types=('cash'=>'нал.','cashless'=>'безнал.');
