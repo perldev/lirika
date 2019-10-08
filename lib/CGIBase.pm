@@ -761,6 +761,9 @@ sub add_exc
 			where 	`cashier_transactions`.`ct_status` 
 			IN (_cp1251'processed')  AND ct_id=? LIMIT 1
 			],undef,$ct_id);	
+                $dbh->do(q[UPDATE exchange SET ct_id=? WHERE id=?],undef, $ct_id, $id_);
+			
+			
         }
 
 
