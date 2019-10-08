@@ -78,7 +78,7 @@ sub list
          my $page=$self->query->param('page');
          my $how=$self->query->param('how');
          
-         my $filter = "  1 ";
+         my $filter = "  1 ".$proto->{'extra_where'};
          my $filter_params = {};
          if($self->query->param('action') eq 'filter')
          {
@@ -196,11 +196,6 @@ sub exc_list
         SQL_CALC_FOUND_ROWS 
         *
         FROM exchange_view   WHERE   $ref->{'filter'}  AND e_type not in ('auto','system', 'cashless')    AND e_status!='deleted' ORDER BY e_date DESC LIMIT].qq[ $ref->{'page'},$ref->{'how'}]);
-        die qq[
-        SELECT 
-        SQL_CALC_FOUND_ROWS 
-        *
-        FROM exchange_view   WHERE   $ref->{'filter'}  AND e_type not in ('auto','system', 'cashless')    AND e_status!='deleted' ORDER BY e_date DESC LIMIT].qq[ $ref->{'page'},$ref->{'how'}];
          
 
         my %types=('cash'=>'нал.','cashless'=>'безнал.');
