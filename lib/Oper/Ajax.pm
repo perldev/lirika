@@ -1875,8 +1875,17 @@ sub ajax_exc_back
 
 
 
-    my($back_1,$back_2)=$dbh->selectrow_array(q[SELECT e_tid1,e_tid2
+    my($back_1,$back_2, $ct_id)=$dbh->selectrow_array(q[SELECT e_tid1,e_tid2,ct_id
      FROM exchange WHERE e_id=?],undef,$ct_eid);
+     
+    if($ct_id){
+            # if it was a cash exchange
+            my $res=$dbh->do(q[UPDATE accounts_reports_table SET ct_status='deleted' WHERE ct_ex_comis_type='input' AND ct_id=?],undef, $ct_id);
+            my $tid_id=$dbh->selectrow_array(q[SELECT ct_tid FROM  cashier_transactions WHERE  ct_id=?],undef, $ct_id);
+            my $res=$dbh->do(q[UPDATE cashier_transactions SET ct_status='deleted' WHERE  ct_id=?],undef, $ct_id);
+            $self->del_trans($tid_id);
+    }
+    
 
     $dbh->do(q[
         UPDATE  exchange SET 
