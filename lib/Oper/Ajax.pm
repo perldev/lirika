@@ -1839,7 +1839,9 @@ sub ajax_exc_back
     {
             return '<root>error!missing such id !</root>';
     }
-
+    my($ct_id)=$dbh->selectrow_array(q[SELECT ct_id
+     FROM exchange WHERE e_id=?],undef,$id);
+     
  #e_status='deleted'
     my $ref=$dbh->selectrow_hashref(q[SELECT * FROM exchange_view 
     WHERE e_status='deleted' AND 
@@ -1875,7 +1877,7 @@ sub ajax_exc_back
 
 
 
-    my($back_1,$back_2, $ct_id)=$dbh->selectrow_array(q[SELECT e_tid1,e_tid2,ct_id
+    my($back_1,$back_2)=$dbh->selectrow_array(q[SELECT e_tid1,e_tid2
      FROM exchange WHERE e_id=?],undef,$ct_eid);
      
     if($ct_id){
