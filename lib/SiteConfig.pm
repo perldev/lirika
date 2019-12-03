@@ -134,20 +134,20 @@ our $DEF_TABS={
         firewall=>{"value"=>"firewall", "title"=>"Firewall",desc=>"Firewall",script=>'firewall.cgi'},
         
 #cash offices        
+        exch_kiev1=>{"value"=>"exch_kiev1",script=>'exch_kiev1.cgi', "title"=>"Обмен касса опт",desc=>'Обмен валют для киевской кассы 1'},
+        exch_kiev2=>{"value"=>"exch_kiev2",script=>'exch_kiev2.cgi', "title"=>"Обмен касса Киев",desc=>'Обмен валют для киевской кассы 2'},
+        exch_kiev3=>{"value"=>"exch_kiev3",script=>'exch_kiev3.cgi', "title"=>"Обмен Алмаата",desc=>'Обмен валют для киевской кассы 3'},
+        exch_kiev4=>{"value"=>"exch_kiev4",script=>'exch_kiev4.cgi', "title"=>"Обмен Варшава",desc=>'Обмен валют для киевской кассы 4'},
+        exch_kiev5=>{"value"=>"exch_kiev5",script=>'exch_kiev5.cgi', "title"=>"Обмен Стамбул",desc=>'Обмен валют для киевской кассы 5'},
+        exch_kiev6=>{"value"=>"exch_kiev6",script=>'exch_kiev6.cgi', "title"=>"Обмен Москва",desc=>'Обмен валют для киевской кассы 6'},
+        exch_kiev7=>{"value"=>"exch_kiev7",script=>'exch_kiev7.cgi', "title"=>"Обмен Одесса",desc=>'Обмен валют для киевской кассы 7'},
+        exch_kiev8=>{"value"=>"exch_kiev8",script=>'exch_kiev8.cgi', "title"=>"Обмен Николаев",desc=>'Обмен валют для одесской кассы 8'},
+#       exch_kiev9=>{"value"=>"exch_kiev9",script=>'exch_kiev9.cgi', "title"=>"Обмен Дубай",desc=>'Обмен валют для киевской кассы'},
         
-       exch_kiev1=>{"value"=>"exch_kiev1",script=>'exch_kiev1.cgi', "title"=>"Обмен касса опт",desc=>'Обмен валют для киевской кассы 1'},
-       exch_kiev2=>{"value"=>"exch_kiev2",script=>'exch_kiev2.cgi', "title"=>"Обмен касса розница",desc=>'Обмен валют для киевской кассы 2'},
-#        exch_kiev3=>{"value"=>"exch_kiev3",script=>'exch_kiev3.cgi', "title"=>"Обмен киев 3",desc=>'Обмен валют для киевской кассы 3'},
-#        exch_kiev4=>{"value"=>"exch_kiev4",script=>'exch_kiev4.cgi', "title"=>"Обмен киев 4",desc=>'Обмен валют для киевской кассы 4'},
-#        exch_kiev5=>{"value"=>"exch_kiev5",script=>'exch_kiev5.cgi', "title"=>"Обмен киев 5",desc=>'Обмен валют для киевской кассы 5'},
-#        exch_kiev6=>{"value"=>"exch_kiev6",script=>'exch_kiev6.cgi', "title"=>"Обмен киев 6",desc=>'Обмен валют для киевской кассы 6'},
-#        exch_kiev7=>{"value"=>"exch_kiev7",script=>'exch_kiev7.cgi', "title"=>"Обмен киев 7",desc=>'Обмен валют для киевской кассы 7'},
-#        exch_kiev8=>{"value"=>"exch_kiev8",script=>'exch_kiev8.cgi', "title"=>"Обмен киев 8",desc=>'Обмен валют для одесской кассы 8'},
-#        exch_kiev9=>{"value"=>"exch_kiev9",script=>'exch_kiev9.cgi', "title"=>"Обмен киев 9",desc=>'Обмен валют для киевской кассы'},
 #        exch_odessa=>{"value"=>"exch_odessa",script=>'exch_odessa.cgi', "title"=>"Обмен одесса :)",desc=>'Обмен валют для одесской кассы'},
 
-#        cash_in_one_dnepr=>{"value"=>"cash_in_one_dnepr", script=>'cashier_input_one_dnepr.cgi',"title"=>"Приход кассы1 Днепр",desc=>"Ввод наличных в систему на карточки одним действием"},
-#        cash_in_one_kiev=>{"value"=>"cash_in_one_kiev", script=>'cashier_input_one_kiev.cgi',"title"=>"Приход кассы1 Киев",desc=>"Ввод наличных в систему на карточки действием"},
+#       cash_in_one_dnepr=>{"value"=>"cash_in_one_dnepr", script=>'cashier_input_one_dnepr.cgi',"title"=>"Приход кассы1 Днепр",desc=>"Ввод наличных в систему на карточки одним действием"},
+#       cash_in_one_kiev=>{"value"=>"cash_in_one_kiev", script=>'cashier_input_one_kiev.cgi',"title"=>"Приход кассы1 Киев",desc=>"Ввод наличных в систему на карточки действием"},
        
        cash_in_before_kiev1=>{"value"=>"cash_in_before_kiev1",script=>'cashier_input_before_dnepr.cgi', "title"=>"Заявки на приход кассы опт",desc=>'Непосредственный ввод наличных в кассу'},
        cash_out_kiev1=>{"value"=>"cash_out_kiev1",script=>'cashier_output_dnepr.cgi' ,"title"=>"Заявки на расход опт",desc=>"Работа с заявками на  вывод наличных "},
@@ -156,64 +156,64 @@ our $DEF_TABS={
        cash_kiev1=>{"value"=>"cash_kiev1", script=>'cash.cgi',"title"=>"Касса опт",desc=>'Сводная таблица кассы приходы и расходы  по дня '},
 
        
-       cash_in_before_kiev2=>{"value"=>"cash_in_before_kiev2", "title"=>"Заявки на приход кассы розница",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev.cgi'},
-       cash_out_kiev2=>{"value"=>"cash_out_kiev2",script=>'cashier_output_kiev.cgi' ,"title"=>"Заявки на расход кассы розница",desc=>"Работа с заявками на  вывод наличных "},
-       cash_out2_kiev2=>{"value"=>"cash_out2_kiev2",script=>'cashier_output2_kiev.cgi' , "title"=>"Расход кассы розница",desc=>"Непосредственный ввывод наличных"},
-       cash_in_kiev2=>{"value"=>"cash_in_kiev2", script=>'cashier_input_kiev.cgi',"title"=>"Приход кассы розница",desc=>"Ввод наличных в систему на карточки"},
-       cash_kiev2=>{"value"=>"cash_kiev2", script=>'cash_kiev.cgi',"title"=>"Касса розница",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+       cash_in_before_kiev2=>{"value"=>"cash_in_before_kiev2", "title"=>"Заявки на приход кассы Киев",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev.cgi'},
+       cash_out_kiev2=>{"value"=>"cash_out_kiev2",script=>'cashier_output_kiev.cgi' ,"title"=>"Заявки на расход кассы Киев",desc=>"Работа с заявками на  вывод наличных "},
+       cash_out2_kiev2=>{"value"=>"cash_out2_kiev2",script=>'cashier_output2_kiev.cgi' , "title"=>"Расход кассы Киев",desc=>"Непосредственный ввывод наличных"},
+       cash_in_kiev2=>{"value"=>"cash_in_kiev2", script=>'cashier_input_kiev.cgi',"title"=>"Приход кассы Киев",desc=>"Ввод наличных в систему на карточки"},
+       cash_kiev2=>{"value"=>"cash_kiev2", script=>'cash_kiev.cgi',"title"=>"Касса Киев",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
 #  
 #         
 #       
-#         cash_in_before_kiev3=>{"value"=>"cash_in_before_kiev3", "title"=>"Заявки на приход кассы киев 3",desc=>'Непосредственный ввод наличных в кассу ',script=>'cashier_input_before_atrium.cgi'},
-#         cash_out_kiev3=>{"value"=>"cash_out_kiev3",script=>'cashier_output_atrium.cgi' ,"title"=>"Заявки на расход кассы киев 3",desc=>"Работа с заявками на  вывод наличных киев 3"},
-#         cash_out2_kiev3=>{"value"=>"cash_out2_kiev3",script=>'cashier_output2_atrium.cgi' , "title"=>"Расход кассы киев 3",desc=>"Непосредственный ввывод наличных киев 3"},
-#         cash_in_kiev3=>{"value"=>"cash_in_kiev3", script=>'cashier_input_atrium.cgi',"title"=>"Приход кассы киев 3",desc=>"Ввод наличных в систему на карточки киев 3"},
-#         cash_kiev3=>{"value"=>"cash_kiev3", script=>'cash_atrium.cgi',"title"=>"Касса Киев 3",desc=>'Сводная таблица кассы приходы и расходы  по дням киев 3 '},
-# 
+        cash_in_before_kiev3=>{"value"=>"cash_in_before_kiev3", "title"=>"Заявки на приход кассы Алмаата",desc=>'Непосредственный ввод наличных в кассу ',script=>'cashier_input_before_atrium.cgi'},
+        cash_out_kiev3=>{"value"=>"cash_out_kiev3",script=>'cashier_output_atrium.cgi' ,"title"=>"Заявки на расход кассы Алмаата",desc=>"Работа с заявками на  вывод наличных Алмаата"},
+        cash_out2_kiev3=>{"value"=>"cash_out2_kiev3",script=>'cashier_output2_atrium.cgi' , "title"=>"Расход кассы Алмаата",desc=>"Непосредственный ввывод наличных Алмаата"},
+        cash_in_kiev3=>{"value"=>"cash_in_kiev3", script=>'cashier_input_atrium.cgi',"title"=>"Приход кассы Алмаата",desc=>"Ввод наличных в систему на карточки Алмаата"},
+        cash_kiev3=>{"value"=>"cash_kiev3", script=>'cash_atrium.cgi',"title"=>"Касса Алмаата",desc=>'Сводная таблица кассы приходы и расходы  по дням Алмаата '},
+    # 
 #     
 #     
-#         cash_in_before_kiev4=>{"value"=>"cash_in_before_kiev4",script=>'cashier_input_before_odessa.cgi', "title"=>"Заявки на приход кассы киев 4 ",desc=>'Непосредственный ввод наличных в кассу'},
-#          cash_out_kiev4=>{"value"=>"cash_out_kiev4", script=>'cashier_output_odessa.cgi',"title"=>"Заявки на расход кассы киев 4 ",desc=>"Работа с заявками на  вывод наличных "},
-#          cash_out2_kiev4=>{"value"=>"cash_out2_kiev4",script=>'cashier_output2_odessa.cgi' , "title"=>"Расход кассы киев 4",desc=>"Непосредственный ввывод наличных"},
-#          cash_in_kiev4=>{"value"=>"cash_in_kiev4", script=>'cashier_input_odessa.cgi' ,"title"=>"Приход кассы киев 4",desc=>"Ввод наличных в систему на карточки"},         
-#          cash_kiev4=>{"value"=>"cash_kiev4", script=>'cash_odessa.cgi',"title"=>"Касса киев 4",desc=>'Сводная таблица кассы приходы и расходы  по дням  '},
+        cash_in_before_kiev4=>{"value"=>"cash_in_before_kiev4",script=>'cashier_input_before_odessa.cgi', "title"=>"Заявки на приход кассы Варшава ",desc=>'Непосредственный ввод наличных в кассу'},
+        cash_out_kiev4=>{"value"=>"cash_out_kiev4", script=>'cashier_output_odessa.cgi',"title"=>"Заявки на расход кассы Варшава ",desc=>"Работа с заявками на  вывод наличных "},
+        cash_out2_kiev4=>{"value"=>"cash_out2_kiev4",script=>'cashier_output2_odessa.cgi' , "title"=>"Расход кассы Варшава",desc=>"Непосредственный ввывод наличных"},
+        cash_in_kiev4=>{"value"=>"cash_in_kiev4", script=>'cashier_input_odessa.cgi' ,"title"=>"Приход кассы Варшава",desc=>"Ввод наличных в систему на карточки"},         
+        cash_kiev4=>{"value"=>"cash_kiev4", script=>'cash_odessa.cgi',"title"=>"Касса Варшава",desc=>'Сводная таблица кассы приходы и расходы  по дням  '},
 # 
-#         cash_in_before_kiev5=>{"value"=>"cash_in_before_kiev5", "title"=>"Заявки на приход кассы киев 5",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev5.cgi'},
-#         cash_out_kiev5=>{"value"=>"cash_out_kiev5",script=>'cashier_output_kiev5.cgi' ,"title"=>"Заявки на расход кассы киев 5",desc=>"Работа с заявками на  вывод наличных "},
-#         cash_out2_kiev5=>{"value"=>"cash_out2_kiev5",script=>'cashier_output2_kiev5.cgi' , "title"=>"Расход кассы киев 5",desc=>"Непосредственный ввывод наличных"},
-#         cash_in_kiev5=>{"value"=>"cash_in_kiev5", script=>'cashier_input_kiev5.cgi',"title"=>"Приход кассы киев 5",desc=>"Ввод наличных в систему на карточки"},
-#         cash_kiev5=>{"value"=>"cash_kiev5", script=>'cash_kiev5.cgi',"title"=>"Касса Киев 5",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+        cash_in_before_kiev5=>{"value"=>"cash_in_before_kiev5", "title"=>"Заявки на приход кассы Стамбул",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev5.cgi'},
+        cash_out_kiev5=>{"value"=>"cash_out_kiev5",script=>'cashier_output_kiev5.cgi' ,"title"=>"Заявки на расход кассы Стамбул",desc=>"Работа с заявками на  вывод наличных "},
+        cash_out2_kiev5=>{"value"=>"cash_out2_kiev5",script=>'cashier_output2_kiev5.cgi' , "title"=>"Расход кассы Стамбул",desc=>"Непосредственный ввывод наличных"},
+        cash_in_kiev5=>{"value"=>"cash_in_kiev5", script=>'cashier_input_kiev5.cgi',"title"=>"Приход кассы Стамбул",desc=>"Ввод наличных в систему на карточки"},
+        cash_kiev5=>{"value"=>"cash_kiev5", script=>'cash_kiev5.cgi',"title"=>"Касса Стамбул",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
 #         
-#         cash_in_before_kiev6=>{"value"=>"cash_in_before_kiev6", "title"=>"Заявки на приход кассы киев 6",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev6.cgi'},
-#        cash_out_kiev6=>{"value"=>"cash_out_kiev6",script=>'cashier_output_kiev6.cgi' ,"title"=>"Заявки на расход кассы киев 6",desc=>"Работа с заявками на  вывод наличных "},
-#        cash_out2_kiev6=>{"value"=>"cash_out2_kiev6",script=>'cashier_output2_kiev6.cgi' , "title"=>"Расход кассы киев 6",desc=>"Непосредственный ввывод наличных"},
-#        cash_in_kiev6=>{"value"=>"cash_in_kiev6", script=>'cashier_input_kiev6.cgi',"title"=>"Приход кассы киев 6",desc=>"Ввод наличных в систему на карточки"},
-#        cash_kiev6=>{"value"=>"cash_kiev6", script=>'cash_kiev6.cgi',"title"=>"Касса Киев 6",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
-# #  
-# #     
+        cash_in_before_kiev6=>{"value"=>"cash_in_before_kiev6", "title"=>"Заявки на приход кассы Москва",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev6.cgi'},
+        cash_out_kiev6=>{"value"=>"cash_out_kiev6",script=>'cashier_output_kiev6.cgi' ,"title"=>"Заявки на расход кассы Москва",desc=>"Работа с заявками на  вывод наличных "},
+        cash_out2_kiev6=>{"value"=>"cash_out2_kiev6",script=>'cashier_output2_kiev6.cgi' , "title"=>"Расход кассы Москва",desc=>"Непосредственный ввывод наличных"},
+        cash_in_kiev6=>{"value"=>"cash_in_kiev6", script=>'cashier_input_kiev6.cgi',"title"=>"Приход кассы Москва",desc=>"Ввод наличных в систему на карточки"},
+        cash_kiev6=>{"value"=>"cash_kiev6", script=>'cash_kiev6.cgi',"title"=>"Касса Москва",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+#   
+#      
 # 
-#        cash_in_before_kiev7=>{"value"=>"cash_in_before_kiev7", "title"=>"Заявки на приход кассы киев 7",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev7.cgi'},
-#        cash_out_kiev7=>{"value"=>"cash_out_kiev7",script=>'cashier_output_kiev7.cgi' ,"title"=>"Заявки на расход кассы киев 7",desc=>"Работа с заявками на  вывод наличных "},
-#        cash_out2_kiev7=>{"value"=>"cash_out2_kiev7",script=>'cashier_output2_kiev7.cgi' , "title"=>"Расход кассы киев 7",desc=>"Непосредственный ввывод наличных"},
-#        cash_in_kiev7=>{"value"=>"cash_in_kiev7", script=>'cashier_input_kiev7.cgi',"title"=>"Приход кассы киев 7",desc=>"Ввод наличных в систему на карточки"},
-#        cash_kiev7=>{"value"=>"cash_kiev7", script=>'cash_kiev7.cgi',"title"=>"Касса Киев 7",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
-# #  
-# #     
+        cash_in_before_kiev7=>{"value"=>"cash_in_before_kiev7", "title"=>"Заявки на приход кассы Одесса",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev7.cgi'},
+        cash_out_kiev7=>{"value"=>"cash_out_kiev7",script=>'cashier_output_kiev7.cgi' ,"title"=>"Заявки на расход кассы Одесса",desc=>"Работа с заявками на  вывод наличных "},
+        cash_out2_kiev7=>{"value"=>"cash_out2_kiev7",script=>'cashier_output2_kiev7.cgi' , "title"=>"Расход кассы Одесса",desc=>"Непосредственный ввывод наличных"},
+        cash_in_kiev7=>{"value"=>"cash_in_kiev7", script=>'cashier_input_kiev7.cgi',"title"=>"Приход кассы Одесса",desc=>"Ввод наличных в систему на карточки"},
+        cash_kiev7=>{"value"=>"cash_kiev7", script=>'cash_kiev7.cgi',"title"=>"Касса Одесса",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+#   
+#      
 # 
-#        cash_in_before_kiev8=>{"value"=>"cash_in_before_kiev8", "title"=>"Заявки на приход кассы киев 8",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev8.cgi'},
-#        cash_out_kiev8=>{"value"=>"cash_out_kiev8",script=>'cashier_output_kiev8.cgi' ,"title"=>"Заявки на расход кассы киев 8",desc=>"Работа с заявками на  вывод наличных "},
-#        cash_out2_kiev8=>{"value"=>"cash_out2_kiev8",script=>'cashier_output2_kiev8.cgi' , "title"=>"Расход кассы киев 8",desc=>"Непосредственный ввывод наличных"},
-#        cash_in_kiev8=>{"value"=>"cash_in_kiev8", script=>'cashier_input_kiev8.cgi',"title"=>"Приход кассы киев 8",desc=>"Ввод наличных в систему на карточки"},
-#        cash_kiev8=>{"value"=>"cash_kiev8", script=>'cash_kiev8.cgi',"title"=>"Касса Киев 8",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
-#        
+        cash_in_before_kiev8=>{"value"=>"cash_in_before_kiev8", "title"=>"Заявки на приход кассы Николаев",desc=>'Непосредственный ввод наличных в кассу',script=>'cashier_input_before_kiev8.cgi'},
+        cash_out_kiev8=>{"value"=>"cash_out_kiev8",script=>'cashier_output_kiev8.cgi' ,"title"=>"Заявки на расход кассы Николаев",desc=>"Работа с заявками на  вывод наличных "},
+        cash_out2_kiev8=>{"value"=>"cash_out2_kiev8",script=>'cashier_output2_kiev8.cgi' , "title"=>"Расход кассы Николаев",desc=>"Непосредственный ввывод наличных"},
+        cash_in_kiev8=>{"value"=>"cash_in_kiev8", script=>'cashier_input_kiev8.cgi',"title"=>"Приход кассы Николаев",desc=>"Ввод наличных в систему на карточки"},
+        cash_kiev8=>{"value"=>"cash_kiev8", script=>'cash_kiev8.cgi',"title"=>"Касса Николаев",desc=>'Сводная таблица кассы приходы и расходы  по дням Киев '},
+        
        
        
-       cash_in_before_btc=>{"value"=>"cash_in_before_btc", "title"=>"Заявки на приход кассы киев BTC",desc=>'Непосредственный ввод BTC',script=>'cashier_input_before_btc.cgi'},
-       cash_out_btc=>{"value"=>"cash_out_btc",script=>'cashier_output_btc.cgi' ,"title"=>"Заявки на расход кассы киев BTC",desc=>"Работа с заявками на  вывод BTC "},
-       cash_out2_btc=>{"value"=>"cash_out2_btc",script=>'cashier_output2_btc.cgi' , "title"=>"Расход кассы киев BTC",desc=>"Непосредственный ввывод BTC"},
-       cash_in_btc=>{"value"=>"cash_in_btc", script=>'cashier_input_btc.cgi',"title"=>"Приход кассы киев BTC",desc=>"Ввод BTC в систему на карточки"},
-       cash_btc=>{"value"=>"cash_btc", script=>'cash_btc.cgi',"title"=>"Касса BTC",desc=>'Сводная таблица BTC приходы и расходы  по дням Киев '},
-       exch_btc=>{"value"=>"exch_btc",script=>'exch_btc.cgi', "title"=>"Обмен BTC",desc=>'Обмен валют для  BTC'},
+       cash_in_before_btc=>{"value"=>"cash_in_before_btc", "title"=>"Заявки на приход кассы Дубай",desc=>'Непосредственный ввод BTC',script=>'cashier_input_before_btc.cgi'},
+       cash_out_btc=>{"value"=>"cash_out_btc",script=>'cashier_output_btc.cgi' ,"title"=>"Заявки на расход кассы Дубай",desc=>"Работа с заявками на  вывод BTC "},
+       cash_out2_btc=>{"value"=>"cash_out2_btc",script=>'cashier_output2_btc.cgi' , "title"=>"Расход кассы Дубай",desc=>"Непосредственный ввывод BTC"},
+       cash_in_btc=>{"value"=>"cash_in_btc", script=>'cashier_input_btc.cgi',"title"=>"Приход кассы Дубай",desc=>"Ввод BTC в систему на карточки"},
+       cash_btc=>{"value"=>"cash_btc", script=>'cash_btc.cgi',"title"=>"Касса Дубай",desc=>'Сводная таблица BTC приходы и расходы  по дням Киев '},
+       exch_btc=>{"value"=>"exch_btc",script=>'exch_btc.cgi', "title"=>"Обмен Дубай",desc=>'Обмен валют для  BTC'},
 
 #  
        
