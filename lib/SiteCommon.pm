@@ -1180,6 +1180,8 @@ sub last_record
   	$proto->{beg_usd}=$proto->{beg_usd};
   	$proto->{beg_eur}=$proto->{beg_eur};	
   	$proto->{beg_btc}=$proto->{beg_btc};	
+  	$proto->{beg_gbp}=$proto->{beg_gbp};	
+  	$proto->{beg_rub}=$proto->{beg_rub};	
 
 	my $a_info=$dbh->selectrow_hashref(q[SELECT * FROM accounts WHERE a_id=?],undef,$proto->{'ct_aid'});
 
@@ -1190,20 +1192,29 @@ sub last_record
    		$proto->{a_usd}=format_float($a_info->{a_usd});
  		$proto->{a_eur}=format_float($a_info->{a_eur});
  		$proto->{a_btc}=format_float($a_info->{a_btc});
-		
+ 		$proto->{a_gbp}=format_float($a_info->{a_gbp});
+ 		$proto->{a_rub}=format_float($a_info->{a_rub});
+
+ 		
+ 		
 		$proto->{non_a_uah}=$a_info->{a_uah};
    		$proto->{non_a_usd}=$a_info->{a_usd};
  		$proto->{non_a_eur}=$a_info->{a_eur};
                 $proto->{non_a_btc}=$a_info->{a_btc};
+                $proto->{non_a_gbp}=$a_info->{a_gbp};
+                $proto->{non_a_rub}=$a_info->{a_rub};
+
                 ##???!!
-		$proto->{control_sum}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur} + $a_info->{a_btc};
+		$proto->{control_sum}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur} + $a_info->{a_btc}+$a_info->{a_gbp}+$a_info->{a_rub};
 		
-		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur}+$a_info->{a_btc};
+		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur}+$a_info->{a_btc}+$a_info->{a_gbp}+$a_info->{a_rub};
 		$proto->{control_sum_exist_fin}=$proto->{orig__beg_uah}+$proto->{orig__beg_usd}+$proto->{orig__beg_eur}+$proto->{orig__beg_btc};
 		$proto->{fin_uah}=format_float($proto->{orig__beg_uah});
   		$proto->{fin_usd}=format_float($proto->{orig__beg_usd});
   		$proto->{fin_eur}=format_float($proto->{orig__beg_eur});		
   		$proto->{fin_btc}=format_float($proto->{orig__beg_btc});		
+  		$proto->{fin_gbp}=format_float($proto->{orig__beg_gbp});		
+  		$proto->{fin_rub}=format_float($proto->{orig__beg_rub});		
   		
 	
 	}else
@@ -1213,13 +1224,17 @@ sub last_record
   			      	UAH=>	$proto->{sums}->{ $prew }->{'UAH'},
   			      	USD=>	$proto->{sums}->{ $prew }->{'USD'},
  				EUR=>	$proto->{sums}->{ $prew }->{'EUR'},
-                                EUR=>	$proto->{sums}->{ $prew }->{'BTC'},
+                                BTC=>	$proto->{sums}->{ $prew }->{'BTC'},
+                                GBP=>	$proto->{sums}->{ $prew }->{'GBP'},
+                                RUB=>	$proto->{sums}->{ $prew }->{'RUB'},
 
                                 prev_date=>format_date($prew),
  				UAH_FORMAT=>format_float($proto->{sums}->{ $prew }->{'UAH'}),
  				USD_FORMAT=>format_float($proto->{sums}->{ $prew }->{'USD'}),
  				EUR_FORMAT=>format_float($proto->{sums}->{ $prew }->{'EUR'}),
                                 BTC_FORMAT=>format_float($proto->{sums}->{ $prew }->{'BTC'}),
+                                GBP_FORMAT=>format_float($proto->{sums}->{ $prew }->{'GBP'}),
+                                RUB_FORMAT=>format_float($proto->{sums}->{ $prew }->{'RUB'}),
 
  				concl_color=>($proto->{sums}->{ $prew }->{'USD'}+$proto->{sums}->{ $prew }->{'UAH'}/$proto->{reports_rate}->{$prew}->{rr_rate} )>=-0.001
   			     };	
@@ -1229,11 +1244,15 @@ sub last_record
    		$proto->{a_usd}=format_float($a_info->{a_usd});
  		$proto->{a_eur}=format_float($a_info->{a_eur});
  		$proto->{a_btc}=format_float($a_info->{a_btc});
+ 		$proto->{a_gbp}=format_float($a_info->{a_gbp});
+ 		$proto->{a_rub}=format_float($a_info->{a_rub});
 		
 		$proto->{non_a_uah}=$a_info->{a_uah};
    		$proto->{non_a_usd}=$a_info->{a_usd};
  		$proto->{non_a_eur}=$a_info->{a_eur};
  		$proto->{non_a_btc}=$a_info->{a_btc};
+ 		$proto->{non_a_gbp}=$a_info->{a_gbp};
+ 		$proto->{non_a_rub}=$a_info->{a_rub};
 
 		$proto->{control_sum_exist}=$a_info->{a_uah}+$a_info->{a_usd}+$a_info->{a_eur}+ $a_info->{a_btc} ;
 		$proto->{control_sum_exist_fin}=$proto->{sums}->{ $prew }->{'UAH'}+$proto->{sums}->{ $prew }->{'USD'}+$proto->{sums}->{ $prew }->{'EUR'}+$proto->{sums}->{ $prew }->{'BTC'};
@@ -1244,8 +1263,8 @@ sub last_record
   		$proto->{fin_usd}=format_float($proto->{sums}->{ $prew }->{'USD'});
   		$proto->{fin_eur}=format_float($proto->{sums}->{ $prew }->{'EUR'});
                 $proto->{fin_btc}=format_float($proto->{sums}->{ $prew }->{'BTC'});
-
-
+                $proto->{fin_gbp}=format_float($proto->{sums}->{ $prew }->{'GBP'});
+                $proto->{fin_rub}=format_float($proto->{sums}->{ $prew }->{'RUB'});
 	}
 
     
