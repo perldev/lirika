@@ -270,16 +270,20 @@ our @time_filter_rows=(
 our @currencies=(
  	{'value'=>"", 'title'=>"Выбрать валюту"},
         {'value'=>"UAH", 'title'=>"ГРН"},
-         {'value'=>"USD", 'title'=>"USD"},
-         {'value'=>"EUR", 'title'=>"EUR"},
+        {'value'=>"USD", 'title'=>"USD"},
+        {'value'=>"GBP", 'title'=>"GBP"},
+        {'value'=>"RUB", 'title'=>"RUB"},
+        {'value'=>"EUR", 'title'=>"EUR"},
 );
 
 our @currencies_withbtc= (
         {'value'=>"", 'title'=>"Выбрать валюту"},
         {'value'=>"UAH", 'title'=>"ГРН"},
-         {'value'=>"USD", 'title'=>"USD"},
-         {'value'=>"EUR", 'title'=>"EUR"},
-         {'value'=>"BTC", 'title'=>"BTC"},
+        {'value'=>"USD", 'title'=>"USD"},
+        {'value'=>"EUR", 'title'=>"EUR"},
+        {'value'=>"GBP", 'title'=>"GBP"},
+        {'value'=>"RUB", 'title'=>"RUB"},
+        {'value'=>"BTC", 'title'=>"BTC"},
 
 
 
