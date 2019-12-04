@@ -1242,8 +1242,8 @@ sub list
   		$proto->{beg_usd}=$ref->{a_usd}-$sums->{USD};
   		$proto->{beg_eur}=$ref->{a_eur}-$sums->{EUR};
   		$proto->{beg_btc}=$ref->{a_btc}-$sums->{BTC};
-  		$proto->{beg_gbp}=$ref->{a_btc}-$sums->{GBP};
-  		$proto->{beg_rub}=$ref->{a_btc}-$sums->{RUB};
+  		$proto->{beg_gbp}=$ref->{a_gbp}-$sums->{GBP};
+  		$proto->{beg_rub}=$ref->{a_rub}-$sums->{RUB};
 
 
 		
