@@ -53,6 +53,8 @@ sub non_list
    $proto->{orig__beg_usd}=0;
    $proto->{orig__beg_eur}=0;
    $proto->{orig__beg_btc}=0;
+   $proto->{orig__beg_rub}=0;
+   $proto->{orig__beg_gbp}=0;
 
    $proto->{non_list}=1;
 
@@ -90,11 +92,15 @@ sub cash_last_record
   			      	USD=>	$proto->{sums}->{ $prew }->{'USD'},
  				EUR=>	$proto->{sums}->{ $prew }->{'EUR'},
                                 BTC=>	$proto->{sums}->{ $prew }->{'BTC'},
+                                GBP=>	$proto->{sums}->{ $prew }->{'GBP'},
+                                RUB=>	$proto->{sums}->{ $prew }->{'RUB'},
 
  				UAH_FORMAT=>format_float($proto->{sums}->{ $prew }->{'UAH'}),
  				USD_FORMAT=>format_float($proto->{sums}->{ $prew }->{'USD'}),
  				EUR_FORMAT=>format_float($proto->{sums}->{ $prew }->{'EUR'}),
                                 BTC_FORMAT=>format_float($proto->{sums}->{ $prew }->{'BTC'}),
+                                GBP_FORMAT=>format_float($proto->{sums}->{ $prew }->{'GBP'}),
+                                RUB_FORMAT=>format_float($proto->{sums}->{ $prew }->{'RUB'}),
 
   			     };	
 	@$rows=reverse(@$rows); 
@@ -118,7 +124,8 @@ sub cash_sum
 		$proto->{sums}->{ $date }->{'USD'}=$proto->{orig__beg_usd};
 		$proto->{sums}->{ $date }->{'EUR'}=$proto->{orig__beg_eur};
 		$proto->{sums}->{ $date }->{'BTC'}=$proto->{orig__beg_btc};
-
+		$proto->{sums}->{ $date }->{'GBP'}=$proto->{orig__beg_gbp};
+		$proto->{sums}->{ $date }->{'RUB'}=$proto->{orig__beg_rub};
 		
 		$proto->{reports_rate}->{ $date }={rr_rate=>5.05} unless( $proto->{reports_rate}->{$date });
 
@@ -128,11 +135,15 @@ sub cash_sum
  			      	USD=>$proto->{sums}->{ $date }->{'USD'},
 				EUR=>$proto->{sums}->{ $date }->{'EUR'},
                                 BTC=>$proto->{sums}->{ $date }->{'BTC'},
+                                GBP=>$proto->{sums}->{ $date }->{'GBP'},
+                                RUB=>$proto->{sums}->{ $date }->{'RUB'},
 
 				UAH_FORMAT=>format_float($proto->{sums}->{ $date }->{'UAH'}),
 				USD_FORMAT=>format_float($proto->{sums}->{ $date }->{'USD'}),
 				EUR_FORMAT=>format_float($proto->{sums}->{ $date }->{'EUR'}),
                                 EUR_FORMAT=>format_float($proto->{sums}->{ $date }->{'BTC'}),
+                                GBP_FORMAT=>format_float($proto->{sums}->{ $date }->{'GBP'}),
+                                RUB_FORMAT=>format_float($proto->{sums}->{ $date }->{'RUB'}),
 
  				
  			     };
@@ -150,6 +161,8 @@ sub cash_sum
 		$proto->{sums}->{ $date }->{USD}=$proto->{sums}->{ $prev_row }->{USD};
 		$proto->{sums}->{ $date  }->{EUR}=$proto->{sums}->{ $prev_row }->{EUR};
 		$proto->{sums}->{ $date  }->{BTC}=$proto->{sums}->{ $prev_row }->{BTC};
+		$proto->{sums}->{ $date  }->{GBP}=$proto->{sums}->{ $prev_row }->{GBP};
+		$proto->{sums}->{ $date  }->{RUB}=$proto->{sums}->{ $prev_row }->{RUB};
 		
 
 		
@@ -163,11 +176,16 @@ sub cash_sum
  			      	USD=>$proto->{sums}->{ $prev_row }->{USD},
 				EUR=>$proto->{sums}->{ $prev_row }->{EUR},
                                 BTC=>$proto->{sums}->{ $prev_row }->{BTC},
+                                RUB=>$proto->{sums}->{ $prev_row }->{RUB},
+                                GBP=>$proto->{sums}->{ $prev_row }->{GBP},
 
 				UAH_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'UAH'}),
 				USD_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'USD'}),
                                 BTC_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'BTC'}),
 				EUR_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'EUR'}),
+                                GBP_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'GBP'}),
+				RUB_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'RUB'}),
+
  			     };	
 	
 	
