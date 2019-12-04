@@ -187,9 +187,12 @@ our $FIRMS_TRANSACTIONS=-13;
 our $RESIDENT_CURRENCY='UAH';
 our $FIRMS_CONV=-2;
 our $now_hash = now();
-our $avail_currency={UAH=>'a_uah', USD=>'a_usd',EUR=>'a_eur', BTC=>"a_btc"};
-our $avail_currency_firms={UAH=>'f_uah',USD=>'f_usd', EUR=>'f_eur', BTC=>'f_btc'};
-our $conv_currency={UAH=>'ÃÐÍ',USD=>'USD',EUR=>'EUR', BTC=>"BTC"};
+
+
+our $avail_currency={UAH=>'a_uah',USD=>'a_usd',EUR=>'a_eur', BTC=>'a_btc', GBP=>'a_gbp', RUB=>'a_rub',};
+our $avail_currency_firms={UAH=>'f_uah',USD=>'f_usd',EUR=>'f_eur', BTC=>'f_btc', GBP=>'f_gbp', RUB=>'f_rub',};
+our $conv_currency={UAH=>'ÃÐÍ',USD=>'USD',EUR=>'EUR',BTC=>'BTC',GBP=>'GBP',RUB=>'RUB', };
+
 our $chat_last_mesgs=' 2 hour ';
 our $DEFAULT_DOCUMENT_PERCENT=2.5;
 our $SQL_DELAYED='  ';
