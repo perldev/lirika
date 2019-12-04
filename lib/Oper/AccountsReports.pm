@@ -1206,6 +1206,9 @@ sub list
         $proto->{a_usd}=format_float($proto->{a_usd}); 
         $proto->{a_eur}=format_float($proto->{a_eur}); 
         $proto->{a_btc}=format_float($proto->{a_btc});
+        $proto->{a_gbp}=format_float($proto->{a_gbp});
+        $proto->{a_rub}=format_float($proto->{a_rub});
+        
 		
         $proto->{a_name}=$ref->{a_name};
 
@@ -1227,14 +1230,12 @@ sub list
 				}
 				);
 
- 		$proto->{beg_uah}=$ref->{a_uah}-$sums->{UAH};
-		
-
-  		$proto->{beg_usd}=$ref->{a_usd}-$sums->{USD};#$ref->{a_usd}-$from->{USD};
-
+ 		$proto->{beg_uah}=$ref->{a_uah}-$sums->{UAH};		
+  		$proto->{beg_usd}=$ref->{a_usd}-$sums->{USD};
   		$proto->{beg_eur}=$ref->{a_eur}-$sums->{EUR};
-  		
   		$proto->{beg_btc}=$ref->{a_btc}-$sums->{BTC};
+  		$proto->{beg_gbp}=$ref->{a_btc}-$sums->{GBP};
+  		$proto->{beg_rub}=$ref->{a_btc}-$sums->{RUB};
 
 
 		
@@ -1242,11 +1243,15 @@ sub list
   		$proto->{orig__beg_usd}=$proto->{beg_usd};
   		$proto->{orig__beg_eur}=$proto->{beg_eur};
   		$proto->{orig__beg_btc}=$proto->{beg_btc};
+  		$proto->{orig__beg_gbp}=$proto->{beg_gbp};
+  		$proto->{orig__beg_rub}=$proto->{beg_rub};
 	
 		$proto->{beg_uah}=format_float($proto->{beg_uah});
   		$proto->{beg_usd}=format_float($proto->{beg_usd});
   		$proto->{beg_eur}=format_float($proto->{beg_eur});
   		$proto->{beg_btc}=format_float($proto->{beg_btc});
+  		$proto->{beg_rub}=format_float($proto->{beg_rub});
+  		$proto->{beg_gbp}=format_float($proto->{beg_gbp});
 
   		
 		$proto->{from_date}=format_date($filter_where[0]);

@@ -1842,6 +1842,7 @@ sub ajax_exc_back
     my($ct_id)=$dbh->selectrow_array(q[SELECT ct_id
      FROM exchange WHERE e_id=?],undef,$id);
      
+     
  #e_status='deleted'
     my $ref=$dbh->selectrow_hashref(q[SELECT * FROM exchange_view 
     WHERE e_status='deleted' AND 

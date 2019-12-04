@@ -554,17 +554,17 @@ sub balance
             $self->{tpl_vars}->{"delta_".$c}= $firm_balances->[0]->{"amnt_".$c} + $firm_balances->[1]->{"amnt_".$c} - $permanent_cards->[0]->{"raw_sum_".$c} - $non_identifier->[0]->{"amnt_".$c};
  	}
 	
-	my $delta=$self->{tpl_vars}->{delta};
-	$self->{tpl_vars}->{delta}=format_float($delta);
-# 	my $conclusion_sums=get_concl_kcards($master_cards,$delta);
-	$self->{tpl_vars}->{conclusions_sum}=0;
-	
+# 	my $delta=$self->{tpl_vars}->{delta};
+# 	$self->{tpl_vars}->{delta}=format_float($delta);
+# # 	my $conclusion_sums=get_concl_kcards($master_cards,$delta);
+# 	$self->{tpl_vars}->{conclusions_sum}=0;
+# 	
 
 
 	
 	my $page=$self->query->param('page');	
 	
-	$self->{tpl_vars}->{firms_balances}=format_float($firm_balances->[0]->{right_column}->{amnt});
+# 	$self->{tpl_vars}->{firms_balances}=format_float($firm_balances->[0]->{right_column}->{amnt});
 # 	$self->{tpl_vars}->{non_ident}=format_float($non_identifier->[0]->{right_column}->{amnt});
 # 	$self->{tpl_vars}->{cards}=format_float
 # 	(

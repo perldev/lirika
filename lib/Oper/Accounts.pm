@@ -314,6 +314,9 @@ sub get_right
             {'field'=>"a_uah", "no_add_edit"=>1, "title"=>"Баланс, гривна"},
             {'field'=>"a_usd", "no_add_edit"=>1, "title"=>"Бланс, доллар"},
             {'field'=>"a_eur", "no_add_edit"=>1, "title"=>"Баланс, евро"},
+            {'field'=>"a_btc", "no_add_edit"=>1, "title"=>"Баланс, btc"},
+            {'field'=>"a_gbp", "no_add_edit"=>1, "title"=>"Бланс, фунты"},
+            {'field'=>"a_rub", "no_add_edit"=>1, "title"=>"Баланс, рубли"},
             {'field'=>"a_pid",no_add_edit=>1,titles=>&get_static_plugins,type=>'select'},
 
         ],

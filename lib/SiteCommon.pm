@@ -1570,6 +1570,8 @@ sub sum
 		$proto->{sums}->{ $row->{ct_date} }->{'USD'}=$proto->{orig__beg_usd};
 		$proto->{sums}->{ $row->{ct_date} }->{'EUR'}=$proto->{orig__beg_eur};
 		$proto->{sums}->{ $row->{ct_date} }->{'BTC'}=$proto->{orig__beg_btc};
+                $proto->{sums}->{ $row->{ct_date} }->{'GBP'}=$proto->{orig__beg_gbp};
+		$proto->{sums}->{ $row->{ct_date} }->{'RUB'}=$proto->{orig__beg_rub};
         
 		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 
@@ -1578,10 +1580,16 @@ sub sum
  			      	USD=>$proto->{sums}->{ $row->{ct_date} }->{'USD'},
 				EUR=>$proto->{sums}->{ $row->{ct_date} }->{'EUR'},
 				BTC=>$proto->{sums}->{ $row->{ct_date} }->{'BTC'},
+                                GBP=>$proto->{sums}->{ $row->{ct_date} }->{'GBP'},
+				RUB=>$proto->{sums}->{ $row->{ct_date} }->{'RUB'},
+
 				UAH_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'UAH'}),
 				USD_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'USD'}),
 				EUR_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'EUR'}),
 				BTC_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'BTC'}),
+				GBP_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'GBP'}),
+				RUB_FORMAT=>format_float($proto->{sums}->{ $row->{ct_date} }->{'RUB'}),
+				
  				REPORT_UAH=>
 				$proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{ $row->{ct_date} }->{rr_rate},
 				concl_color=>($proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{$row->{ct_date} }->{rr_rate} +
@@ -1609,6 +1617,11 @@ sub sum
 		$proto->{sums}->{ $row->{ct_date} }->{BTC}=$proto->{sums}->{ $prev_row }->{BTC};
 		$proto->{sums}->{ $row->{ct_date} }->{USD}=$proto->{sums}->{ $prev_row }->{USD};
 		$proto->{sums}->{ $row->{ct_date} }->{EUR}=$proto->{sums}->{ $prev_row }->{EUR};
+		$proto->{sums}->{ $row->{ct_date} }->{GBP}=$proto->{sums}->{ $prev_row }->{GBP};
+		$proto->{sums}->{ $row->{ct_date} }->{RUB}=$proto->{sums}->{ $prev_row }->{RUB};
+		
+		
+		
 	    $proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 
 		push @$array,{ct_ex_comis_type=>'concl',
@@ -1617,11 +1630,17 @@ sub sum
  			      	UAH=>$proto->{sums}->{ $prev_row }->{UAH},
  			      	USD=>$proto->{sums}->{ $prev_row }->{USD},
  			      	BTC=>$proto->{sums}->{ $prev_row }->{BTC},
+                                GBP=>$proto->{sums}->{ $prev_row }->{GBP},
+ 			      	RUB=>$proto->{sums}->{ $prev_row }->{RUB},
+
 				    EUR=>$proto->{sums}->{ $prev_row }->{EUR},
 				    UAH_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'UAH'}),
 				    BTC_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'BTC'}),
 				    USD_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'USD'}),
 				    EUR_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'EUR'}),
+                                    GBP_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'GBP'}),
+				    RUB_FORMAT=>format_float($proto->{sums}->{ $prev_row }->{'RUB'}),
+
                                     DEBT_FORMAT=>$proto->{docs}->{ $prev_row }->{all},
 				    REPORT_UAH=>$proto->{sums}->{ $row->{ct_date} }->{'UAH'}/$proto->{reports_rate}->{ 
 				    $row->{ct_date} }->{rr_rate},
