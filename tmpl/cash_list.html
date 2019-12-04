@@ -7,7 +7,7 @@
 
   <table id='my_table' class=table_gborders>
  <tr class=table_gborders>
-    <td class=table_gborders colspan=7>
+    <td class=table_gborders colspan=11>
      <strong>
 	[% page_title %]
      </strong>       
@@ -22,20 +22,20 @@
 	[% my_class='table_gborders_blue' %]
 	[% my_class1='table_gborders' %]
 [% END %]
-     <td class=$my_class  colspan="2">
+     <td class=$my_class  colspan="6">
 <input type='button' class="simple_borders" name="Не выданые" onclick="window.location.href='?do=list&amp;action=filter&amp;ct_date=all_time'" value="Выданые" >
 
 </th>
 
 
-     <td class=$my_class1  colspan="1">
+     <td class=$my_class1  colspan="5">
 <input type='button' class="simple_borders" name="Не выданые" onclick="window.location.href='?do=non_list&amp;action=filter&amp;ct_date=all_time'" value="Не выданые" >
 
 
 </th>
  </tr>       
 <tr class=table_gborders >
-<td colspan="3">
+<td colspan="11">
 [% INCLUDE components/export_excel.html index_cols=0 index_rows=12 index_cols_end=2 %]
 
 </td>
