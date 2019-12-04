@@ -785,7 +785,7 @@ sub calculate_sum_without
                 SELECT
                 SQL_CALC_FOUND_ROWS * FROM accounts_reports_table
                 WHERE ct_aid=?
-	        AND ct_fid NOT IN (-7,-8,30,33,34,35,744,745,668,669,670,767,766,768)
+	        AND ct_fid NOT IN (30,33,34,35,744,745,668,669,670,767,766,768)
                 AND $ref->{date1}
                 AND $ref->{date2} ORDER BY ts ASC
               ]);    
@@ -1359,8 +1359,10 @@ sub sum_
 		$proto->{sums}->{ $row->{ct_date} }->{'USD'}=0;
 		$proto->{sums}->{ $row->{ct_date} }->{'EUR'}=0;
                 $proto->{sums}->{ $row->{ct_date} }->{'BTC'}=0;
+		$proto->{sums}->{ $row->{ct_date} }->{'GBP'}=0;
+                $proto->{sums}->{ $row->{ct_date} }->{'RUB'}=0;
 
-		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
+		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>25} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 		
 	}
 	
@@ -1376,10 +1378,12 @@ sub sum_
 		$proto->{sums}->{ $row->{ct_date} }->{USD}=$proto->{sums}->{ $prev_row }->{USD};
 		$proto->{sums}->{ $row->{ct_date} }->{EUR}=$proto->{sums}->{ $prev_row }->{EUR};
 		$proto->{sums}->{ $row->{ct_date} }->{BTC}=$proto->{sums}->{ $prev_row }->{BTC};
+		$proto->{sums}->{ $row->{ct_date} }->{GBP}=$proto->{sums}->{ $prev_row }->{GBP};
+		$proto->{sums}->{ $row->{ct_date} }->{RUB}=$proto->{sums}->{ $prev_row }->{RUB};
 
 		push 	@$arr,$proto->{sums}->{ $prev_row };
 
-		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>5.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
+		$proto->{reports_rate}->{ $row->{ct_date} }={rr_rate=>25.05} unless( $proto->{reports_rate}->{ $row->{ct_date} });
 
 	
 	
