@@ -304,7 +304,7 @@
 
 
 <!--cash offices-->
-<div>
+<div style="height:160px">
 
 [% IF rights.exch_kiev1 || rights.cash_in_before_kiev1 || rights.cash_in_kiev1 || rights.cash_out_kiev1|| rights.cash_out2_kiev1 || rights.cash_kiev1 %] 
 <div style="text-align:left; width:200px; float:left">
@@ -846,7 +846,70 @@
  </div>
  [% END %]
 <!--  <BTC> -->
- 
+
+
+[% IF rights.cash_in_one_dnepr %] 
+[% IF 'cash_in_one_dnepr' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_one_dnepr.script"><nobr>$tabs.cash_in_one_dnepr.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_one_dnepr.script"><nobr>$tabs.cash_in_one_dnepr.title</nobr></a>
+  [% END %]
+
+[% END %]
+
+
+[% IF rights.cash_in_one_kiev %] 
+[% IF 'cash_in_one_kiev' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.cash_in_one_kiev.script"><nobr>$tabs.cash_in_one_kiev.title</nobr></a> 
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.cash_in_one_kiev.script"><nobr>$tabs.cash_in_one_kiev.title</nobr></a> 
+  [% END %]
+[% END %]
+
+
+
+
+[% IF rights.correct_back %] 
+
+[% IF 'correct_back' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.correct_back.script"><nobr>$tabs.correct_back.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.correct_back.script"><nobr>$tabs.correct_back.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
+[% IF rights.joke %] 
+[% IF 'joke' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.joke.script"><nobr>$tabs.joke.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.joke.script"><nobr>$tabs.joke.title</nobr></a>
+  [% END %]
+[% END %]
+
+[% IF rights.plugins %] 
+
+[% IF 'plugins' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.plugins.script"><nobr>$tabs.plugins.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.plugins.script"><nobr>$tabs.plugins.title</nobr></a>
+  [% END %]
+[% END %]
+
+
+[% IF rights.saldo_documents %] 
+[% IF 'saldo_documents' == rights.current %]
+  <a class="menu_text_selected" href="$tabs.saldo_documents.script"><nobr>$tabs.saldo_documents.title</nobr></a>
+  [% ELSE %]      
+  <a class="menu_text" href="$tabs.saldo_documents.script"><nobr>$tabs.saldo_documents.title</nobr></a>
+  [% END %]
+
+
+[% END %]
+
+
  
 [% IF rights.exch_btc || rights.cash_in_before_btc || rights.cash_in_btc || rights.cash_out_btc || rights.cash_out2_btc || rights.cash_btc %] 
 <div style="text-align:left; width:200px; float:left">
@@ -917,67 +980,6 @@
  </div>
 <!-- kiev -->
 
-
-[% IF rights.cash_in_one_dnepr %] 
-[% IF 'cash_in_one_dnepr' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_one_dnepr.script"><nobr>$tabs.cash_in_one_dnepr.title</nobr></a>
-  [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_one_dnepr.script"><nobr>$tabs.cash_in_one_dnepr.title</nobr></a>
-  [% END %]
-
-[% END %]
-
-
-[% IF rights.cash_in_one_kiev %] 
-[% IF 'cash_in_one_kiev' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_one_kiev.script"><nobr>$tabs.cash_in_one_kiev.title</nobr></a> 
-  [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_one_kiev.script"><nobr>$tabs.cash_in_one_kiev.title</nobr></a> 
-  [% END %]
-[% END %]
-
-
-
-
-[% IF rights.correct_back %] 
-
-[% IF 'correct_back' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.correct_back.script"><nobr>$tabs.correct_back.title</nobr></a>
-  [% ELSE %]      
-  <a class="menu_text" href="$tabs.correct_back.script"><nobr>$tabs.correct_back.title</nobr></a>
-  [% END %]
-
-
-[% END %]
-
-
-[% IF rights.joke %] 
-[% IF 'joke' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.joke.script"><nobr>$tabs.joke.title</nobr></a>
-  [% ELSE %]      
-  <a class="menu_text" href="$tabs.joke.script"><nobr>$tabs.joke.title</nobr></a>
-  [% END %]
-[% END %]
-
-[% IF rights.plugins %] 
-
-[% IF 'plugins' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.plugins.script"><nobr>$tabs.plugins.title</nobr></a>
-  [% ELSE %]      
-  <a class="menu_text" href="$tabs.plugins.script"><nobr>$tabs.plugins.title</nobr></a>
-  [% END %]
-[% END %]
-
-
-[% IF rights.saldo_documents %] 
-[% IF 'saldo_documents' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.saldo_documents.script"><nobr>$tabs.saldo_documents.title</nobr></a>
-  [% ELSE %]      
-  <a class="menu_text" href="$tabs.saldo_documents.script"><nobr>$tabs.saldo_documents.title</nobr></a>
-  [% END %]
-
-
-[% END %]
 
 
 
