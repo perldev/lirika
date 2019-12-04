@@ -36,7 +36,7 @@
  </tr>       
 <tr class=table_gborders >
 <td colspan="3">
-[% INCLUDE components/export_excel.html index_cols=0 index_rows=8 index_cols_end=2 %]
+[% INCLUDE components/export_excel.html index_cols=0 index_rows=12 index_cols_end=2 %]
 
 </td>
 </tr>
@@ -54,7 +54,14 @@
 
      <th class=table_gborders>Поступления EUR </th>
      <th class=table_gborders>Отчисления EUR </th>
+    
+    <th class=table_gborders>Поступления GBP </th>
+     <th class=table_gborders>Отчисления GBP </th>
+    
+    <th class=table_gborders>Поступления RUB </th>
+     <th class=table_gborders>Отчисления RUB </th>
 
+     
  </tr>                         
    	[% FOREACH thing = rows %]
 
@@ -121,6 +128,45 @@
 		</td>
 		[% END %]
 
+		[% IF thing.GBP>0 %]
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+			$thing.GBP_FORMAT
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		</td>
+		[% ELSE %]
+		<td  onclick="sum(this)" class=$class>
+			
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+			$thing.GBP_FORMAT
+		</td>
+		[% END %]
+
+		[% IF thing.RUB>0 %]
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+			$thing.RUB_FORMAT
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		</td>
+		[% ELSE %]
+		<td  onclick="sum(this)" class=$class>
+			
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+			$thing.RUB_FORMAT
+		</td>
+		[% END %]
+		
+		
+		
+		
 
 
 		[%ELSE%] 
@@ -153,6 +199,27 @@
 		<td  onclick="sum(this)" class=$class >
 		$thing.ct_amnt_eur_mines
 		</td>
+		
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+		$thing.ct_amnt_gbp
+		</td>
+	 	[%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		$thing.ct_amnt_gbp_mines
+		</td>
+		
+		[%  class='table_gborders' %]
+		<td  onclick="sum(this)" class=$class>
+		$thing.ct_amnt_rub
+		</td>
+		 [%  class='table_gborders_red' %]
+		<td  onclick="sum(this)" class=$class >
+		$thing.ct_amnt_rub_mines
+		</td>
+		
+		
+		
 		</tr>
 
   	[% END %]
