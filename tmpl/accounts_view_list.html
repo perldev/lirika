@@ -50,10 +50,10 @@ onclick="unify_get_excel(0,0,11)" ><a class='table_gborders' style='display:none
      <th class=table_gborders> Оператор </th>
      <th class=table_gborders> Класс </th>
      <th class=table_gborders> Статус </th>
-    <th class='table_gborders' colspan="3" > 
+    <th class='table_gborders' colspan="6" > 
     <table class="table_gborders">
     <tr class="table_gborders">
-    <th class='table_gborders'  colspan="3" >
+    <th class='table_gborders'  colspan="6" >
          <span onclick="sort_by_common_number('my_table',1,event,this)" style='cursor:pointer' >  Отсортировать (убыв) </span>
     </th>
     </tr>
@@ -61,6 +61,9 @@ onclick="unify_get_excel(0,0,11)" ><a class='table_gborders' style='display:none
      <th class=table_gborders > ГРН </th>
      <th class=table_gborders> USD </th>
      <th class=table_gborders> EUR </th>  
+     <th class=table_gborders >BTC </th>
+     <th class=table_gborders> GBP </th>
+     <th class=table_gborders> RUB </th>  
     </tr>
     </table>
     </th>  
@@ -162,8 +165,17 @@ onclick="unify_get_excel(0,0,11)" ><a class='table_gborders' style='display:none
         	$row.a_usd
         </td>
 
-		<td class="$table_gborders">
+        <td class="$table_gborders">
         $row.a_eur
+        </td>
+        <td class="$table_gborders">
+            $row.a_btc
+        </td>
+        <td class="$table_gborders">
+           $row.a_gbp
+        </td>
+        <td class="$table_gborders">
+           $row.a_rub
         </td>
         <td class=table_gborders>
 	    <table >
