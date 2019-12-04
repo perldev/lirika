@@ -319,7 +319,6 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
 		</th>
 		
 		<th style="width:6em" class=table_gborders>Дата </th>
-		<th class=table_gborders>BTC</th>
 		<th class=table_gborders>% Комиссии</th>
 		<th class=table_gborders>Комиссия</th>
  		<th class=table_gborders>Доп.ком.</th>  
@@ -327,9 +326,9 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
  		<th class="table_gborders">Курс</th> 
  		<th class="table_gborders">Итого (USD)</th>
  		<th class="table_gborders">Итого (EUR)</th>
-		<th class=table_gborders>Касса ГРН</th>	     
- 		<th class=table_gborders>Касса USD</th>
- 		<th class=table_gborders>Касса EUR</th> 
+ 		<th class="table_gborders">Итого (BTC)</th>	
+ 		<th class="table_gborders">Итого (GBP)</th>
+ 		<th class="table_gborders">Итого (RUB)</th>
  		<th class=table_gborders>Б/н вал. отправки</th>
 		<th style="width:12em" class=table_gborders>Примечания </th>
 		<th style="width:12em" class=table_gborders>От кого </th>
@@ -403,7 +402,6 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
 
 	
 		<td class=$class>Итого на:</td>
-		<td class=$class> $row.BTC_FORMAT </td>
 		<td class="simple_tab $class" onclick='show_grouped([% loop.index+6 %])' >$row.ct_date</td>
 		<td class=$class></td>
 		<td class=$class></td>
@@ -411,9 +409,9 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
 		<td class=$class></td>
 		<td class="$class"  onclick="sum(this)">$row.USD_FORMAT</td>
 		<td class="$class"  onclick="sum(this)">$row.EUR_FORMAT</td>
-		<td class=$class></td>
-		<td class=$class></td>
-		<td class=$class></td>
+                <td class="$class"  onclick="sum(this)">$row.BTC_FORMAT</td>
+		<td class="$class"  onclick="sum(this)">$row.GBP_FORMAT</td>
+		<td class="$class"  onclick="sum(this)">$row.RUB_FORMAT</td>
 		<td class=$class></td>
 		<td class=$class>Долг по док-ам :</td>
 		<td class=$class>$row.DEBT_FORMAT <span class='simple_tab' id='concl_$proto_params.ct_aid$row.non_format_date'
@@ -443,8 +441,7 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
                 $row.ct_date
                 </span> 
-        </td>
-		<td class=$class>[% IF row.orig__ct_currency=='BTC'%] $row.ct_amnt  [% END %] </td>
+                </td>
 		<td class=$class>$row.ct_comis_percent</td>
 
 		<td class="$class"  onclick="sum(this)">$row.comission</td>
@@ -453,8 +450,9 @@ $proto_params.fin_usd <strong>USD</strong> $proto_params.fin_eur <strong>EUR</st
 		<td class=$class></td>
 		<td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
 		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.ct_amnt  [% END %] </td>
-		<td class=$class> </td> 
-		<td class=$class> </td>
+                <td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='BTC'%] $row.ct_amnt  [% END %] </td>
+		<td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='GBP'%] $row.ct_amnt  [% END %]</td> 
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='RUB'%] $row.ct_amnt  [% END %] </td>
 		<td class=$class>  </td>
 		<td class=$class>  </td>
 	   	<td class=$class >
@@ -497,7 +495,6 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
                 style="cursor:pointer"
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
             $row.ct_date</span> </td>
-		<td class=$class>   </td>
 		<td class=$class>$row.ct_comis_percent</td>
 		<td class="$class"  onclick="sum(this)">$row.comission</td>
 		<td class="$class"  onclick="sum(this)">[% IF row.ct_ext_commission%]$row.ct_ext_commission[%END%]</td>
@@ -505,9 +502,9 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 		<td class="$class">$row.rate    </td>
 	<td class="$class" onclick="sum(this)"> [% IF row.e_currency2=='USD'||(!row.e_currency2&&row.orig__ct_currency=='USD') %] $mines$row.result_amnt  [% END %] </td>
 	<td class="$class"  onclick="sum(this)">[% IF row.e_currency2=='EUR'||(!row.e_currency2&&row.orig__ct_currency=='EUR') %] $mines$row.result_amnt  [% END %] </td> 
-		<td class="$class"  onclick="sum(this)"> </td>
-		<td class=$class> </td>
-		<td class="$class"  onclick="sum(this)"> </td> 
+                <td class="$class"  onclick="sum(this)">[% IF row.e_currency2=='BTC'||(!row.e_currency2&&row.orig__ct_currency=='BTC') %] $mines$row.result_amnt  [% END %] </td> 
+                <td class="$class"  onclick="sum(this)">[% IF row.e_currency2=='GBP'||(!row.e_currency2&&row.orig__ct_currency=='GBP') %] $mines$row.result_amnt  [% END %] </td> 
+                <td class="$class"  onclick="sum(this)">[% IF row.e_currency2=='RUB'||(!row.e_currency2&&row.orig__ct_currency=='RUB') %] $mines$row.result_amnt  [% END %] </td> 
 		<td class="$class"  onclick="sum(this)">$row.ct_amnt $row.ct_currency </td>
    		<td class=$class >
 <nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>
@@ -545,7 +542,6 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 	[% exch = row.e_currency2 %]
 
 
-	[% IF orig=='BTC' %] $row.ct_amnt [% END %]
 	 </td>
 	<td class=$class>$row.ct_comis_percent</td>
 	<td class="$class"  onclick="sum(this)">$row.comission</td>
@@ -560,8 +556,8 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
  		$mines$row.result_amnt  
 		[% END %]</td>
 		<td class="$class"  onclick="sum(this)"> 
-		[% IF row.ct_eid&&exch=='EUR' %] $mines $row.result_amnt  [% END %]</td>
-		<td class=$class> </td>
+		[% IF row.ct_eid&&exch=='EUR' %] $mines $row.result_amnt  [% END %] </td>
+		<td class=$class>  	[% IF orig=='BTC' %] $row.ct_amnt [% END %] </td>
 		<td class=$class> </td> 
 		<td class=$class> </td> 
 <td class="$class"  onclick="sum(this)">[%IF row.orig__ct_currency!='UAH' %] $mines$row.result_amnt $row.ct_currency
@@ -595,7 +591,7 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
                 onclick="show_form_date(this,event,'date_form','$row.ct_id','$row.ct_ex_comis_type')">
                 $row.ct_date</span>
             </td>
-                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>
+               
                 <td class=$class>0.00</td>
                 <td class=$class>0</td>
                 <td class=$class> </td>
@@ -603,15 +599,13 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
                 <td class=$class>$row.rate </td> 
                 <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='USD' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='USD' %]$row.result_amnt  [% END %]</td>
                 <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='EUR' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='EUR' %]$row.result_amnt  [% END %]</td>	
-                <td class=$class> </td>
-                <td class=$class> </td>
-                <td class=$class> </td> 
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='BTC' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='BTC' %]$row.result_amnt  [% END %]  </td>               
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='GBP' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='GBP' %]$row.result_amnt  [% END %]  </td>               
+                <td class="$class"  onclick="sum(this)"> [% IF row.orig__ct_currency=='RUB' %]  $row.ct_amnt $row.ct_currency [% END %]   [% IF row.e_currency2=='RUB' %]$row.result_amnt  [% END %]  </td>
                 <td class=$class> </td>
                 <td class=$class >
-    <nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr></td>
-
+                <nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr></td>
                         <td class="$class"  >
-
 
         <span style="cursor:pointer"
                             onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_name(#$row.orig__ct_fid)</span>
@@ -638,7 +632,6 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 
         $row.ct_date 
         </td>
-		<td class=$class> [% IF row.orig__ct_currency=='BTC'%] $row.result_amnt  [% END %] </td>
 		<td class=$class >$row.ct_comis_percent </td>
 		<td class=$class onclick="sum(this)"> $row.comission</td>
 		<td class=$class> $row.ct_ext_commission</td>
@@ -646,10 +639,9 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
 		<td class=$class> </td>
 		<td class=$class onclick="sum(this)">[% IF row.orig__ct_currency=='USD'%] $row.result_amnt  [% END %] </td>
 		<td class=$class onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.result_amnt  [% END %] </td>
-		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='UAH'%] $row.ct_amnt  [% END %] </td>
-		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='USD'%] $row.ct_amnt  [% END %]</td> 
-		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='EUR'%] $row.ct_amnt  [% END %]</td> 
-
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='BTC'%] $row.ct_amnt  [% END %] </td>
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='GBP'%] $row.ct_amnt  [% END %]</td> 
+		<td class="$class"  onclick="sum(this)">[% IF row.orig__ct_currency=='RUB'%] $row.ct_amnt  [% END %]</td> 
 		<td class=$class> </td>
 		<td class=$class >
 <nobr class=comment onclick="window.location.href='$row.search_url'"  title='[% row.ct_comment FILTER html %]'>$row.ct_comment </nobr>		        </td>
@@ -676,7 +668,6 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
         
         </th>
         <th style="width:6em" class=table_gborders>Дата </th>
-        <th  class="table_gborders">BTC</th>
         <th class="table_gborders">% Комиссии</th>
         <th class="table_gborders">Комиссия</th>
         <th class="table_gborders">Доп.ком.</th>  
@@ -684,9 +675,9 @@ onclick="show_form_ext(event,'form_$row.ct_id$row.ct_ex_comis_type')">$row.f_nam
         <th class="table_gborders">Курс</th>
         <th class="table_gborders">Итого (USD)</th>
         <th class="table_gborders">Итого (EUR)</th>
-        <th class="table_gborders">Касса ГРН</th>      
-        <th class="table_gborders">Касса USD</th>
-        <th class="table_gborders">Касса EUR</th>
+        <th class="table_gborders">Итого BTC</th>      
+        <th class="table_gborders">Итого GBP</th>
+        <th class="table_gborders">Итого RUB</th>
         <th class="table_gborders">Б/н вал. отправки</th>
         <th style="width:12em"  class=table_gborders>Примечания </th>
         <th style="width:12em" class=table_gborders>От кого </th>

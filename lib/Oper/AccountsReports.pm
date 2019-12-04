@@ -27,15 +27,15 @@ sub setup
 		'AUTOLOAD'   => 'list',
 		'list' => 'list',
 		'send_balance'=>'send_balance',
-		'credit'=>'credit',
-		'get_credit'=>'get_credit',
-		'print'=>'print',
-		'export_excel'=>'export_excel',
-		'archive'=>'archive',
-		'search_in_ahrchive'=>'search_in_ahrchive',
-		'send_through_localhost'=>'send_through_localhost',
-		'restore_archive'=>'restore_archive',
-		'document_list_uah'=>'document_list_uah'
+# 		'credit'=>'credit',
+# 		'get_credit'=>'get_credit',
+# 		'print'=>'print',
+# 		'export_excel'=>'export_excel',
+# 		'archive'=>'archive',
+# 		'search_in_ahrchive'=>'search_in_ahrchive',
+# 		'send_through_localhost'=>'send_through_localhost',
+# 		'restore_archive'=>'restore_archive',
+# 		'document_list_uah'=>'document_list_uah'
  	);
 }
 
@@ -56,6 +56,8 @@ sub restore_archive{
 sub search_in_ahrchive
 {
     my $self=shift;
+    die "not implemented";
+
     my $ts=$self->query->param('ts1');
     my $ts2=$self->query->param('ts2');
     my $ct_aid=$self->query->param('ct_aid');
@@ -152,8 +154,9 @@ sub archive
 {
 	my $self=shift;
 	my $id=$self->query->param('ct_aid');
-    my $ts=$self->query->param('to_ts');
-        
+        my $ts=$self->query->param('to_ts');
+        die "not implemented";
+
 
 
 	my $new_aid=WorkingWindow::save_working_window($id,$ts,$self->{user_id});
@@ -165,6 +168,7 @@ sub archive
 sub export_excel
 {
 	my $self=shift;
+	die "not implemented";
 
 	my $id=$self->query->param('ct_aid');
 	my ($email,$now,$passwd)=$dbh->selectrow_array('SELECT 
@@ -190,6 +194,8 @@ sub print
 {
 	my $self=shift;
 	my $fid=$self->query->param('ct_aid');
+        die "not implemented";
+
  	if($fid)	
  	{
  		my $ref=$dbh->selectrow_hashref(q[SELECT * FROM accounts WHERE a_id=?],undef,$fid);	
@@ -281,6 +287,8 @@ sub get_credit
 {
 	my $self=shift;
 	my %params;
+        die "not implemented";
+
 	map {$params{$_}=$self->query->param($_) } $self->query->param();
     
     return $self->error("Вы не выбрали валюту \n")     unless($conv_currency->{$params{currency}});
@@ -389,6 +397,8 @@ sub get_credit
 sub credit
 {
 	my $self=shift;
+        die "not implemented";
+
 	my $fid=$self->query->param('ct_aid');
 	my $percent=$self->query->param('percent');
 	my $currency=$self->query->param('currency');
@@ -435,15 +445,10 @@ sub credit
 
 		
  		$proto->{beg_uah}=$ref->{a_uah}-$sums->{UAH};
-
   		$proto->{beg_usd}=$ref->{a_usd}-$sums->{USD};#$ref->{a_usd}-$from->{USD};
-
   		$proto->{beg_eur}=$ref->{a_eur}-$sums->{EUR};
-
 		$proto->{orig__beg_uah}=$proto->{beg_uah};
-
   		$proto->{orig__beg_usd}=$proto->{beg_usd};
-
   		$proto->{orig__beg_eur}=$proto->{beg_eur};
 	
 		$proto->{beg_uah}=format_float($proto->{beg_uah});
@@ -484,6 +489,8 @@ sub credit
 sub send_balance
 {
 	my $self=shift;
+        die "not implemented";
+
 	my $id=$self->query->param('ct_aid');
 	my $own_email=$self->query->param('email');
 	$proto->{table}='accounts_reports_table';
@@ -573,6 +580,7 @@ sub send_balance
 sub built_excel
 {
 	my ($self,$rows,$file)=@_;
+	die "not implemented";
 	require Spreadsheet::WriteExcel::Simple;
 	my $ss = Spreadsheet::WriteExcel::Simple->new;
 	my @headings=('Дата' ,'Б/н приход(ГРН)','% Комиссия','Комиссия','Доп.ком','Итого (ГРН)','Курс','Итого (USD)','Итого (EUR)','Касса ГРН','Касса USD','Касса EUR','Б/н вал. отправки','Примечания','От кого');
