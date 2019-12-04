@@ -306,14 +306,14 @@
 <!--cash offices-->
 
 [% IF rights.exch_kiev1 || rights.cash_in_before_kiev1 || rights.cash_in_kiev1 || rights.cash_out_kiev1|| rights.cash_out2_kiev1 || rights.cash_kiev1 %] 
-<div>
+<div style="text-align:left; width:200px">
 
 
 [% IF rights.exch_kiev1 %] 
 [% IF 'exch_kiev1' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev1.script"><nobr>$tabs.exch_kiev1.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev1.script"><nobr>$tabs.exch_kiev1.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev1.script"><nobr>$tabs.exch_kiev1.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev1.script"><nobr>$tabs.exch_kiev1.title</nobr></a><br/>
   [% END %]
 
 
@@ -321,9 +321,9 @@
 
 [% IF rights.cash_in_before_kiev1 %] 
 [% IF 'cash_in_before_kiev1' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev1.script"><nobr>$tabs.cash_in_before_kiev1.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev1.script"><nobr>$tabs.cash_in_before_kiev1.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev1.script"><nobr>$tabs.cash_in_before_kiev1.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev1.script"><nobr>$tabs.cash_in_before_kiev1.title</nobr></a><br/>
   [% END %]
  
 
@@ -332,18 +332,18 @@
 
 [% IF rights.cash_in_kiev1 %] 
 [% IF 'cash_in_kiev1' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev1.script"><nobr>$tabs.cash_in_kiev1.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev1.script"><nobr>$tabs.cash_in_kiev1.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev1.script"><nobr>$tabs.cash_in_kiev1.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev1.script"><nobr>$tabs.cash_in_kiev1.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev1 %] 
 [% IF 'cash_out_kiev1' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev1.script"><nobr>$tabs.cash_out_kiev1.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev1.script"><nobr>$tabs.cash_out_kiev1.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev1.script"><nobr>$tabs.cash_out_kiev1.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev1.script"><nobr>$tabs.cash_out_kiev1.title</nobr></a><br/>
   [% END %]
 
 
@@ -351,9 +351,9 @@
 
 [% IF rights.cash_out2_kiev1 %]
 [% IF 'cash_out2_kiev1' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev1.script"><nobr>$tabs.cash_out2_kiev1.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev1.script"><nobr>$tabs.cash_out2_kiev1.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev1.script"><nobr>$tabs.cash_out2_kiev1.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev1.script"><nobr>$tabs.cash_out2_kiev1.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -361,9 +361,9 @@
 
 [% IF rights.cash_kiev1 %] 
 [% IF 'cash_kiev1' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev1.script"><nobr>$tabs.cash_kiev1.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev1.script"><nobr>$tabs.cash_kiev1.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev1.script"><nobr>$tabs.cash_kiev1.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev1.script"><nobr>$tabs.cash_kiev1.title</nobr></a><br/>
   [% END %]
  [% END %]
 
@@ -373,11 +373,15 @@
 
 <!--cash offices-->
 
+[% IF rights.exch_kiev2 || rights.cash_in_before_kiev2 || rights.cash_in_kiev2 || rights.cash_out_kiev2 || rights.cash_out2_kiev2 || rights.cash_kiev2 %] 
+<div style="text-align:left; width:200px">
+
+
 [% IF rights.exch_kiev2 %] 
 [% IF 'exch_kiev2' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev2.script"><nobr>$tabs.exch_kiev2.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev2.script"><nobr>$tabs.exch_kiev2.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev2.script"><nobr>$tabs.exch_kiev2.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev2.script"><nobr>$tabs.exch_kiev2.title</nobr></a><br/>
   [% END %]
 
 
@@ -385,9 +389,9 @@
 
 [% IF rights.cash_in_before_kiev2 %] 
 [% IF 'cash_in_before_kiev2' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev2.script"><nobr>$tabs.cash_in_before_kiev2.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev2.script"><nobr>$tabs.cash_in_before_kiev2.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev2.script"><nobr>$tabs.cash_in_before_kiev2.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev2.script"><nobr>$tabs.cash_in_before_kiev2.title</nobr></a><br/>
   [% END %]
  
 
@@ -396,18 +400,18 @@
 
 [% IF rights.cash_in_kiev2 %] 
 [% IF 'cash_in_kiev2' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev2.script"><nobr>$tabs.cash_in_kiev2.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev2.script"><nobr>$tabs.cash_in_kiev2.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev2.script"><nobr>$tabs.cash_in_kiev2.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev2.script"><nobr>$tabs.cash_in_kiev2.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev2 %] 
 [% IF 'cash_out_kiev2' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev2.script"><nobr>$tabs.cash_out_kiev2.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev2.script"><nobr>$tabs.cash_out_kiev2.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev2.script"><nobr>$tabs.cash_out_kiev2.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev2.script"><nobr>$tabs.cash_out_kiev2.title</nobr></a><br/>
   [% END %]
 
 
@@ -415,9 +419,9 @@
 
 [% IF rights.cash_out2_kiev2 %]
 [% IF 'cash_out2_kiev2' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev2.script"><nobr>$tabs.cash_out2_kiev2.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev2.script"><nobr>$tabs.cash_out2_kiev2.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev2.script"><nobr>$tabs.cash_out2_kiev2.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev2.script"><nobr>$tabs.cash_out2_kiev2.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -425,22 +429,27 @@
 
 [% IF rights.cash_kiev2 %] 
 [% IF 'cash_kiev2' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev2.script"><nobr>$tabs.cash_kiev2.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev2.script"><nobr>$tabs.cash_kiev2.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev2.script"><nobr>$tabs.cash_kiev2.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev2.script"><nobr>$tabs.cash_kiev2.title</nobr></a><br/>
   [% END %]
  [% END %]
  
  
+ </div>
+ [% END %]
  
 
+
+[% IF rights.exch_kiev3 || rights.cash_in_before_kiev3 || rights.cash_in_kiev3 || rights.cash_out_kiev3 || rights.cash_out2_kiev3 || rights.cash_kiev3 %] 
+<div style="text-align:left; width:200px">
  
  
  [% IF rights.exch_kiev3 %] 
 [% IF 'exch_kiev3' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev3.script"><nobr>$tabs.exch_kiev3.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev3.script"><nobr>$tabs.exch_kiev3.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev3.script"><nobr>$tabs.exch_kiev3.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev3.script"><nobr>$tabs.exch_kiev3.title</nobr></a><br/>
   [% END %]
 
 
@@ -448,9 +457,9 @@
 
 [% IF rights.cash_in_before_kiev3 %] 
 [% IF 'cash_in_before_kiev3' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev3.script"><nobr>$tabs.cash_in_before_kiev3.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev3.script"><nobr>$tabs.cash_in_before_kiev3.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev3.script"><nobr>$tabs.cash_in_before_kiev3.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev3.script"><nobr>$tabs.cash_in_before_kiev3.title</nobr></a><br/>
   [% END %]
  
 
@@ -459,18 +468,18 @@
 
 [% IF rights.cash_in_kiev3 %] 
 [% IF 'cash_in_kiev3' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev3.script"><nobr>$tabs.cash_in_kiev3.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev3.script"><nobr>$tabs.cash_in_kiev3.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev3.script"><nobr>$tabs.cash_in_kiev3.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev3.script"><nobr>$tabs.cash_in_kiev3.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev3 %] 
 [% IF 'cash_out_kiev3' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev3.script"><nobr>$tabs.cash_out_kiev3.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev3.script"><nobr>$tabs.cash_out_kiev3.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev3.script"><nobr>$tabs.cash_out_kiev3.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev3.script"><nobr>$tabs.cash_out_kiev3.title</nobr></a><br/>
   [% END %]
 
 
@@ -478,9 +487,9 @@
 
 [% IF rights.cash_out2_kiev3 %]
 [% IF 'cash_out2_kiev3' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev3.script"><nobr>$tabs.cash_out2_kiev3.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev3.script"><nobr>$tabs.cash_out2_kiev3.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev3.script"><nobr>$tabs.cash_out2_kiev3.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev3.script"><nobr>$tabs.cash_out2_kiev3.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -488,21 +497,26 @@
 
 [% IF rights.cash_kiev3 %] 
 [% IF 'cash_kiev3' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev3.script"><nobr>$tabs.cash_kiev3.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev3.script"><nobr>$tabs.cash_kiev3.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev3.script"><nobr>$tabs.cash_kiev3.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev3.script"><nobr>$tabs.cash_kiev3.title</nobr></a><br/>
   [% END %]
+ [% END %]
+ 
+ </div>
  [% END %]
  
  
  
- 
+[% IF rights.exch_kiev4 || rights.cash_in_before_kiev4 || rights.cash_in_kiev4 || rights.cash_out_kiev4 || rights.cash_out2_kiev4 || rights.cash_kiev4 %] 
+<div style="text-align:left; width:200px">
+
  
  [% IF rights.exch_kiev4 %] 
 [% IF 'exch_kiev4' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev4.script"><nobr>$tabs.exch_kiev4.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev4.script"><nobr>$tabs.exch_kiev4.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev4.script"><nobr>$tabs.exch_kiev4.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev4.script"><nobr>$tabs.exch_kiev4.title</nobr></a><br/>
   [% END %]
 
 
@@ -510,9 +524,9 @@
 
 [% IF rights.cash_in_before_kiev4 %] 
 [% IF 'cash_in_before_kiev4' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev4.script"><nobr>$tabs.cash_in_before_kiev4.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev4.script"><nobr>$tabs.cash_in_before_kiev4.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev4.script"><nobr>$tabs.cash_in_before_kiev4.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev4.script"><nobr>$tabs.cash_in_before_kiev4.title</nobr></a><br/>
   [% END %]
  
 
@@ -521,18 +535,18 @@
 
 [% IF rights.cash_in_kiev4 %] 
 [% IF 'cash_in_kiev4' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev4.script"><nobr>$tabs.cash_in_kiev4.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev4.script"><nobr>$tabs.cash_in_kiev4.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev4.script"><nobr>$tabs.cash_in_kiev4.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev4.script"><nobr>$tabs.cash_in_kiev4.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev4 %] 
 [% IF 'cash_out_kiev4' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev4.script"><nobr>$tabs.cash_out_kiev4.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev4.script"><nobr>$tabs.cash_out_kiev4.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev4.script"><nobr>$tabs.cash_out_kiev4.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev4.script"><nobr>$tabs.cash_out_kiev4.title</nobr></a><br/>
   [% END %]
 
 
@@ -540,9 +554,9 @@
 
 [% IF rights.cash_out2_kiev4 %]
 [% IF 'cash_out2_kiev4' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev4.script"><nobr>$tabs.cash_out2_kiev4.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev4.script"><nobr>$tabs.cash_out2_kiev4.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev4.script"><nobr>$tabs.cash_out2_kiev4.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev4.script"><nobr>$tabs.cash_out2_kiev4.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -550,22 +564,27 @@
 
 [% IF rights.cash_kiev4 %] 
 [% IF 'cash_kiev4' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev4.script"><nobr>$tabs.cash_kiev4.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev4.script"><nobr>$tabs.cash_kiev4.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev4.script"><nobr>$tabs.cash_kiev4.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev4.script"><nobr>$tabs.cash_kiev4.title</nobr></a><br/>
   [% END %]
  [% END %]
  
- 
+ </div>
+ [% END %]
  
  
 <!--cash offices-->
 
+[% IF rights.exch_kiev5 || rights.cash_in_before_kiev5 || rights.cash_in_kiev5 || rights.cash_out_kiev5 || rights.cash_out2_kiev5 || rights.cash_kiev5 %] 
+<div style="text-align:left; width:200px">
+
+
 [% IF rights.exch_kiev5 %] 
 [% IF 'exch_kiev5' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev5.script"><nobr>$tabs.exch_kiev5.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev5.script"><nobr>$tabs.exch_kiev5.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev5.script"><nobr>$tabs.exch_kiev5.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev5.script"><nobr>$tabs.exch_kiev5.title</nobr></a><br/>
   [% END %]
 
 
@@ -573,9 +592,9 @@
 
 [% IF rights.cash_in_before_kiev5 %] 
 [% IF 'cash_in_before_kiev5' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev5.script"><nobr>$tabs.cash_in_before_kiev5.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev5.script"><nobr>$tabs.cash_in_before_kiev5.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev5.script"><nobr>$tabs.cash_in_before_kiev5.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev5.script"><nobr>$tabs.cash_in_before_kiev5.title</nobr></a><br/>
   [% END %]
  
 
@@ -584,18 +603,18 @@
 
 [% IF rights.cash_in_kiev5 %] 
 [% IF 'cash_in_kiev5' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev5.script"><nobr>$tabs.cash_in_kiev5.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev5.script"><nobr>$tabs.cash_in_kiev5.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev5.script"><nobr>$tabs.cash_in_kiev5.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev5.script"><nobr>$tabs.cash_in_kiev5.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev5 %] 
 [% IF 'cash_out_kiev5' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev5.script"><nobr>$tabs.cash_out_kiev5.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev5.script"><nobr>$tabs.cash_out_kiev5.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev5.script"><nobr>$tabs.cash_out_kiev5.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev5.script"><nobr>$tabs.cash_out_kiev5.title</nobr></a><br/>
   [% END %]
 
 
@@ -603,9 +622,9 @@
 
 [% IF rights.cash_out2_kiev5 %]
 [% IF 'cash_out2_kiev5' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev5.script"><nobr>$tabs.cash_out2_kiev5.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev5.script"><nobr>$tabs.cash_out2_kiev5.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev5.script"><nobr>$tabs.cash_out2_kiev5.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev5.script"><nobr>$tabs.cash_out2_kiev5.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -613,22 +632,26 @@
 
 [% IF rights.cash_kiev5 %] 
 [% IF 'cash_kiev5' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev5.script"><nobr>$tabs.cash_kiev5.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev5.script"><nobr>$tabs.cash_kiev5.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev5.script"><nobr>$tabs.cash_kiev5.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev5.script"><nobr>$tabs.cash_kiev5.title</nobr></a><br/>
   [% END %]
  [% END %]
  
- 
- 
+ </div>
+ [% END %]
  
 <!--cash offices-->
 
+
+[% IF rights.exch_kiev6 || rights.cash_in_before_kiev6 || rights.cash_in_kiev6 || rights.cash_out_kiev6 || rights.cash_out2_kiev6 || rights.cash_kiev6 %] 
+<div style="text-align:left; width:200px">
+
 [% IF rights.exch_kiev6 %] 
 [% IF 'exch_kiev6' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev6.script"><nobr>$tabs.exch_kiev6.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev6.script"><nobr>$tabs.exch_kiev6.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev6.script"><nobr>$tabs.exch_kiev6.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev6.script"><nobr>$tabs.exch_kiev6.title</nobr></a><br/>
   [% END %]
 
 
@@ -636,9 +659,9 @@
 
 [% IF rights.cash_in_before_kiev6 %] 
 [% IF 'cash_in_before_kiev6' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev6.script"><nobr>$tabs.cash_in_before_kiev6.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev6.script"><nobr>$tabs.cash_in_before_kiev6.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev6.script"><nobr>$tabs.cash_in_before_kiev6.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev6.script"><nobr>$tabs.cash_in_before_kiev6.title</nobr></a><br/>
   [% END %]
  
 
@@ -647,18 +670,18 @@
 
 [% IF rights.cash_in_kiev6 %] 
 [% IF 'cash_in_kiev6' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev6.script"><nobr>$tabs.cash_in_kiev6.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev6.script"><nobr>$tabs.cash_in_kiev6.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev6.script"><nobr>$tabs.cash_in_kiev6.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev6.script"><nobr>$tabs.cash_in_kiev6.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev6 %] 
 [% IF 'cash_out_kiev6' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev6.script"><nobr>$tabs.cash_out_kiev6.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev6.script"><nobr>$tabs.cash_out_kiev6.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev6.script"><nobr>$tabs.cash_out_kiev6.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev6.script"><nobr>$tabs.cash_out_kiev6.title</nobr></a><br/>
   [% END %]
 
 
@@ -666,9 +689,9 @@
 
 [% IF rights.cash_out2_kiev6 %]
 [% IF 'cash_out2_kiev6' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev6.script"><nobr>$tabs.cash_out2_kiev6.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev6.script"><nobr>$tabs.cash_out2_kiev6.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev6.script"><nobr>$tabs.cash_out2_kiev6.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev6.script"><nobr>$tabs.cash_out2_kiev6.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -676,21 +699,26 @@
 
 [% IF rights.cash_kiev6 %] 
 [% IF 'cash_kiev6' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev6.script"><nobr>$tabs.cash_kiev6.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev6.script"><nobr>$tabs.cash_kiev6.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev6.script"><nobr>$tabs.cash_kiev6.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev6.script"><nobr>$tabs.cash_kiev6.title</nobr></a><br/>
   [% END %]
+ [% END %]
+ 
+ </div>
  [% END %]
  
  
  
- 
+[% IF rights.exch_kiev7 || rights.cash_in_before_kiev7 || rights.cash_in_kiev7 || rights.cash_out_kiev7 || rights.cash_out2_kiev7 || rights.cash_kiev7 %] 
+<div style="text-align:left; width:200px">
+
  
 [% IF rights.exch_kiev7 %] 
 [% IF 'exch_kiev7' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev7.script"><nobr>$tabs.exch_kiev7.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev7.script"><nobr>$tabs.exch_kiev7.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev7.script"><nobr>$tabs.exch_kiev7.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev7.script"><nobr>$tabs.exch_kiev7.title</nobr></a><br/>
   [% END %]
 
 
@@ -698,9 +726,9 @@
 
 [% IF rights.cash_in_before_kiev7 %] 
 [% IF 'cash_in_before_kiev7' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev7.script"><nobr>$tabs.cash_in_before_kiev7.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev7.script"><nobr>$tabs.cash_in_before_kiev7.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev7.script"><nobr>$tabs.cash_in_before_kiev7.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev7.script"><nobr>$tabs.cash_in_before_kiev7.title</nobr></a><br/>
   [% END %]
  
 
@@ -709,18 +737,18 @@
 
 [% IF rights.cash_in_kiev7 %] 
 [% IF 'cash_in_kiev7' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev7.script"><nobr>$tabs.cash_in_kiev7.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev7.script"><nobr>$tabs.cash_in_kiev7.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev7.script"><nobr>$tabs.cash_in_kiev7.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev7.script"><nobr>$tabs.cash_in_kiev7.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev7 %] 
 [% IF 'cash_out_kiev7' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev7.script"><nobr>$tabs.cash_out_kiev7.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev7.script"><nobr>$tabs.cash_out_kiev7.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev7.script"><nobr>$tabs.cash_out_kiev7.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev7.script"><nobr>$tabs.cash_out_kiev7.title</nobr></a><br/>
   [% END %]
 
 
@@ -728,9 +756,9 @@
 
 [% IF rights.cash_out2_kiev7 %]
 [% IF 'cash_out2_kiev7' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev7.script"><nobr>$tabs.cash_out2_kiev7.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev7.script"><nobr>$tabs.cash_out2_kiev7.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev7.script"><nobr>$tabs.cash_out2_kiev7.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev7.script"><nobr>$tabs.cash_out2_kiev7.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -738,23 +766,28 @@
 
 [% IF rights.cash_kiev7 %] 
 [% IF 'cash_kiev7' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev7.script"><nobr>$tabs.cash_kiev7.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev7.script"><nobr>$tabs.cash_kiev7.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev7.script"><nobr>$tabs.cash_kiev7.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev7.script"><nobr>$tabs.cash_kiev7.title</nobr></a><br/>
   [% END %]
+ [% END %]
+ 
+ 
+ </div>
  [% END %]
  
  
  
  
- 
- 
+[% IF rights.exch_kiev8 || rights.cash_in_before_kiev8 || rights.cash_in_kiev8 || rights.cash_out_kiev8 || rights.cash_out2_kiev8 || rights.cash_kiev8 %] 
+<div style="text-align:left; width:200px">
+
  
 [% IF rights.exch_kiev8 %] 
 [% IF 'exch_kiev8' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_kiev8.script"><nobr>$tabs.exch_kiev8.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_kiev8.script"><nobr>$tabs.exch_kiev8.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_kiev8.script"><nobr>$tabs.exch_kiev8.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_kiev8.script"><nobr>$tabs.exch_kiev8.title</nobr></a><br/>
   [% END %]
 
 
@@ -762,9 +795,9 @@
 
 [% IF rights.cash_in_before_kiev8 %] 
 [% IF 'cash_in_before_kiev8' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev8.script"><nobr>$tabs.cash_in_before_kiev8.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_kiev8.script"><nobr>$tabs.cash_in_before_kiev8.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_kiev8.script"><nobr>$tabs.cash_in_before_kiev8.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_kiev8.script"><nobr>$tabs.cash_in_before_kiev8.title</nobr></a><br/>
   [% END %]
  
 
@@ -773,18 +806,18 @@
 
 [% IF rights.cash_in_kiev8 %] 
 [% IF 'cash_in_kiev8' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_kiev8.script"><nobr>$tabs.cash_in_kiev8.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_kiev8.script"><nobr>$tabs.cash_in_kiev8.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_kiev8.script"><nobr>$tabs.cash_in_kiev8.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_kiev8.script"><nobr>$tabs.cash_in_kiev8.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_kiev8 %] 
 [% IF 'cash_out_kiev8' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_kiev8.script"><nobr>$tabs.cash_out_kiev8.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_kiev8.script"><nobr>$tabs.cash_out_kiev8.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_kiev8.script"><nobr>$tabs.cash_out_kiev8.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_kiev8.script"><nobr>$tabs.cash_out_kiev8.title</nobr></a><br/>
   [% END %]
 
 
@@ -792,9 +825,9 @@
 
 [% IF rights.cash_out2_kiev8 %]
 [% IF 'cash_out2_kiev8' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_kiev8.script"><nobr>$tabs.cash_out2_kiev8.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_kiev8.script"><nobr>$tabs.cash_out2_kiev8.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_kiev8.script"><nobr>$tabs.cash_out2_kiev8.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_kiev8.script"><nobr>$tabs.cash_out2_kiev8.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -802,21 +835,27 @@
 
 [% IF rights.cash_kiev8 %] 
 [% IF 'cash_kiev8' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_kiev8.script"><nobr>$tabs.cash_kiev8.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_kiev8.script"><nobr>$tabs.cash_kiev8.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_kiev8.script"><nobr>$tabs.cash_kiev8.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_kiev8.script"><nobr>$tabs.cash_kiev8.title</nobr></a><br/>
   [% END %]
  [% END %]
  
  
+ </div>
+ [% END %]
 <!--  <BTC> -->
  
  
+[% IF rights.exch_btc || rights.cash_in_before_btc || rights.cash_in_btc || rights.cash_out_btc || rights.cash_out2_btc || rights.cash_btc %] 
+<div style="text-align:left; width:200px">
+
+ 
 [% IF rights.exch_btc %] 
 [% IF 'exch_btc' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.exch_btc.script"><nobr>$tabs.exch_btc.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.exch_btc.script"><nobr>$tabs.exch_btc.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.exch_btc.script"><nobr>$tabs.exch_btc.title</nobr></a>
+  <a class="menu_text" href="$tabs.exch_btc.script"><nobr>$tabs.exch_btc.title</nobr></a><br/>
   [% END %]
 
 
@@ -824,9 +863,9 @@
 
 [% IF rights.cash_in_before_btc %] 
 [% IF 'cash_in_before_btc' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_before_btc.script"><nobr>$tabs.cash_in_before_btc.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_before_btc.script"><nobr>$tabs.cash_in_before_btc.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_before_btc.script"><nobr>$tabs.cash_in_before_btc.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_before_btc.script"><nobr>$tabs.cash_in_before_btc.title</nobr></a><br/>
   [% END %]
  
 
@@ -835,18 +874,18 @@
 
 [% IF rights.cash_in_btc %] 
 [% IF 'cash_in_btc' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_in_btc.script"><nobr>$tabs.cash_in_btc.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_in_btc.script"><nobr>$tabs.cash_in_btc.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_in_btc.script"><nobr>$tabs.cash_in_btc.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_in_btc.script"><nobr>$tabs.cash_in_btc.title</nobr></a><br/>
   [% END %]
 
 [% END %]
 
 [% IF rights.cash_out_btc %] 
 [% IF 'cash_out_btc' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out_btc.script"><nobr>$tabs.cash_out_btc.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out_btc.script"><nobr>$tabs.cash_out_btc.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out_btc.script"><nobr>$tabs.cash_out_btc.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out_btc.script"><nobr>$tabs.cash_out_btc.title</nobr></a><br/>
   [% END %]
 
 
@@ -854,9 +893,9 @@
 
 [% IF rights.cash_out2_btc %]
 [% IF 'cash_out2_btc' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_out2_btc.script"><nobr>$tabs.cash_out2_btc.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_out2_btc.script"><nobr>$tabs.cash_out2_btc.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_out2_btc.script"><nobr>$tabs.cash_out2_btc.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_out2_btc.script"><nobr>$tabs.cash_out2_btc.title</nobr></a><br/>
   [% END %]
  
 [% END %]
@@ -864,14 +903,14 @@
 
 [% IF rights.cash_btc %] 
 [% IF 'cash_btc' == rights.current %]
-  <a class="menu_text_selected" href="$tabs.cash_btc.script"><nobr>$tabs.cash_btc.title</nobr></a>
+  <a class="menu_text_selected" href="$tabs.cash_btc.script"><nobr>$tabs.cash_btc.title</nobr></a><br/>
   [% ELSE %]      
-  <a class="menu_text" href="$tabs.cash_btc.script"><nobr>$tabs.cash_btc.title</nobr></a>
+  <a class="menu_text" href="$tabs.cash_btc.script"><nobr>$tabs.cash_btc.title</nobr></a><br/>
   [% END %]
  [% END %]
  
- 
- 
+ </div>
+ [% END %]
  
 <!-- kiev -->
 
