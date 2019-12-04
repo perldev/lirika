@@ -305,6 +305,10 @@
 
 <!--cash offices-->
 
+[% IF rights.exch_kiev1 || rights.cash_in_before_kiev1 || rights.cash_in_kiev1 || rights.cash_out_kiev1|| rights.cash_out2_kiev1 || rights.cash_kiev1 %] 
+<div>
+
+
 [% IF rights.exch_kiev1 %] 
 [% IF 'exch_kiev1' == rights.current %]
   <a class="menu_text_selected" href="$tabs.exch_kiev1.script"><nobr>$tabs.exch_kiev1.title</nobr></a>
@@ -363,7 +367,10 @@
   [% END %]
  [% END %]
 
- 
+
+</div> 
+[% END %]
+
 <!--cash offices-->
 
 [% IF rights.exch_kiev2 %] 
