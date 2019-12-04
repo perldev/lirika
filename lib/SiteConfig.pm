@@ -53,32 +53,79 @@ $EXCEL_EXPORT_PATH
     	{from=>'BTC',to=>'USD',rate_form=>1},
     	{from=>'BTC',to=>'EUR',rate_form=>1},
     	
+    	{from=>'BTC',to=>'GBP',rate_form=>1},
+    	{from=>'BTC',to=>'RUB',rate_form=>1},
+    	
+    	
+    	
+    	
     	{from=>'USD',to=>'UAH',rate_form=>1},
     	{from=>'USD',to=>'EUR',rate_form=>-1},
     	{from=>'USD',to=>'BTC',rate_form=>-1},
+    	{from=>'USD',to=>'GBP',rate_form=>-1},
+    	{from=>'USD',to=>'RUB',rate_form=>1},
+    
     	
     	{from=>'UAH',to=>'USD',rate_form=>-1},			
     	{from=>'UAH',to=>'EUR',rate_form=>-1},
     	{from=>'UAH',to=>'BTC',rate_form=>-1},
+    	{from=>'UAH',to=>'GBP',rate_form=>1},
+    	{from=>'UAH',to=>'RUB',rate_form=>-1},
+    
     	
     	{from=>'EUR',to=>'USD',rate_form=>1},			
     	{from=>'EUR',to=>'UAH',rate_form=>1},
     	{from=>'EUR',to=>'BTC',rate_form=>-1},
+    	{from=>'EUR',to=>'GBP',rate_form=>-1},
+    	{from=>'EUR',to=>'RUB',rate_form=>1},
+    
+    
+    	
+    	{from=>'GBP',to=>'USD',rate_form=>1},			
+    	{from=>'GBP',to=>'UAH',rate_form=>1},
+    	{from=>'GBP',to=>'BTC',rate_form=>-1},
+    	{from=>'GBP',to=>'RUB',rate_form=>1},
+    	{from=>'GBP',to=>'EUR',rate_form=>1},
+    	
+    	
+    	{from=>'RUB',to=>'USD',rate_form=>-1},			
+    	{from=>'RUB',to=>'UAH',rate_form=>-1},
+    	{from=>'RUB',to=>'BTC',rate_form=>-1},
+    	{from=>'RUB',to=>'GBP',rate_form=>-1},
+    	{from=>'RUB',to=>'EUR',rate_form=>-1},
+    	
+    	
+    	
+    	
+    	{from=>'EUR',to=>'USD',rate_form=>1},			
+    	{from=>'EUR',to=>'UAH',rate_form=>1},
+    	{from=>'EUR',to=>'BTC',rate_form=>-1},
+    	{from=>'EUR',to=>'GBP',rate_form=>-1},
+    	{from=>'EUR',to=>'RUB',rate_form=>1},
+    
+    
+    
     	
 	{from=>'EUR',to=>'EUR',rate_form=>1},
 	{from=>'BTC',to=>'BTC',rate_form=>1},
 	{from=>'UAH',to=>'UAH',rate_form=>1},
 	{from=>'USD',to=>'USD',rate_form=>1},
+	{from=>'GBP',to=>'GBP',rate_form=>1},
+    	{from=>'RUB',to=>'RUB',rate_form=>1},
+    
+	
     ); 	
     our %RATE_FORMS=(
- 	USD=>{USD=>1,UAH=>1,EUR=>-1, BTC=>-1},
-	UAH=>{USD=>-1,UAH=>1,EUR=>-1, BTC=>-1},
- 	EUR=>{USD=>1,UAH=>1,EUR=>1, BTC=>-1},
-        BTC=>{USD=>1,UAH=>1,EUR=>1,BTC=>1},
+ 	USD=>{USD=>1,UAH=>1,EUR=>-1, BTC=>-1, GBP=>-1, RUB=>-1},
+	UAH=>{USD=>-1,UAH=>1,EUR=>-1, BTC=>-1, GBP=>1, RUB=>-1},
+ 	EUR=>{USD=>1,UAH=>1,EUR=>1, BTC=>-1, GBP=>1, RUB=>1 },
+        BTC=>{USD=>1,UAH=>1,EUR=>1,BTC=>1, GBP=>1, RUB=>1},
+        GBP=>{USD=>1,UAH=>1,EUR=>1, BTC=>-1, GBP=>1, RUB=>1 },
+        RUB=>{USD=>-1,UAH=>-1,EUR=>1,BTC=>1, GBP=>1, RUB=>1 },
 
    ); 
    
-our @CURRENCIES = ("usd","uah","eur","btc");
+our @CURRENCIES = ("usd","uah","eur","btc", "rub", "gbp");
    
 our $working_path='/home/fsb/new_fsb/www/';
 
